@@ -326,9 +326,9 @@ class qpsk_stage3_ver2(gr.top_block, Qt.QWidget):
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         self.set_rrc_taps(firdes.root_raised_cosine(1,self.samp_rate, self.samp_rate/float(self.sps), self.excess_bw, self.sps*self.nfilts))
+        self.blocks_throttle2_0.set_sample_rate(self.samp_rate)
         self.qtgui_freq_sink_x_1.set_frequency_range(0, self.samp_rate)
         self.qtgui_time_sink_x_0.set_samp_rate(self.samp_rate)
-        self.blocks_throttle2_0.set_sample_rate(self.samp_rate)
 
     def get_nfilts(self):
         return self.nfilts
