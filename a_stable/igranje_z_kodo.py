@@ -70,7 +70,7 @@ class igranje_z_kodo(gr.top_block, Qt.QWidget):
         ##################################################
 
         self.uhd_usrp_sink_0 = uhd.usrp_sink(
-            ",".join(("", '')),
+            ",".join(("serial=30F4146", '')),
             uhd.stream_args(
                 cpu_format="fc32",
                 args='',
@@ -81,9 +81,10 @@ class igranje_z_kodo(gr.top_block, Qt.QWidget):
         self.uhd_usrp_sink_0.set_samp_rate(samp_rate)
         self.uhd_usrp_sink_0.set_time_unknown_pps(uhd.time_spec(0))
 
-        self.uhd_usrp_sink_0.set_center_freq(0, 0)
+        self.uhd_usrp_sink_0.set_center_freq(915e6, 0)
         self.uhd_usrp_sink_0.set_antenna("TX/RX", 0)
-        self.uhd_usrp_sink_0.set_gain(0, 0)
+        self.uhd_usrp_sink_0.set_bandwidth(250000, 0)
+        self.uhd_usrp_sink_0.set_gain(100, 0)
         self.epy_block_0 = epy_block_0.blk(example_param=1.0)
 
 
