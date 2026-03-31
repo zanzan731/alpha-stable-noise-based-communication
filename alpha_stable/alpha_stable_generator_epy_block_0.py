@@ -13,8 +13,10 @@ from gnuradio import gr
 class alpha_encoder(gr.sync_block):
     """Alpha_stable_generator"""
 
+    
+
     #argumenti
-    def __init__(self, alpha=1.5, beta=0.0, gama=1.0, samples_per_symbol=500, encode_alpha=True, encode_beta=True, encode_gama=False):  # only default arguments here
+    def __init__(self, alpha_map=[1.2, 1.4, 1.6, 1.8], beta_map=[-1.0, -0.3, 0.3, 1.0], gama_map=[0.5, 1.0, 1.5, 2.0], samples_per_symbol=500, encode_alpha=True, encode_beta=True, encode_gama=False):  # only default arguments here
         """arguments to this function show up as parameters in GRC"""
         gr.sync_block.__init__(
             self,
@@ -24,13 +26,15 @@ class alpha_encoder(gr.sync_block):
         )
         # if an attribute with the same name as a parameter is found,
         # a callback is registered (properties work, too).
-        self.alpha = alpha
-        self.beta = beta
-        self.gama = gama
+        self.alpha_map = alpha_map
+        self.beta_map = beta_map
+        self.gama_map = gama_map
         self.encode_alpha = encode_alpha
         self.encode_beta = encode_beta
         self.encode_gama = encode_gama
         self.samples_per_symbol = samples_per_symbol
+        self.bit_buffer = []
+        
 
     #Chambers-Mallows-Stuck Method (stran 8), alpha naj ni = 1 za 1 mogoce pole
     def alpha_stable(self, size, alpha, beta, gama=1.0): #size=number_of_samples generated, scale je gama (igraj se s temi tremi ce ti rata lahk encodas en byte kar ze ni tko slabo)
@@ -49,31 +53,80 @@ class alpha_encoder(gr.sync_block):
         out = output_items[0]
 
         idx = 0
+        def is_power_of_two(x):
+            #flika vse bitke bo tocn 0
+            return (x & (x - 1)) == 0
+        if self.encode_alpha and not is_power_of_two(len(self.alpha_map)):
+            raise ValueError("alpha_map size must be power of 2")
 
+        if self.encode_beta and not is_power_of_two(len(self.beta_map)):
+            raise ValueError("beta_map size must be power of 2")
+
+        if self.encode_gama and not is_power_of_two(len(self.gama_map)):
+            raise ValueError("gama_map size must be power of 2")
+        
+        bits_alpha = int(np.log2(len(self.alpha_map))) if self.encode_alpha else 0
+        bits_beta  = int(np.log2(len(self.beta_map))) if self.encode_beta else 0
+        bits_gama  = int(np.log2(len(self.gama_map))) if self.encode_gama else 0
+
+        #to rabimo da vemo koliko bitov lahko z enim signalom predstavimo
+        bits_per_symbol = bits_alpha + bits_beta + bits_gama
+
+        #bit buffer ka rabim delat z streemom
+        
         for byte in data:
-            b = byte / 255.0  # normalize
+            for i in range(8):
+                self.bit_buffer.append((byte >> i) & 1)
 
-            # defaults
-            alpha = self.alpha
-            beta = self.beta
-            gama = self.gama
+        #provimo byte predstavit
+        while len(self.bit_buffer) >= bits_per_symbol:
+            
+            offset = 0
 
-            # encode parameters if enabled
+            # defaults če ni mape mogoce pole za popravit
+            alpha = 1.1
+            beta = 0.0
+            gama = 1.0
+
+            def read_bits(n, offset):
+                val = 0
+                for i in range(n):
+                    val |= (self.bit_buffer[offset + i] << i)
+                return val
+            
+
+            # --- ALPHA ---
             if self.encode_alpha:
-                alpha = 1.1 + b * 0.9   # 1.1 → 2.0
+                #koliko bitov je v alphi
+                alpha_bits = read_bits(bits_alpha, offset)
+                alpha = self.alpha_map[alpha_bits]
+                offset += bits_alpha
 
+            # --- BETA ---
             if self.encode_beta:
-                beta = -1.0 + 2.0 * b   # -1 → 1
+                beta_bits = read_bits(bits_beta, offset)
+                beta = self.beta_map[beta_bits]
+                offset += bits_beta
 
+            # --- GAMA ---
             if self.encode_gama:
-                gama = 0.1 + 2.0 * b   # 0.1 → 2.1
+                gama_bits = read_bits(bits_gama, offset)
+                gama = self.gama_map[gama_bits]
+                offset += bits_gama
 
-            samples = self.alpha_stable(self.samples_per_symbol, alpha, beta, gama)
+            self.bit_buffer = self.bit_buffer[bits_per_symbol:]
+
+            samples = self.alpha_stable(
+                self.samples_per_symbol,
+                alpha,
+                beta,
+                gama
+            )
 
             if idx + self.samples_per_symbol > len(out):
                 break
-            
+
             out[idx:idx+self.samples_per_symbol] = samples
             idx += self.samples_per_symbol
-            print("Produced:", idx)
+
         return idx
