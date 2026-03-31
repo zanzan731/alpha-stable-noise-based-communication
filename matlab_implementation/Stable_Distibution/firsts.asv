@@ -1,0 +1,24 @@
+clc
+clear
+
+%%%%%% Transmitter %%%%%%
+
+T = [1:1:1000];
+T =vec2mat(T,1);
+r = binornd(1,0.5,1,10); %%Benouli Binary random Number Generator
+r =vec2mat(r,1);
+for i=1:10
+  if r[i]=0;
+
+
+x = stblrnd(0.5,1,1,0,100,1);
+T(i+1:i*10) = x;
+  end
+
+  if r[i]=1;
+    
+    x = stblrnd(1,1,1,0,100,1);
+    T(i*100+1:(i+1)*10) = x;
+    
+   end
+end
