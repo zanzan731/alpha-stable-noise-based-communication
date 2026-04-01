@@ -22,6 +22,7 @@ from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
 import alpha_stable_generator_epy_block_0 as epy_block_0  # embedded python block
+import alpha_stable_generator_epy_block_1 as epy_block_1  # embedded python block
 import sip
 import threading
 
@@ -84,7 +85,7 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
         self.qtgui_time_sink_x_0.enable_tags(False)
         self.qtgui_time_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
         self.qtgui_time_sink_x_0.enable_autoscale(False)
-        self.qtgui_time_sink_x_0.enable_grid(False)
+        self.qtgui_time_sink_x_0.enable_grid(True)
         self.qtgui_time_sink_x_0.enable_axis_labels(True)
         self.qtgui_time_sink_x_0.enable_control_panel(False)
         self.qtgui_time_sink_x_0.enable_stem_plot(False)
@@ -117,17 +118,28 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
 
         self._qtgui_time_sink_x_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0.qwidget(), Qt.QWidget)
         self.top_layout.addWidget(self._qtgui_time_sink_x_0_win)
+        self.epy_block_1 = epy_block_1.alpha_decoder(alpha_map=[1.2, 1.4, 1.6, 1.8], beta_map=[-1.0, -0.3, 0.3, 1.0], gama_map=[0.5, 1.0, 1.5, 2.0], samples_per_symbol=500, L=10, encode_alpha=False, encode_beta=True, encode_gama=False)
         self.epy_block_0 = epy_block_0.alpha_encoder(alpha_map=[1.2, 1.4, 1.6, 1.8], beta_map=[-1.0, -0.3, 0.3, 1.0], gama_map=[0.5, 1.0, 1.5, 2.0], samples_per_symbol=500, encode_alpha=False, encode_beta=True, encode_gama=False)
         self.blocks_throttle2_0 = blocks.throttle( gr.sizeof_float*1, samp_rate, True, 0 if "auto" == "auto" else max( int(float(0.1) * samp_rate) if "auto" == "time" else int(0.1), 1) )
-        self.analog_random_source_x_0 = blocks.vector_source_b(list(map(int, numpy.random.randint(0, 255, 1000))), True)
+        self.blocks_file_sink_2 = blocks.file_sink(gr.sizeof_float*1, 'C:\\Users\\ANEDCD~1\\Desktop\\3.letnik\\Diploma\\simulations\\encoded.bin', False)
+        self.blocks_file_sink_2.set_unbuffered(False)
+        self.blocks_file_sink_1 = blocks.file_sink(gr.sizeof_char*1, 'C:\\Users\\ANEDCD~1\\Desktop\\3.letnik\\Diploma\\simulations\\decoded.bin', False)
+        self.blocks_file_sink_1.set_unbuffered(False)
+        self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_char*1, 'C:\\Users\\ANEDCD~1\\Desktop\\3.letnik\\Diploma\\simulations\\source.bin', False)
+        self.blocks_file_sink_0.set_unbuffered(False)
+        self.analog_random_source_x_0 = blocks.vector_source_b(list(map(int, numpy.random.randint(0, 255, 500))), True)
 
 
         ##################################################
         # Connections
         ##################################################
+        self.connect((self.analog_random_source_x_0, 0), (self.blocks_file_sink_0, 0))
         self.connect((self.analog_random_source_x_0, 0), (self.epy_block_0, 0))
+        self.connect((self.blocks_throttle2_0, 0), (self.blocks_file_sink_2, 0))
+        self.connect((self.blocks_throttle2_0, 0), (self.epy_block_1, 0))
         self.connect((self.blocks_throttle2_0, 0), (self.qtgui_time_sink_x_0, 0))
         self.connect((self.epy_block_0, 0), (self.blocks_throttle2_0, 0))
+        self.connect((self.epy_block_1, 0), (self.blocks_file_sink_1, 0))
 
 
     def closeEvent(self, event):

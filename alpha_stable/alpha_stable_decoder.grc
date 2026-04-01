@@ -45,6 +45,106 @@ blocks:
     coordinate: [200, 12]
     rotation: 0
     state: enabled
+- name: epy_block_0
+  id: epy_block
+  parameters:
+    L: ''
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\n\n\nclass alpha_decoder(gr.sync_block):  # other base\
+      \ classes are basic_block, decim_block, interp_block\n    \"\"\"Decoder for\
+      \ alpha_encoder using samples with corresponding variances\"\"\"\n\n    def\
+      \ __init__(self, alpha_map=[1.2, 1.4, 1.6, 1.8], beta_map=[-1.0, -0.3, 0.3,\
+      \ 1.0], gama_map=[0.5, 1.0, 1.5, 2.0], samples_per_symbol=500, L=10, encode_alpha=True,\
+      \ encode_beta=True, encode_gama=False):  # only default arguments here\n   \
+      \     \"\"\"arguments to this function show up as parameters in GRC\"\"\"\n\
+      \        gr.sync_block.__init__(\n            self,\n            name='alpha_decoder',\
+      \   # will show up in GRC\n            in_sig=[np.float32],\n            out_sig=[np.uint8]\n\
+      \        )\n        self.samples_per_symbol = samples_per_symbol\n        self.L\
+      \ = L\n        self.encode_alpha = encode_alpha\n        self.encode_beta =\
+      \ encode_beta\n        self.encode_gama = encode_gama\n        self.alpha_map\
+      \ = alpha_map\n        self.beta_map = beta_map\n        self.gama_map = gama_map\n\
+      \n        self.bit_buffer = []\n\n    @staticmethod\n    def ali_je_deljivo(samples_per_symbol,\
+      \ L):\n        while samples_per_symbol > 0:\n            samples_per_symbol\
+      \ -= L\n        return True if samples_per_symbol == 0 else False\n        \
+      \    \n    @staticmethod\n    def closest_index(value, list):\n        arr =\
+      \ np.array(arr)\n        return int(np.argmin(np.abs(arr - val)))\n    \n  \
+      \  def is_power_of_two(x):\n            #flika vse bitke bo tocn 0\n       \
+      \     return x == 0 or (x & (x - 1)) == 0\n    \n    @staticmethod\n    def\
+      \ log2_za_potence2(x):\n        if x == 0:\n            return 0\n\n       \
+      \ if alpha_decoder.is_power_of_two(x):\n            vrednost = 0\n         \
+      \   while x > 1:\n                x >>= 1\n                vrednost += 1\n \
+      \           return vrednost\n        else:\n            raise ValueError(\"\
+      One of the maps is not of power 2^n\")\n\n    def work(self, input_items, output_items):\n\
+      \        in_samples = input_items[0]\n        out = output_items[0]\n      \
+      \  num_symbols = len(in_samples) // self.samples_per_symbol\n        if not\
+      \ self.ali_je_deljivo(self.samples_per_symbol, self.L):\n            raise ValueError(\"\
+      Samples_per_symbol is not devisible by L\")\n\n        samples_per_realization\
+      \ = self.samples_per_symbol // self.L\n\n\n        for sym in range(num_symbols):\n\
+      \            sym_samples = in_samples[sym**self.samples_per_symbol : (sym+1)*self.samples_per_symbol]\n\
+      \n            Yl_max = []\n            Yl_min = []\n\n            for l in range(self.L):\n\
+      \                #samples kolko jih dat skup in kje zacet in koncat\n      \
+      \          start = l*samples_per_realization \n                end = start +\
+      \ samples_per_realization\n                segment = sym_samples[start:end]\
+      \ #probably samples_per_symbol mora bit deliv z L\n\n                Yl_max.append(np.max(segment))\n\
+      \                Yl_min.append(np.min(segment))\n\n            #zdej zra\u010D\
+      uni vse\n\n            Y_max = np.mean(Yl_max)\n            Y_min = np.mean(Yl_min)\n\
+      \n            s2_max = np.var(Yl_max, ddof=1) #ddof je za uno minus 1 (deli\u0161\
+      \ z L - 1) dokumentacija\n            s2_min = np.var(Yl_min, ddof=1)\n\n  \
+      \          #zdej pa iz tega izra\u010Dunamo parametre\n            \n      \
+      \      #alpha\n            probably_alpha = (np.pi / (2*np.sqrt(6))) * ((1.0\
+      \ / Y_max) + (1.0 / Y_min))\n\n            #beta\n            probably_beta\
+      \ = 1 - (2 / (np.exp(probably_alpha*(np.sqrt(s2_max) - np.sqrt(s2_min)))))\n\
+      \n            #gama (to je skaliranje torej provamo z Y_max in Y_min, mogo\u010D\
+      e pa tudi kako druga\u010De z max od vseh ne povpra\u010Dje al neki idk)\n \
+      \           probably_gama = (Y_max - Y_min) / 2.0\n\n            #zdej rabim\
+      \ samo \u0161e mapirat te vrednosti najbli\u017Ejim vrednostim v mapi\n    \
+      \        if self.encode_alpha:\n                alpha_idx = self.closest_index(probably_alpha,\
+      \ self.alpha_map)\n                bits_alpha = self.log2_za_potence2(len(self.alpha_map))\n\
+      \                #rabim ohranjat LSB iz encoderja\n                self.bit_buffer\
+      \ += [(alpha_idx >> i) & 1 for i in range(bits_alpha)] # bejzi od zadi naprej\
+      \ mozn da je to fljeno da bi mogu MSB ka je areeb neki reku idk\n          \
+      \  \n            if self.encode_beta:\n                beta_idx = self.closest_index(probably_beta,\
+      \ self.beta_map)\n                bits_beta = self.log2_za_potence2(len(self.beta_map))\n\
+      \                self.bit_buffer += [(beta_idx >> i) & 1 for i in range(bits_beta)]\
+      \ \n\n            if self.encode_gama:\n                gama_idx = self.closest_index(probably_gama,\
+      \ self.gama_map)\n                bits_gama = self.log2_za_potence2(len(self.gama_map))\n\
+      \                self.bit_buffer += [(gama_idx >> i) & 1 for i in range(bits_gama)]\n\
+      \n        idx = 0\n        #convert bits to bytes\n        for i in range(0,\
+      \ len(self.bit_buffer), 8):\n            byte_bits = self.bit_buffer[i:i+8]\n\
+      \            if len(byte_bits) < 8:\n                break\n\n            val\
+      \ = sum([bit << j for j, bit in enumerate(byte_bits)])\n\n            if idx\
+      \ < len(out):\n                out[idx] = val\n                idx += 1\n  \
+      \      \n        self.bit_buffer = self.bit_buffer[idx*8:] #zbri\u0161e une\
+      \ ka sm v tem loopu zdej uporabu\n\n        return idx"
+    affinity: ''
+    alias: ''
+    alpha_map: ''
+    beta_map: ''
+    comment: ''
+    encode_alpha: ''
+    encode_beta: ''
+    encode_gama: ''
+    gama_map: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_symbol: ''
+  states:
+    _io_cache: ('alpha_decoder', 'alpha_decoder', [('alpha_map', '[1.2, 1.4, 1.6,
+      1.8]'), ('beta_map', '[-1.0, -0.3, 0.3, 1.0]'), ('gama_map', '[0.5, 1.0, 1.5,
+      2.0]'), ('samples_per_symbol', '500'), ('L', '10'), ('encode_alpha', 'True'),
+      ('encode_beta', 'True'), ('encode_gama', 'False')], [('0', 'float', 1)], [('0',
+      'byte', 1)], 'Decoder for alpha_encoder using samples with corresponding variances',
+      ['L', 'alpha_map', 'beta_map', 'encode_alpha', 'encode_beta', 'encode_gama',
+      'gama_map', 'samples_per_symbol'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [384, 372.0]
+    rotation: 0
+    state: enabled
 connections: []
 
 metadata:

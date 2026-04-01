@@ -1,10 +1,15 @@
-"""
-Embedded Python Blocks:
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Copyright 2026 �an Perat.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
 
-Each time this file is saved, GRC will instantiate the first class it finds
-to get ports and parameters of your block. The arguments to __init__  will
-be the parameters. All of them are required to have default values!
-"""
+
+import numpy
+from gnuradio import gr
+
 
 import numpy as np
 from gnuradio import gr
@@ -13,8 +18,6 @@ from gnuradio import gr
 class alpha_encoder(gr.sync_block):
     """Alpha_stable_generator"""
     
-    
-
     #argumenti
     def __init__(self, alpha_map=[1.2, 1.4, 1.6, 1.8], beta_map=[-1.0, -0.3, 0.3, 1.0], gama_map=[0.5, 1.0, 1.5, 2.0], samples_per_symbol=500, encode_alpha=True, encode_beta=True, encode_gama=False):  # only default arguments here
         """arguments to this function show up as parameters in GRC"""
