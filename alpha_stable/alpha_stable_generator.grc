@@ -299,22 +299,21 @@ blocks:
       \ encode_beta\n        self.encode_gama = encode_gama\n        self.alpha_map\
       \ = alpha_map\n        self.beta_map = beta_map\n        self.gama_map = gama_map\n\
       \n        self.bit_buffer = []\n\n    @staticmethod\n    def ali_je_deljivo(samples_per_symbol,\
-      \ L):\n        while samples_per_symbol > 0:\n            samples_per_symbol\
-      \ -= L\n        return True if samples_per_symbol == 0 else False\n        \
-      \    \n    @staticmethod\n    def closest_index(value, list):\n        arr =\
-      \ np.array(list)\n        return int(np.argmin(np.abs(arr - value)))\n    \n\
-      \    def is_power_of_two(x):\n            #flika vse bitke bo tocn 0\n     \
-      \       return x == 0 or (x & (x - 1)) == 0\n    \n    @staticmethod\n    def\
-      \ log2_za_potence2(x):\n        if x == 0:\n            return 0\n\n       \
-      \ if alpha_decoder.is_power_of_two(x):\n            vrednost = 0\n         \
-      \   while x > 1:\n                x >>= 1\n                vrednost += 1\n \
-      \           return vrednost\n        else:\n            raise ValueError(\"\
-      One of the maps is not of power 2^n\")\n\n    def work(self, input_items, output_items):\n\
-      \        in_samples = input_items[0]\n        out = output_items[0]\n      \
-      \  num_symbols = len(in_samples) // self.samples_per_symbol\n        if not\
-      \ self.ali_je_deljivo(self.samples_per_symbol, self.L):\n            raise ValueError(\"\
-      Samples_per_symbol is not devisible by L\")\n\n        samples_per_realization\
-      \ = self.samples_per_symbol // self.L\n\n\n        for sym in range(num_symbols):\n\
+      \ L):\n         return samples_per_symbol % L == 0\n            \n    @staticmethod\n\
+      \    def closest_index(value, list):\n        arr = np.array(list)\n       \
+      \ return int(np.argmin(np.abs(arr - value)))\n    \n    @staticmethod\n    def\
+      \ is_power_of_two(x):\n            #flika vse bitke bo tocn 0\n            return\
+      \ x == 0 or (x & (x - 1)) == 0\n    \n    @staticmethod\n    def log2_za_potence2(x):\n\
+      \        if x == 0:\n            return 0\n\n        if alpha_decoder.is_power_of_two(x):\n\
+      \            vrednost = 0\n            while x > 1:\n                x >>= 1\n\
+      \                vrednost += 1\n            return vrednost\n        else:\n\
+      \            raise ValueError(\"One of the maps is not of power 2^n\")\n\n \
+      \   def work(self, input_items, output_items):\n        in_samples = input_items[0]\n\
+      \        out = output_items[0]\n        num_symbols = len(in_samples) // self.samples_per_symbol\n\
+      \        if not self.ali_je_deljivo(self.samples_per_symbol, self.L):\n    \
+      \        raise ValueError(\"Samples_per_symbol is not devisible by L\")\n\n\
+      \        samples_per_realization = self.samples_per_symbol // self.L\n\n\n \
+      \       for sym in range(num_symbols):\n            #print(self.bit_buffer)\n\
       \            sym_samples = in_samples[sym*self.samples_per_symbol : (sym+1)*self.samples_per_symbol]\n\
       \n            Yl_max = []\n            Yl_min = []\n\n            for l in range(self.L):\n\
       \                #samples kolko jih dat skup in kje zacet in koncat\n      \

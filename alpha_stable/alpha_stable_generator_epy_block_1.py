@@ -34,15 +34,14 @@ class alpha_decoder(gr.sync_block):  # other base classes are basic_block, decim
 
     @staticmethod
     def ali_je_deljivo(samples_per_symbol, L):
-        while samples_per_symbol > 0:
-            samples_per_symbol -= L
-        return True if samples_per_symbol == 0 else False
+         return samples_per_symbol % L == 0
             
     @staticmethod
     def closest_index(value, list):
         arr = np.array(list)
         return int(np.argmin(np.abs(arr - value)))
     
+    @staticmethod
     def is_power_of_two(x):
             #flika vse bitke bo tocn 0
             return x == 0 or (x & (x - 1)) == 0
@@ -72,6 +71,7 @@ class alpha_decoder(gr.sync_block):  # other base classes are basic_block, decim
 
 
         for sym in range(num_symbols):
+            #print(self.bit_buffer)
             sym_samples = in_samples[sym*self.samples_per_symbol : (sym+1)*self.samples_per_symbol]
 
             Yl_max = []
