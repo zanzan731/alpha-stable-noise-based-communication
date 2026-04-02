@@ -44,7 +44,7 @@ class alpha_decoder(gr.sync_block):  # other base classes are basic_block, decim
     @staticmethod
     def is_power_of_two(x):
             #flika vse bitke bo tocn 0
-            return x > 0 and (x & (x - 1)) == 0
+            return x == 0 or (x & (x - 1)) == 0
     
     @staticmethod
     def log2_za_potence2(x):

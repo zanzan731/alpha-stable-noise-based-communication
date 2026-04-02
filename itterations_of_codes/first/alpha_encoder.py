@@ -36,23 +36,22 @@ class alpha_encoder(gr.sync_block):
         self.bit_buffer = []
         
 
-    #CMS stblrnd.m
-    def alpha_stable(self, size, alpha=1.1, beta=0.0, gama=1.0): #size=number_of_samples generated, scale je gama (igraj se s temi tremi ce ti rata lahk encodas en byte kar ze ni tko slabo)
+    #Chambers-Mallows-Stuck Method (stran 8), alpha naj ni = 1 za 1 mogoce pole
+    def alpha_stable(self, size, alpha, beta, gama=1.0): #size=number_of_samples generated, scale je gama (igraj se s temi tremi ce ti rata lahk encodas en byte kar ze ni tko slabo)
         V = np.random.uniform(-np.pi/2, np.pi/2, size)
         W = np.random.exponential(1, size)
 
-        const = beta * np.tan(np.pi * alpha / 2)
-        B = np.arctan(const)
-        S = (1 + const**2)**(1/(2*alpha))
+        B = np.arctan(beta * np.tan(np.pi * alpha / 2)) / alpha
+        S = (1 + (beta**2) * (np.tan(np.pi * alpha / 2)**2))**(1/(2*alpha))
 
-        X = gama*S * np.sin(alpha*V + B) / (np.cos(V))**(1/alpha) * (np.cos((1-alpha)*V - B) / W)**((1-alpha)/alpha)
+        X = S * (np.sin(alpha * (V + B)) / (np.cos(V))**(1/alpha)) * ((np.cos(V - alpha * (V + B)) / W)**((1-alpha)/alpha))
 
         return gama * X
-            
+    
     @staticmethod
     def is_power_of_two(x):
             #flika vse bitke bo tocn 0
-            return (x & (x - 1)) == 0 and x > 0 
+            return x == 0 or (x & (x - 1)) == 0
     
     @staticmethod
     def log2_za_potence2(x):
