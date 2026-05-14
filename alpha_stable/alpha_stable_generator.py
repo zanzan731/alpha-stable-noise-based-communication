@@ -89,7 +89,7 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
         self.epy_block_1 = epy_block_1.alpha_decoder(alpha_map=alpha_map, beta_map=beta_map, gama_map=gama_map, samples_per_symbol=samples_per_symbol, L=L, encode_alpha=False, encode_beta=True, encode_gama=False)
         self.epy_block_0 = epy_block_0.alpha_encoder(alpha_map=alpha_map, beta_map=beta_map, gama_map=gama_map, samples_per_symbol=samples_per_symbol, encode_alpha=False, encode_beta=True, encode_gama=False)
         self.blocks_throttle2_0 = blocks.throttle( gr.sizeof_char*1, samp_rate, True, 0 if "auto" == "auto" else max( int(float(0.1) * samp_rate) if "auto" == "time" else int(0.1), 1) )
-        self.blocks_head_1 = blocks.head(gr.sizeof_float*1, (source_number_of_samples*8*samples_per_symbol - 1))
+        self.blocks_head_1 = blocks.head(gr.sizeof_float*1, (source_number_of_samples*8*samples_per_symbol))
         self.blocks_head_0 = blocks.head(gr.sizeof_char*1, 128)
         self.blocks_file_sink_2 = blocks.file_sink(gr.sizeof_float*1, encoded_file, False)
         self.blocks_file_sink_2.set_unbuffered(False)
@@ -169,7 +169,7 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
 
     def set_samples_per_symbol(self, samples_per_symbol):
         self.samples_per_symbol = samples_per_symbol
-        self.blocks_head_1.set_length((self.source_number_of_samples*8*self.samples_per_symbol - 1))
+        self.blocks_head_1.set_length((self.source_number_of_samples*8*self.samples_per_symbol))
         self.epy_block_0.samples_per_symbol = self.samples_per_symbol
         self.epy_block_1.samples_per_symbol = self.samples_per_symbol
 
@@ -185,7 +185,7 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
 
     def set_source_number_of_samples(self, source_number_of_samples):
         self.source_number_of_samples = source_number_of_samples
-        self.blocks_head_1.set_length((self.source_number_of_samples*8*self.samples_per_symbol - 1))
+        self.blocks_head_1.set_length((self.source_number_of_samples*8*self.samples_per_symbol))
 
     def get_samp_rate(self):
         return self.samp_rate

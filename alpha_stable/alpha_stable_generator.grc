@@ -78,7 +78,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [248, 8.0]
+    coordinate: [256, 8.0]
     rotation: 0
     state: enabled
 - name: L
@@ -607,7 +607,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [928, 804.0]
+    coordinate: [952, 764.0]
     rotation: 0
     state: disabled
 - name: samples_per_symbol

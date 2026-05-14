@@ -32,6 +32,7 @@ for beta_map, sps, L in itertools.product(
 
         "--samples-per-symbol", str(sps),
         "--L", str(L),
+        "--source-file", source_file,
         "--encoded-file", encoded_file,
         "--decoded-file", decoded_file
     ]
