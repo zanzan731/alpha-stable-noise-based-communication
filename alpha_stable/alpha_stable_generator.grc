@@ -131,7 +131,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [448, 820.0]
+    coordinate: [400, 828.0]
     rotation: 0
     state: enabled
 - name: analog_random_source_x_0
@@ -144,14 +144,14 @@ blocks:
     maxoutbuf: '0'
     min: '0'
     minoutbuf: '0'
-    num_samps: '128'
+    num_samps: source_number_of_samples
     repeat: 'False'
     type: byte
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [0, 680.0]
+    coordinate: [16, 680.0]
     rotation: 0
     state: enabled
 - name: beta_map_str
@@ -240,7 +240,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [904, 900.0]
+    coordinate: [784, 356.0]
     rotation: 0
     state: enabled
 - name: blocks_head_0
@@ -258,7 +258,25 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [216, 716.0]
+    coordinate: [240, 716.0]
+    rotation: 0
+    state: enabled
+- name: blocks_head_1
+  id: blocks_head
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: source_number_of_samples*8*samples_per_symbol
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [536, 700.0]
     rotation: 0
     state: enabled
 - name: blocks_throttle2_0
@@ -543,7 +561,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [952, 468.0]
+    coordinate: [952, 492.0]
     rotation: 0
     state: enabled
 - name: gama_map_str
@@ -589,7 +607,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1304, 764.0]
+    coordinate: [928, 804.0]
     rotation: 0
     state: disabled
 - name: samples_per_symbol
@@ -626,13 +644,31 @@ blocks:
     coordinate: [896, 4.0]
     rotation: 0
     state: enabled
+- name: source_number_of_samples
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: intx
+    value: '128'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1424, 8.0]
+    rotation: 0
+    state: enabled
 
 connections:
-- [analog_noise_source_x_0, '0', blocks_add_xx_0, '1']
+- [analog_noise_source_x_0, '0', blocks_head_1, '0']
 - [analog_random_source_x_0, '0', blocks_head_0, '0']
 - [blocks_add_xx_0, '0', epy_block_1, '0']
 - [blocks_head_0, '0', blocks_file_sink_0, '0']
 - [blocks_head_0, '0', blocks_throttle2_0, '0']
+- [blocks_head_1, '0', blocks_add_xx_0, '1']
 - [blocks_throttle2_0, '0', epy_block_0, '0']
 - [epy_block_0, '0', blocks_add_xx_0, '0']
 - [epy_block_0, '0', blocks_file_sink_2, '0']

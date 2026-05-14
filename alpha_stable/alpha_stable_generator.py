@@ -10,6 +10,7 @@
 
 from PyQt5 import Qt
 from gnuradio import qtgui
+from gnuradio import analog
 from gnuradio import blocks
 import numpy
 from gnuradio import gr
@@ -29,7 +30,7 @@ import threading
 
 class alpha_stable_generator(gr.top_block, Qt.QWidget):
 
-    def __init__(self, L=4, alpha_map_str="1.2,1.4,1.6,1.8", beta_map_str="-1.0,1.0", decoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\decoded.bin", encoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\encoded.bin", gama_map_str="0.5,1.0,1.5,2.0", samples_per_symbol=24, source_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin"):
+    def __init__(self, L=4, alpha_map_str="1.2,1.4,1.6,1.8", beta_map_str="-1.0,1.0", decoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\decoded.bin", encoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\encoded.bin", gama_map_str="0.5,1.0,1.5,2.0", samples_per_symbol=24, source_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin", source_number_of_samples=128):
         gr.top_block.__init__(self, "Alpha stable simulation", catch_exceptions=True)
         Qt.QWidget.__init__(self)
         self.setWindowTitle("Alpha stable simulation")
@@ -71,6 +72,7 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
         self.gama_map_str = gama_map_str
         self.samples_per_symbol = samples_per_symbol
         self.source_file = source_file
+        self.source_number_of_samples = source_number_of_samples
 
         ##################################################
         # Variables
@@ -87,6 +89,7 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
         self.epy_block_1 = epy_block_1.alpha_decoder(alpha_map=alpha_map, beta_map=beta_map, gama_map=gama_map, samples_per_symbol=samples_per_symbol, L=L, encode_alpha=False, encode_beta=True, encode_gama=False)
         self.epy_block_0 = epy_block_0.alpha_encoder(alpha_map=alpha_map, beta_map=beta_map, gama_map=gama_map, samples_per_symbol=samples_per_symbol, encode_alpha=False, encode_beta=True, encode_gama=False)
         self.blocks_throttle2_0 = blocks.throttle( gr.sizeof_char*1, samp_rate, True, 0 if "auto" == "auto" else max( int(float(0.1) * samp_rate) if "auto" == "time" else int(0.1), 1) )
+        self.blocks_head_1 = blocks.head(gr.sizeof_float*1, (source_number_of_samples*8*samples_per_symbol - 1))
         self.blocks_head_0 = blocks.head(gr.sizeof_char*1, 128)
         self.blocks_file_sink_2 = blocks.file_sink(gr.sizeof_float*1, encoded_file, False)
         self.blocks_file_sink_2.set_unbuffered(False)
@@ -94,18 +97,23 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
         self.blocks_file_sink_1.set_unbuffered(False)
         self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_char*1, source_file, False)
         self.blocks_file_sink_0.set_unbuffered(False)
-        self.analog_random_source_x_0 = blocks.vector_source_b(list(map(int, numpy.random.randint(0, 255, 128))), False)
+        self.blocks_add_xx_0 = blocks.add_vff(1)
+        self.analog_random_source_x_0 = blocks.vector_source_b(list(map(int, numpy.random.randint(0, 255, source_number_of_samples))), False)
+        self.analog_noise_source_x_0 = analog.noise_source_f(analog.GR_GAUSSIAN, 0.2, 0)
 
 
         ##################################################
         # Connections
         ##################################################
+        self.connect((self.analog_noise_source_x_0, 0), (self.blocks_head_1, 0))
         self.connect((self.analog_random_source_x_0, 0), (self.blocks_head_0, 0))
+        self.connect((self.blocks_add_xx_0, 0), (self.epy_block_1, 0))
         self.connect((self.blocks_head_0, 0), (self.blocks_file_sink_0, 0))
         self.connect((self.blocks_head_0, 0), (self.blocks_throttle2_0, 0))
+        self.connect((self.blocks_head_1, 0), (self.blocks_add_xx_0, 1))
         self.connect((self.blocks_throttle2_0, 0), (self.epy_block_0, 0))
+        self.connect((self.epy_block_0, 0), (self.blocks_add_xx_0, 0))
         self.connect((self.epy_block_0, 0), (self.blocks_file_sink_2, 0))
-        self.connect((self.epy_block_0, 0), (self.epy_block_1, 0))
         self.connect((self.epy_block_1, 0), (self.blocks_file_sink_1, 0))
 
 
@@ -161,6 +169,7 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
 
     def set_samples_per_symbol(self, samples_per_symbol):
         self.samples_per_symbol = samples_per_symbol
+        self.blocks_head_1.set_length((self.source_number_of_samples*8*self.samples_per_symbol - 1))
         self.epy_block_0.samples_per_symbol = self.samples_per_symbol
         self.epy_block_1.samples_per_symbol = self.samples_per_symbol
 
@@ -170,6 +179,13 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
     def set_source_file(self, source_file):
         self.source_file = source_file
         self.blocks_file_sink_0.open(self.source_file)
+
+    def get_source_number_of_samples(self):
+        return self.source_number_of_samples
+
+    def set_source_number_of_samples(self, source_number_of_samples):
+        self.source_number_of_samples = source_number_of_samples
+        self.blocks_head_1.set_length((self.source_number_of_samples*8*self.samples_per_symbol - 1))
 
     def get_samp_rate(self):
         return self.samp_rate
@@ -230,6 +246,9 @@ def argument_parser():
     parser.add_argument(
         "--source-file", dest="source_file", type=str, default=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin",
         help="Set source_file [default=%(default)r]")
+    parser.add_argument(
+        "--source-number-of-samples", dest="source_number_of_samples", type=intx, default=128,
+        help="Set source_number_of_samples [default=%(default)r]")
     return parser
 
 
@@ -239,7 +258,7 @@ def main(top_block_cls=alpha_stable_generator, options=None):
 
     qapp = Qt.QApplication(sys.argv)
 
-    tb = top_block_cls(L=options.L, alpha_map_str=options.alpha_map_str, beta_map_str=options.beta_map_str, decoded_file=options.decoded_file, encoded_file=options.encoded_file, gama_map_str=options.gama_map_str, samples_per_symbol=options.samples_per_symbol, source_file=options.source_file)
+    tb = top_block_cls(L=options.L, alpha_map_str=options.alpha_map_str, beta_map_str=options.beta_map_str, decoded_file=options.decoded_file, encoded_file=options.encoded_file, gama_map_str=options.gama_map_str, samples_per_symbol=options.samples_per_symbol, source_file=options.source_file, source_number_of_samples=options.source_number_of_samples)
 
     tb.start()
     tb.flowgraph_started.set()
