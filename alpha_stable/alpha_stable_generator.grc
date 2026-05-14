@@ -33,6 +33,78 @@ options:
     state: enabled
 
 blocks:
+- name: L
+  id: variable
+  parameters:
+    comment: ''
+    value: '4'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [880, 104.0]
+    rotation: 0
+    state: enabled
+- name: alpha_map
+  id: variable
+  parameters:
+    comment: ''
+    value: '[1.2, 1.4, 1.6, 1.8]'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 16.0]
+    rotation: 0
+    state: enabled
+- name: beta_map
+  id: variable
+  parameters:
+    comment: ''
+    value: '[-1.0, 1.0]'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 104.0]
+    rotation: 0
+    state: enabled
+- name: decoded_file
+  id: variable
+  parameters:
+    comment: ''
+    value: r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\decoded.bin"
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [608, 192.0]
+    rotation: 0
+    state: enabled
+- name: encoded_file
+  id: variable
+  parameters:
+    comment: ''
+    value: r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\encoded.bin"
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [608, 104.0]
+    rotation: 0
+    state: enabled
+- name: gama_map
+  id: variable
+  parameters:
+    comment: ''
+    value: '[0.5, 1.0, 1.5, 2.0]'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 192.0]
+    rotation: 0
+    state: enabled
 - name: samp_rate
   id: variable
   parameters:
@@ -42,7 +114,50 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [200, 12]
+    coordinate: [264, 16.0]
+    rotation: 0
+    state: enabled
+- name: samples_per_symbol
+  id: variable
+  parameters:
+    comment: ''
+    value: '24'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [880, 16.0]
+    rotation: 0
+    state: enabled
+- name: source_file
+  id: variable
+  parameters:
+    comment: ''
+    value: r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin"
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [608, 16.0]
+    rotation: 0
+    state: enabled
+- name: analog_noise_source_x_0
+  id: analog_noise_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '0.2'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    noise_type: analog.GR_GAUSSIAN
+    seed: '0'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [480, 708.0]
     rotation: 0
     state: enabled
 - name: analog_random_source_x_0
@@ -55,56 +170,34 @@ blocks:
     maxoutbuf: '0'
     min: '0'
     minoutbuf: '0'
-    num_samps: '500'
-    repeat: 'True'
+    num_samps: '128'
+    repeat: 'False'
     type: byte
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [232, 400.0]
+    coordinate: [72, 584.0]
     rotation: 0
     state: enabled
-- name: blocks_delay_0
-  id: blocks_delay
+- name: blocks_add_xx_0
+  id: blocks_add_xx
   parameters:
     affinity: ''
     alias: ''
     comment: ''
-    delay: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
-    num_ports: '1'
-    showports: 'False'
-    type: byte
+    num_inputs: '2'
+    type: float
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [512, 704.0]
+    coordinate: [824, 436.0]
     rotation: 0
-    state: disabled
-- name: blocks_delay_1
-  id: blocks_delay
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    delay: '0'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    num_ports: '1'
-    showports: 'False'
-    type: byte
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1496, 468.0]
-    rotation: 0
-    state: disabled
+    state: enabled
 - name: blocks_file_sink_0
   id: blocks_file_sink
   parameters:
@@ -112,7 +205,7 @@ blocks:
     alias: ''
     append: 'False'
     comment: ''
-    file: C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin
+    file: source_file
     type: byte
     unbuffered: 'False'
     vlen: '1'
@@ -120,7 +213,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [880, 736.0]
+    coordinate: [720, 916.0]
     rotation: 0
     state: enabled
 - name: blocks_file_sink_1
@@ -130,7 +223,7 @@ blocks:
     alias: ''
     append: 'False'
     comment: ''
-    file: C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\decoded.bin
+    file: decoded_file
     type: byte
     unbuffered: 'False'
     vlen: '1'
@@ -138,7 +231,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1656, 252.0]
+    coordinate: [1496, 436.0]
     rotation: 0
     state: enabled
 - name: blocks_file_sink_2
@@ -148,7 +241,7 @@ blocks:
     alias: ''
     append: 'False'
     comment: ''
-    file: C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\encoded.bin
+    file: encoded_file
     type: float
     unbuffered: 'False'
     vlen: '1'
@@ -156,7 +249,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1096, 604.0]
+    coordinate: [936, 788.0]
     rotation: 0
     state: enabled
 - name: blocks_throttle2_0
@@ -177,206 +270,266 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1000, 384.0]
+    coordinate: [840, 568.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: epy_block_0
   id: epy_block
   parameters:
     _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
       \ GRC will instantiate the first class it finds\nto get ports and parameters\
-      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
-      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
-      from gnuradio import gr\n\n\nclass alpha_encoder(gr.sync_block):\n    \"\"\"\
-      Alpha_stable_generator\"\"\"\n    \n    \n\n    #argumenti\n    def __init__(self,\
-      \ alpha_map=[1.2, 1.4, 1.6, 1.8], beta_map=[-1.0, -0.3, 0.3, 1.0], gama_map=[0.5,\
-      \ 1.0, 1.5, 2.0], samples_per_symbol=500, encode_alpha=True, encode_beta=True,\
-      \ encode_gama=False):  # only default arguments here\n        \"\"\"arguments\
-      \ to this function show up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n\
-      \            self,\n            name='alpha_encoder', # will show up in GRC\n\
-      \            in_sig=[np.uint8], #vrsta podatka ka gre in\n            out_sig=[np.float32]\
-      \ #vrsta podatka ka gre out\n        )\n        # if an attribute with the same\
-      \ name as a parameter is found,\n        # a callback is registered (properties\
-      \ work, too).\n        self.alpha_map = alpha_map\n        self.beta_map = beta_map\n\
-      \        self.gama_map = gama_map\n        self.encode_alpha = encode_alpha\n\
-      \        self.encode_beta = encode_beta\n        self.encode_gama = encode_gama\n\
-      \        self.samples_per_symbol = samples_per_symbol\n        self.bit_buffer\
-      \ = []\n        \n\n    #CMS stblrnd.m\n    def alpha_stable(self, size, alpha=1.1,\
-      \ beta=0.0, gama=1.0): #size=number_of_samples generated, scale je gama (igraj\
-      \ se s temi tremi ce ti rata lahk encodas en byte kar ze ni tko slabo)\n   \
-      \     V = np.random.uniform(-np.pi/2, np.pi/2, size)\n        W = np.random.exponential(1,\
-      \ size)\n\n        const = beta * np.tan(np.pi * alpha / 2)\n        B = np.arctan(const)\n\
-      \        S = (1 + const**2)**(1/(2*alpha))\n\n        X = S * np.sin(alpha*V\
-      \ + B) / (np.cos(V))**(1/alpha) * (np.cos((1-alpha)*V - B) / W)**((1-alpha)/alpha)\n\
-      \n        return gama * X\n            \n    @staticmethod\n    def is_power_of_two(x):\n\
-      \            #flika vse bitke bo tocn 0\n            return (x & (x - 1)) ==\
-      \ 0 and x > 0 \n    \n    @staticmethod\n    def log2_za_potence2(x):\n    \
-      \    if x == 0:\n            return 0\n\n        if alpha_encoder.is_power_of_two(x):\n\
-      \            vrednost = 0\n            while x > 1:\n                x >>= 1\n\
-      \                vrednost += 1\n            return vrednost\n        else:\n\
-      \            raise ValueError(\"One of the maps is not of power 2^n\")\n\n \
-      \   \n    def work(self, input_items, output_items):\n        data = input_items[0]\n\
-      \        out = output_items[0]\n\n        idx = 0\n        \n        if self.encode_alpha\
-      \ and not self.is_power_of_two(len(self.alpha_map)):\n            raise ValueError(\"\
-      alpha_map size must be power of 2\")\n\n        if self.encode_beta and not\
-      \ self.is_power_of_two(len(self.beta_map)):\n            raise ValueError(\"\
-      beta_map size must be power of 2\")\n\n        if self.encode_gama and not self.is_power_of_two(len(self.gama_map)):\n\
-      \            raise ValueError(\"gama_map size must be power of 2\")\n      \
-      \  \n        bits_alpha = self.log2_za_potence2(len(self.alpha_map)) if self.encode_alpha\
-      \ else 0\n        bits_beta  = self.log2_za_potence2(len(self.beta_map)) if\
-      \ self.encode_beta else 0\n        bits_gama  = self.log2_za_potence2(len(self.gama_map))\
-      \ if self.encode_gama else 0\n\n        #to rabimo da vemo koliko bitov lahko\
-      \ z enim signalom predstavimo\n        bits_per_symbol = bits_alpha + bits_beta\
-      \ + bits_gama\n\n        if bits_per_symbol == 0:\n            return 0\n\n\
-      \        #bit buffer ka rabim delat z streemom\n        \n        for byte in\
-      \ data:\n            for i in range(8):\n                self.bit_buffer.append((byte\
-      \ >> i) & 1)\n\n        #provimo byte predstavit\n        while len(self.bit_buffer)\
-      \ >= bits_per_symbol:\n            \n            offset = 0\n\n            #\
-      \ defaults \u010De ni mape mogoce pole za popravit\n            alpha = 1.1\n\
-      \            beta = 0.0\n            gama = 1.0\n\n            def read_bits(n,\
-      \ offset):\n                val = 0\n                for i in range(n):\n  \
-      \                  val |= (self.bit_buffer[offset + i] << i)\n             \
-      \   return val\n            \n\n            # --- ALPHA ---\n            if\
-      \ self.encode_alpha:\n                #koliko bitov je v alphi\n           \
-      \     alpha_bits = read_bits(bits_alpha, offset)\n                alpha = self.alpha_map[alpha_bits]\n\
-      \                offset += bits_alpha\n\n            # --- BETA ---\n      \
-      \      if self.encode_beta:\n                beta_bits = read_bits(bits_beta,\
-      \ offset)\n                beta = self.beta_map[beta_bits]\n               \
-      \ offset += bits_beta\n\n            # --- GAMA ---\n            if self.encode_gama:\n\
-      \                gama_bits = read_bits(bits_gama, offset)\n                gama\
-      \ = self.gama_map[gama_bits]\n                offset += bits_gama\n\n      \
-      \      self.bit_buffer = self.bit_buffer[bits_per_symbol:]\n\n            samples\
-      \ = self.alpha_stable(\n                self.samples_per_symbol,\n         \
-      \       alpha,\n                beta,\n                gama\n            )\n\
-      \n            if idx + self.samples_per_symbol > len(out):\n               \
-      \ return idx\n\n            out[idx:idx+self.samples_per_symbol] = samples\n\
-      \            idx += self.samples_per_symbol\n\n        return idx"
+      \ of your block. The arguments to __init__ will\nbe the parameters. All of them\
+      \ are required to have default values!\n\"\"\"\n\nimport numpy as np\nfrom gnuradio\
+      \ import gr\n\n\nclass alpha_encoder(gr.basic_block):\n    \"\"\"Encode bytes\
+      \ into alpha-stable sample bursts.\"\"\"\n\n    def __init__(self, alpha_map=[1.2,\
+      \ 1.4, 1.6, 1.8], beta_map=[-1.0, -0.3, 0.3, 1.0], gama_map=[0.5, 1.0, 1.5,\
+      \ 2.0], samples_per_symbol=500, encode_alpha=False, encode_beta=True, encode_gama=False):\n\
+      \        gr.basic_block.__init__(\n            self,\n            name='alpha_encoder',\n\
+      \            in_sig=[np.uint8],\n            out_sig=[np.float32],\n       \
+      \ )\n        \n        self.alpha_map = list(alpha_map)\n        self.beta_map\
+      \ = list(beta_map)\n        self.gama_map = list(gama_map)\n        self.samples_per_symbol\
+      \ = int(samples_per_symbol)\n        self.encode_alpha = bool(encode_alpha)\n\
+      \        self.encode_beta = bool(encode_beta)\n        self.encode_gama = bool(encode_gama)\n\
+      \        self._bit_buffer = []\n\n        if self.samples_per_symbol <= 0:\n\
+      \            raise ValueError(\"samples_per_symbol must be positive\")\n\n \
+      \       if self.encode_alpha and not self.is_power_of_two(len(self.alpha_map)):\n\
+      \            raise ValueError(\"alpha_map size must be power of 2\")\n     \
+      \   if self.encode_beta and not self.is_power_of_two(len(self.beta_map)):\n\
+      \            raise ValueError(\"beta_map size must be power of 2\")\n      \
+      \  if self.encode_gama and not self.is_power_of_two(len(self.gama_map)):\n \
+      \           raise ValueError(\"gama_map size must be power of 2\")\n\n     \
+      \   self.bits_alpha = self.log2_za_potence2(len(self.alpha_map)) if self.encode_alpha\
+      \ else 0\n        self.bits_beta = self.log2_za_potence2(len(self.beta_map))\
+      \ if self.encode_beta else 0\n        self.bits_gama = self.log2_za_potence2(len(self.gama_map))\
+      \ if self.encode_gama else 0\n        self.bits_per_symbol = self.bits_alpha\
+      \ + self.bits_beta + self.bits_gama\n\n        if self.bits_per_symbol <= 0:\n\
+      \            raise ValueError(\"At least one of encode_alpha, encode_beta, or\
+      \ encode_gama must be enabled\")\n\n    def forecast(self, noutput_items, ninputs):\n\
+      \        \"\"\"Non-blocking forecast lets encoder flush internal bit buffer\
+      \ at EOS.\"\"\"\n        return [0] * int(ninputs)\n\n    @staticmethod\n  \
+      \  def is_power_of_two(x):\n        return x > 0 and (x & (x - 1)) == 0\n\n\
+      \    @staticmethod\n    def log2_za_potence2(x):\n        if x == 0:\n     \
+      \       return 0\n\n        if alpha_encoder.is_power_of_two(x):\n         \
+      \   vrednost = 0\n            while x > 1:\n                x >>= 1\n      \
+      \          vrednost += 1\n            return vrednost\n        raise ValueError(\"\
+      One of the maps is not of power 2^n\")\n\n    @staticmethod\n    def alpha_stable(size,\
+      \ alpha=1.1, beta=0.0, gama=1.0):\n        v_values = np.random.uniform(-np.pi\
+      \ / 2, np.pi / 2, size)\n        w_values = np.random.exponential(1, size)\n\
+      \n        constant = beta * np.tan(np.pi * alpha / 2)\n        shift = np.arctan(constant)\n\
+      \        scale = (1 + constant ** 2) ** (1 / (2 * alpha))\n\n        samples\
+      \ = scale * np.sin(alpha * v_values + shift) / (np.cos(v_values)) ** (1 / alpha)\
+      \ * (np.cos((1 - alpha) * v_values - shift) / w_values) ** ((1 - alpha) / alpha)\n\
+      \        return gama * samples\n\n    @staticmethod\n    def _read_bits(bit_buffer,\
+      \ start, count):\n        value = 0\n        for index in range(count):\n  \
+      \          value |= (bit_buffer[start + index] << index)\n        return value\n\
+      \n    def _append_input_bits(self, input_bytes):\n        for byte in input_bytes:\n\
+      \            byte_value = int(byte)\n            for bit_index in range(8):\n\
+      \                self._bit_buffer.append((byte_value >> bit_index) & 1)\n\n\
+      \    def _encode_one_symbol(self, bit_offset):\n        alpha = 1.1\n      \
+      \  beta = 0.0\n        gama = 1.0\n        offset = bit_offset\n\n        if\
+      \ self.encode_alpha:\n            alpha_index = self._read_bits(self._bit_buffer,\
+      \ offset, self.bits_alpha)\n            alpha = self.alpha_map[alpha_index]\n\
+      \            offset += self.bits_alpha\n\n        if self.encode_beta:\n   \
+      \         beta_index = self._read_bits(self._bit_buffer, offset, self.bits_beta)\n\
+      \            beta = self.beta_map[beta_index]\n            offset += self.bits_beta\n\
+      \n        if self.encode_gama:\n            gama_index = self._read_bits(self._bit_buffer,\
+      \ offset, self.bits_gama)\n            gama = self.gama_map[gama_index]\n  \
+      \          offset += self.bits_gama\n\n        return alpha, beta, gama\n\n\
+      \    def general_work(self, input_items, output_items):\n        input_bytes\
+      \ = input_items[0]\n        output_samples = output_items[0]\n\n        if len(input_bytes):\n\
+      \            self._append_input_bits(input_bytes)\n\n        max_symbols = len(output_samples)\
+      \ // self.samples_per_symbol\n        produced_symbols = 0\n        bit_offset\
+      \ = 0\n\n        while produced_symbols < max_symbols and len(self._bit_buffer)\
+      \ - bit_offset >= self.bits_per_symbol:\n            alpha, beta, gama = self._encode_one_symbol(bit_offset)\n\
+      \            samples = self.alpha_stable(self.samples_per_symbol, alpha=alpha,\
+      \ beta=beta, gama=gama).astype(np.float32)\n\n            start = produced_symbols\
+      \ * self.samples_per_symbol\n            end = start + self.samples_per_symbol\n\
+      \            output_samples[start:end] = samples\n\n            produced_symbols\
+      \ += 1\n            bit_offset += self.bits_per_symbol\n\n        if bit_offset:\n\
+      \            self._bit_buffer = self._bit_buffer[bit_offset:]\n\n        if\
+      \ len(input_bytes):\n            self.consume(0, len(input_bytes))\n\n     \
+      \   return produced_symbols * self.samples_per_symbol\n"
     affinity: ''
     alias: ''
-    alpha_map: '[1.2, 1.4, 1.6, 1.8]'
-    beta_map: '[-1.0, -0.3, 0.3, 1.0]'
+    alpha_map: alpha_map
+    beta_map: beta_map
     comment: ''
-    encode_alpha: 'True'
-    encode_beta: 'False'
+    encode_alpha: 'False'
+    encode_beta: 'True'
     encode_gama: 'False'
-    gama_map: '[0.5, 1.0, 1.5, 2.0]'
+    gama_map: gama_map
     maxoutbuf: '0'
     minoutbuf: '0'
-    samples_per_symbol: '500'
+    samples_per_symbol: samples_per_symbol
   states:
     _io_cache: ('alpha_encoder', 'alpha_encoder', [('alpha_map', '[1.2, 1.4, 1.6,
       1.8]'), ('beta_map', '[-1.0, -0.3, 0.3, 1.0]'), ('gama_map', '[0.5, 1.0, 1.5,
-      2.0]'), ('samples_per_symbol', '500'), ('encode_alpha', 'True'), ('encode_beta',
+      2.0]'), ('samples_per_symbol', '500'), ('encode_alpha', 'False'), ('encode_beta',
       'True'), ('encode_gama', 'False')], [('0', 'byte', 1)], [('0', 'float', 1)],
-      'Alpha_stable_generator', ['alpha_map', 'beta_map', 'encode_alpha', 'encode_beta',
-      'encode_gama', 'gama_map', 'samples_per_symbol'])
+      'Encode bytes into alpha-stable sample bursts.', ['alpha_map', 'beta_map', 'encode_alpha',
+      'encode_beta', 'encode_gama', 'gama_map', 'samples_per_symbol'])
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [648, 320.0]
+    coordinate: [440, 432.0]
     rotation: 0
     state: enabled
 - name: epy_block_1
   id: epy_block
   parameters:
-    L: '10'
+    L: L
     _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
       \ GRC will instantiate the first class it finds\nto get ports and parameters\
-      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
-      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
-      from gnuradio import gr\n\n\nclass alpha_decoder(gr.sync_block):  # other base\
-      \ classes are basic_block, decim_block, interp_block\n    \"\"\"Decoder for\
-      \ alpha_encoder using samples with corresponding variances\"\"\"\n\n    def\
-      \ __init__(self, alpha_map=[1.2, 1.4, 1.6, 1.8], beta_map=[-1.0, -0.3, 0.3,\
-      \ 1.0], gama_map=[0.5, 1.0, 1.5, 2.0], samples_per_symbol=500, L=10, encode_alpha=True,\
-      \ encode_beta=True, encode_gama=False):  # only default arguments here\n   \
-      \     \"\"\"arguments to this function show up as parameters in GRC\"\"\"\n\
-      \        gr.sync_block.__init__(\n            self,\n            name='alpha_decoder',\
-      \   # will show up in GRC\n            in_sig=[np.float32],\n            out_sig=[np.uint8]\n\
-      \        )\n        self.samples_per_symbol = samples_per_symbol\n        self.L\
-      \ = L\n        self.encode_alpha = encode_alpha\n        self.encode_beta =\
-      \ encode_beta\n        self.encode_gama = encode_gama\n        self.alpha_map\
-      \ = alpha_map\n        self.beta_map = beta_map\n        self.gama_map = gama_map\n\
-      \n        self.bit_buffer = []\n\n    @staticmethod\n    def ali_je_deljivo(samples_per_symbol,\
-      \ L):\n        return samples_per_symbol % L == 0\n            \n    @staticmethod\n\
-      \    def closest_index(value, list):\n        arr = np.array(list)\n       \
-      \ return int(np.argmin(np.abs(arr - value)))\n    \n    @staticmethod\n    def\
-      \ is_power_of_two(x):\n            #flika vse bitke bo tocn 0\n            return\
-      \ x > 0 and (x & (x - 1)) == 0\n    \n    @staticmethod\n    def log2_za_potence2(x):\n\
+      \ of your block. The arguments to __init__ will\nbe the parameters. All of them\
+      \ are required to have default values!\n\"\"\"\n\nimport numpy as np\nfrom gnuradio\
+      \ import gr\n\n\nclass alpha_decoder(gr.basic_block):\n    \"\"\"Decode alpha-stable\
+      \ sample bursts into a bit stream.\"\"\"\n\n    def __init__(self, alpha_map=[1.2,\
+      \ 1.4, 1.6, 1.8], beta_map=[-1.0, -0.3, 0.3, 1.0], gama_map=[0.5, 1.0, 1.5,\
+      \ 2.0], samples_per_symbol=500, L=10, encode_alpha=False, encode_beta=True,\
+      \ encode_gama=False):\n        gr.basic_block.__init__(\n            self,\n\
+      \            name='alpha_decoder',   # will show up in GRC\n            in_sig=[np.float32],\n\
+      \            out_sig=[np.uint8],\n        )\n\n        self.alpha_map = list(alpha_map)\n\
+      \        self.beta_map = list(beta_map)\n        self.gama_map = list(gama_map)\n\
+      \        self.samples_per_symbol = int(samples_per_symbol)\n        self.L =\
+      \ int(L)\n        self.encode_alpha = bool(encode_alpha)\n        self.encode_beta\
+      \ = bool(encode_beta)\n        self.encode_gama = bool(encode_gama)\n      \
+      \  self._sample_buffer = np.empty(0, dtype=np.float32)\n        self._decoded_bit_buffer\
+      \ = []\n\n        if self.samples_per_symbol <= 0:\n            raise ValueError(\"\
+      samples_per_symbol must be positive\")\n        if self.L <= 0:\n          \
+      \  raise ValueError(\"L must be positive\")\n        if self.samples_per_symbol\
+      \ % self.L != 0:\n            raise ValueError(\"samples_per_symbol must be\
+      \ divisible by L\")\n        if self.encode_alpha and not self.is_power_of_two(len(self.alpha_map)):\n\
+      \            raise ValueError(\"alpha_map size must be power of 2\")\n     \
+      \   if self.encode_beta and not self.is_power_of_two(len(self.beta_map)):\n\
+      \            raise ValueError(\"beta_map size must be power of 2\")\n      \
+      \  if self.encode_gama and not self.is_power_of_two(len(self.gama_map)):\n \
+      \           raise ValueError(\"gama_map size must be power of 2\")\n\n     \
+      \   self.bits_alpha = self.log2_za_potence2(len(self.alpha_map)) if self.encode_alpha\
+      \ else 0\n        self.bits_beta = self.log2_za_potence2(len(self.beta_map))\
+      \ if self.encode_beta else 0\n        self.bits_gama = self.log2_za_potence2(len(self.gama_map))\
+      \ if self.encode_gama else 0\n        self.bits_per_symbol = self.bits_alpha\
+      \ + self.bits_beta + self.bits_gama\n\n        if self.bits_per_symbol <= 0:\n\
+      \            raise ValueError(\"At least one of encode_alpha, encode_beta, or\
+      \ encode_gama must be enabled\")\n\n        # This decoder currently implements\
+      \ only beta estimation.\n        if self.encode_alpha or self.encode_gama:\n\
+      \            raise ValueError(\"Decoder currently supports only encode_beta=True,\
+      \ encode_alpha=False, encode_gama=False\")\n\n        self.expected_chunk =\
+      \ self.samples_per_symbol\n\n    def forecast(self, noutput_items, ninputs):\n\
+      \        \"\"\"Non-blocking forecast prevents starvation on finite input streams.\"\
+      \"\"\n        return [0] * int(ninputs)\n\n    @staticmethod\n    def is_power_of_two(x):\n\
+      \        return x > 0 and (x & (x - 1)) == 0\n\n    @staticmethod\n    def log2_za_potence2(x):\n\
       \        if x == 0:\n            return 0\n\n        if alpha_decoder.is_power_of_two(x):\n\
       \            vrednost = 0\n            while x > 1:\n                x >>= 1\n\
-      \                vrednost += 1\n            return vrednost\n        else:\n\
-      \            raise ValueError(\"One of the maps is not of power 2^n\")\n\n \
-      \   def work(self, input_items, output_items):\n        in_samples = input_items[0]\n\
-      \        out = output_items[0]\n        num_symbols = len(in_samples) // self.samples_per_symbol\n\
-      \        if not self.ali_je_deljivo(self.samples_per_symbol, self.L):\n    \
-      \        raise ValueError(\"Samples_per_symbol is not devisible by L\")\n\n\
-      \        samples_per_realization = self.samples_per_symbol // self.L\n\n\n \
-      \       for sym in range(num_symbols):\n            #print(self.bit_buffer)\n\
-      \            sym_samples = in_samples[sym*self.samples_per_symbol : (sym+1)*self.samples_per_symbol]\n\
-      \n            Yl_max = []\n            Yl_min = []\n\n            for l in range(self.L):\n\
-      \                #samples kolko jih dat skup in kje zacet in koncat\n      \
-      \          start = l*samples_per_realization \n                end = start +\
-      \ samples_per_realization\n                segment = sym_samples[start:end]\
-      \ #probably samples_per_symbol mora bit deliv z L\n\n                Yl_max.append(np.max(segment))\n\
-      \                Yl_min.append(np.min(segment))\n\n            #zdej zra\u010D\
-      uni vse\n\n            Y_max = np.mean(Yl_max)\n            Y_min = np.mean(Yl_min)\n\
-      \n            s2_max = np.var(Yl_max, ddof=1) #ddof je za uno minus 1 (deli\u0161\
-      \ z L - 1) dokumentacija\n            s2_min = np.var(Yl_min, ddof=1)\n\n  \
-      \          #default\n            probably_alpha = 1.1\n            probably_beta\
-      \ = 0.0\n            probably_gama = 1.0\n\n            #zdej pa iz tega izra\u010D\
-      unamo parametre\n\n            #alpha\n            if self.encode_alpha:\n \
-      \               probably_alpha = (np.pi / (2*np.sqrt(6))) * ((1.0 / Y_max) +\
-      \ (1.0 / Y_min))\n\n            #beta\n            if self.encode_beta:\n  \
-      \              probably_beta = 1 - (2 / (np.exp(probably_alpha*(np.sqrt(s2_max)\
-      \ - np.sqrt(s2_min)))))\n\n            #gama (to je skaliranje torej provamo\
-      \ z Y_max in Y_min, mogo\u010De pa tudi kako druga\u010De z max od vseh ne povpra\u010D\
-      je al neki idk)\n            if self.encode_gama:\n                probably_gama\
-      \ = (Y_max - Y_min) / 2.0\n\n            print(\"Alpha, beta, gama:\")\n   \
-      \         print(probably_alpha, probably_beta, probably_gama)\n\n\n        \
-      \    #zdej rabim samo \u0161e mapirat te vrednosti najbli\u017Ejim vrednostim\
-      \ v mapi\n            if self.encode_alpha:\n                alpha_idx = self.closest_index(probably_alpha,\
-      \ self.alpha_map)\n                bits_alpha = self.log2_za_potence2(len(self.alpha_map))\n\
-      \                #rabim ohranjat LSB iz encoderja\n                self.bit_buffer\
-      \ += [(alpha_idx >> i) & 1 for i in range(bits_alpha)] # bejzi od zadi naprej\
-      \ mozn da je to fljeno da bi mogu MSB ka je areeb neki reku idk\n          \
-      \  \n            if self.encode_beta:\n                beta_idx = self.closest_index(probably_beta,\
-      \ self.beta_map)\n                bits_beta = self.log2_za_potence2(len(self.beta_map))\n\
-      \                self.bit_buffer += [(beta_idx >> i) & 1 for i in range(bits_beta)]\
-      \ \n\n            if self.encode_gama:\n                gama_idx = self.closest_index(probably_gama,\
-      \ self.gama_map)\n                bits_gama = self.log2_za_potence2(len(self.gama_map))\n\
-      \                self.bit_buffer += [(gama_idx >> i) & 1 for i in range(bits_gama)]\n\
-      \n        idx = 0\n        #convert bits to bytes\n        for i in range(0,\
-      \ len(self.bit_buffer), 8):\n            byte_bits = self.bit_buffer[i:i+8]\n\
-      \            if len(byte_bits) < 8:\n                break\n\n            val\
-      \ = sum([bit << j for j, bit in enumerate(byte_bits)])\n\n            if idx\
-      \ < len(out):\n                out[idx] = val\n                idx += 1\n  \
-      \      \n        self.bit_buffer = self.bit_buffer[idx*8:] #zbri\u0161e une\
-      \ ka sm v tem loopu zdej uporabu\n        \n        return idx"
+      \                vrednost += 1\n            return vrednost\n        raise ValueError(\"\
+      One of the maps is not of power 2^n\")\n\n    @staticmethod\n    def closest_index(value,\
+      \ values):\n        arr = np.array(values, dtype=float)\n        if arr.size\
+      \ == 1:\n            return 0\n        return int(np.argmin(np.abs(arr - value)))\n\
+      \n    def estimate_beta(self, symbol_samples):\n        \"\"\"Vectorized beta\
+      \ estimator from paper.\"\"\"\n        samples_per_realization = self.samples_per_symbol\
+      \ // self.L\n        if samples_per_realization <= 0:\n            return 0.0\n\
+      \n        # Reshape into L segments and compute max/min per segment\n      \
+      \  symbol_array = np.asarray(symbol_samples, dtype=np.float32)\n        segments\
+      \ = symbol_array[:samples_per_realization * self.L].reshape(self.L, samples_per_realization)\n\
+      \        \n        y_max = np.max(segments, axis=1)\n        y_min = np.min(segments,\
+      \ axis=1)\n\n        if y_max.size == 0 or y_min.size == 0:\n            return\
+      \ 0.0\n\n        s2_max = float(np.var(y_max, ddof=1)) if len(y_max) > 1 else\
+      \ 0.0\n        s2_min = float(np.var(y_min, ddof=1)) if len(y_min) > 1 else\
+      \ 0.0\n\n        s2_max = float(np.nan_to_num(s2_max, nan=0.0, posinf=0.0, neginf=0.0))\n\
+      \        s2_min = float(np.nan_to_num(s2_min, nan=0.0, posinf=0.0, neginf=0.0))\n\
+      \n        spread = np.sqrt(max(0.0, s2_max)) + np.sqrt(max(0.0, s2_min)) + 1e-12\n\
+      \        score = (np.sqrt(max(0.0, s2_max)) - np.sqrt(max(0.0, s2_min))) / spread\n\
+      \        return float(np.clip(score, -1.0, 1.0))\n\n    def _append_input_samples(self,\
+      \ input_samples):\n        if input_samples.size:\n            self._sample_buffer\
+      \ = np.concatenate((self._sample_buffer, input_samples.astype(np.float32, copy=False)))\n\
+      \n    def general_work(self, input_items, output_items):\n        in_samples\
+      \ = input_items[0]\n        out = output_items[0]\n\n        if len(out) ==\
+      \ 0:\n            return 0\n\n        if len(in_samples) > 0:\n            self._append_input_samples(in_samples)\n\
+      \            self.consume(0, len(in_samples))\n\n        out_index = 0\n\n \
+      \       # Drain already decoded bytes first. This is important near end-of-stream.\n\
+      \        buffered_bytes = len(self._decoded_bit_buffer) // 8\n        bytes_from_buffer\
+      \ = min(len(out), buffered_bytes)\n        for byte_index in range(bytes_from_buffer):\n\
+      \            base = byte_index * 8\n            byte_value = 0\n           \
+      \ for bit_index in range(8):\n                byte_value |= (self._decoded_bit_buffer[base\
+      \ + bit_index] & 0x1) << bit_index\n            out[out_index] = byte_value\n\
+      \            out_index += 1\n\n        if bytes_from_buffer > 0:\n         \
+      \   self._decoded_bit_buffer = self._decoded_bit_buffer[bytes_from_buffer *\
+      \ 8:]\n\n        if out_index == len(out):\n            return out_index\n\n\
+      \        available_symbols = len(self._sample_buffer) // self.expected_chunk\n\
+      \        symbols_to_process = available_symbols\n\n        beta_mask = (1 <<\
+      \ self.bits_beta) - 1 if self.bits_beta > 0 else 0\n\n        # First decode\
+      \ all available symbols into a bit buffer.\n        for symbol_index in range(symbols_to_process):\n\
+      \            symbol_start = symbol_index * self.expected_chunk\n           \
+      \ symbol_end = symbol_start + self.expected_chunk\n            symbol_samples\
+      \ = self._sample_buffer[symbol_start:symbol_end]\n\n            probably_beta\
+      \ = self.estimate_beta(symbol_samples)\n            beta_idx = self.closest_index(probably_beta,\
+      \ self.beta_map) & beta_mask if self.bits_beta > 0 else 0\n\n            # Emit\
+      \ decoded field bits in encoder order: alpha, beta, gama.\n            for bit_index\
+      \ in range(self.bits_alpha):\n                self._decoded_bit_buffer.append(0)\n\
+      \            for bit_index in range(self.bits_beta):\n                self._decoded_bit_buffer.append((beta_idx\
+      \ >> bit_index) & 0x1)\n            for bit_index in range(self.bits_gama):\n\
+      \                self._decoded_bit_buffer.append(0)\n\n        consumed_samples\
+      \ = symbols_to_process * self.expected_chunk\n        self._sample_buffer =\
+      \ self._sample_buffer[consumed_samples:]\n\n        # Then pack every 8 decoded\
+      \ bits back into output bytes.\n        available_bytes = len(self._decoded_bit_buffer)\
+      \ // 8\n        bytes_to_output = min(len(out) - out_index, available_bytes)\n\
+      \n        for byte_index in range(bytes_to_output):\n            base = byte_index\
+      \ * 8\n            byte_value = 0\n            for bit_index in range(8):\n\
+      \                byte_value |= (self._decoded_bit_buffer[base + bit_index] &\
+      \ 0x1) << bit_index\n            out[out_index] = byte_value\n            out_index\
+      \ += 1\n\n        if bytes_to_output > 0:\n            self._decoded_bit_buffer\
+      \ = self._decoded_bit_buffer[bytes_to_output * 8:]\n\n        return out_index\n"
     affinity: ''
     alias: ''
-    alpha_map: '[1.2, 1.4, 1.6, 1.8]'
-    beta_map: '[-1.0, -0.3, 0.3, 1.0]'
+    alpha_map: alpha_map
+    beta_map: beta_map
     comment: ''
-    encode_alpha: 'True'
-    encode_beta: 'False'
+    encode_alpha: 'False'
+    encode_beta: 'True'
     encode_gama: 'False'
-    gama_map: '[0.5, 1.0, 1.5, 2.0]'
+    gama_map: gama_map
     maxoutbuf: '0'
     minoutbuf: '0'
-    samples_per_symbol: '500'
+    samples_per_symbol: samples_per_symbol
   states:
     _io_cache: ('alpha_decoder', 'alpha_decoder', [('alpha_map', '[1.2, 1.4, 1.6,
       1.8]'), ('beta_map', '[-1.0, -0.3, 0.3, 1.0]'), ('gama_map', '[0.5, 1.0, 1.5,
-      2.0]'), ('samples_per_symbol', '500'), ('L', '10'), ('encode_alpha', 'True'),
+      2.0]'), ('samples_per_symbol', '500'), ('L', '10'), ('encode_alpha', 'False'),
       ('encode_beta', 'True'), ('encode_gama', 'False')], [('0', 'float', 1)], [('0',
-      'byte', 1)], 'Decoder for alpha_encoder using samples with corresponding variances',
-      ['L', 'alpha_map', 'beta_map', 'encode_alpha', 'encode_beta', 'encode_gama',
-      'gama_map', 'samples_per_symbol'])
+      'byte', 1)], 'Decode alpha-stable sample bursts into a bit stream.', ['L', 'alpha_map',
+      'beta_map', 'encode_alpha', 'encode_beta', 'encode_gama', 'gama_map', 'samples_per_symbol'])
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1280, 172.0]
+    coordinate: [1064, 388.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_sink_x_0
+  id: qtgui_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    bw: samp_rate
+    comment: ''
+    fc: '0'
+    fftsize: '1024'
+    gui_hint: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '"Encoded wave"'
+    plotconst: 'True'
+    plotfreq: 'True'
+    plottime: 'True'
+    plotwaterfall: 'True'
+    rate: '10'
+    showports: 'False'
+    showrf: 'False'
+    type: float
+    wintype: window.WIN_BLACKMAN_hARRIS
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1336, 652.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0
@@ -394,7 +547,7 @@ blocks:
     alpha7: '1.0'
     alpha8: '1.0'
     alpha9: '1.0'
-    autoscale: 'False'
+    autoscale: 'True'
     axislabels: 'True'
     color1: blue
     color10: dark blue
@@ -473,21 +626,23 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1464, 676.0]
+    coordinate: [1304, 860.0]
     rotation: 0
-    state: enabled
+    state: disabled
 
 connections:
-- [analog_random_source_x_0, '0', blocks_delay_0, '0']
+- [analog_noise_source_x_0, '0', blocks_add_xx_0, '1']
 - [analog_random_source_x_0, '0', blocks_file_sink_0, '0']
 - [analog_random_source_x_0, '0', epy_block_0, '0']
-- [blocks_delay_0, '0', blocks_file_sink_0, '0']
-- [blocks_delay_1, '0', blocks_file_sink_1, '0']
+- [blocks_add_xx_0, '0', epy_block_1, '0']
 - [blocks_throttle2_0, '0', blocks_file_sink_2, '0']
 - [blocks_throttle2_0, '0', epy_block_1, '0']
 - [blocks_throttle2_0, '0', qtgui_time_sink_x_0, '0']
+- [epy_block_0, '0', blocks_add_xx_0, '0']
+- [epy_block_0, '0', blocks_file_sink_2, '0']
 - [epy_block_0, '0', blocks_throttle2_0, '0']
-- [epy_block_1, '0', blocks_delay_1, '0']
+- [epy_block_0, '0', qtgui_sink_x_0, '0']
+- [epy_block_0, '0', qtgui_time_sink_x_0, '0']
 - [epy_block_1, '0', blocks_file_sink_1, '0']
 
 metadata:
