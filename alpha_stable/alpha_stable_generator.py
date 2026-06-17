@@ -24,6 +24,7 @@ from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
 import alpha_stable_generator_epy_block_0 as epy_block_0  # embedded python block
 import alpha_stable_generator_epy_block_1 as epy_block_1  # embedded python block
+import sip
 import threading
 
 
@@ -86,11 +87,30 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
         # Blocks
         ##################################################
 
+        self.qtgui_sink_x_0 = qtgui.sink_f(
+            1024, #fftsize
+            window.WIN_BLACKMAN_hARRIS, #wintype
+            0, #fc
+            samp_rate, #bw
+            "Encoded wave", #name
+            True, #plotfreq
+            True, #plotwaterfall
+            True, #plottime
+            True, #plotconst
+            None # parent
+        )
+        self.qtgui_sink_x_0.set_update_time(1.0/10)
+        self._qtgui_sink_x_0_win = sip.wrapinstance(self.qtgui_sink_x_0.qwidget(), Qt.QWidget)
+
+        self.qtgui_sink_x_0.enable_rf_freq(False)
+
+        self.top_layout.addWidget(self._qtgui_sink_x_0_win)
         self.epy_block_1 = epy_block_1.alpha_decoder(alpha_map=alpha_map, beta_map=beta_map, gama_map=gama_map, samples_per_symbol=samples_per_symbol, L=L, encode_alpha=False, encode_beta=True, encode_gama=False)
         self.epy_block_0 = epy_block_0.alpha_encoder(alpha_map=alpha_map, beta_map=beta_map, gama_map=gama_map, samples_per_symbol=samples_per_symbol, encode_alpha=False, encode_beta=True, encode_gama=False)
         self.blocks_throttle2_0 = blocks.throttle( gr.sizeof_char*1, samp_rate, True, 0 if "auto" == "auto" else max( int(float(0.1) * samp_rate) if "auto" == "time" else int(0.1), 1) )
+        self.blocks_head_2 = blocks.head(gr.sizeof_char*1, source_number_of_samples)
         self.blocks_head_1 = blocks.head(gr.sizeof_float*1, (source_number_of_samples*8*samples_per_symbol))
-        self.blocks_head_0 = blocks.head(gr.sizeof_char*1, 128)
+        self.blocks_head_0 = blocks.head(gr.sizeof_char*1, source_number_of_samples)
         self.blocks_file_sink_2 = blocks.file_sink(gr.sizeof_float*1, encoded_file, False)
         self.blocks_file_sink_2.set_unbuffered(False)
         self.blocks_file_sink_1 = blocks.file_sink(gr.sizeof_char*1, decoded_file, False)
@@ -111,10 +131,12 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
         self.connect((self.blocks_head_0, 0), (self.blocks_file_sink_0, 0))
         self.connect((self.blocks_head_0, 0), (self.blocks_throttle2_0, 0))
         self.connect((self.blocks_head_1, 0), (self.blocks_add_xx_0, 1))
+        self.connect((self.blocks_head_2, 0), (self.blocks_file_sink_1, 0))
         self.connect((self.blocks_throttle2_0, 0), (self.epy_block_0, 0))
         self.connect((self.epy_block_0, 0), (self.blocks_add_xx_0, 0))
         self.connect((self.epy_block_0, 0), (self.blocks_file_sink_2, 0))
-        self.connect((self.epy_block_1, 0), (self.blocks_file_sink_1, 0))
+        self.connect((self.epy_block_0, 0), (self.qtgui_sink_x_0, 0))
+        self.connect((self.epy_block_1, 0), (self.blocks_head_2, 0))
 
 
     def closeEvent(self, event):
@@ -185,7 +207,9 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
 
     def set_source_number_of_samples(self, source_number_of_samples):
         self.source_number_of_samples = source_number_of_samples
+        self.blocks_head_0.set_length(self.source_number_of_samples)
         self.blocks_head_1.set_length((self.source_number_of_samples*8*self.samples_per_symbol))
+        self.blocks_head_2.set_length(self.source_number_of_samples)
 
     def get_samp_rate(self):
         return self.samp_rate
@@ -193,6 +217,7 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         self.blocks_throttle2_0.set_sample_rate(self.samp_rate)
+        self.qtgui_sink_x_0.set_frequency_range(0, self.samp_rate)
 
     def get_gama_map(self):
         return self.gama_map

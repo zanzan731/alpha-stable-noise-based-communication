@@ -19,7 +19,7 @@ options:
     realtime_scheduling: ''
     run: 'True'
     run_command: '{python} -u {filename}'
-    run_options: prompt
+    run_options: run
     sizing_mode: fixed
     thread_safe_setters: ''
     title: Alpha stable simulation
@@ -251,7 +251,7 @@ blocks:
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
-    num_items: '128'
+    num_items: source_number_of_samples
     type: byte
     vlen: '1'
   states:
@@ -277,6 +277,24 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [536, 700.0]
+    rotation: 0
+    state: enabled
+- name: blocks_head_2
+  id: blocks_head
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: source_number_of_samples
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1288, 564.0]
     rotation: 0
     state: enabled
 - name: blocks_throttle2_0
@@ -609,7 +627,7 @@ blocks:
     bus_structure: null
     coordinate: [952, 764.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: samples_per_symbol
   id: parameter
   parameters:
@@ -669,11 +687,12 @@ connections:
 - [blocks_head_0, '0', blocks_file_sink_0, '0']
 - [blocks_head_0, '0', blocks_throttle2_0, '0']
 - [blocks_head_1, '0', blocks_add_xx_0, '1']
+- [blocks_head_2, '0', blocks_file_sink_1, '0']
 - [blocks_throttle2_0, '0', epy_block_0, '0']
 - [epy_block_0, '0', blocks_add_xx_0, '0']
 - [epy_block_0, '0', blocks_file_sink_2, '0']
 - [epy_block_0, '0', qtgui_sink_x_0, '0']
-- [epy_block_1, '0', blocks_file_sink_1, '0']
+- [epy_block_1, '0', blocks_head_2, '0']
 
 metadata:
   file_format: 1
