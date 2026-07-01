@@ -1,0 +1,11 @@
+File stevilka 1:161/1024
+File stevilka 2:165/1024
+File stevilka 3:166/1024
+File stevilka 4:170/1024
+File stevilka 5:168/1024
+File stevilka 6:165/1024
+File stevilka 7:169/1024
+File stevilka 8:161/1024
+File stevilka 9:170/1024
+File stevilka 10:125/1024
+Povprecna napka: 162

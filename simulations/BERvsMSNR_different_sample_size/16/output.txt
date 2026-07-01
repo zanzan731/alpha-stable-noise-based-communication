@@ -1,0 +1,11 @@
+File stevilka 1:21/1024
+File stevilka 2:26/1024
+File stevilka 3:19/1024
+File stevilka 4:27/1024
+File stevilka 5:23/1024
+File stevilka 6:23/1024
+File stevilka 7:22/1024
+File stevilka 8:17/1024
+File stevilka 9:21/1024
+File stevilka 10:15/1024
+Povprecna napka: 21.4

@@ -28,7 +28,7 @@ import threading
 
 class alpha_stable_generator(gr.top_block):
 
-    def __init__(self, L=4, alpha_map_str="1.2,1.4,1.6,1.8", beta_map_str="-1.0,1.0", decoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\decoded.bin", encoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\encoded.bin", gama_map_str="0.5,1.0,1.5,2.0", samples_per_symbol=24, source_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin", source_number_of_samples=128):
+    def __init__(self, L=4, alpha_map_str="1.2,1.4,1.6,1.8", beta_map_str="-1.0,1.0", decoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\decoded.bin", encoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\encoded.bin", eos_timeout=3.0, gama_map_str="0.5,1.0,1.5,2.0", noise_ratio=0.2, samples_per_symbol=24, source_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin", source_number_of_samples=128):
         gr.top_block.__init__(self, "Alpha stable simulation", catch_exceptions=True)
         self.flowgraph_started = threading.Event()
 
@@ -40,7 +40,9 @@ class alpha_stable_generator(gr.top_block):
         self.beta_map_str = beta_map_str
         self.decoded_file = decoded_file
         self.encoded_file = encoded_file
+        self.eos_timeout = eos_timeout
         self.gama_map_str = gama_map_str
+        self.noise_ratio = noise_ratio
         self.samples_per_symbol = samples_per_symbol
         self.source_file = source_file
         self.source_number_of_samples = source_number_of_samples
@@ -57,8 +59,8 @@ class alpha_stable_generator(gr.top_block):
         # Blocks
         ##################################################
 
-        self.epy_block_1 = epy_block_1.alpha_decoder(alpha_map=alpha_map, beta_map=beta_map, gama_map=gama_map, samples_per_symbol=samples_per_symbol, L=L, encode_alpha=False, encode_beta=True, encode_gama=False)
-        self.epy_block_0 = epy_block_0.alpha_encoder(alpha_map=alpha_map, beta_map=beta_map, gama_map=gama_map, samples_per_symbol=samples_per_symbol, encode_alpha=False, encode_beta=True, encode_gama=False)
+        self.epy_block_1 = epy_block_1.alpha_decoder(alpha_map=alpha_map, beta_map=beta_map, gama_map=gama_map, samples_per_symbol=samples_per_symbol, L=L, encode_alpha=False, encode_beta=True, encode_gama=False, eos_timeout=eos_timeout, expected_input_samples=source_number_of_samples*8*samples_per_symbol)
+        self.epy_block_0 = epy_block_0.alpha_encoder(alpha_map=alpha_map, beta_map=beta_map, gama_map=gama_map, samples_per_symbol=samples_per_symbol, encode_alpha=False, encode_beta=True, encode_gama=False, eos_timeout=eos_timeout, expected_input_bytes=source_number_of_samples)
         self.blocks_head_1 = blocks.head(gr.sizeof_float*1, (source_number_of_samples*8*samples_per_symbol))
         self.blocks_head_0 = blocks.head(gr.sizeof_char*1, source_number_of_samples)
         self.blocks_file_sink_2 = blocks.file_sink(gr.sizeof_float*1, encoded_file, False)
@@ -69,7 +71,7 @@ class alpha_stable_generator(gr.top_block):
         self.blocks_file_sink_0.set_unbuffered(False)
         self.blocks_add_xx_0 = blocks.add_vff(1)
         self.analog_random_source_x_0 = blocks.vector_source_b(list(map(int, numpy.random.randint(0, 255, source_number_of_samples))), False)
-        self.analog_noise_source_x_0 = analog.noise_source_f(analog.GR_GAUSSIAN, 0.2, 0)
+        self.analog_noise_source_x_0 = analog.noise_source_f(analog.GR_GAUSSIAN, noise_ratio, 0)
 
 
         ##################################################
@@ -119,11 +121,26 @@ class alpha_stable_generator(gr.top_block):
         self.encoded_file = encoded_file
         self.blocks_file_sink_2.open(self.encoded_file)
 
+    def get_eos_timeout(self):
+        return self.eos_timeout
+
+    def set_eos_timeout(self, eos_timeout):
+        self.eos_timeout = eos_timeout
+        self.epy_block_0.eos_timeout = self.eos_timeout
+        self.epy_block_1.eos_timeout = self.eos_timeout
+
     def get_gama_map_str(self):
         return self.gama_map_str
 
     def set_gama_map_str(self, gama_map_str):
         self.gama_map_str = gama_map_str
+
+    def get_noise_ratio(self):
+        return self.noise_ratio
+
+    def set_noise_ratio(self, noise_ratio):
+        self.noise_ratio = noise_ratio
+        self.analog_noise_source_x_0.set_amplitude(self.noise_ratio)
 
     def get_samples_per_symbol(self):
         return self.samples_per_symbol
@@ -132,6 +149,7 @@ class alpha_stable_generator(gr.top_block):
         self.samples_per_symbol = samples_per_symbol
         self.blocks_head_1.set_length((self.source_number_of_samples*8*self.samples_per_symbol))
         self.epy_block_0.samples_per_symbol = self.samples_per_symbol
+        self.epy_block_1.expected_input_samples = self.source_number_of_samples*8*self.samples_per_symbol
         self.epy_block_1.samples_per_symbol = self.samples_per_symbol
 
     def get_source_file(self):
@@ -148,6 +166,8 @@ class alpha_stable_generator(gr.top_block):
         self.source_number_of_samples = source_number_of_samples
         self.blocks_head_0.set_length(self.source_number_of_samples)
         self.blocks_head_1.set_length((self.source_number_of_samples*8*self.samples_per_symbol))
+        self.epy_block_0.expected_input_bytes = self.source_number_of_samples
+        self.epy_block_1.expected_input_samples = self.source_number_of_samples*8*self.samples_per_symbol
 
     def get_samp_rate(self):
         return self.samp_rate
@@ -199,8 +219,14 @@ def argument_parser():
         "--encoded-file", dest="encoded_file", type=str, default=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\encoded.bin",
         help="Set encoded_file [default=%(default)r]")
     parser.add_argument(
+        "--eos-timeout", dest="eos_timeout", type=eng_float, default=eng_notation.num_to_str(float(3.0)),
+        help="Set EOS_timeout [default=%(default)r]")
+    parser.add_argument(
         "--gama-map-str", dest="gama_map_str", type=str, default="0.5,1.0,1.5,2.0",
         help="Set gama_map_str [default=%(default)r]")
+    parser.add_argument(
+        "--noise-ratio", dest="noise_ratio", type=eng_float, default=eng_notation.num_to_str(float(0.2)),
+        help="Set noise_ratio [default=%(default)r]")
     parser.add_argument(
         "--samples-per-symbol", dest="samples_per_symbol", type=intx, default=24,
         help="Set samples_per_symbol [default=%(default)r]")
@@ -216,7 +242,7 @@ def argument_parser():
 def main(top_block_cls=alpha_stable_generator, options=None):
     if options is None:
         options = argument_parser().parse_args()
-    tb = top_block_cls(L=options.L, alpha_map_str=options.alpha_map_str, beta_map_str=options.beta_map_str, decoded_file=options.decoded_file, encoded_file=options.encoded_file, gama_map_str=options.gama_map_str, samples_per_symbol=options.samples_per_symbol, source_file=options.source_file, source_number_of_samples=options.source_number_of_samples)
+    tb = top_block_cls(L=options.L, alpha_map_str=options.alpha_map_str, beta_map_str=options.beta_map_str, decoded_file=options.decoded_file, encoded_file=options.encoded_file, eos_timeout=options.eos_timeout, gama_map_str=options.gama_map_str, noise_ratio=options.noise_ratio, samples_per_symbol=options.samples_per_symbol, source_file=options.source_file, source_number_of_samples=options.source_number_of_samples)
 
     def sig_handler(sig=None, frame=None):
         tb.stop()

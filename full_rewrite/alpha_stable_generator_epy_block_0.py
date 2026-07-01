@@ -7,6 +7,7 @@ Kodira vhodne bajte v serijo vzorcev alfa-stabilne porazdelitve.
 import numpy as np
 from gnuradio import gr
 import sys
+import time  # fallback-only now, see comments below
 
 
 
@@ -22,6 +23,8 @@ class alpha_encoder(gr.basic_block):
         encode_alpha=False,
         encode_beta=True,
         encode_gama=False,
+        eos_timeout=2.0,
+        expected_input_bytes=None,
     ):
         gr.basic_block.__init__(
             self,
@@ -43,9 +46,16 @@ class alpha_encoder(gr.basic_block):
 
         self._eos_reached = False #zato da lahko se samo ustavi
         self._ever_received_input = False #če tega ni bi lahko scheduler klical general_work preden dobi karkoli in konča predčasno
-        self._consecutive_empty_calls = 0 #recimo temu nek stevc ki mi pove ali sm res koncal fora je da tezko ves ce ne poznas flowa celega grafa to mi pa pomaga določit ce zadosti časa nič ne dobim ali je res koncalo ali ne
-        #basicly en empty_call ni zadosti da bi vedel ali je končalo ali ne žal flow graph ne deluje tako
-        self._eos_confirm_calls = 1000 #to je meja koliko empty streamov rabim preden rečem da je _eos_reached = True, problem je da to ni popolna rešitev ampak trenutno nimam boljše ideje, če ne dela nastavi na več zna biti odvisna od flow grapha tako da mogoče bom nastavil kot parameter
+
+        # Fallback-only timing state (kept in case expected_input_bytes is not provided)
+        self.eos_timeout = float(eos_timeout)
+        self._last_input_time = None
+
+        # NEW: deterministic byte-count tracking (this is the real fix)
+        self.expected_input_bytes = (
+            int(expected_input_bytes) if expected_input_bytes is not None else None
+        )
+        self._total_bytes_seen = 0  # running total of bytes consumed so far this run
 
         if self.samples_per_symbol <= 0:
             raise ValueError("samples_per_symbol must be pozitive number")
@@ -148,18 +158,25 @@ class alpha_encoder(gr.basic_block):
             self._dbg_call = 0
         self._dbg_call += 1 # da vem kolkokrat pokličem ta blok general_work
         c = self._dbg_call
-        print(f"[ENC #{c}] id={id(self)} in={len(input_bytes)} out_buf={len(output_samples)} bit_buf={len(self._bit_buffer)} eos={self._eos_reached} ever={self._ever_received_input} empty_streak={self._consecutive_empty_calls}", file=sys.stderr, flush=True) 
+        print(f"[ENC #{c}] id={id(self)} in={len(input_bytes)} out_buf={len(output_samples)} bit_buf={len(self._bit_buffer)} eos={self._eos_reached} ever={self._ever_received_input} seen={self._total_bytes_seen}/{self.expected_input_bytes}", file=sys.stderr, flush=True) 
         ''' #debuging
 
         if len(input_bytes) > 0:
             self._ever_received_input = True
-            self._consecutive_empty_calls = 0 #nastavi nazaj na 0 da mi ne konča preveč hitro to je nujno če ne želim da mi prehit konča
             self._eos_reached = False
+            self._last_input_time = time.time()  # fallback bookkeeping only
+            self._total_bytes_seen += len(input_bytes)  # NEW: exact running count
             self._append_input_bits(input_bytes) #direktno preberi dol iz inputa za delo naprej
             self.consume(0, len(input_bytes)) # to je za GNU radio da mu povem kolko podatkov sem pobral dol z vhoda, v tem klicu general work ostaja input_samples enak stream se ne nadaljuje po tem ko sem v tem bloku to je pomembno ker drugače ne bi smel delati tako
+
+            if (
+                self.expected_input_bytes is not None
+                and self._total_bytes_seen >= self.expected_input_bytes
+            ):
+                self._eos_reached = True
+
         elif self._ever_received_input:
-            self._consecutive_empty_calls += 1 #za končat blok
-            if self._consecutive_empty_calls >= self._eos_confirm_calls: #če presežem mejo dej eos_reached
+            if (time.time() - self._last_input_time) >= self.eos_timeout:
                 self._eos_reached = True
         else:
             # Če nikoli še nisem dubu podatkov samo loopi dokler jih ne dobim

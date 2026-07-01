@@ -7,6 +7,7 @@ Dekodira vzorce alfa-stabilne porazdelitve nazaj v bajte.
 import numpy as np
 from gnuradio import gr
 import sys
+import time
 
 class alpha_decoder(gr.basic_block):
     """Dekodira vzorce alfa-stabilne porazdelitve v bajte."""
@@ -21,6 +22,8 @@ class alpha_decoder(gr.basic_block):
         encode_alpha=False,
         encode_beta=True,
         encode_gama=False,
+        eos_timeout=3.0,
+        expected_input_samples=None,
     ):
         gr.basic_block.__init__(
             self,
@@ -42,8 +45,16 @@ class alpha_decoder(gr.basic_block):
         self._decoded_bit_buffer = []
         self._eos_reached = False
         self._ever_received_input = False #potrebno da vem kdaj startam stevec oziroma da ne konča predn dobi delo
-        self._consecutive_empty_calls = 0
-        self._eos_confirm_calls = 1000 #samo end prazen call ni zadosti da vemo da je res konc
+
+        # Fallback-only timing state
+        self.eos_timeout = float(eos_timeout)
+        self._last_input_time = None
+
+        # NEW: deterministic sample-count tracking (this is the real fix)
+        self.expected_input_samples = (
+            int(expected_input_samples) if expected_input_samples is not None else None
+        )
+        self._total_samples_seen = 0  # running total of input samples consumed this run
 
         if self.samples_per_symbol <= 0:
             raise ValueError("samples_per_symbol must be pozitive number")
@@ -158,17 +169,24 @@ class alpha_decoder(gr.basic_block):
         if len(out) == 0:
             return 0
 
-        #print(f"[DEC #{c}] id={id(self)} in={len(in_samples)} out_buf={len(out)} sample_buf={len(self._sample_buffer)} bit_buf={len(self._decoded_bit_buffer)} eos={self._eos_reached} ever={self._ever_received_input} empty_streak={self._consecutive_empty_calls}", file=sys.stderr, flush=True)
+        #print(f"[DEC #{c}] id={id(self)} in={len(in_samples)} out_buf={len(out)} sample_buf={len(self._sample_buffer)} bit_buf={len(self._decoded_bit_buffer)} eos={self._eos_reached} ever={self._ever_received_input} seen={self._total_samples_seen}/{self.expected_input_samples}", file=sys.stderr, flush=True)
         #isto kot v alpha_encoder rabimo nek način da ne končamo prehitro
         if len(in_samples) > 0:
             self._ever_received_input = True
-            self._consecutive_empty_calls = 0
             self._eos_reached = False
+            self._last_input_time = time.time()  # fallback bookkeeping only
+            self._total_samples_seen += len(in_samples)  # NEW: exact running count
             self._append_input_samples(in_samples)
             self.consume(0, len(in_samples))
+
+            if (
+                self.expected_input_samples is not None
+                and self._total_samples_seen >= self.expected_input_samples
+            ):
+                self._eos_reached = True
+
         elif self._ever_received_input:
-            self._consecutive_empty_calls += 1
-            if self._consecutive_empty_calls >= self._eos_confirm_calls:
+            if (time.time() - self._last_input_time) >= self.eos_timeout:
                 self._eos_reached = True
         else:
             # Če ni še nič podatkov prišlo
