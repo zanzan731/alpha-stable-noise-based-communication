@@ -12,18 +12,21 @@ int main()
 {
     ofstream output;
     output.open("output.txt");
+    size_t vsota_vseh_skupnih_napak = 0;
+    int stevilo_datotek = 0;
     while (true) {
 
         int itteration = 0;
         nadaljuj:
         itteration++;
-
+        
         ifstream decoded("decoded_" + to_string(itteration) + ".bin", ios::binary);
         ifstream source("source_" + to_string(itteration) + ".bin", ios::binary);
         
         if (!decoded || !source) {
             cerr << "Ne morem odpreti fila";
-            return 1;
+            stevilo_datotek = itteration - 1;
+            goto konec;
         }
         unsigned char b1, b2;
         size_t bytePosition = 0;
@@ -41,6 +44,7 @@ int main()
             if (!r1 && !r2) {
                 cout << "Prisli smo do konca " << itteration << "\n";
                 output << "File stevilka " << itteration << ":" << steviloRazlicnihBitov << "/" << bytePosition << "\n";
+                vsota_vseh_skupnih_napak += steviloRazlicnihBitov;
                 goto nadaljuj;
             }
 
@@ -70,5 +74,8 @@ int main()
 
 
     }
+    konec:
+    output << "Povprecna napka: " << static_cast<double>(vsota_vseh_skupnih_napak)/stevilo_datotek << "\n";
+
     return 1;
 }

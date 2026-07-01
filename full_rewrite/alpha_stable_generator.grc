@@ -340,7 +340,7 @@ blocks:
       \ ce ne poznas flowa celega grafa to mi pa pomaga dolo\u010Dit ce zadosti \u010D\
       asa ni\u010D ne dobim ali je res koncalo ali ne\n        #basicly en empty_call\
       \ ni zadosti da bi vedel ali je kon\u010Dalo ali ne \u017Eal flow graph ne deluje\
-      \ tako\n        self._eos_confirm_calls = 5000 #to je meja koliko empty streamov\
+      \ tako\n        self._eos_confirm_calls = 1000 #to je meja koliko empty streamov\
       \ rabim preden re\u010Dem da je _eos_reached = True, problem je da to ni popolna\
       \ re\u0161itev ampak trenutno nimam bolj\u0161e ideje, \u010De ne dela nastavi\
       \ na ve\u010D zna biti odvisna od flow grapha tako da mogo\u010De bom nastavil\
@@ -491,7 +491,7 @@ blocks:
       \ = []\n        self._eos_reached = False\n        self._ever_received_input\
       \ = False #potrebno da vem kdaj startam stevec oziroma da ne kon\u010Da predn\
       \ dobi delo\n        self._consecutive_empty_calls = 0\n        self._eos_confirm_calls\
-      \ = 5000 #samo en prazen call ni zadosti da vemo da je res konc\n\n        if\
+      \ = 1000 #samo en prazen call ni zadosti da vemo da je res konc\n\n        if\
       \ self.samples_per_symbol <= 0:\n            raise ValueError(\"samples_per_symbol\
       \ must be pozitive number\")\n        if self.L <= 0:\n            raise ValueError(\"\
       L must be pozitive number\")\n        if self.samples_per_symbol % self.L !=\

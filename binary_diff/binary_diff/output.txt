@@ -5,3 +5,4 @@ File stevilka 4:3/1024
 File stevilka 5:2/1024
 File stevilka 6:0/1024
 File stevilka 7:0/1024
+Povprecna napka: 6.42857

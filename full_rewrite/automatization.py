@@ -5,7 +5,9 @@ import os
 beta_options = [
     "-1.0,1.0",
     "-0.5,0.5",
-    "-1.0,-0.5,0.5,1.0"
+    "-1.0,-0.5,0.5,1.0",
+    "-0.9,0.9",
+    "-1.0,-0.8,0.8,1.0"
 ]
 
 base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_beta"
