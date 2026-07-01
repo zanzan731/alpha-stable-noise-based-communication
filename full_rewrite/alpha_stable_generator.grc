@@ -1,0 +1,730 @@
+options:
+  parameters:
+    author: ''
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: no_gui
+    hier_block_src_path: '.:'
+    id: alpha_stable_generator
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: run
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: Alpha stable simulation
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: alpha_map
+  id: variable
+  parameters:
+    comment: ''
+    value: '[float(x) for x in alpha_map_str.split(",")]'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [584, 16.0]
+    rotation: 0
+    state: enabled
+- name: beta_map
+  id: variable
+  parameters:
+    comment: ''
+    value: '[float(x) for x in beta_map_str.split(",")]'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [584, 128.0]
+    rotation: 0
+    state: enabled
+- name: gama_map
+  id: variable
+  parameters:
+    comment: ''
+    value: '[float(x) for x in gama_map_str.split(",")]'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [584, 240.0]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '32000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [256, 8.0]
+    rotation: 0
+    state: enabled
+- name: L
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: intx
+    value: '4'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1168, 116.0]
+    rotation: 0
+    state: enabled
+- name: alpha_map_str
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: str
+    value: '"1.2,1.4,1.6,1.8"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 12.0]
+    rotation: 0
+    state: enabled
+- name: analog_noise_source_x_0
+  id: analog_noise_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '0.2'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    noise_type: analog.GR_GAUSSIAN
+    seed: '0'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [400, 828.0]
+    rotation: 0
+    state: enabled
+- name: analog_random_source_x_0
+  id: analog_random_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    max: '255'
+    maxoutbuf: '0'
+    min: '0'
+    minoutbuf: '0'
+    num_samps: source_number_of_samples
+    repeat: 'False'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [16, 680.0]
+    rotation: 0
+    state: enabled
+- name: beta_map_str
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: str
+    value: '"-1.0,1.0"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 124.0]
+    rotation: 0
+    state: enabled
+- name: blocks_add_xx_0
+  id: blocks_add_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [792, 572.0]
+    rotation: 0
+    state: enabled
+- name: blocks_file_sink_0
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'False'
+    comment: ''
+    file: source_file
+    type: byte
+    unbuffered: 'False'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [384, 972.0]
+    rotation: 0
+    state: enabled
+- name: blocks_file_sink_1
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'False'
+    comment: ''
+    file: decoded_file
+    type: byte
+    unbuffered: 'False'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1560, 556.0]
+    rotation: 0
+    state: enabled
+- name: blocks_file_sink_2
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'False'
+    comment: ''
+    file: encoded_file
+    type: float
+    unbuffered: 'False'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [784, 356.0]
+    rotation: 0
+    state: enabled
+- name: blocks_head_0
+  id: blocks_head
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: source_number_of_samples
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [240, 716.0]
+    rotation: 0
+    state: enabled
+- name: blocks_head_1
+  id: blocks_head
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: source_number_of_samples*8*samples_per_symbol
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [536, 700.0]
+    rotation: 0
+    state: enabled
+- name: decoded_file
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: str
+    value: r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\decoded.bin"
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [896, 228.0]
+    rotation: 0
+    state: enabled
+- name: encoded_file
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: str
+    value: r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\encoded.bin"
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [896, 116.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_0
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nGNU Radio Embedded Python Block: alpha_encoder\n\nKodira\
+      \ vhodne bajte v serijo vzorcev alfa-stabilne porazdelitve.\n\"\"\"\n\nimport\
+      \ numpy as np\nfrom gnuradio import gr\nimport sys\n\n\n\nclass alpha_encoder(gr.basic_block):\n\
+      \    \"\"\"Kodira bajte v serijo vzorcev alfa-stabilne porazdelitve.\"\"\"\n\
+      \n    def __init__(\n        self, \n        alpha_map=[1.2, 1.4, 1.6, 1.8],\
+      \ \n        beta_map=[-1.0, 1.0],\n        gama_map=[0.5, 1.0, 1.5, 2.0],\n\
+      \        samples_per_symbol=500,\n        encode_alpha=False,\n        encode_beta=True,\n\
+      \        encode_gama=False,\n    ):\n        gr.basic_block.__init__(\n    \
+      \        self,\n            name=\"alpha_encoder\",\n            in_sig=[np.uint8],\n\
+      \            out_sig=[np.float32],\n        )\n\n        self.alpha_map = list(alpha_map)\n\
+      \        self.beta_map = list(beta_map)\n        self.gama_map = list(gama_map)\n\
+      \        self.samples_per_symbol = int(samples_per_symbol)\n        self.encode_alpha\
+      \ = bool(encode_alpha)\n        self.encode_beta = bool(encode_beta)\n     \
+      \   self.encode_gama = bool(encode_gama)\n\n        self._bit_buffer = [] #mogo\u010D\
+      e vr\u017Eemo potem ven\n        #ta buffer bo ostal ker ima ful smisla da ostane\
+      \ boj input \u010De ga preberem morem prebrat cel byte, \u010De ne shranim moji\
+      \ padatki izginejo to je najbolj simple na\u010Din kako se tega re\u0161iti\n\
+      \n        self._eos_reached = False #zato da lahko se samo ustavi\n        self._ever_received_input\
+      \ = False #\u010De tega ni bi lahko scheduler klical general_work preden dobi\
+      \ karkoli in kon\u010Da pred\u010Dasno\n        self._consecutive_empty_calls\
+      \ = 0 #recimo temu nek stevc ki mi pove ali sm res koncal fora je da tezko ves\
+      \ ce ne poznas flowa celega grafa to mi pa pomaga dolo\u010Dit ce zadosti \u010D\
+      asa ni\u010D ne dobim ali je res koncalo ali ne\n        #basicly en empty_call\
+      \ ni zadosti da bi vedel ali je kon\u010Dalo ali ne \u017Eal flow graph ne deluje\
+      \ tako\n        self._eos_confirm_calls = 5000 #to je meja koliko empty streamov\
+      \ rabim preden re\u010Dem da je _eos_reached = True, problem je da to ni popolna\
+      \ re\u0161itev ampak trenutno nimam bolj\u0161e ideje, \u010De ne dela nastavi\
+      \ na ve\u010D zna biti odvisna od flow grapha tako da mogo\u010De bom nastavil\
+      \ kot parameter\n\n        if self.samples_per_symbol <= 0:\n            raise\
+      \ ValueError(\"samples_per_symbol must be pozitive number\")\n        if self.encode_alpha\
+      \ and not self.is_power_of_two(len(self.alpha_map)):\n            raise ValueError(\"\
+      The size of alpha_map must be 2^n\")\n        if self.encode_beta and not self.is_power_of_two(len(self.beta_map)):\n\
+      \            raise ValueError(\"The size of beta_map must be 2^n\")\n      \
+      \  if self.encode_gama and not self.is_power_of_two(len(self.gama_map)):\n \
+      \           raise ValueError(\"The size of gama_map must be 2^n\")\n\n     \
+      \   self.bits_alpha = self.log2_za_potence2(len(self.alpha_map)) if self.encode_alpha\
+      \ else 0\n        self.bits_beta  = self.log2_za_potence2(len(self.beta_map))\
+      \  if self.encode_beta  else 0\n        self.bits_gama  = self.log2_za_potence2(len(self.gama_map))\
+      \  if self.encode_gama  else 0\n        self.bits_per_symbol = self.bits_alpha\
+      \ + self.bits_beta + self.bits_gama # log(map_size) nam pove koliko bitov lahko\
+      \ predstavimo z vsakim parametrom, \u010De to se\u0161tejemo imamo \u0161tevilo\
+      \ bitov glede na semple\n\n        if self.bits_per_symbol <= 0:\n         \
+      \   raise ValueError(\"At least one of encode_alpha, encode_beta, encode_gama\
+      \ nust be True\")\n\n    def forecast(self, noutput_items, ninputs):\n     \
+      \   return [0] * int(ninputs)\n\n    @staticmethod\n    def is_power_of_two(x):\n\
+      \        return x > 0 and (x & (x - 1)) == 0\n\n    @staticmethod\n    def log2_za_potence2(x):\n\
+      \        if x == 0:\n            return 0\n        if alpha_encoder.is_power_of_two(x):\n\
+      \            vrednost = 0\n            while x > 1:\n                x >>= 1\n\
+      \                vrednost += 1\n            return vrednost\n        raise ValueError(\"\
+      One of the mups is not the size of 2^n (something went wrong, this mesage should\
+      \ not be reachable)\")\n\n    @staticmethod\n    def alpha_stable(size, alpha=1.1,\
+      \ beta=0.0, gama=1.0): #default walues that should be the best, encoding\n \
+      \       v_values = np.random.uniform(-np.pi / 2, np.pi / 2, size)\n        w_values\
+      \ = np.random.exponential(1, size)\n\n        constant = beta * np.tan(np.pi\
+      \ * alpha / 2)\n        shift = np.arctan(constant)\n        scale = (1 + constant\
+      \ ** 2) ** (1 / (2 * alpha))\n\n        samples = (\n            scale\n   \
+      \         * np.sin(alpha * v_values + shift)\n            / (np.cos(v_values))\
+      \ ** (1 / alpha)\n            * (np.cos((1 - alpha) * v_values - shift) / w_values)\
+      \ ** ((1 - alpha) / alpha)\n        )\n        return gama * samples\n\n   \
+      \ @staticmethod\n    def _read_bits(bit_buffer, start, count):\n        #Kadar\
+      \ enkodiram za en simbol morem vedet kolko bitov lahko ta simbol enkoda (count\
+      \ parameter)\n        #pazi ker vrne niz kjer je prvi prebran bit least significant,\
+      \ torej obrne (na\u010Deloma je vseeno samo rabi\u0161 upo\u0161tevat pri kodiranju\
+      \ da da\u0161 tud obrnt mapo)\n        value = 0\n        for index in range(count):\n\
+      \            value |= (bit_buffer[start + index] << index)\n        return value\n\
+      \n    #iz inputa preberi vse BYTE in vrni v bit_buffer \n    def _append_input_bits(self,\
+      \ input_bytes):\n        for byte in input_bytes:\n            byte_value =\
+      \ int(byte)\n            for bit_index in range(8):\n                self._bit_buffer.append((byte_value\
+      \ >> bit_index) & 1) #dubi samo zadnji bit zato &1  uno pa premakne na pravo\
+      \ mesto binary shift ku v c++\n\n    def _encode_one_symbol(self, bit_offset):\n\
+      \        alpha = 1.1\n        beta = 0.0\n        gama = 1.0\n        offset\
+      \ = bit_offset\n\n        if self.encode_alpha:\n            alpha_index = self._read_bits(self._bit_buffer,\
+      \ offset, self.bits_alpha)\n            alpha = self.alpha_map[alpha_index]\n\
+      \            offset += self.bits_alpha\n\n        if self.encode_beta:\n   \
+      \         beta_index = self._read_bits(self._bit_buffer, offset, self.bits_beta)\n\
+      \            beta = self.beta_map[beta_index]\n            offset += self.bits_beta\n\
+      \n        if self.encode_gama:\n            gama_index = self._read_bits(self._bit_buffer,\
+      \ offset, self.bits_gama)\n            gama = self.gama_map[gama_index]\n  \
+      \          offset += self.bits_gama\n\n        return alpha, beta, gama\n\n\
+      \    def general_work(self, input_items, output_items):\n        input_bytes\
+      \ = input_items[0]\n        output_samples = output_items[0]\n\n        '''\n\
+      \        if not hasattr(self, '_dbg_call'):\n            self._dbg_call = 0\n\
+      \        self._dbg_call += 1 # da vem kolkokrat pokli\u010Dem ta blok general_work\n\
+      \        c = self._dbg_call\n        print(f\"[ENC #{c}] id={id(self)} in={len(input_bytes)}\
+      \ out_buf={len(output_samples)} bit_buf={len(self._bit_buffer)} eos={self._eos_reached}\
+      \ ever={self._ever_received_input} empty_streak={self._consecutive_empty_calls}\"\
+      , file=sys.stderr, flush=True) \n        ''' #debuging\n\n        if len(input_bytes)\
+      \ > 0:\n            self._ever_received_input = True\n            self._consecutive_empty_calls\
+      \ = 0 #nastavi nazaj na 0 da mi ne kon\u010Da preve\u010D hitro to je nujno\
+      \ \u010De ne \u017Eelim da mi prehit kon\u010Da\n            self._eos_reached\
+      \ = False\n            self._append_input_bits(input_bytes) #direktno preberi\
+      \ dol iz inputa za delo naprej\n            self.consume(0, len(input_bytes))\
+      \ # to je za GNU radio da mu povem kolko podatkov sem pobral dol z vhoda, v\
+      \ tem klicu general work ostaja input_samples enak stream se ne nadaljuje po\
+      \ tem ko sem v tem bloku to je pomembno ker druga\u010De ne bi smel delati tako\n\
+      \        elif self._ever_received_input:\n            self._consecutive_empty_calls\
+      \ += 1 #za kon\u010Dat blok\n            if self._consecutive_empty_calls >=\
+      \ self._eos_confirm_calls: #\u010De prese\u017Eem mejo dej eos_reached\n   \
+      \             self._eos_reached = True\n        else:\n            # \u010C\
+      e nikoli \u0161e nisem dubu podatkov samo loopi dokler jih ne dobim\n      \
+      \      return 0\n        \n        if self._eos_reached and 0 < len(self._bit_buffer)\
+      \ < self.bits_per_symbol:\n            # Zadnji delni simbol dopolnimo z ni\u010D\
+      lami, da ga \u0161e lahko zakodiramo, druga\u010De lahko imamo v bit_bufferju\
+      \ ostanek \u010De vhod ni deljiv z bits_per_symbol\n            self._bit_buffer.extend([0]\
+      \ * (self.bits_per_symbol - len(self._bit_buffer)))\n        \n        # Encode\
+      \ as many symbols as we can fit in the output buffer\n        max_symbols =\
+      \ len(output_samples) // self.samples_per_symbol #buffer ima v GNU radio omejeno\
+      \ velikost za output smiselno sicer ampak jaz bi \u0161opal rad podatke \u010D\
+      ez\n        produced_symbols = 0\n        bit_offset = 0\n\n        while (\n\
+      \            produced_symbols < max_symbols #\u010De gremo \u010Dez bomo pisali\
+      \ v prazno in zgubili podatke, ne prekora\u010Dit bufferja\n            and\
+      \ len(self._bit_buffer) - bit_offset >= self.bits_per_symbol #v bit_bufferju\
+      \ rabim zadosti simbolov da encodam celotno \n        ):\n            alpha,\
+      \ beta, gama = self._encode_one_symbol(bit_offset)\n            samples = self.alpha_stable(\n\
+      \                self.samples_per_symbol, alpha=alpha, beta=beta, gama=gama\n\
+      \            ).astype(np.float32)\n\n            start = produced_symbols *\
+      \ self.samples_per_symbol\n            end = start + self.samples_per_symbol\n\
+      \            output_samples[start:end] = samples\n\n            produced_symbols\
+      \ += 1\n            bit_offset += self.bits_per_symbol\n\n        if bit_offset\
+      \ > 0:\n            self._bit_buffer = self._bit_buffer[bit_offset:] #zamakni\
+      \ seznam vr\u017Ei stran vse kar sem \u017Ee predelal\n\n        #print(f\"\
+      [ENC #{c}] produced={produced_symbols} samples={produced_symbols*self.samples_per_symbol}\
+      \ bit_buf_after={len(self._bit_buffer)}\", file=sys.stderr, flush=True)\n\n\
+      \        if produced_symbols > 0:\n            return produced_symbols * self.samples_per_symbol\n\
+      \n        if self._eos_reached and len(self._bit_buffer) < self.bits_per_symbol:\n\
+      \            #print(f\"[ENC #{c}] WORK_DONE\", file=sys.stderr, flush=True)\n\
+      \            return gr.WORK_DONE #to je GNU radio na\u010Din da pove da je blok\
+      \ kon\u010Dal delo\n\n        return 0"
+    affinity: ''
+    alias: ''
+    alpha_map: alpha_map
+    beta_map: beta_map
+    comment: ''
+    encode_alpha: 'False'
+    encode_beta: 'True'
+    encode_gama: 'False'
+    gama_map: gama_map
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_symbol: samples_per_symbol
+  states:
+    _io_cache: ('alpha_encoder', 'alpha_encoder', [('alpha_map', '[1.2, 1.4, 1.6,
+      1.8]'), ('beta_map', '[-1.0, 1.0]'), ('gama_map', '[0.5, 1.0, 1.5, 2.0]'), ('samples_per_symbol',
+      '500'), ('encode_alpha', 'False'), ('encode_beta', 'True'), ('encode_gama',
+      'False')], [('0', 'byte', 1)], [('0', 'float', 1)], 'Kodira bajte v serijo vzorcev
+      alfa-stabilne porazdelitve.', ['alpha_map', 'beta_map', 'encode_alpha', 'encode_beta',
+      'encode_gama', 'gama_map', 'samples_per_symbol'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [480, 432.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_1
+  id: epy_block
+  parameters:
+    L: L
+    _source_code: "\"\"\"\nGNU Radio Embedded Python Block: alpha_decoder\n\nDekodira\
+      \ vzorce alfa-stabilne porazdelitve nazaj v bajte.\n\"\"\"\n\nimport numpy as\
+      \ np\nfrom gnuradio import gr\nimport sys\n\nclass alpha_decoder(gr.basic_block):\n\
+      \    \"\"\"Dekodira vzorce alfa-stabilne porazdelitve v bajte.\"\"\"\n\n   \
+      \ def __init__(\n        self,\n        alpha_map=[1.2, 1.4, 1.6, 1.8],\n  \
+      \      beta_map=[-1.0, 1.0],\n        gama_map=[0.5, 1.0, 1.5, 2.0],\n     \
+      \   samples_per_symbol=500,\n        L=10,\n        encode_alpha=False,\n  \
+      \      encode_beta=True,\n        encode_gama=False,\n    ):\n        gr.basic_block.__init__(\n\
+      \            self,\n            name=\"alpha_decoder\",\n            in_sig=[np.float32],\n\
+      \            out_sig=[np.uint8],\n        )\n\n        self.alpha_map = list(alpha_map)\n\
+      \        self.beta_map = list(beta_map)\n        self.gama_map = list(gama_map)\n\
+      \        self.samples_per_symbol = int(samples_per_symbol)\n        self.L =\
+      \ int(L)\n        self.encode_alpha = bool(encode_alpha)\n        self.encode_beta\
+      \ = bool(encode_beta)\n        self.encode_gama = bool(encode_gama)\n\n    \
+      \    self._sample_buffer = np.empty(0, dtype=np.float32)\n        self._decoded_bit_buffer\
+      \ = []\n        self._eos_reached = False\n        self._ever_received_input\
+      \ = False #potrebno da vem kdaj startam stevec oziroma da ne kon\u010Da predn\
+      \ dobi delo\n        self._consecutive_empty_calls = 0\n        self._eos_confirm_calls\
+      \ = 5000 #samo en prazen call ni zadosti da vemo da je res konc\n\n        if\
+      \ self.samples_per_symbol <= 0:\n            raise ValueError(\"samples_per_symbol\
+      \ must be pozitive number\")\n        if self.L <= 0:\n            raise ValueError(\"\
+      L must be pozitive number\")\n        if self.samples_per_symbol % self.L !=\
+      \ 0:\n            raise ValueError(\"samples_per_symbol must be devisible by\
+      \ L\")\n\n        if self.encode_alpha and not self.is_power_of_two(len(self.alpha_map)):\n\
+      \            raise ValueError(\"Size of alpha_map bust be 2^n\")\n        if\
+      \ self.encode_beta and not self.is_power_of_two(len(self.beta_map)):\n     \
+      \       raise ValueError(\"Size of beta_map bust be 2^n\")\n        if self.encode_gama\
+      \ and not self.is_power_of_two(len(self.gama_map)):\n            raise ValueError(\"\
+      Size of gama_map bust be 2^n\")\n\n        self.bits_alpha = self.log2_za_potence2(len(self.alpha_map))\
+      \ if self.encode_alpha else 0\n        self.bits_beta  = self.log2_za_potence2(len(self.beta_map))\
+      \  if self.encode_beta  else 0\n        self.bits_gama  = self.log2_za_potence2(len(self.gama_map))\
+      \  if self.encode_gama  else 0\n        self.bits_per_symbol = self.bits_alpha\
+      \ + self.bits_beta + self.bits_gama\n\n        if self.bits_per_symbol <= 0:\n\
+      \            raise ValueError(\"At least one encode alpha, beta or gama must\
+      \ be True\")\n\n        if self.encode_alpha or self.encode_gama:\n        \
+      \    raise ValueError(\n                \"Dekoder supports only encode_beta=True,\
+      \ encode_alpha=False, encode_gama=False now\"\n            )\n\n    def forecast(self,\
+      \ noutput_items, ninputs):\n        return [0] * int(ninputs)\n\n    @staticmethod\n\
+      \    def is_power_of_two(x):\n        return x > 0 and (x & (x - 1)) == 0\n\n\
+      \    @staticmethod\n    def log2_za_potence2(x):\n        if x == 0:\n     \
+      \       return 0\n        if alpha_decoder.is_power_of_two(x):\n           \
+      \ vrednost = 0\n            while x > 1:\n                x >>= 1\n        \
+      \        vrednost += 1\n            return vrednost\n        raise ValueError(\"\
+      Ena od map ni velikosti 2^n\")\n\n    #najbli\u017Eji indeks po na\u0161i metodi\n\
+      \    @staticmethod\n    def closest_index(value, values):\n        arr = np.array(values,\
+      \ dtype=float)\n        if arr.size == 1:\n            return 0\n        return\
+      \ int(np.argmin(np.abs(arr - value)))\n\n    def estimate_beta(self, symbol_samples):\n\
+      \        samples_per_segment = self.samples_per_symbol // self.L\n        if\
+      \ samples_per_segment <= 0:\n            return 0.0\n\n        symbol_array\
+      \ = np.asarray(symbol_samples, dtype=np.float32)\n        segments = symbol_array[:\
+      \ samples_per_segment * self.L].reshape(\n            self.L, samples_per_segment\n\
+      \        )\n\n        y_max = np.max(segments, axis=1)\n        y_min = np.min(segments,\
+      \ axis=1)\n\n        if y_max.size == 0 or y_min.size == 0:\n            return\
+      \ 0.0\n\n        s2_max = float(np.var(y_max, ddof=1)) if len(y_max) > 1 else\
+      \ 0.0\n        s2_min = float(np.var(y_min, ddof=1)) if len(y_min) > 1 else\
+      \ 0.0\n        s2_max = float(np.nan_to_num(s2_max, nan=0.0, posinf=0.0, neginf=0.0))\n\
+      \        s2_min = float(np.nan_to_num(s2_min, nan=0.0, posinf=0.0, neginf=0.0))\n\
+      \n        spread = np.sqrt(max(0.0, s2_max)) + np.sqrt(max(0.0, s2_min)) + 1e-12\n\
+      \        score = (np.sqrt(max(0.0, s2_max)) - np.sqrt(max(0.0, s2_min))) / spread\n\
+      \        return float(np.clip(score, -1.0, 1.0))\n\n    def _append_input_samples(self,\
+      \ input_samples):\n        if input_samples.size:\n            self._sample_buffer\
+      \ = np.concatenate(\n                (self._sample_buffer, input_samples.astype(np.float32,\
+      \ copy=False))\n            )\n\n    def _flush_bits_to_output(self, out, out_index):\n\
+      \        available_bytes = len(self._decoded_bit_buffer) // 8\n        bytes_to_write\
+      \ = min(len(out) - out_index, available_bytes) #znova da ne prepi\u0161emo slu\u010D\
+      ajno out bufferja \n\n        for byte_index in range(bytes_to_write):\n   \
+      \         base = byte_index * 8\n            byte_value = 0\n            for\
+      \ bit_index in range(8):\n                byte_value |= (self._decoded_bit_buffer[base\
+      \ + bit_index] & 0x1) << bit_index\n            out[out_index + byte_index]\
+      \ = byte_value\n\n        if bytes_to_write > 0:\n            self._decoded_bit_buffer\
+      \ = self._decoded_bit_buffer[bytes_to_write * 8:]\n\n        return bytes_to_write\n\
+      \n    def general_work(self, input_items, output_items):\n        in_samples\
+      \ = input_items[0]\n        out = output_items[0]\n        '''\n        if not\
+      \ hasattr(self, '_dbg_call'):\n            self._dbg_call = 0\n        self._dbg_call\
+      \ += 1\n        c = self._dbg_call\n        '''\n        if len(out) == 0:\n\
+      \            return 0\n\n        #print(f\"[DEC #{c}] id={id(self)} in={len(in_samples)}\
+      \ out_buf={len(out)} sample_buf={len(self._sample_buffer)} bit_buf={len(self._decoded_bit_buffer)}\
+      \ eos={self._eos_reached} ever={self._ever_received_input} empty_streak={self._consecutive_empty_calls}\"\
+      , file=sys.stderr, flush=True)\n        #isto kot v alpha_encoder rabimo nek\
+      \ na\u010Din da ne kon\u010Damo prehitro\n        if len(in_samples) > 0:\n\
+      \            self._ever_received_input = True\n            self._consecutive_empty_calls\
+      \ = 0\n            self._eos_reached = False\n            self._append_input_samples(in_samples)\n\
+      \            self.consume(0, len(in_samples))\n        elif self._ever_received_input:\n\
+      \            self._consecutive_empty_calls += 1\n            if self._consecutive_empty_calls\
+      \ >= self._eos_confirm_calls:\n                self._eos_reached = True\n  \
+      \      else:\n            # \u010Ce ni \u0161e ni\u010D podatkov pri\u0161lo\n\
+      \            return 0\n\n        out_index = 0\n        beta_mask = (1 << self.bits_beta)\
+      \ - 1 if self.bits_beta > 0 else 0 #safety net bolj kot kaj drugega pomojem\
+      \ ne rabim samo tko za sigurn\n\n        # Vr\u017Ei vn kar smo \u017Ee dekodali\n\
+      \        out_index += self._flush_bits_to_output(out, out_index)\n        #\u010D\
+      e stem zapolne\u0161 \u017Ee cel out_index more\u0161 kon\u010Dati saj len(out)\
+      \ ne smemo prekora\u010Diti ka zgubi\u0161 podatke ker prepi\u0161e\u0161 \u010D\
+      ez buffer\n        if out_index == len(out):\n            return out_index\n\
+      \n        # Dekodiramo novo\n        available_symbols = len(self._sample_buffer)\
+      \ // self.samples_per_symbol\n\n        for symbol_index in range(available_symbols):\n\
+      \            symbol_start = symbol_index * self.samples_per_symbol\n       \
+      \     symbol_end = symbol_start + self.samples_per_symbol\n            symbol_samples\
+      \ = self._sample_buffer[symbol_start:symbol_end]\n\n            estimated_beta\
+      \ = self.estimate_beta(symbol_samples)\n            beta_idx = (\n         \
+      \       self.closest_index(estimated_beta, self.beta_map) & beta_mask\n    \
+      \            if self.bits_beta > 0 #ta if je odve\u010D se strinjam je tle samo\
+      \ zaradi logike \u010De implementiram alpha + je dober dodaten check\n     \
+      \           else 0\n            )\n\n            for _ in range(self.bits_alpha):\n\
+      \                self._decoded_bit_buffer.append(0)\n            for bit_index\
+      \ in range(self.bits_beta):\n                self._decoded_bit_buffer.append((beta_idx\
+      \ >> bit_index) & 0x1)\n            for _ in range(self.bits_gama):\n      \
+      \          self._decoded_bit_buffer.append(0)\n\n        # Zbri\u0161i kar smo\
+      \ poslali oziroma sprocesirali\n        consumed_samples = available_symbols\
+      \ * self.samples_per_symbol\n        self._sample_buffer = self._sample_buffer[consumed_samples:]\n\
+      \n        # Izpi\u0161i na output sprocesirano\n        out_index += self._flush_bits_to_output(out,\
+      \ out_index)\n\n        if out_index > 0:\n            return out_index\n\n\
+      \        if self._eos_reached:\n            samples_remain = len(self._sample_buffer)\
+      \ >= self.samples_per_symbol\n            #print(f\"[DEC #{c}] eos confirmed,\
+      \ samples_remain={samples_remain} bit_buf={len(self._decoded_bit_buffer)}\"\
+      , file=sys.stderr, flush=True)\n            bits_remain = len(self._decoded_bit_buffer)\
+      \ >= 8\n            if not samples_remain and not bits_remain:\n           \
+      \     return gr.WORK_DONE\n\n        return 0"
+    affinity: ''
+    alias: ''
+    alpha_map: alpha_map
+    beta_map: beta_map
+    comment: ''
+    encode_alpha: 'False'
+    encode_beta: 'True'
+    encode_gama: 'False'
+    gama_map: gama_map
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_symbol: samples_per_symbol
+  states:
+    _io_cache: ('alpha_decoder', 'alpha_decoder', [('alpha_map', '[1.2, 1.4, 1.6,
+      1.8]'), ('beta_map', '[-1.0, 1.0]'), ('gama_map', '[0.5, 1.0, 1.5, 2.0]'), ('samples_per_symbol',
+      '500'), ('L', '10'), ('encode_alpha', 'False'), ('encode_beta', 'True'), ('encode_gama',
+      'False')], [('0', 'float', 1)], [('0', 'byte', 1)], 'Dekodira vzorce alfa-stabilne
+      porazdelitve v bajte.', ['L', 'alpha_map', 'beta_map', 'encode_alpha', 'encode_beta',
+      'encode_gama', 'gama_map', 'samples_per_symbol'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [952, 492.0]
+    rotation: 0
+    state: enabled
+- name: gama_map_str
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: str
+    value: '"0.5,1.0,1.5,2.0"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 240.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_sink_x_0
+  id: qtgui_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    bw: samp_rate
+    comment: ''
+    fc: '0'
+    fftsize: '1024'
+    gui_hint: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '"Encoded wave"'
+    plotconst: 'True'
+    plotfreq: 'True'
+    plottime: 'True'
+    plotwaterfall: 'True'
+    rate: '10'
+    showports: 'False'
+    showrf: 'False'
+    type: float
+    wintype: window.WIN_BLACKMAN_hARRIS
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [952, 764.0]
+    rotation: 0
+    state: disabled
+- name: samples_per_symbol
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: intx
+    value: '24'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1168, 4.0]
+    rotation: 0
+    state: enabled
+- name: source_file
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: str
+    value: r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin"
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [896, 4.0]
+    rotation: 0
+    state: enabled
+- name: source_number_of_samples
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: intx
+    value: '128'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1424, 8.0]
+    rotation: 0
+    state: enabled
+
+connections:
+- [analog_noise_source_x_0, '0', blocks_head_1, '0']
+- [analog_random_source_x_0, '0', blocks_head_0, '0']
+- [blocks_add_xx_0, '0', epy_block_1, '0']
+- [blocks_head_0, '0', blocks_file_sink_0, '0']
+- [blocks_head_0, '0', epy_block_0, '0']
+- [blocks_head_1, '0', blocks_add_xx_0, '1']
+- [epy_block_0, '0', blocks_add_xx_0, '0']
+- [epy_block_0, '0', blocks_file_sink_2, '0']
+- [epy_block_0, '0', qtgui_sink_x_0, '0']
+- [epy_block_1, '0', blocks_file_sink_1, '0']
+
+metadata:
+  file_format: 1
+  grc_version: 3.10.12.0

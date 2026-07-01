@@ -1,6 +1,7 @@
-File stevilka 1:11/1024
+File stevilka 1:13/1024
 File stevilka 2:19/1024
-File stevilka 3:6/1024
-File stevilka 4:2/1024
+File stevilka 3:8/1024
+File stevilka 4:3/1024
 File stevilka 5:2/1024
 File stevilka 6:0/1024
+File stevilka 7:0/1024
