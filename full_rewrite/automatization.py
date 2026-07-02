@@ -70,12 +70,21 @@ def run_different_beta():
 
 
 def run_different_sample_size():
-    sample_sizes = [16, 24, 32, 40, 120, 400, 800]
+    sample_sizes = [16, 24, 32, 40, 80, 120, 200, 240, 320, 400, 800]
     base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_sample_size"
 
     for sample_size in sample_sizes:
         output_dir = os.path.join(base_dir, str(sample_size))
         run_generator("-1.0,1.0", samples_per_symbol=sample_size, L=8, output_dir=output_dir)
+        run_binary_diff(output_dir)
+
+def run_different_sample_size_with_noise():
+    sample_sizes = [16, 24, 32, 40, 80, 120, 200, 240, 320, 400, 800]
+    base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_sample_size_with_noise"
+
+    for sample_size in sample_sizes:
+        output_dir = os.path.join(base_dir, str(sample_size))
+        run_generator("-1.0,1.0", samples_per_symbol=sample_size, L=8, noise_ratio=6.5, output_dir=output_dir)
         run_binary_diff(output_dir)
 
 
@@ -119,18 +128,20 @@ def main():
         print("1 - all")
         print("2 - different_beta")
         print("3 - different_sample_size")
-        print("4 - different_noise_ratio")
-        print("5 - different_l_ratio")
-        print("6 - graphs")
+        print("4 - different_sample_size_with_noise")
+        print("5 - different_noise_ratio")
+        print("6 - different_l_ratio")
+        print("7 - graphs")
         choice = input("Enter choice: ").strip()
 
         menu = {
             "1": "all",
             "2": "different_beta",
             "3": "different_sample_size",
-            "4": "different_noise_ratio",
-            "5": "different_l_ratio",
-            "6": "graphs",
+            "4": "different_sample_size_with_noise",
+            "5": "different_noise_ratio",
+            "6": "different_l_ratio",
+            "7": "graphs",
         }
         args.experiment = menu.get(choice, "all")
 
@@ -140,12 +151,15 @@ def main():
     if args.experiment in ("all", "different_sample_size"):
         run_different_sample_size()
 
+    if args.experiment in ("all", "different_sample_size_with_noise"):
+        run_different_sample_size_with_noise()
+
     if args.experiment in ("all", "different_noise_ratio"):
         run_different_noise_ratio()
 
     if args.experiment in ("all", "different_l_ratio"):
         run_different_l_ratio()
-
+   
     if args.experiment == "graphs":
         run_graphs()
 

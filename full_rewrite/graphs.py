@@ -68,6 +68,170 @@ def save_line_chart(x_values, y_values, title, xlabel, ylabel, filename):
     plt.close(fig)
 
 
+def apply_publication_style(ax):
+    ax.set_axisbelow(True)
+    ax.minorticks_on()
+    ax.grid(True, which="major", linestyle="-", linewidth=0.75, alpha=0.25)
+    ax.grid(True, which="minor", linestyle="-", linewidth=0.25, alpha=0.15)
+    for spine in ax.spines.values():
+        spine.set_linewidth(1.1)
+    ax.tick_params(axis="both", which="major", width=1.1)
+
+
+def save_sample_size_chart(x_values, y_values, title, xlabel, ylabel, filename):
+    x_arr = np.asarray(x_values, dtype=float)
+    y_arr = np.asarray(y_values, dtype=float)
+
+    fig, ax = plt.subplots(figsize=(10, 6.2))
+    ax.scatter(
+        x_arr,
+        y_arr,
+        s=90,
+        color="#79b5b6",
+        edgecolors="#2b6a73",
+        linewidths=1.4,
+        label="Measured points",
+        zorder=3,
+    )
+
+    valid_mask = x_arr > 1.0
+    if np.sum(valid_mask) >= 2:
+        inv_log = 1.0 / np.log(x_arr[valid_mask])
+        design = np.column_stack((inv_log, np.ones_like(inv_log)))
+        coeffs, _, _, _ = np.linalg.lstsq(design, y_arr[valid_mask], rcond=None)
+        a_value, b_value = coeffs
+
+        x_fit_min = max(float(np.min(x_arr[valid_mask])), 1.01)
+        x_fit = np.linspace(x_fit_min, float(np.max(x_arr[valid_mask])), 300)
+        y_fit = a_value / np.log(x_fit) + b_value
+        ax.plot(
+            x_fit,
+            y_fit,
+            color="#2f6fed",
+            linewidth=2.8,
+            label=f"Approx.: y = {a_value:.3e}/log(x) + {b_value:.3e}",
+            zorder=2,
+        )
+
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    apply_publication_style(ax)
+
+    # Show x-value numbers above the axis as requested.
+    ax.tick_params(axis="x", top=True, labeltop=True, bottom=False, labelbottom=False)
+
+    ax.legend(frameon=False)
+    fig.tight_layout()
+    fig.savefig(os.path.join(GRAPH_OUTPUT_DIR, filename), dpi=200)
+    plt.close(fig)
+
+
+def save_noise_ratio_chart(x_values, y_values, title, xlabel, ylabel, filename):
+    x_arr = np.asarray(x_values, dtype=float)
+    y_arr = np.asarray(y_values, dtype=float)
+
+    fig, ax = plt.subplots(figsize=(10, 6.2))
+    ax.scatter(
+        x_arr,
+        y_arr,
+        s=90,
+        color="#79b5b6",
+        edgecolors="#2b6a73",
+        linewidths=1.4,
+        label="Measured points",
+        zorder=3,
+    )
+
+    if len(x_arr) >= 2:
+        degree = 2 if len(x_arr) >= 3 else 1
+        coeffs = np.polyfit(x_arr, y_arr, degree)
+        model = np.poly1d(coeffs)
+        x_fit = np.linspace(float(np.min(x_arr)), float(np.max(x_arr)), 300)
+        y_fit = model(x_fit)
+        ax.plot(x_fit, y_fit, color="#2f6fed", linewidth=2.8, label="Approximation", zorder=2)
+
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    apply_publication_style(ax)
+    ax.legend(frameon=False)
+
+    fig.tight_layout()
+    fig.savefig(os.path.join(GRAPH_OUTPUT_DIR, filename), dpi=200)
+    plt.close(fig)
+
+def save_noise_ratio_chart(x_values, y_values, title, xlabel, ylabel, filename):
+    x_arr = np.asarray(x_values, dtype=float)
+    y_arr = np.asarray(y_values, dtype=float)
+
+    fig, ax = plt.subplots(figsize=(10, 6.2))
+    ax.scatter(
+        x_arr,
+        y_arr,
+        s=90,
+        color="#79b5b6",
+        edgecolors="#2b6a73",
+        linewidths=1.4,
+        label="Measured points",
+        zorder=3,
+    )
+
+    if len(x_arr) >= 2:
+        degree = 2 if len(x_arr) >= 3 else 1
+        coeffs = np.polyfit(x_arr, y_arr, degree)
+        model = np.poly1d(coeffs)
+        x_fit = np.linspace(float(np.min(x_arr)), float(np.max(x_arr)), 300)
+        y_fit = model(x_fit)
+        ax.plot(x_fit, y_fit, color="#2f6fed", linewidth=2.8, label=f"Approximation (deg {degree})", zorder=2)
+
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    apply_publication_style(ax)
+    ax.legend(frameon=False)
+
+    fig.tight_layout()
+    fig.savefig(os.path.join(GRAPH_OUTPUT_DIR, filename), dpi=200)
+    plt.close(fig)
+
+def graph_noise_ratio():
+    base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_noise_ratio")
+    results = []
+
+    if not os.path.isdir(base_dir):
+        print(f"Skipping noise-ratio graph, missing folder: {base_dir}")
+        return
+
+    for folder_name in sorted(os.listdir(base_dir)):
+        output_path = os.path.join(base_dir, folder_name, "output.txt")
+        if not os.path.isfile(output_path) or not folder_name.startswith("noise_"):
+            continue
+
+        error_rate = read_error_rate(output_path)
+        if error_rate is None:
+            continue
+
+        noise_value = float(folder_name.replace("noise_", "").replace("p", "."))
+        results.append((noise_value, error_rate))
+
+    if not results:
+        print("No noise-ratio results found.")
+        return
+
+    results.sort(key=lambda item: item[0])
+    x_values, y_values = zip(*results)
+    save_noise_ratio_chart(
+        x_values,
+        y_values,
+        "Error rate vs noise ratio",
+        "noise ratio",
+        "error rate",
+        "noise_ratio_error.png",
+    )
+    best_noise, best_value = min(results, key=lambda item: item[1])
+    print(f"Best noise ratio: {best_noise} with error rate {best_value:.6f}")
+
 def graph_beta():
     base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_beta")
     results = []
@@ -126,35 +290,47 @@ def graph_sample_size():
     print(f"Best sample size: {best_sample} with error rate {best_value:.6f}")
 
 
-def graph_noise_ratio():
-    base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_noise_ratio")
+
+
+
+
+#######################################
+
+def graph_sample_size_with_noise():
+    base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_sample_size_with_noise")
     results = []
 
     if not os.path.isdir(base_dir):
-        print(f"Skipping noise-ratio graph, missing folder: {base_dir}")
+        print(f"Skipping sample-size graph, missing folder: {base_dir}")
         return
 
-    for folder_name in sorted(os.listdir(base_dir)):
+    for folder_name in sorted(os.listdir(base_dir), key=lambda value: int(value) if value.isdigit() else value):
         output_path = os.path.join(base_dir, folder_name, "output.txt")
-        if not os.path.isfile(output_path) or not folder_name.startswith("noise_"):
+        if not os.path.isfile(output_path) or not folder_name.isdigit():
             continue
 
         error_rate = read_error_rate(output_path)
         if error_rate is None:
             continue
 
-        noise_value = float(folder_name.replace("noise_", "").replace("p", "."))
-        results.append((noise_value, error_rate))
+        results.append((int(folder_name), error_rate))
 
     if not results:
-        print("No noise-ratio results found.")
+        print("No sample-size results found.")
         return
 
-    results.sort(key=lambda item: item[0])
     x_values, y_values = zip(*results)
-    save_line_chart(x_values, y_values, "Error rate vs noise ratio", "noise ratio", "error rate", "noise_ratio_error.png")
-    best_noise, best_value = min(results, key=lambda item: item[1])
-    print(f"Best noise ratio: {best_noise} with error rate {best_value:.6f}")
+    save_line_chart(x_values, y_values, "Error rate vs sample size", "samples per symbol", "error rate", "sample_size_error_with_noise.png")
+    best_sample, best_value = min(results, key=lambda item: item[1])
+    print(f"Best sample size: {best_sample} with error rate {best_value:.6f}")
+
+
+
+
+
+
+
+
 
 
 def graph_l_ratio():
@@ -209,7 +385,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--plot",
-        choices=["all", "beta", "sample_size", "noise_ratio", "l_ratio"],
+        choices=["all", "beta", "sample_size", "noise_ratio", "l_ratio", "sample_size_with_noise"],
         default="all",
         help="Choose which graph family to generate.",
     )
@@ -222,6 +398,9 @@ def main():
 
     if args.plot in ("all", "sample_size"):
         graph_sample_size()
+    
+    if args.plot in ("all", "sample_size_with_noise"):
+        graph_sample_size_with_noise()
 
     if args.plot in ("all", "noise_ratio"):
         graph_noise_ratio()

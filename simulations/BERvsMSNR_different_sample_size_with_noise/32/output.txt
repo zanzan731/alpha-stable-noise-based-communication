@@ -1,0 +1,11 @@
+File stevilka 1:191/1024
+File stevilka 2:183/1024
+File stevilka 3:164/1024
+File stevilka 4:194/1024
+File stevilka 5:173/1024
+File stevilka 6:217/1024
+File stevilka 7:204/1024
+File stevilka 8:187/1024
+File stevilka 9:174/1024
+File stevilka 10:203/1024
+Povprecna napka: 189
