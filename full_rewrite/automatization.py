@@ -3,7 +3,9 @@ import os
 import argparse
 
 
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 BINARY_DIFF_EXE = r"C:\Users\žan\Desktop\3.letnik\Diploma\binary_diff\x64\Debug\binary_diff.exe"
+GRAPH_SCRIPT = os.path.join(SCRIPT_DIR, "graphs.py")
 
 
 def run_generator(beta_map, samples_per_symbol, L, output_dir, runs=10, noise_ratio=0.0):
@@ -16,7 +18,7 @@ def run_generator(beta_map, samples_per_symbol, L, output_dir, runs=10, noise_ra
 
         cmd = [
             "python",
-            "alpha_stable_generator.py",
+            os.path.join(SCRIPT_DIR, "alpha_stable_generator.py"),
             f"--beta-map-str={beta_map}",
             "--samples-per-symbol", str(samples_per_symbol),
             "--L", str(L),
@@ -39,6 +41,16 @@ def run_binary_diff(output_dir):
     print("\nRUNNING BINARY DIFF:")
     print(BINARY_DIFF_EXE)
     subprocess.run([BINARY_DIFF_EXE], cwd=output_dir, check=True)
+
+
+def run_graphs():
+    if not os.path.exists(GRAPH_SCRIPT):
+        print(f"Skipping graphs because it was not found: {GRAPH_SCRIPT}")
+        return
+
+    print("\nRUNNING GRAPH GENERATION:")
+    print(GRAPH_SCRIPT)
+    subprocess.run(["python", GRAPH_SCRIPT], check=True)
 
 
 def run_different_beta():
@@ -68,13 +80,13 @@ def run_different_sample_size():
 
 
 def run_different_noise_ratio():
-    noise_ratios = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    noise_ratios = [0.0, 0.2, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0]
     base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_noise_ratio"
 
     for noise_ratio in noise_ratios:
         noise_tag = str(noise_ratio).replace(".", "p")
         output_dir = os.path.join(base_dir, f"noise_{noise_tag}")
-        run_generator("-1.0,1.0", samples_per_symbol=500, L=20, output_dir=output_dir, noise_ratio=noise_ratio)
+        run_generator("-1.0,1.0", samples_per_symbol=64, L=8, output_dir=output_dir, noise_ratio=noise_ratio)
         run_binary_diff(output_dir)
 
 
@@ -97,7 +109,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--experiment",
-        choices=["all", "different_beta", "different_sample_size", "different_noise_ratio", "different_l_ratio"],
+        choices=["all", "different_beta", "different_sample_size", "different_noise_ratio", "different_l_ratio", "graphs"],
         help="Choose which experiment block to run.",
     )
     args = parser.parse_args()
@@ -109,6 +121,7 @@ def main():
         print("3 - different_sample_size")
         print("4 - different_noise_ratio")
         print("5 - different_l_ratio")
+        print("6 - graphs")
         choice = input("Enter choice: ").strip()
 
         menu = {
@@ -117,6 +130,7 @@ def main():
             "3": "different_sample_size",
             "4": "different_noise_ratio",
             "5": "different_l_ratio",
+            "6": "graphs",
         }
         args.experiment = menu.get(choice, "all")
 
@@ -131,6 +145,9 @@ def main():
 
     if args.experiment in ("all", "different_l_ratio"):
         run_different_l_ratio()
+
+    if args.experiment == "graphs":
+        run_graphs()
 
     print("\nALL EXPERIMENTS FINISHED")
 

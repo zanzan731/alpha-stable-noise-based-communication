@@ -90,7 +90,7 @@ blocks:
     label: ''
     short_id: ''
     type: intx
-    value: '4'
+    value: '8'
   states:
     bus_sink: false
     bus_source: false
@@ -674,7 +674,7 @@ blocks:
     label: ''
     short_id: ''
     type: eng_float
-    value: '0.2'
+    value: '10'
   states:
     bus_sink: false
     bus_source: false

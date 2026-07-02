@@ -1,0 +1,11 @@
+File stevilka 1:108/1024
+File stevilka 2:92/1024
+File stevilka 3:98/1024
+File stevilka 4:84/1024
+File stevilka 5:99/1024
+File stevilka 6:107/1024
+File stevilka 7:98/1024
+File stevilka 8:85/1024
+File stevilka 9:78/1024
+File stevilka 10:96/1024
+Povprecna napka: 94.5
