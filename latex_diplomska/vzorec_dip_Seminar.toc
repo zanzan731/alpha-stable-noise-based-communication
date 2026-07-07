@@ -5,8 +5,9 @@
 \contentsline {chapter}{Abstract}{}{chapter*.3}%
 \babel@toc {slovene}{}\relax 
 \contentsline {chapter}{\numberline {1}Uvod}{1}{chapter.1}%
-\contentsline {chapter}{\numberline {2}Osnovni gradniki \LaTeX {a}}{3}{chapter.2}%
-\contentsline {chapter}{\numberline {3}Matematično okolje in sklicevanje na besedilne konstrukte}{5}{chapter.3}%
+\contentsline {chapter}{\numberline {2}Trenutno stanje mobilnih omrežij}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Zgodovina $\alpha $-stabilne porazdelitve}{4}{section.2.1}%
+\contentsline {chapter}{\numberline {3}$\alpha $-stabilna distribucija}{5}{chapter.3}%
 \contentsline {chapter}{\numberline {4}Plovke: slike in tabele}{7}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Formati slik}{8}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Podnapisi k slikam in tabelam}{9}{subsection.4.1.1}%
