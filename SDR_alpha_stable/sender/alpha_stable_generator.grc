@@ -126,7 +126,7 @@ blocks:
     min: '0'
     minoutbuf: '0'
     num_samps: source_number_of_samples
-    repeat: 'False'
+    repeat: 'True'
     type: byte
   states:
     bus_sink: false
@@ -252,7 +252,7 @@ blocks:
       \ samples_per_symbol=500,\n        encode_alpha=False,\n        encode_beta=True,\n\
       \        encode_gama=False,\n        eos_timeout=2.0,\n        expected_input_bytes=None,\n\
       \    ):\n        gr.basic_block.__init__(\n            self,\n            name=\"\
-      alpha_encoder\",\n            in_sig=[np.uint8],\n            out_sig=[np.float32],\n\
+      alpha_encoder\",\n            in_sig=[np.uint8],\n            out_sig=[np.complex64],\n\
       \        )\n\n        self.alpha_map = list(alpha_map)\n        self.beta_map\
       \ = list(beta_map)\n        self.gama_map = list(gama_map)\n        self.samples_per_symbol\
       \ = int(samples_per_symbol)\n        self.encode_alpha = bool(encode_alpha)\n\
@@ -358,8 +358,8 @@ blocks:
       \ rabim zadosti simbolov da encodam celotno \n        ):\n            alpha,\
       \ beta, gama = self._encode_one_symbol(bit_offset)\n            samples = self.alpha_stable(\n\
       \                self.samples_per_symbol, alpha=alpha, beta=beta, gama=gama\n\
-      \            ).astype(np.float32)\n\n            start = produced_symbols *\
-      \ self.samples_per_symbol\n            end = start + self.samples_per_symbol\n\
+      \            ).astype(np.complex64)\n\n            start = produced_symbols\
+      \ * self.samples_per_symbol\n            end = start + self.samples_per_symbol\n\
       \            output_samples[start:end] = samples\n\n            produced_symbols\
       \ += 1\n            bit_offset += self.bits_per_symbol\n\n        if bit_offset\
       \ > 0:\n            self._bit_buffer = self._bit_buffer[bit_offset:] #zamakni\
@@ -390,7 +390,7 @@ blocks:
       1.8]'), ('beta_map', '[-1.0, 1.0]'), ('gama_map', '[0.5, 1.0, 1.5, 2.0]'), ('samples_per_symbol',
       '500'), ('encode_alpha', 'False'), ('encode_beta', 'True'), ('encode_gama',
       'False'), ('eos_timeout', '2.0'), ('expected_input_bytes', 'None')], [('0',
-      'byte', 1)], [('0', 'float', 1)], 'Kodira bajte v serijo vzorcev alfa-stabilne
+      'byte', 1)], [('0', 'complex', 1)], 'Kodira bajte v serijo vzorcev alfa-stabilne
       porazdelitve.', ['alpha_map', 'beta_map', 'encode_alpha', 'encode_beta', 'encode_gama',
       'eos_timeout', 'expected_input_bytes', 'gama_map', 'samples_per_symbol'])
     bus_sink: false
@@ -459,7 +459,7 @@ blocks:
     label: ''
     short_id: ''
     type: str
-    value: r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin"
+    value: r"C:\Users\Uporabnik\Documents\GitHub\Diploma\SDR_alpha_stable\sender\source.bin"
   states:
     bus_sink: false
     bus_source: false
@@ -595,7 +595,7 @@ blocks:
     clock_source6: ''
     clock_source7: ''
     comment: ''
-    dev_addr: '""'
+    dev_addr: '"source=30F4194"'
     dev_args: ''
     gain0: '0'
     gain1: '0'
@@ -758,7 +758,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1192, 436.0]
+    coordinate: [1040, 448.0]
     rotation: 0
     state: enabled
 
