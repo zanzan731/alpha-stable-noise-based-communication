@@ -214,13 +214,13 @@ blocks:
       \   samples_per_symbol=500,\n        L=10,\n        encode_alpha=False,\n  \
       \      encode_beta=True,\n        encode_gama=False,\n        eos_timeout=3.0,\n\
       \        expected_input_samples=None,\n    ):\n        gr.basic_block.__init__(\n\
-      \            self,\n            name=\"alpha_decoder\",\n            in_sig=[np.float32],\n\
+      \            self,\n            name=\"alpha_decoder\",\n            in_sig=[np.complex64],\n\
       \            out_sig=[np.uint8],\n        )\n\n        self.alpha_map = list(alpha_map)\n\
       \        self.beta_map = list(beta_map)\n        self.gama_map = list(gama_map)\n\
       \        self.samples_per_symbol = int(samples_per_symbol)\n        self.L =\
       \ int(L)\n        self.encode_alpha = bool(encode_alpha)\n        self.encode_beta\
       \ = bool(encode_beta)\n        self.encode_gama = bool(encode_gama)\n\n    \
-      \    self._sample_buffer = np.empty(0, dtype=np.float32)\n        self._decoded_bit_buffer\
+      \    self._sample_buffer = np.empty(0, dtype=np.complex64)\n        self._decoded_bit_buffer\
       \ = []\n        self._eos_reached = False\n        self._ever_received_input\
       \ = False #potrebno da vem kdaj startam stevec oziroma da ne kon\u010Da predn\
       \ dobi delo\n\n        # Fallback-only timing state\n        self.eos_timeout\
@@ -259,7 +259,7 @@ blocks:
       \ int(np.argmin(np.abs(arr - value)))\n\n    def estimate_beta(self, symbol_samples):\n\
       \        samples_per_segment = self.samples_per_symbol // self.L\n        if\
       \ samples_per_segment <= 0:\n            return 0.0\n\n        symbol_array\
-      \ = np.asarray(symbol_samples, dtype=np.float32)\n        segments = symbol_array[:\
+      \ = np.asarray(symbol_samples, dtype=np.complex64)\n        segments = symbol_array[:\
       \ samples_per_segment * self.L].reshape(\n            self.L, samples_per_segment\n\
       \        )\n\n        y_max = np.max(segments, axis=1)\n        y_min = np.min(segments,\
       \ axis=1)\n\n        if y_max.size == 0 or y_min.size == 0:\n            return\
@@ -271,7 +271,7 @@ blocks:
       \        score = (np.sqrt(max(0.0, s2_max)) - np.sqrt(max(0.0, s2_min))) / spread\n\
       \        return float(np.clip(score, -1.0, 1.0))\n\n    def _append_input_samples(self,\
       \ input_samples):\n        if input_samples.size:\n            self._sample_buffer\
-      \ = np.concatenate(\n                (self._sample_buffer, input_samples.astype(np.float32,\
+      \ = np.concatenate(\n                (self._sample_buffer, input_samples.astype(np.complex64,\
       \ copy=False))\n            )\n\n    def _flush_bits_to_output(self, out, out_index):\n\
       \        available_bytes = len(self._decoded_bit_buffer) // 8\n        bytes_to_write\
       \ = min(len(out) - out_index, available_bytes) #znova da ne prepi\u0161emo slu\u010D\
@@ -350,7 +350,7 @@ blocks:
       1.8]'), ('beta_map', '[-1.0, 1.0]'), ('gama_map', '[0.5, 1.0, 1.5, 2.0]'), ('samples_per_symbol',
       '500'), ('L', '10'), ('encode_alpha', 'False'), ('encode_beta', 'True'), ('encode_gama',
       'False'), ('eos_timeout', '3.0'), ('expected_input_samples', 'None')], [('0',
-      'float', 1)], [('0', 'byte', 1)], 'Dekodira vzorce alfa-stabilne porazdelitve
+      'complex', 1)], [('0', 'byte', 1)], 'Dekodira vzorce alfa-stabilne porazdelitve
       v bajte.', ['L', 'alpha_map', 'beta_map', 'encode_alpha', 'encode_beta', 'encode_gama',
       'eos_timeout', 'expected_input_samples', 'gama_map', 'samples_per_symbol'])
     bus_sink: false
@@ -449,7 +449,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    ant0: '"RX2"'
+    ant0: '"TX/RX"'
     ant1: '"RX2"'
     ant10: '"RX2"'
     ant11: '"RX2"'
@@ -619,7 +619,7 @@ blocks:
     dc_offs_enb7: default
     dc_offs_enb8: default
     dc_offs_enb9: default
-    dev_addr: '""'
+    dev_addr: '"source=30F4146"'
     dev_args: ''
     gain0: '0'
     gain1: '0'

@@ -1,0 +1,14 @@
+\babel@toc {slovene}{}\relax 
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{Summary}{}{chapter*.2}%
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{Abstract}{}{chapter*.3}%
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Current State of Mobile Networks}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}History of the $\alpha $-Stable Distribution}{4}{section.2.1}%
+\contentsline {chapter}{\numberline {3}$\alpha $-Stable Distribution}{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}$\alpha $-Stable Distribution and the Central Limit Theorem}{7}{section.3.1}%
+\contentsline {chapter}{\numberline {4}Using the $\alpha $-Stable Distribution as an Information Carrier}{11}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Simulations}{13}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Implementation and Simulation in a Real Environment}{15}{chapter.6}%

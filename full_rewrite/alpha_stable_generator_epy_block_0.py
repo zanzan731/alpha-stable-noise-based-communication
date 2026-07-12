@@ -18,7 +18,7 @@ class alpha_encoder(gr.basic_block):
         self, 
         alpha_map=[1.2, 1.4, 1.6, 1.8], 
         beta_map=[-1.0, 1.0],
-        gama_map=[0.5, 1.0, 1.5, 2.0],
+        gama_map=[1.0],
         samples_per_symbol=500,
         encode_alpha=False,
         encode_beta=True,
@@ -129,7 +129,7 @@ class alpha_encoder(gr.basic_block):
     def _encode_one_symbol(self, bit_offset):
         alpha = 1.1
         beta = 0.0
-        gama = 1.0
+        gama = self.gama_map[0]
         offset = bit_offset
 
         if self.encode_alpha:

@@ -1,26 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% datoteka diploma-vzorec.tex
-%
-% vzorčna datoteka za pisanje diplomskega dela v formatu LaTeX
-% na UL Fakulteti za računalništvo in informatiko
-%
-% vkup spravil Gašper Fijavž, december 2010
-% 
-%
-%
-% verzija 12. februar 2014 (besedilo teme, seznam kratic, popravki Gašper Fijavž)
-% verzija 10. marec 2014 (redakcijski popravki Zoran Bosnić)
-% verzija 11. marec 2014 (redakcijski popravki Gašper Fijavž)
-% verzija 15. april 2014 (pdf/a 1b compliance, not really - just claiming, Damjan Cvetan, Gašper Fijavž)
-% verzija 23. april 2014 (privzeto cc licenca)
-% verzija 16. september 2014 (odmiki strain od roba)
-% verzija 28. oktober 2014 (odstranil vpisno številko)
-% verija 5. februar 2015 (Literatura v kazalu, online literatura)
-% verzija 25. september 2015 (angl. naslov v izjavi o avtorstvu)
-% verzija 26. februar 2016 (UL izjava o avtorstvu)
-% verzija 16. april 2016 (odstranjena izjava o avtorstvu)
-% verzija 5. junij 2016 (Franc Solina dodal vrstice, ki jih je označil s svojim imenom)
-
 
 \documentclass[a4paper, 12pt]{book}
 %\documentclass[a4paper, 12pt, draft]{book}  Nalogo preverite tudi z opcijo draft, ki vam bo pokazala, katere vrstice so predolge!
@@ -374,7 +351,7 @@ Brezžična komunikacija je postala del vsakdanjega življenja. Uporabljamo jo p
 
 Sodobni brezžični komunikacijski sistemi kot so Wi-Fi, bluetooth, mobilna omrežja četrte in pete generacije vse temeljijo na naprednih metodah modulacije (amplituda, faza, frekvenca), kodiranje in obdelave signala. Takšen pristop je osnova praktično vseh danes uporabljenih komunikacijskih standardov in je rezultat desetletij razvoja na tem področju in izboljševanjem z vsako generacijo tako na hitrosti kot na zanesljivosti in varnosti.
 
-Kljub uspešnosti in uveljavljanju modulacijskih tehnik se še vedno iščejo tudi novi načini prenašanja informacij. Eden od možnih pristopov je uporaba "statičnih" lastnosti signala za prenos informacij. Namesto da kodiramo podatke zgolj s spremembami amplitud, faz in frekvenc je mogoče informacije predstaviti tudi z izbiro ustreznih parametrov statične porazdelitve signala.
+Kljub uspešnosti in uveljavljanju modulacijskih tehnik se še vedno iščejo tudi novi načini prenašanja informacij. Eden od možnih pristopov je uporaba statičnih lastnosti signala za prenos informacij. Namesto da kodiramo podatke zgolj s spremembami amplitud, faz in frekvenc je mogoče informacije predstaviti tudi z izbiro ustreznih parametrov statične porazdelitve signala.
 
 V tej diplomski nalogi je predstavljen komunikacijski sistem, ki temelji na $\alpha$-stabilni (alpha-stable) porazdelitvi. Za razliko od klasičnih modulacijskih procesov je tak način komunikacije dosti težje zaznati in dešifrirati, tudi brez dodatnih kriptografskih metod. Seveda pa vse to prinese tudi nove izzive.
 
@@ -385,23 +362,40 @@ Cilj diplomske naloge je razviti in predstaviti takšen način predstavitve poda
 \label{ch0}
 Sodobna mobilna omrežja so zasnovana na prenosu informacij z uporabo determinističnih signalov, katerih lastnosti so določene z različnimi modulacijskimi tehnikami. Tehnologije, uporabljene v omrežjih 4G in 5G, temeljijo na spreminjanju amplitude, faze ali frekvence nosilnega signala, pri čemer je cilj čim učinkovitejša izraba razpoložljivega spektra ter zagotavljanje zanesljivega prenosa podatkov. Za izboljšanje zmogljivosti se uporabljajo napredne metode, kot so OFDM, MIMO in prilagodljivo kodiranje. 
 
-Pri načrtovanju takih omrežij se signal obravnava kot nosilec podatkov, medtem ko šum predstavlja nezaželjen pojav, ki zmanjšuje kakovost prenosa. Posledično je velik del razvoja usmerjen v zmanjševanje vpliva šuma z uporabo kodiranja, filtriranja, ocenjevanja kanalov in različnih metod zmanjševanja signala.
+Pri načrtovanju takih omrežij se signal obravnava kot nosilec podatkov, medtem ko šum predstavlja nezaželjen pojav, ki zmanjšuje kakovost prenosa. Posledično je velik del razvoja usmerjen v zmanjševanje vpliva šuma z uporabo kodiranja, filtriranja, ocenjevanja kanalov in naprednih metod obdelave signalov.
 
-Kljub velikemu napredku imajo obstoječi komunikacijsi sistemi določene omejitve. Z naraščanjem števila uporabnikov, vse večjimi zahtevami po pasovni širini  postaja iskanje alternativnih komunikacij vse pomembnejše raziskovalno področje. Poleg povečanja zmogljivosti postajajo vedno pomembnejši tudi vidiki varnosti in zaščite komunikacije. Klasične modulacijske tehnike imajo dobro poznane lastnosti, zaradi česar jih je mogoče precej enostavno zaznati, analizirati in prestreči z ustrezno opremo. 
+Kljub velikemu napredku imajo obstoječi komunikacijsi sistemi določene omejitve. Z naraščanjem števila uporabnikov, vse večjimi zahtevami po pasovni širini  postaja iskanje alternativnih komunikacij vse pomembnejše raziskovalno področje. Poleg povečanja zmogljivosti postajajo vedno pomembnejši tudi vidiki varnosti in zaščite komunikacije. Klasične modulacijske tehnike imajo dobro poznane lastnosti, zaradi česar jih je mogoče precej enostavno zaznati, analizirati in prestreči z ustrezno opremo.
 
-Zaradi tega se odpirajo možnosti za razvoj novih načinov komunikacije, pri katerih je poleg zaneslivega prenosa podatkov pomembna tudi nizka zaznava samega komunikacijskega signala. Uporaba stohastičnih signalov kot nosilcev informacije predstavlja enega izmed boljših možnih pristopov, saj zaradi svojih stohastičnih lastnosti oteži zaznavanje komunikacije in s tem poveča stopnjo varnosti prenosa podatkov.
+Zaradi tega se odpirajo možnosti za razvoj novih načinov komunikacije, pri katerih je poleg zaneslivega prenosa podatkov pomembna tudi nizka zaznava samega komunikacijskega signala. Uporaba stohastičnih signalov kot nosilcev informacije predstavlja enega izmed učinkovitejših pristopov, saj njihova naključna in zato nepredvidljiva narava otežuje zaznavanje komunikacije in s tem posledično poveča varnost prenosa podatkov.
 
 \section{Zgodovina $\alpha$-stabilne porazdelitve} 
-Stabilne porazdelitve so družina verjetnostnih porazdelitev, ki si delijo nekatere lastnosti. Prvič jih je opisal francoski matematik Paul Lévy leta 1925 in so zato tudi kdaj poimenovane Lévy alpha-stabilne distribucije. Njegovo delo je pokazalo, da določene porazdelitve ohranjajo svojo obliko tudi pri seštevanju neodvisnih slučajnih spremenljivk, ki smo jih nato poimenovali stabilne porazdelitve. Kasneje pri raziskovanju takih porazdelitev, so odkrili tudi $\alpha$-stabilne porazdelitve, ki je naravna posplošitev normalne porazdelitve. Zaradi svojih lastnosti, kot so težki repi in možnost modeliranja asimetrije ima ta porazdelitev zelo dobre lastnosti za uporabo v financah, telekomunikaciji, fiziki in obdelavi signalov, kjer klasična normalna porazdelitev pogosto ne zadošča vsem kriterijem, za opis ekstremnih podatkov.
+Stabilne porazdelitve so družina verjetnostnih porazdelitev, ki si delijo nekatere lepe lastnosti. Prvič jih je opisal francoski matematik Paul Lévy leta 1925 in so zato tudi kdaj poimenovane Lévy alpha-stabilne distribucije. Njegovo delo je pokazalo, da določene porazdelitve ohranjajo svojo obliko tudi pri seštevanju neodvisnih slučajnih spremenljivk. Take porazdelitve se imenujejo stabilne porazdelitve in ena izmed njih je tudi $\alpha$-stabilne porazdelitve, ki je naravna posplošitev normalne porazdelitve. Zaradi svojih lastnosti, kot so težki repi in možnost modeliranja asimetrije ima ta porazdelitev zelo dobre lastnosti za uporabo v financah, telekomunikaciji, fiziki in obdelavi signalov, kjer klasična normalna porazdelitev pogosto ne zadošča vsem kriterijem, za opis ekstremnih podatkov.
 
 \chapter{$\alpha$-stabilna distribucija}
 \label{ch1}
-Alfa stabilna porazdelitev 
+$\alpha$-stabilna porazdelitev je zvezna porazdelitev. To pomeni, da obstaja integrabilna funkcija
+$p_X$, imenovana \emph{gostota verjetnosti}, tako da za vsak $x \in \mathbb{R}$ velja
+
 \[
-\phi(t)=\mathbb{E}\left[e^{itX}\right]=
+F_X(x)=\int_{-\infty}^{x} p_X(t)\,dt,
+\]
+
+kjer je $F_X$ porazdelitvena funkcija slučajne spremenljivke $X$.
+
+Gostote verjetnosti $\alpha$-stabilne porazdelitve praviloma ni mogoče izraziti z elementarnimi funkcijami. Zato je ta porazdelitev običajno podana prek svoje karakteristične funkcije $\phi_X(t): \mathbb{R} \rightarrow \mathbb{C}$:
+
+\[
+\phi_X(t)=\mathbb{E}\!\left[e^{itX}\right]
+=\int_{-\infty}^{\infty} e^{itx}\,p_X(x)\,dx,
+\qquad t\in\mathbb{R}.
+\]
+
+Ta se glasi:
+\[
+\phi(t)=
 \begin{cases}
 \exp\!\left(
-i\delta t
+i\mu t
 -\gamma^{\alpha}|t|^{\alpha}
 \left(
 1-i\beta\,\operatorname{sign}(t)\tan\frac{\pi\alpha}{2}
@@ -409,7 +403,7 @@ i\delta t
 \right),
 & \alpha \neq 1, \\[1.2em]
 \exp\!\left(
-i\delta t
+i\mu t
 -\gamma|t|
 \left(
 1+i\beta\frac{2}{\pi}\operatorname{sign}(t)\ln\frac{\pi\alpha}{2}
@@ -419,314 +413,208 @@ i\delta t
 \end{cases}
 \]
 
+Kot smo že omenili, je najpomembnejša lastnost $\alpha$-stabilnih porazdelitev njihova stabilnost, zato je smiselno tudi definirati, kaj ta stabilnost pomeni.
+
+Definicija:
+Naj bosta $X_1$ in $X_2$ neodvisni kopiji slučajne spremenljivke $X$. Porazdelitev $X$ je stabilna, če za poljubni konstanti $a,b>0$ obstajata konstanti $c>0$ in $d\in\mathbb{R}$, da velja
+
+\[
+aX_1+bX_2 \overset{d}{=} cX+d.
+\]
+
+To pomeni, da linearna kombinacija dveh neodvisnih slučajnih spremenljivk z enako stabilno porazdelitvijo ponovno pripada isti družini porazdelitev; spremeni se lahko le njena lega in skala.
+
+Tega seveda ne moremo takoj opaziti, ampak lahko to lepo povežemo z definicijo naše karakteristične funkcije in to tudi dokažemo.
+
+Dokaz:
+Naj bo $X$ slučajna spremenljivka z $\alpha$-stabilno porazdelitvijo in naj bosta $X_1$ in $X_2$ njeni neodvisni kopiji. Zaradi neodvisnosti velja
+
+\[
+\phi_{aX_1+bX_2}(t)
+=
+\phi_X(at)\phi_X(bt),
+\]
+saj \[\phi_{aX_1+bX_2}(t)=\mathbb{E}\!\left[e^{it(aX_1 +bX_2)}\right] =  \mathbb{E}\!\left[e^{itaX_1}e^{itbX_2}\right] = \mathbb{E}\!\left[e^{itaX_1}\right]\mathbb{E}\!\left[e^{itbX_2}\right] = \phi_{X_1}(at) \phi_{X_2}(bt)\] 
+Za $\alpha$-stabilno porazdelitev ($\alpha\neq1$) je karakteristična funkcija podana z izrazom
+
+\[
+\phi_X(t)
+=
+\exp\!\left(
+i\mu t
+-\gamma^\alpha |t|^\alpha
+\left[
+1-i\beta\,\operatorname{sign}(t)\tan\!\left(\frac{\pi\alpha}{2}\right)
+\right]
+\right).
+\]
+
+Iz oblike karakteristične funkcije po zamenjavi $t\mapsto at$ in $t\mapsto bt$ ter zaradi neodvisnosti $X_1$ in $X_2$ dobimo:
+
+\[
+\begin{aligned}
+\phi_{aX_1+bX_2}(t)
+&=
+\phi_X(at)\phi_X(bt) \\
+&=
+\exp\!\left(
+i\mu(a+b)t
+-
+\gamma^\alpha(a^\alpha+b^\alpha)|t|^\alpha
+\left[
+1-i\beta\,\operatorname{sign}(t)\tan\!\left(\frac{\pi\alpha}{2}\right)
+\right]
+\right).
+\end{aligned}
+\]
 
 
+Želimo dokazati da je to enako:
 
-\chapter{Plovke: slike in tabele}
+\[
+\phi_{cX + d}(t)=
+\exp\!\left(
+i(\mu c + d)t 
+-
+\gamma^\alpha c^\alpha|t|^\alpha
+\left[
+1-i\beta\,\operatorname{sign}(t)\tan\!\left(\frac{\pi\alpha}{2}\right)
+\right]
+\right).
+\]
+
+Če definiramo
+
+\[
+c=\left(a^\alpha+b^\alpha\right)^{1/\alpha},
+\]
+
+potem velja
+
+\[
+c^\alpha=a^\alpha+b^\alpha,
+\]
+in je potem \[d = \mu (a +b - c) \].
+
+zato lahko zgornji izraz zapišemo kot karakteristično funkcijo slučajne spremenljivke $cX+d$, kjer je $d$ ustrezna konstanta. Ker karakteristična funkcija enolično določa porazdelitev, sledi
+
+\[
+aX_1+bX_2 \overset{d}{=} cX+d.
+\]
+
+S tem smo pokazali, da je razred $\alpha$-stabilnih porazdelitev zaprt za linearne kombinacije neodvisnih enako porazdeljenih slučajnih spremenljivk, kar je natanko lastnost stabilnosti.
+
+\section{$\alpha$-stabilna porazdelitev in centralni limitni izrek}
+
+Centralni limitni izrek je eden najpomembnejših izrekov teorije verjetnosti. Opisuje obnašanje vsot velikega števila neodvisnih slučajnih spremenljivk.
+
+Definicija: Naj bodo $X_1,X_2,\dots,X_n$ neodvisne in enako porazdeljene slučajne spremenljivke z končnim matematičnim upanjem
+
+\[
+\mathbb{E}[X_i]=\mu
+\]
+
+in končno varianco
+
+\[
+\operatorname{Var}(X_i)=\sigma^2<\infty.
+\]
+
+Potem velja
+
+\[
+\frac{X_1+\cdots+X_n-n\mu}{\sigma\sqrt{n}}
+\overset{d}{\longrightarrow}
+N(0,1),
+\]
+
+kjer znak $\overset{d}{\longrightarrow}$ označuje konvergenco v porazdelitvi. 
+To pomeni, da se porazdelitvena funkcija normirane vsote približuje porazdelitveni funkciji standardne normalne porazdelitve. Pomembna lastnost tega rezultata je, da začetna porazdelitev posameznih slučajnih spremenljivk ni nujno normalna, ampak vedno konvergira v normalno, zaradi tega se tudi ta porazdelitev tako pogosto pojavlja v naravi in našem vsakdanu.
+
+Povezava med centralnim limitnim izrekom in $\alpha$-stabilnimi porazdelitvami je v njihovi stabilnosti pri seštevanju. Normalna porazdelitev je namreč poseben primer naše porazdelitve, kjer je
+
+\[
+\alpha=2.
+\]
+
+Za druge vrednosti parametra
+
+\[
+0<\alpha<2
+\]
+
+lahko dobimo stabilne porazdelitve z neskončno varianco. Zaradi težkih repov njihove vsote ne konvergirajo proti normalni porazdelitvi, ampak proti drugi stabilni porazdelitvi. Zato $\alpha$-stabilne porazdelitve predstavljajo naravno posplošitev centralnega limitnega izreka.
+
+To povezavo opiše posplošeni centralni limitni izrek (Generalized Central Limit Theorem). Ta pravi, da je slučajna spremenljivka $Z$ stabilna porazdelitev natanko takrat, ko obstaja zaporedje neodvisnih in enako porazdeljenih slučajnih spremenljivk
+
+\[
+X_1,X_2,X_3,\dots
+\]
+
+ter konstante
+
+\[
+a_n>0,\qquad b_n\in\mathbb{R},
+\]
+
+za katere velja
+
+\[
+a_n(X_1+\cdots+X_n)-b_n
+\overset{d}{\longrightarrow}
+Z.
+\]
+
+Torej, če vsota velikega števila neodvisnih in enako porazdeljenih slučajnih spremenljivk po ustreznem skaliranju in premiku konvergira k ne-degenerirani porazdelitvi, mora biti ta porazdelitev stabilna.
+
+Za klasični centralni limitni izrek je končna varianca ključni pogoj, da dobimo normalno porazdelitev. Posplošeni centralni limitni izrek pa ta pogoj razširi in vključuje tudi porazdelitve z neskončno varianco. V tem primeru je mejna porazdelitev $\alpha$-stabilna porazdelitev, pri čemer parameter $\alpha$ določa hitrost skaliranja vsote:
+
+\[
+a_n \propto n^{-1/\alpha}.
+\]
+Ta je posplošen skalirni faktor v centralnem limitnem izreku. V CLI velja da je skalirni faktor $\frac{1}{\sqrt{n}}$, ker v centralnem limitnem obravnavamo standardno normalno porazdelitev, kjer je $\alpha = 2$, vidimo da je to res samo posplošitev.
+
+S tem so $\alpha$-stabilne porazdelitve edine možne mejne porazdelitve pri seštevanju velikega števila neodvisnih in enako porazdeljenih slučajnih spremenljivk.
+
+\chapter{Uporaba $\alpha$-stabilne porazdelitve kot nosilec informacije}
+
+Sedaj smo predelali potrebno teorijo da lahko zastopimo, kako lahko to izkoristimo za prenos podatkov. V klasični brezžični komunikaciji uporabljamo deterministične lastnosti signalov, kot so spreminjanje amplitude, faze ali frekvence in s tem prenašamo naše podatke. Pri komunikaciji z $\alpha$-stabilno porazdelitvijo pa je informacija predstavljena s statičnimi lastnostmi signala.
+
+Pri $\alpha$-stabilni porazdelitvi to deluje, tako da pri oddajniku izberemo njene parametre in generiramo zaporedje vzorcev:
+\[
+X_1, X_2,\dots,X_n \sim S_\alpha(\beta,\gamma,\mu)
+\]
+Pri sprejemniku, pa nato poskušamo ugotoviti te parametre. Zaradi lastnosti stabilnosti lahko te parametre tudi približno določimo in prav ta lastnost nam daje možnost da iz več naključnih vzorcev potem določimo približno porazdelitev iz katere je oddajnik generiral vzorce.
+
+Zakaj pa en vzorec ni zadosti?
+Zaradi naključnosti ena sama slučajna spremenljivka, ne nosi zadosti podatkov za zanesljivo določitev posameznega parametra. Sprejemnik zato analizira več vzorcev in oceni statistične lastnosti njihove porazdelitve. Z drugimi besedami ocenjujemo porazdelitev s kakšnimi parametri smo poslali pri oddajniku.
+
+Kako je to povezano z generaliziranim centralnim limitnim izrekom?
+V komunikacijskem kanalu sprejeti signal običajno predstavlja kombinacijo velikih naključnih vplivov, zato ga lahko zapišemo z vsoto:
+
+\[
+Y=X_1+X_2+\dots+X_n .
+\]
+
+Klasični centralni limitni izrek pravi, da takšne vsote konvergirajo proti normalni porazdelitvi, vendar le v primeru, ko imajo naključne spremenljivke končno varianco. Pri pojavih, kjer se pojavljajo redke velike amplitude oziroma impulzni šum, ta predpostavka ni več izpolnjena.
+
+Generalizirani centralni limitni izrek razširi ta rezultat in pravi, da normalizirane vsote neodvisnih in enako porazdeljenih slučajnih spremenljivk konvergirajo proti stabilnim porazdelitvam:
+
+\[
+a_n(X_1+\dots+X_n)-b_n
+\overset{d}{\longrightarrow} Z .
+\]
+
+Mejna porazdelitev $Z$ je zato $\alpha$-stabilna porazdelitev, kjer parameter $\alpha$ določa način skaliranja vsote. Pri $\alpha=2$ dobimo posebno primer normalne porazdelitve, pri vrednostih $\alpha<2$ pa dobimo porazdelitve z težkimi repi, ki omogočajo opis ekstremnih vrednosti.
+
+To pojasni, zakaj so $\alpha$-stabilne porazdelitve primerne za modeliranje komunikacijskih signalov. Če je signal sestavljen iz velikega števila naključnih vplivov, njegova statistična oblika naravno konvergira proti stabilni porazdelitvi. Ker stabilnost zagotavlja, da se družina porazdelitve ohrani pri seštevanju neodvisnih vplivov, lahko sprejemnik še vedno oceni parametre porazdelitve in s tem pridobi informacijo, ki je bila v njih zakodirana.
+
+\chapter{Simulacije}
 \label{ch2}
 
-Slike in daljše tabele praviloma vključujemo v dokument kot plovke. 
-Pozicija plovke v končnem izdelku ni pogojena s tekom besedila, temveč z izgledom strani. 
-\LaTeX\ bo skušal plovko postaviti samostojno, praviloma na mestu, kjer se pojavi v izvornem besedilu, sicer pa na 
-vrhu strani, na kateri se na takšno plovko prvič sklicujemo. 
-Pri tem pa bo na vsako stran končnega izdelka želel postaviti tudi sorazmerno velik del besedila. 
-V skrajnem primeru, če imamo res preveč plovk na enem mestu besedila, ali če je plovka previsoka, se bo \LaTeX\ odločil za stran popolnoma zapolnjeno s plovkami.
 
-Poleg tega, da na položaj plovke vplivamo s tem, kam jo umestimo v izvorno besedilo, lahko na položaj plovke na posamezni strani prevedenega besedila dodatno vplivamo z opcijami \texttt{here, top} in \texttt{bottom}.
-Zelo velike slike je najbolje postaviti na posebno stran z opcijo \texttt{page}.
-Skaliranje slik po njihovi širini lahko prilagodimo širini strani tako, da kot enoto za dolžino uporabimo kar širino strani, npr. \verb=0.5\textwidth= bo raztegnilo sliko na polovico širine strani.
-Slike lahko po potrebi tudi zavrtimo za 90 stopinj, tako da bodo podrobnosti na sliki lažje berljive in da bo prostor na papirju bolje izkoriščen.
-
-Na vse plovke se moramo v besedilu sklicevati, saj kot beseda pove, plovke plujejo po besedilu in se ne pojavijo točno tam, kjer nastopajo v izvornem besedilu.
-Sklic na plovko v besedilu in sama plovka naj bosta čimbližje skupaj, tako da bralcu ne bo potrebno listati po diplomi. 
-Upoštevajte pa, da se naloge tiska dvostransko in da se hkrati vidi dve strani v dokumentu!
-Na to, kje se bo slika ali druga plovka pojavila v postavljenem besedilu torej najbolj vplivamo tako, da v izvorni kodi plovko premikamo po besedilu nazaj ali naprej!
-
-Tabele ja najbolje oblikovati kar neposredno v \LaTeX u, saj za oblikovanje tabel obstaja zelo fleksibilno okolje \texttt{tabular} (glej tabelo~\ref{tbl:1}).
-Slike pa je po drugi strani  pogosto najla\v zje oblikovati oziroma izdelati z drugimi orodji in programi, rezultate shraniti v formatu {\tt .pdf}  in se v \LaTeX u le sklicevati na ustrezno slikovno datoteko.
-
-Knjižnica \url{https://en.wikibooks.org/wiki/LaTeX/PGF/TikZ} 
-pa omo\-go\-ča risanje raznovrstnih grafov neposredno v okolju \LaTeX .
-
-
-\section{Formati slik}
-
-Bitne slike, vektorske slike, kakršnekoli slike, z \LaTeX{}om lahko vključimo vse.
-Slika~\ref{pic1} je v formatu {\tt .pdf}.
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{pic1.pdf}
-\end{center}
-\caption{Herschelov graf, vektorska grafika.}
-\label{pic1}
-\end{figure}
-Pa res lahko vključimo slike katerihkoli formatov? 
-Žal ne. 
-Programski paket \LaTeX\ lahko uporabljamo v več dialektih. 
-Ukaz {\tt latex} ne mara vključenih slik v formatu Portable Document Format {\tt .pdf}, ukaz {\tt pdflatex} pa ne prebavi slik v Encapsulated Postscript Formatu {\tt .eps}.
-Strnjeno je vključevanje različnih vrst slikovnih datotek prikazano v tabeli~\ref{tbl:1}.
-
-\begin{table}
-\begin{center}
-\begin{tabular}{l|ccc}
-ukaz/format & {\tt .pdf} & {\tt .eps} & ostali formati \\ \hline
-{\tt pdflatex} & da & ne & da \\
-{\tt latex}   & ne & da  & da
-\end{tabular}
-\end{center}
-\caption{Kompatibilnost različnih formatov slikovnih datotek z različnimi dialekti  \LaTeX a.}
-\label{tbl:1}
-\end{table}
-
-Nasvet? 
-Odločite se za uporabo ukaza {\tt pdflatex}. Vaš izdelek bo brez vmesnih stopenj na voljo v {.pdf} formatu in ga lahko odnesete v vsako tiskarno. 
-Če morate na vsak način vključiti sliko, ki jo imate v {\tt .eps} formatu, jo vnaprej pretvorite v alternativni format, denimo {\tt .pdf}.
-
-Včasih se da v okolju za uporabo programskega paketa \LaTeX\ nastaviti na kakšen način bomo prebavljali vhodne dokumente. 
-Spustni meni na Sliki~\ref{pic2} odkriva uporabo \LaTeX{}a v njegovi pdf inkarnaciji --- {\tt pdflatex}.
-\begin{figure}[t]
-\begin{center}
-\includegraphics[width=10cm]{pic2.png}
-\end{center}
-\caption{Kateri dialekt uporabljati?}
-\label{pic2}
-\end{figure}
-Vključena slika~\ref{pic2} je seveda bitna.
-
-Na vse tabele se moramo v besedilu, podobno kot na slike, tudi sklicevati, saj kot plovke v oblikovanem besedilo niso nujno na istem mestu kot v izvornem besedilu.
-
-
-\subsection{Podnapisi k slikam in tabelam}
-
-Vsaki sliki ali tabeli moramo dodati podnapis, ki na kratko pojasnuje, kaj je na sliki ali tabeli. 
-Če nekdo le prelista diplomsko delo, naj bi že iz slik in njihovih podnapisov lahko na grobo razbral, kakšno temo naloga obravnava.
-
-Če slike povzamemo iz drugih virov, potem se moramo v podnapisu k taki sliki sklicevati na ta vir!
-
-
-\chapter{Struktura strokovnih besedil}
-\label{stroka}
-
-Strokovna besedila imajo ustaljeno strukturo, da bi lahko hitreje in lažje brali in predvsem razumeli taka besedila, saj načeloma vemo vnaprej, 
-kje v besedilu se naj bi nahajale določene informacije.
-
-Najbolj osnovna struktura strokovnega besedila je:
-\begin{description}
-\item[naslov besedila,] ki naj bo sicer kratek, a kljub temu dovolj poveden o vsebini besedila,
-\item[imena avtorjev] so običajno navedena po teži prispevka, prvi avtor je tisti, ki je besedilo dejansko pisal, zadnji pa tisti, ki je raziskavo vodil,
-\item[kontaktni podatki] -- poleg imena in naslova institucije je potreben vsaj naslov elektronske pošte,
-\item[povzetek] je kratko besedilo, ki povsem samostojno povzame vsebino in izpostavi predvsem  glavne rezultate ali zaključke,
-\item[ključne besede] so tudi namenjene iskanju vsebin med množico člankov,
-\item[uvodno poglavje] uvede bralca v tematiko besedila, razloži kaj je namen besedila, predstavi področje o katerem besedilo piše 
-(če temu ni namenjeno v celoti posebno poglavje) ter na kratko predstavi strukturo celotnega besedila,
-\item[poglavja] tvorijo zaokrožene celote, ki se po potrebi še nadalje členijo na podpoglavja, namenjena so recimo opisu orodij, 
-ki smo jih uporabili pri delu, teoretičnim rezultatom ali predstavitvi rezultatov, ki smo jih dosegli,
-\item[zaključek] še enkrat izpostavi glavne rezultate ali ugotovitve, jih primerja z dosedanjimi in morebiti poda tudi ideje za nadaljne delo,
-\item[literatura] je seznam vseh virov, na katere smo se pri svojem delu opirali, oziroma smo se na njih sklicevali v svojem besedilu.
-\end{description}
-
-Naslove poglavij in podpoglavij izbiramo tako, da lahko bralec že pri prelistavanju diplome in branju naslovov
-v grobem ugotovi, kaj je vsebina diplomskega dela.
-
-Strokovna besedila običajno pišemo v prvi osebi množine, v nevtralnem in umirjenem tonu. 
-Uporaba sopomenk ni zaželjena, saj želimo zaradi lažjega razumevanja za iste pojme vseskozi uporabljati iste besede.
-Najpomenbnejše ugotovitve je smiselno večkrat zapisati, na primer v povzetku, uvodu, glavnem delu in zaključku.
-Vse trditve naj bi temeljile bodisi na lastnih ugotovitvah (izpeljavah, preizkusih, testiranjih) ali pa z navajanjem ustreznih virov.
-
-Največ se lahko naučimo s skrbnim branjem dobrih zgledov takih besedil.
-
-
-\chapter{Pogoste napake pri pisanju v slovenščini}  % poglavje dodal Solina
-\label{slo}
-
-V slovenščini moramo paziti  pri uporabi pridevnikov, ki se ne sklanjajo kot so npr. kratice. 
-Pravilno pišemo model CAD in \textbf{ne} CAD model!
-
-Pri sklanjanju tujih imen ne uporabljamo vezajev, pravilno je Applov operacijski sistem in \textbf{ne} Apple-ov.
-
-Pika, klicaj in vprašaj so levostični: pred njimi ni presledka, za njimi pa. 
-Klicajev in vprašajev se v strokovnih besedilih načeloma izogibamo. Oklepaji so desnostični in zaklepaji levostični (takole).
-
-V slovenščini pišemo narekovaje drugače kot v angleščini!   
-Običajno uporabljamo dvojne spodnje-zgornje narekovaje:  \sn{slovenski narekovaji}.
-Za slovenske narekovaje je v tej LaTeXovi predlogi definiran nov ukaz \verb+ \sn{ ... }+.
-
-Vezaj  je levo in desno stičen: \verb=slovensko-angleški slovar= in ga pišemo z enim pomišljajem.
-
-V slovenščini je pred in po pomišljaju presledek, ki ga v LaTeXu pišemo z dvema pomišljajema: \verb=Pozor -- hud pes!=
-V angleščini pa je za razliko pomišljaj levo in desno stičen in se v LaTeXu piše s tremi  pomišljaji: \verb=---=.
-S stičnim pomišljajem pa lahko nadomeščamo predlog od \dots do, denimo pri navajanju strani, npr. preberite strani 7--11 (\verb=7--11=).
-
-
-
-\sn{Pred ki, ko, ker, da, če vejica skače}. To osnovnošolsko pravilo smo v življenju po potrebi uporabljali, dopolnili, morda celo pozabili. 
-Pravilo sicer drži, ampak samo če je izpolnjenih kar nekaj pogojev (npr. da so ti vezniki samostojni, enobesedni, ne gre za vrivek itd.).
-Povedki so med seboj ločeni z vejicami, razen če so zvezani z in, pa, ter, ne–ne, niti–niti, ali, bodisi, oziroma.
-Sicer pa je bolje pisati kratke stavke kot pretirano dolge.
-
-V računalništvu se stalno pojavljajo novi pojmi in nove besede, za katere pogosto še ne obstajajo uveljavljeni slovenski izrazi.
-Kadar smo v dvomih, kateri slovenski izraz je primeren, si lahko pomagamo z Računalniškim slovarčkom~\cite{slovarcek}.
-
-
-
-
-
-\chapter{Koristni nasveti pri pisanju v \LaTeX{u}}   % poglavje dodal Solina
-\label{latex}
-
-Programski paket \LaTeX\ je bil prvotno predstavljen v priročniku~\cite{lamport} in je v resnici nadgradnja sistema \TeX\ avtorja Donalda Knutha~\cite{knuth}, 
-znanega po svojih knjigah o umetnosti programiranja, 
-ter Knuth-Bendixovem algoritmu~\cite{knuth1983simple}.
-
-Različnih implementacij \LaTeX{}a je cela vrsta.
-Za OS X priporočamo TeXShop, za Windows PC pa MikTeX.
-Spletna verzija, ki poenostavi sodelovanje pri pisanju, je Overleaf.
-
-Včasih smo si pri pisanju v \LaTeX{}u  pomagali predvsem s tiskanimi pri\-ro\-čni\-ki, danes pa je enostavneje in hitreje, da ob vsakem problemu za pomoč enostavno povprašamo Google, 
-saj je na spletu cela vrsta forumov za pomoč pri \TeX{}iranju.
-
-\LaTeX\ včasih ne zna deliti slovenskih besed, ki vsebujejo črke s strešicami. 
-Če taka beseda štrli preko desnega roba,  \LaTeX{}u pokažemo, kje lahko tako besedo deli, takole: \verb=ra\-ču\-nal\-ni\-štvo=.
-Katere vrstice štrlijo preko desnega roba, se lahko prepričamo tako, da dokument prevedemo s vključeno opcijo \texttt{draft}: \verb=\documentclass[a4paper, 12pt, draft]{book}=.
-
-
-Predlagamo, da v izvornem besedilu začenjate vsak stavek v novi vrstici, saj \LaTeX\ sam razporeja besede po vrsticah postavljenega besedila. 
-Bo pa zato iskanje po izvornem besedilu in popravljanje veliko hitrejše. 
-Večina sistemov za \TeX{}iranje sicer omogoča s klikanjem enostavno prestopanje  iz prevedenega besedila na ustrezno mesto v izvornem besedilu in obratno.
-
-Boljšo preglednost dosežemo, tako kot pri pisanju programske kode, tudi z izpuščanjem praznih vrstic za boljšo preglednost strukture izvornega besedila.
-
-S pomočjo  okolja \verb=\begin{comment} ... \end{comment}= lahko  hkrati zakomentiramo več vrstic izvornega besedila.
-
-Pri spreminjanju in dodajanju izvornega besedila je najbolje pogosto prevajati, da se sproti prepričamo, če so naši nameni izpolnjeni pravilno.
-
-Kadar besedilo, ki je že bilo napisano z nekim vizualnim urejevalnikom (npr. z Wordom), želimo prenesti v \LaTeX, je tudi najbolje to delati postopoma s posameznimi bloki besedila, 
-tako da lahko morebitne napake hitro identificiramo in odpravimo.
-Za prevajanje Wordovih datotek v \LaTeX\ sicer obstajajo prevajalniki, ki pa običajno ne generirajo tako čisto logično strukturo besedila, kot jo  \LaTeX\ omogoča.
-Hiter in enostaven način prevedbe besedila, ki  zahteva sicer ročne dopolnitve, poteka tako, da besedilo urejeno z vizualnim urejevalnikom najprej shranimo v formatu pdf, 
-nato pa to besedilo uvozimo v urejevalnik, kjer urejamo izvorno besedilo v formatu \LaTeX.
-
-
-
-
-\section{Pisave v \LaTeX u}
-
-V  \LaTeX ovem okolju lahko načeloma uporabljamo poljubne pisave. 
-Izbira poljubne pisave pa ni tako enostavna kot v vizualnih urejevalnikih besedil.
-Posamezne oblikovno medseboj usklajene pisave so običajno združene v družine pisav.
-V \LaTeX u se privzeta družina pisav imenuje Computer Modern,
-kjer so poleg navadnih črk (roman v \LaTeX u) na voljo tudi kurzivne črke (\textit{italic} v \LaTeX u), 
-krepke (\textbf{bold} v \LaTeX u), kapitelke (\textsc{small caps} v \LaTeX u), linearne črke ({\textsf{san serif} v \LaTeX u)                                                                                                                                                                                                                                                                                                                         
-in druge pisave.
-V istem dokumentu zaradi skladnega izleda uporabljamo običajno le pisave ene družine. 
-
-Ko začenjamo uporabljati \LaTeX, je zato najbolj smiselno uporabljati kar privzete pisave, s katerimi je napisan tudi ta dokument.
-Z ustreznimi ukazi  lahko nato preklapljamo med navadnimi, kurzivnimi, krepkimi in drugimi pisavami. 
-Zelo enostavna je tudi izbira velikosti črk.
-\LaTeX\  odlično podpira večjezičnost, tudi v sklopu istega dokumenta, saj obstajajo pisave za praktično vse jezike, tudi take, ki ne uporabljajo latinskih črk.
-
-Za prikaz programske kode se pogosto uporablja pisava, kjer imajo vse črke enako širino, kot so  črke na mehanskem pisalnem stroju ({\texttt{typewriter} v \LaTeX u).
-
-Najbolj priročno okolje za pisanje kratkih izsekov programske kode je okolje \texttt{verbatim}, saj ta ohranja vizualno organizacijo izvornega besedila in ima privzeto pisavo pisalnega stroja.
-
-\begin{verbatim}
-for (i = 0; i < 100; i++)
-   for (j = i; j < 10; j++)
-      some_function(i, j);
-\end{verbatim}
-
-
-\chapter{Kaj pa literatura?}
-\label{lit}
-
-Kot smo omenili že v uvodu, je pravi način za citiranje literature uporaba \BibTeX{}a~\cite{bib}. 
-\BibTeX\ zagotovi, da nobene obvezne informacije pri določeni vrsti literature ne izpustimo in da vse informacije o določeni vrsti vira dosledno navajamo na enak način.
-
-Osnovna ideja \BibTeX{a} je, da vse informacije o literaturi zapisujemo v posebno datoteko, v našem primeru je to \texttt{literatura.bib}.
-Vsakemu viru v tej datoteki določimo simbolično ime.
-V  našem primeru je v tej datoteki nekaj najbolj značilnih zvrsti literature, kot so knjige~\cite{lamport}, 
-članki v revijah~\cite{leonardo} in zbornikih konferenc~\cite{poglavje_springer}, 
-spletni viri~\cite{bib,slovarcek,video}, 
-tehnično poročilo~\cite{andersen2012kinect}, 
-diplome~\cite{diploma} itd.
-Diploma~\cite{diploma} iz leta 1990 je bila prva diploma na Fakulteti za elektrotehniko in računalništvo, ki je bila oblikovana z \LaTeX om!
-Novej\v se reference, ki so spletnih straneh svojih založnikov arhivirane v elektronski obliki, imajo določeno \v stevilko DOI: \url{http://dx.doi.org}, ki jo tudi lahko vključimo v izpis literature in omogoča neposredno povezavo do te reference~\cite{Kljun2018}.
-
-Po vsaki spremembi pri sklicu na literaturo moramo najprej prevesti izvorno besedilo s prevajalnikom \LaTeX, nato s prevajalnikom  \BibTeX, ki ustvari datoteko  {\tt vzorec\_dip\_Seminar.bbl}, in nato še dvakrat s prevajalnikom  \LaTeX.
-
-Kako natančno se spisek literature nato izpiše (ali po vrstnem redu sklicevanja, ali po abecedi priimkov prvih avtorjev, ali se imena avtorjev pišejo pred priimki itd.) je odvisno od stilske datoteke.
-V diplomi bomo uporabili osnovno stilsko datoteko \texttt{plain}, oz. \texttt{plainnat}, ki vire razporedi po abecedi.
-Zato je potrebno pri določenih zvrsteh literature, ki nima avtorjev, dodati polje \texttt{key}, ki določi vrstni red vira po abecedi.
-
-Z uporabo \BibTeX{a} v slovenščini je še nekaj nedoslednosti, saj so pomožne besede, ki jih \BibTeX\ sam doda,  kot so \textit{editor},  \textit{pages} in besedica  \textit{and} pred zadnjim avtorjem, 
-če ima vir več avtorjev~\cite{andersen2012kinect}, zapisane v angleščini,
-čeprav smo izbrali opcijo \texttt{slovene} pri paketu \texttt{babel}.
-To nedoslednost je možno popraviti z ročnim urejanjem datoteke {\tt vzorec\_dip\_Seminar.bbl}, 
-kar pa je smiselno šele potem, ko bibliografije v datoteki \texttt{literatura.bib} ne bomo več spreminjali,
-oziroma ne bomo več dodajali novih sklicev na literaturo v izvornem besedilu.
-Vsebino datoteke {\tt vzorec\_dip\_Seminar.bbl} lahko na koncu urejanja tudi vključimo kar v izvorno besedilo diplome, tako da je vso besedilo, vključno z literaturo, zajeto le v eni datoteki.
-
-Ko začenjamo uporabljati \BibTeX\ je lažje, če za urejanje datoteke .bib uporabljamo kar isti urejevalnik kot za urejanje datotek .tex, 
-čeprav obstajajo tudi posebni urejevalniki oziroma programi za delo z \BibTeX om.
-
-Le če se bomo na določen vir v besedilu tudi sklicevali, se bo pojavil tudi v spisku literature.
-Tako je avtomatično zagotovljeno, da se na vsak vir v seznamu literature tudi sklicujemo v besedilu diplome.
-V datoteki \texttt{.bib} imamo sicer lahko veliko več virov za literaturo, kot jih bomo uporabili v diplomi.
-
-Vire v formatu \BibTeX\ lahko enostavno poiščemo in prekopiramo iz spletnih strani založnikov ali različnih akademskih spletnih portalov za iskanje znanstvene literature v našo datoteko \texttt{.bib}.
-Izvoz  referenc v Google učenjaku še dodatno poenostavimo, če v nastavitvah izberemo \BibTeX\ kot želeni format za izvoz navedb.
-Navedbe, ki jih na tak način prekopiramo, pa moramo pred uporabo vseeno preveriti, saj so taki navedki pogosto generirani povsem avtomatično in lahko vsebujejo napačne ali nepopolne podatke.
-
-Pri sklicevanju na literaturo na koncu stavka moramo paziti, da je pika po ukazu \verb=\cite{ }=.
-Da \LaTeX\ ne bi delil vrstico ravno tako, da bi sklic na literaturo v oglatih oklepajih začel novo vrstico, lahko pred sklicem na literaturo dodamo nedeljiv presledek: \verb=~\cite{ }=.
-
-
-\section{Izbiranje virov za spisek literature}
-
-Dandanes  se skoraj  vsi pri iskanju informacij vedno najprej lotimo iskanja preko svetovnega spleta.
-Rezultati takega iskanja pa so pogosto spletne strani, ki danes obstajajo, jutri pa jih morda ne bo več, ali pa vsaj ne v taki obliki, kot smo jo prebrali.
-Smisel navajanja literature pa je, da tudi po dolgih letih nekdo, ki bo bral vašo diplomo, lahko poišče vire, ki jih navajate v diplomi.
-Taki viri pa so predvsem članki v znanstvenih revijah, ki se arhivirajo v knjižnicah, založniki teh revij pa večinoma omogočajo tudi elektronski dostop do arhiva vseh njihovih člankov.
-
-Znanstveni rezultati, ki so objavljeni v obliki recenziranih člankov, bodisi v konferenčnih zbornikih, še bolje pa v znanstvenih revijah, so veliko bolj izčiščen in zanesljiv vir informacij, saj
-so taki članki šli skozi recenzijski postopek.
-Zato na svetovnem spletu začenjamo iskati vire za strokovna besedila predvsem preko akademskih spletnih portalov, kot so npr. Google učenjak, Research Gate ali Academia, saj
-so na teh portalih rezultati iskanja le akademske publikacije.
-Če je za dostop do nekega članka potrebno plačati, se obrnemo za pomoč in dodatne informacije na  našo knjižnico.
-
-Če res ne gre drugače, pa je pomembno, da pri sklicevanju na spletni vir, vedno navedemo tudi datum, kdaj smo dostopali do tega vira.
-
-
-
-\chapter{Sistem STUDIS in PDF/A}
-\label{PDF}
-
-Elektronsko verzijo diplome moramo oddati preko sistema STUDIS v formatu PDF/A ~\cite{pdfa}.
-Natančneje v formatu PDF/A-1b. 
-
-\LaTeX\ in omenjeni format imata še nekaj težav s sobivanjem. 
-Paket \texttt{pdfx.sty}, ki naj bi \LaTeX{u} omogočal podporo formatu PDF/A ne deluje v skladu s pričakovanji. 
-Ta predloga delno ustreza formatu, vsekakor dovolj, da jo študentski informacijski sistem sprejme. 
-Znaten del rešitve je prispeval Damjan Cvetan.
-
-V predlogi, poleg izvornega  dokumenta \texttt{.tex} in vloženih slik \texttt{pic1.pdf} in \texttt{pic2.png}, 
-potrebujemo še predlogo datoteke z metapodatki \texttt{pdfa-1b.xmp} in datoteko z barvnim profilom \texttt{sRGBIEC1966-2.1.icm}.
-
-
-
-
-\chapter{Sklepne ugotovitve}
-
-Uporaba \LaTeX{a} in \BibTeX{a} je v okviru Diplomskega seminarja \textbf{obvezna}!
-Izbira \LaTeX\ ali ne \LaTeX\ pri pisanju dejanske diplomske naloge pa je pre\-pu\-šče\-na dogovoru med vami in vašim mentorjem.
-
-Res je, da so prvi koraki v \LaTeX{}u težavni. 
-Ta dokument naj vam služi kot začetna opora pri hoji.
-Pri kakršnihkoli nadaljnih vprašanjih ali napakah pa svetujem uporabo Googla, saj je spletnih strani za pomoč pri odpravljanju težav pri uporabi \LaTeX{}a ogromno.
-
-Preden diplomo oddate na sistemu STUDIS, še enkrat preverite, če so slovenske besede, ki vsebujejo črke s strešicami,  pravilno deljene.
-Poravnavo po vrsticah pa kontrolirajte tako, da izvorno datoteko prevedete z opcijo \texttt{draft}, kar vam pokaže predolge vrstice.
-
+\chapter{Implementacija in simulacija v realnem okolju}
+\label{ch3}
 
 \cleardoublepage
 \addcontentsline{toc}{chapter}{Literatura}

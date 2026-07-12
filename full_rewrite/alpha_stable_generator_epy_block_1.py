@@ -16,7 +16,7 @@ class alpha_decoder(gr.basic_block):
         self,
         alpha_map=[1.2, 1.4, 1.6, 1.8],
         beta_map=[-1.0, 1.0],
-        gama_map=[0.5, 1.0, 1.5, 2.0],
+        gama_map=[1.0],
         samples_per_symbol=500,
         L=10,
         encode_alpha=False,

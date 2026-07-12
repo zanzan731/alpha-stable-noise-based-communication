@@ -28,7 +28,7 @@ class alpha_decoder(gr.basic_block):
         gr.basic_block.__init__(
             self,
             name="alpha_decoder",
-            in_sig=[np.float32],
+            in_sig=[np.complex64],
             out_sig=[np.uint8],
         )
 
@@ -41,7 +41,7 @@ class alpha_decoder(gr.basic_block):
         self.encode_beta = bool(encode_beta)
         self.encode_gama = bool(encode_gama)
 
-        self._sample_buffer = np.empty(0, dtype=np.float32)
+        self._sample_buffer = np.empty(0, dtype=np.complex64)
         self._decoded_bit_buffer = []
         self._eos_reached = False
         self._ever_received_input = False #potrebno da vem kdaj startam stevec oziroma da ne konča predn dobi delo
@@ -115,7 +115,7 @@ class alpha_decoder(gr.basic_block):
         if samples_per_segment <= 0:
             return 0.0
 
-        symbol_array = np.asarray(symbol_samples, dtype=np.float32)
+        symbol_array = np.asarray(symbol_samples, dtype=np.complex64)
         segments = symbol_array[: samples_per_segment * self.L].reshape(
             self.L, samples_per_segment
         )
@@ -138,7 +138,7 @@ class alpha_decoder(gr.basic_block):
     def _append_input_samples(self, input_samples):
         if input_samples.size:
             self._sample_buffer = np.concatenate(
-                (self._sample_buffer, input_samples.astype(np.float32, copy=False))
+                (self._sample_buffer, input_samples.astype(np.complex64, copy=False))
             )
 
     def _flush_bits_to_output(self, out, out_index):

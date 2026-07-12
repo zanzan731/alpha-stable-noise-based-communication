@@ -339,30 +339,29 @@ blocks:
       \ now, see comments below\n\n\n\nclass alpha_encoder(gr.basic_block):\n    \"\
       \"\"Kodira bajte v serijo vzorcev alfa-stabilne porazdelitve.\"\"\"\n\n    def\
       \ __init__(\n        self, \n        alpha_map=[1.2, 1.4, 1.6, 1.8], \n    \
-      \    beta_map=[-1.0, 1.0],\n        gama_map=[0.5, 1.0, 1.5, 2.0],\n       \
-      \ samples_per_symbol=500,\n        encode_alpha=False,\n        encode_beta=True,\n\
-      \        encode_gama=False,\n        eos_timeout=2.0,\n        expected_input_bytes=None,\n\
-      \    ):\n        gr.basic_block.__init__(\n            self,\n            name=\"\
-      alpha_encoder\",\n            in_sig=[np.uint8],\n            out_sig=[np.float32],\n\
-      \        )\n\n        self.alpha_map = list(alpha_map)\n        self.beta_map\
-      \ = list(beta_map)\n        self.gama_map = list(gama_map)\n        self.samples_per_symbol\
-      \ = int(samples_per_symbol)\n        self.encode_alpha = bool(encode_alpha)\n\
-      \        self.encode_beta = bool(encode_beta)\n        self.encode_gama = bool(encode_gama)\n\
-      \n        self._bit_buffer = [] #mogo\u010De vr\u017Eemo potem ven\n       \
-      \ #ta buffer bo ostal ker ima ful smisla da ostane boj input \u010De ga preberem\
-      \ morem prebrat cel byte, \u010De ne shranim moji padatki izginejo to je najbolj\
-      \ simple na\u010Din kako se tega re\u0161iti\n\n        self._eos_reached =\
-      \ False #zato da lahko se samo ustavi\n        self._ever_received_input = False\
-      \ #\u010De tega ni bi lahko scheduler klical general_work preden dobi karkoli\
-      \ in kon\u010Da pred\u010Dasno\n\n        # Fallback-only timing state (kept\
-      \ in case expected_input_bytes is not provided)\n        self.eos_timeout =\
-      \ float(eos_timeout)\n        self._last_input_time = None\n\n        # NEW:\
-      \ deterministic byte-count tracking (this is the real fix)\n        self.expected_input_bytes\
-      \ = (\n            int(expected_input_bytes) if expected_input_bytes is not\
-      \ None else None\n        )\n        self._total_bytes_seen = 0  # running total\
-      \ of bytes consumed so far this run\n\n        if self.samples_per_symbol <=\
-      \ 0:\n            raise ValueError(\"samples_per_symbol must be pozitive number\"\
-      )\n        if self.encode_alpha and not self.is_power_of_two(len(self.alpha_map)):\n\
+      \    beta_map=[-1.0, 1.0],\n        gama_map=[1.0],\n        samples_per_symbol=500,\n\
+      \        encode_alpha=False,\n        encode_beta=True,\n        encode_gama=False,\n\
+      \        eos_timeout=2.0,\n        expected_input_bytes=None,\n    ):\n    \
+      \    gr.basic_block.__init__(\n            self,\n            name=\"alpha_encoder\"\
+      ,\n            in_sig=[np.uint8],\n            out_sig=[np.float32],\n     \
+      \   )\n\n        self.alpha_map = list(alpha_map)\n        self.beta_map = list(beta_map)\n\
+      \        self.gama_map = list(gama_map)\n        self.samples_per_symbol = int(samples_per_symbol)\n\
+      \        self.encode_alpha = bool(encode_alpha)\n        self.encode_beta =\
+      \ bool(encode_beta)\n        self.encode_gama = bool(encode_gama)\n\n      \
+      \  self._bit_buffer = [] #mogo\u010De vr\u017Eemo potem ven\n        #ta buffer\
+      \ bo ostal ker ima ful smisla da ostane boj input \u010De ga preberem morem\
+      \ prebrat cel byte, \u010De ne shranim moji padatki izginejo to je najbolj simple\
+      \ na\u010Din kako se tega re\u0161iti\n\n        self._eos_reached = False #zato\
+      \ da lahko se samo ustavi\n        self._ever_received_input = False #\u010D\
+      e tega ni bi lahko scheduler klical general_work preden dobi karkoli in kon\u010D\
+      a pred\u010Dasno\n\n        # Fallback-only timing state (kept in case expected_input_bytes\
+      \ is not provided)\n        self.eos_timeout = float(eos_timeout)\n        self._last_input_time\
+      \ = None\n\n        # NEW: deterministic byte-count tracking (this is the real\
+      \ fix)\n        self.expected_input_bytes = (\n            int(expected_input_bytes)\
+      \ if expected_input_bytes is not None else None\n        )\n        self._total_bytes_seen\
+      \ = 0  # running total of bytes consumed so far this run\n\n        if self.samples_per_symbol\
+      \ <= 0:\n            raise ValueError(\"samples_per_symbol must be pozitive\
+      \ number\")\n        if self.encode_alpha and not self.is_power_of_two(len(self.alpha_map)):\n\
       \            raise ValueError(\"The size of alpha_map must be 2^n\")\n     \
       \   if self.encode_beta and not self.is_power_of_two(len(self.beta_map)):\n\
       \            raise ValueError(\"The size of beta_map must be 2^n\")\n      \
@@ -403,24 +402,25 @@ blocks:
       \ int(byte)\n            for bit_index in range(8):\n                self._bit_buffer.append((byte_value\
       \ >> bit_index) & 1) #dubi samo zadnji bit zato &1  uno pa premakne na pravo\
       \ mesto binary shift ku v c++\n\n    def _encode_one_symbol(self, bit_offset):\n\
-      \        alpha = 1.1\n        beta = 0.0\n        gama = 1.0\n        offset\
-      \ = bit_offset\n\n        if self.encode_alpha:\n            alpha_index = self._read_bits(self._bit_buffer,\
-      \ offset, self.bits_alpha)\n            alpha = self.alpha_map[alpha_index]\n\
-      \            offset += self.bits_alpha\n\n        if self.encode_beta:\n   \
-      \         beta_index = self._read_bits(self._bit_buffer, offset, self.bits_beta)\n\
-      \            beta = self.beta_map[beta_index]\n            offset += self.bits_beta\n\
-      \n        if self.encode_gama:\n            gama_index = self._read_bits(self._bit_buffer,\
-      \ offset, self.bits_gama)\n            gama = self.gama_map[gama_index]\n  \
-      \          offset += self.bits_gama\n\n        return alpha, beta, gama\n\n\
-      \    def general_work(self, input_items, output_items):\n        input_bytes\
-      \ = input_items[0]\n        output_samples = output_items[0]\n\n        '''\n\
-      \        if not hasattr(self, '_dbg_call'):\n            self._dbg_call = 0\n\
-      \        self._dbg_call += 1 # da vem kolkokrat pokli\u010Dem ta blok general_work\n\
-      \        c = self._dbg_call\n        print(f\"[ENC #{c}] id={id(self)} in={len(input_bytes)}\
-      \ out_buf={len(output_samples)} bit_buf={len(self._bit_buffer)} eos={self._eos_reached}\
-      \ ever={self._ever_received_input} seen={self._total_bytes_seen}/{self.expected_input_bytes}\"\
-      , file=sys.stderr, flush=True) \n        ''' #debuging\n\n        if len(input_bytes)\
-      \ > 0:\n            self._ever_received_input = True\n            self._eos_reached\
+      \        alpha = 1.1\n        beta = 0.0\n        gama = self.gama_map[0]\n\
+      \        offset = bit_offset\n\n        if self.encode_alpha:\n            alpha_index\
+      \ = self._read_bits(self._bit_buffer, offset, self.bits_alpha)\n           \
+      \ alpha = self.alpha_map[alpha_index]\n            offset += self.bits_alpha\n\
+      \n        if self.encode_beta:\n            beta_index = self._read_bits(self._bit_buffer,\
+      \ offset, self.bits_beta)\n            beta = self.beta_map[beta_index]\n  \
+      \          offset += self.bits_beta\n\n        if self.encode_gama:\n      \
+      \      gama_index = self._read_bits(self._bit_buffer, offset, self.bits_gama)\n\
+      \            gama = self.gama_map[gama_index]\n            offset += self.bits_gama\n\
+      \n        return alpha, beta, gama\n\n    def general_work(self, input_items,\
+      \ output_items):\n        input_bytes = input_items[0]\n        output_samples\
+      \ = output_items[0]\n\n        '''\n        if not hasattr(self, '_dbg_call'):\n\
+      \            self._dbg_call = 0\n        self._dbg_call += 1 # da vem kolkokrat\
+      \ pokli\u010Dem ta blok general_work\n        c = self._dbg_call\n        print(f\"\
+      [ENC #{c}] id={id(self)} in={len(input_bytes)} out_buf={len(output_samples)}\
+      \ bit_buf={len(self._bit_buffer)} eos={self._eos_reached} ever={self._ever_received_input}\
+      \ seen={self._total_bytes_seen}/{self.expected_input_bytes}\", file=sys.stderr,\
+      \ flush=True) \n        ''' #debuging\n\n        if len(input_bytes) > 0:\n\
+      \            self._ever_received_input = True\n            self._eos_reached\
       \ = False\n            self._last_input_time = time.time()  # fallback bookkeeping\
       \ only\n            self._total_bytes_seen += len(input_bytes)  # NEW: exact\
       \ running count\n            self._append_input_bits(input_bytes) #direktno\
@@ -478,7 +478,7 @@ blocks:
     samples_per_symbol: samples_per_symbol
   states:
     _io_cache: ('alpha_encoder', 'alpha_encoder', [('alpha_map', '[1.2, 1.4, 1.6,
-      1.8]'), ('beta_map', '[-1.0, 1.0]'), ('gama_map', '[0.5, 1.0, 1.5, 2.0]'), ('samples_per_symbol',
+      1.8]'), ('beta_map', '[-1.0, 1.0]'), ('gama_map', '[1.0]'), ('samples_per_symbol',
       '500'), ('encode_alpha', 'False'), ('encode_beta', 'True'), ('encode_gama',
       'False'), ('eos_timeout', '2.0'), ('expected_input_bytes', 'None')], [('0',
       'byte', 1)], [('0', 'float', 1)], 'Kodira bajte v serijo vzorcev alfa-stabilne
@@ -499,25 +499,24 @@ blocks:
       \ np\nfrom gnuradio import gr\nimport sys\nimport time\n\nclass alpha_decoder(gr.basic_block):\n\
       \    \"\"\"Dekodira vzorce alfa-stabilne porazdelitve v bajte.\"\"\"\n\n   \
       \ def __init__(\n        self,\n        alpha_map=[1.2, 1.4, 1.6, 1.8],\n  \
-      \      beta_map=[-1.0, 1.0],\n        gama_map=[0.5, 1.0, 1.5, 2.0],\n     \
-      \   samples_per_symbol=500,\n        L=10,\n        encode_alpha=False,\n  \
-      \      encode_beta=True,\n        encode_gama=False,\n        eos_timeout=3.0,\n\
-      \        expected_input_samples=None,\n    ):\n        gr.basic_block.__init__(\n\
-      \            self,\n            name=\"alpha_decoder\",\n            in_sig=[np.float32],\n\
-      \            out_sig=[np.uint8],\n        )\n\n        self.alpha_map = list(alpha_map)\n\
-      \        self.beta_map = list(beta_map)\n        self.gama_map = list(gama_map)\n\
-      \        self.samples_per_symbol = int(samples_per_symbol)\n        self.L =\
-      \ int(L)\n        self.encode_alpha = bool(encode_alpha)\n        self.encode_beta\
-      \ = bool(encode_beta)\n        self.encode_gama = bool(encode_gama)\n\n    \
-      \    self._sample_buffer = np.empty(0, dtype=np.float32)\n        self._decoded_bit_buffer\
-      \ = []\n        self._eos_reached = False\n        self._ever_received_input\
-      \ = False #potrebno da vem kdaj startam stevec oziroma da ne kon\u010Da predn\
-      \ dobi delo\n\n        # Fallback-only timing state\n        self.eos_timeout\
-      \ = float(eos_timeout)\n        self._last_input_time = None\n\n        # NEW:\
-      \ deterministic sample-count tracking (this is the real fix)\n        self.expected_input_samples\
-      \ = (\n            int(expected_input_samples) if expected_input_samples is\
-      \ not None else None\n        )\n        self._total_samples_seen = 0  # running\
-      \ total of input samples consumed this run\n\n        if self.samples_per_symbol\
+      \      beta_map=[-1.0, 1.0],\n        gama_map=[1.0],\n        samples_per_symbol=500,\n\
+      \        L=10,\n        encode_alpha=False,\n        encode_beta=True,\n   \
+      \     encode_gama=False,\n        eos_timeout=3.0,\n        expected_input_samples=None,\n\
+      \    ):\n        gr.basic_block.__init__(\n            self,\n            name=\"\
+      alpha_decoder\",\n            in_sig=[np.float32],\n            out_sig=[np.uint8],\n\
+      \        )\n\n        self.alpha_map = list(alpha_map)\n        self.beta_map\
+      \ = list(beta_map)\n        self.gama_map = list(gama_map)\n        self.samples_per_symbol\
+      \ = int(samples_per_symbol)\n        self.L = int(L)\n        self.encode_alpha\
+      \ = bool(encode_alpha)\n        self.encode_beta = bool(encode_beta)\n     \
+      \   self.encode_gama = bool(encode_gama)\n\n        self._sample_buffer = np.empty(0,\
+      \ dtype=np.float32)\n        self._decoded_bit_buffer = []\n        self._eos_reached\
+      \ = False\n        self._ever_received_input = False #potrebno da vem kdaj startam\
+      \ stevec oziroma da ne kon\u010Da predn dobi delo\n\n        # Fallback-only\
+      \ timing state\n        self.eos_timeout = float(eos_timeout)\n        self._last_input_time\
+      \ = None\n\n        # NEW: deterministic sample-count tracking (this is the\
+      \ real fix)\n        self.expected_input_samples = (\n            int(expected_input_samples)\
+      \ if expected_input_samples is not None else None\n        )\n        self._total_samples_seen\
+      \ = 0  # running total of input samples consumed this run\n\n        if self.samples_per_symbol\
       \ <= 0:\n            raise ValueError(\"samples_per_symbol must be pozitive\
       \ number\")\n        if self.L <= 0:\n            raise ValueError(\"L must\
       \ be pozitive number\")\n        if self.samples_per_symbol % self.L != 0:\n\
@@ -636,7 +635,7 @@ blocks:
     samples_per_symbol: samples_per_symbol
   states:
     _io_cache: ('alpha_decoder', 'alpha_decoder', [('alpha_map', '[1.2, 1.4, 1.6,
-      1.8]'), ('beta_map', '[-1.0, 1.0]'), ('gama_map', '[0.5, 1.0, 1.5, 2.0]'), ('samples_per_symbol',
+      1.8]'), ('beta_map', '[-1.0, 1.0]'), ('gama_map', '[1.0]'), ('samples_per_symbol',
       '500'), ('L', '10'), ('encode_alpha', 'False'), ('encode_beta', 'True'), ('encode_gama',
       'False'), ('eos_timeout', '3.0'), ('expected_input_samples', 'None')], [('0',
       'float', 1)], [('0', 'byte', 1)], 'Dekodira vzorce alfa-stabilne porazdelitve

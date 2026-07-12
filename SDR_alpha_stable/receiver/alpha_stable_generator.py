@@ -8,9 +8,7 @@
 # Title: Alpha stable simulation
 # GNU Radio version: 3.10.12.0
 
-from gnuradio import analog
 from gnuradio import blocks
-import numpy
 from gnuradio import gr
 from gnuradio.filter import firdes
 from gnuradio.fft import window
@@ -19,7 +17,8 @@ import signal
 from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
-import alpha_stable_generator_epy_block_0 as epy_block_0  # embedded python block
+from gnuradio import uhd
+import time
 import alpha_stable_generator_epy_block_1 as epy_block_1  # embedded python block
 import threading
 
@@ -59,33 +58,30 @@ class alpha_stable_generator(gr.top_block):
         # Blocks
         ##################################################
 
+        self.uhd_usrp_source_0 = uhd.usrp_source(
+            ",".join(("source=30F4146", '')),
+            uhd.stream_args(
+                cpu_format="fc32",
+                args='',
+                channels=list(range(0,1)),
+            ),
+        )
+        self.uhd_usrp_source_0.set_samp_rate(samp_rate)
+        self.uhd_usrp_source_0.set_time_unknown_pps(uhd.time_spec(0))
+
+        self.uhd_usrp_source_0.set_center_freq(0, 0)
+        self.uhd_usrp_source_0.set_antenna("TX/RX", 0)
+        self.uhd_usrp_source_0.set_gain(0, 0)
         self.epy_block_1 = epy_block_1.alpha_decoder(alpha_map=alpha_map, beta_map=beta_map, gama_map=gama_map, samples_per_symbol=samples_per_symbol, L=L, encode_alpha=False, encode_beta=True, encode_gama=False, eos_timeout=eos_timeout, expected_input_samples=source_number_of_samples*8*samples_per_symbol)
-        self.epy_block_0 = epy_block_0.alpha_encoder(alpha_map=alpha_map, beta_map=beta_map, gama_map=gama_map, samples_per_symbol=samples_per_symbol, encode_alpha=False, encode_beta=True, encode_gama=False, eos_timeout=eos_timeout, expected_input_bytes=source_number_of_samples)
-        self.blocks_head_1 = blocks.head(gr.sizeof_float*1, (source_number_of_samples*8*samples_per_symbol))
-        self.blocks_head_0 = blocks.head(gr.sizeof_char*1, source_number_of_samples)
-        self.blocks_file_sink_2 = blocks.file_sink(gr.sizeof_float*1, encoded_file, False)
-        self.blocks_file_sink_2.set_unbuffered(False)
         self.blocks_file_sink_1 = blocks.file_sink(gr.sizeof_char*1, decoded_file, False)
         self.blocks_file_sink_1.set_unbuffered(False)
-        self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_char*1, source_file, False)
-        self.blocks_file_sink_0.set_unbuffered(False)
-        self.blocks_add_xx_0 = blocks.add_vff(1)
-        self.analog_random_source_x_0 = blocks.vector_source_b(list(map(int, numpy.random.randint(0, 255, source_number_of_samples))), False)
-        self.analog_noise_source_x_0 = analog.noise_source_f(analog.GR_GAUSSIAN, noise_ratio, 0)
 
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.analog_noise_source_x_0, 0), (self.blocks_head_1, 0))
-        self.connect((self.analog_random_source_x_0, 0), (self.blocks_head_0, 0))
-        self.connect((self.blocks_add_xx_0, 0), (self.epy_block_1, 0))
-        self.connect((self.blocks_head_0, 0), (self.blocks_file_sink_0, 0))
-        self.connect((self.blocks_head_0, 0), (self.epy_block_0, 0))
-        self.connect((self.blocks_head_1, 0), (self.blocks_add_xx_0, 1))
-        self.connect((self.epy_block_0, 0), (self.blocks_add_xx_0, 0))
-        self.connect((self.epy_block_0, 0), (self.blocks_file_sink_2, 0))
         self.connect((self.epy_block_1, 0), (self.blocks_file_sink_1, 0))
+        self.connect((self.uhd_usrp_source_0, 0), (self.epy_block_1, 0))
 
 
     def get_L(self):
@@ -119,14 +115,12 @@ class alpha_stable_generator(gr.top_block):
 
     def set_encoded_file(self, encoded_file):
         self.encoded_file = encoded_file
-        self.blocks_file_sink_2.open(self.encoded_file)
 
     def get_eos_timeout(self):
         return self.eos_timeout
 
     def set_eos_timeout(self, eos_timeout):
         self.eos_timeout = eos_timeout
-        self.epy_block_0.eos_timeout = self.eos_timeout
         self.epy_block_1.eos_timeout = self.eos_timeout
 
     def get_gama_map_str(self):
@@ -140,15 +134,12 @@ class alpha_stable_generator(gr.top_block):
 
     def set_noise_ratio(self, noise_ratio):
         self.noise_ratio = noise_ratio
-        self.analog_noise_source_x_0.set_amplitude(self.noise_ratio)
 
     def get_samples_per_symbol(self):
         return self.samples_per_symbol
 
     def set_samples_per_symbol(self, samples_per_symbol):
         self.samples_per_symbol = samples_per_symbol
-        self.blocks_head_1.set_length((self.source_number_of_samples*8*self.samples_per_symbol))
-        self.epy_block_0.samples_per_symbol = self.samples_per_symbol
         self.epy_block_1.expected_input_samples = self.source_number_of_samples*8*self.samples_per_symbol
         self.epy_block_1.samples_per_symbol = self.samples_per_symbol
 
@@ -157,16 +148,12 @@ class alpha_stable_generator(gr.top_block):
 
     def set_source_file(self, source_file):
         self.source_file = source_file
-        self.blocks_file_sink_0.open(self.source_file)
 
     def get_source_number_of_samples(self):
         return self.source_number_of_samples
 
     def set_source_number_of_samples(self, source_number_of_samples):
         self.source_number_of_samples = source_number_of_samples
-        self.blocks_head_0.set_length(self.source_number_of_samples)
-        self.blocks_head_1.set_length((self.source_number_of_samples*8*self.samples_per_symbol))
-        self.epy_block_0.expected_input_bytes = self.source_number_of_samples
         self.epy_block_1.expected_input_samples = self.source_number_of_samples*8*self.samples_per_symbol
 
     def get_samp_rate(self):
@@ -174,13 +161,13 @@ class alpha_stable_generator(gr.top_block):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
+        self.uhd_usrp_source_0.set_samp_rate(self.samp_rate)
 
     def get_gama_map(self):
         return self.gama_map
 
     def set_gama_map(self, gama_map):
         self.gama_map = gama_map
-        self.epy_block_0.gama_map = self.gama_map
         self.epy_block_1.gama_map = self.gama_map
 
     def get_beta_map(self):
@@ -188,7 +175,6 @@ class alpha_stable_generator(gr.top_block):
 
     def set_beta_map(self, beta_map):
         self.beta_map = beta_map
-        self.epy_block_0.beta_map = self.beta_map
         self.epy_block_1.beta_map = self.beta_map
 
     def get_alpha_map(self):
@@ -196,7 +182,6 @@ class alpha_stable_generator(gr.top_block):
 
     def set_alpha_map(self, alpha_map):
         self.alpha_map = alpha_map
-        self.epy_block_0.alpha_map = self.alpha_map
         self.epy_block_1.alpha_map = self.alpha_map
 
 

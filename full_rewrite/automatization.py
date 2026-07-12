@@ -8,7 +8,7 @@ BINARY_DIFF_EXE = r"C:\Users\žan\Desktop\3.letnik\Diploma\binary_diff\x64\Debug
 GRAPH_SCRIPT = os.path.join(SCRIPT_DIR, "graphs.py")
 
 
-def run_generator(beta_map, samples_per_symbol, L, output_dir, runs=10, noise_ratio=0.0):
+def run_generator(beta_map, samples_per_symbol, L, output_dir, runs=10, noise_ratio=0.0, gama_map="1.0"):
     os.makedirs(output_dir, exist_ok=True)
 
     for i in range(1, runs + 1): #zaradi binary diff
@@ -20,6 +20,7 @@ def run_generator(beta_map, samples_per_symbol, L, output_dir, runs=10, noise_ra
             "python",
             os.path.join(SCRIPT_DIR, "alpha_stable_generator.py"),
             f"--beta-map-str={beta_map}",
+            f"--gama-map-str={gama_map}",
             "--samples-per-symbol", str(samples_per_symbol),
             "--L", str(L),
             "--noise-ratio", str(noise_ratio),
@@ -66,6 +67,19 @@ def run_different_beta():
     for beta_map in beta_options:
         output_dir = os.path.join(base_dir, beta_map.replace(",", "_").replace("-", "m"))
         run_generator(beta_map, samples_per_symbol=500, L=20, output_dir=output_dir)
+        run_binary_diff(output_dir)
+
+
+def run_different_gama():
+    gama_options = [
+        "1.0",
+        "100.0"
+    ]
+
+    base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_gama"
+    for gama_map in gama_options:
+        output_dir = os.path.join(base_dir, gama_map.replace(",", "_").replace("-", "m").replace(".", "p"))
+        run_generator("-1.0,1.0", samples_per_symbol=64, L=8, output_dir=output_dir, gama_map=gama_map, noise_ratio=6.5)
         run_binary_diff(output_dir)
 
 
@@ -118,7 +132,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--experiment",
-        choices=["all", "different_beta", "different_sample_size", "different_noise_ratio", "different_l_ratio", "graphs"],
+        choices=["all", "different_beta", "different_gama", "different_sample_size", "different_sample_size_with_noise", "different_noise_ratio", "different_l_ratio", "graphs"],
         help="Choose which experiment block to run.",
     )
     args = parser.parse_args()
@@ -127,26 +141,31 @@ def main():
         print("Choose an experiment to run:")
         print("1 - all")
         print("2 - different_beta")
-        print("3 - different_sample_size")
-        print("4 - different_sample_size_with_noise")
-        print("5 - different_noise_ratio")
-        print("6 - different_l_ratio")
-        print("7 - graphs")
+        print("3 - different_gama")
+        print("4 - different_sample_size")
+        print("5 - different_sample_size_with_noise")
+        print("6 - different_noise_ratio")
+        print("7 - different_l_ratio")
+        print("8 - graphs")
         choice = input("Enter choice: ").strip()
 
         menu = {
             "1": "all",
             "2": "different_beta",
-            "3": "different_sample_size",
-            "4": "different_sample_size_with_noise",
-            "5": "different_noise_ratio",
-            "6": "different_l_ratio",
-            "7": "graphs",
+            "3": "different_gama",
+            "4": "different_sample_size",
+            "5": "different_sample_size_with_noise",
+            "6": "different_noise_ratio",
+            "7": "different_l_ratio",
+            "8": "graphs",
         }
         args.experiment = menu.get(choice, "all")
 
     if args.experiment in ("all", "different_beta"):
         run_different_beta()
+
+    if args.experiment in ("all", "different_gama"):
+        run_different_gama()
 
     if args.experiment in ("all", "different_sample_size"):
         run_different_sample_size()

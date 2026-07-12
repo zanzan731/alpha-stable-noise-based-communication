@@ -1,0 +1,622 @@
+\documentclass[a4paper, 12pt]{book}
+%\documentclass[a4paper, 12pt, draft]{book}  Nalogo preverite tudi z opcijo draft, ki vam bo pokazala, katere vrstice so predolge!
+
+
+
+\usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
+\usepackage[english,slovene]{babel}    % naloži, med drugim, slovenske delilne vzorce
+\usepackage[pdftex]{graphicx}  % omogoča vlaganje slik različnih formatov
+\usepackage{fancyhdr}          % poskrbi, na primer, za glave strani
+\usepackage{amssymb}           % dodatni simboli
+\usepackage{amsmath}           % eqref, npr.
+%\usepackage{hyperxmp}
+\usepackage[hyphens]{url}  % dodal Solina
+\usepackage{comment}       % dodal Solina
+
+\usepackage[pdftex, colorlinks=true,
+						citecolor=black, filecolor=black, 
+						linkcolor=black, urlcolor=black,
+						pagebackref=false, 
+						pdfproducer={LaTeX}, pdfcreator={LaTeX}, hidelinks]{hyperref}
+
+\usepackage{color}       % dodal Solina
+\usepackage{soul}       % dodal Solina
+\usepackage[numbers]{natbib}  % dodal Solina
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\tDIPLOMA INFO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\ttitle}{Brezžična komunikacija na osnovi šuma z uporabo programsko definiranega radia}
+\newcommand{\ttitleEn}{Noise-Based Wireless Communication Using Software-Defined Radio}
+\newcommand{\tsubject}{\ttitle}
+\newcommand{\tsubjectEn}{\ttitleEn}
+\newcommand{\tauthor}{Žan Perat}
+\newcommand{\tkeywords}{računalnik, računalnik, računalnik}
+\newcommand{\tkeywordsEn}{computer, computer, computer}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\tHYPERREF SETUP
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hypersetup{pdftitle={\ttitleEn}}
+\hypersetup{pdfsubject=\ttitleEn}
+\hypersetup{pdfauthor={\tauthor, zp08116@student.uni-lj.si}}
+\hypersetup{pdfkeywords=\tkeywordsEn}
+
+
+ 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% postavitev strani
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+\addtolength{\marginparwidth}{-20pt} % robovi za tisk
+\addtolength{\oddsidemargin}{40pt}
+\addtolength{\evensidemargin}{-40pt}
+
+\renewcommand{\baselinestretch}{1.3} % ustrezen razmik med vrsticami
+\setlength{\headheight}{15pt}        % potreben prostor na vrhu
+\renewcommand{\chaptermark}[1]%
+{\markboth{\MakeUppercase{\thechapter.\ #1}}{}} \renewcommand{\sectionmark}[1]%
+{\markright{\MakeUppercase{\thesection.\ #1}}} \renewcommand{\headrulewidth}{0.5pt} \renewcommand{\footrulewidth}{0pt}
+\fancyhf{}
+\fancyhead[LE,RO]{\sl \thepage} 
+%\fancyhead[LO]{\sl \rightmark} \fancyhead[RE]{\sl \leftmark}
+\fancyhead[RE]{\sc \tauthor}              % dodal Solina
+\fancyhead[LO]{\sc Bachelor's Thesis}     % dodal Solina
+
+
+\newcommand{\BibTeX}{{\sc Bib}\TeX}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% naslovi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+
+\newcommand{\autfont}{\Large}
+\newcommand{\titfont}{\LARGE\bf}
+\newcommand{\clearemptydoublepage}{\newpage{\pagestyle{empty}\cleardoublepage}}
+\setcounter{tocdepth}{1}      % globina kazala
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% konstrukti
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}{Proposition}[theorem]
+\newenvironment{proofenv}{\emph{Proof.}\ }{\hspace{\fill}{$\Box$}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PDF-A
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% define medatata
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\def\Title{\ttitleEn}
+\def\Author{\tauthor, matjaz.kralj@fri.uni-lj.si}
+\def\Subject{\ttitleEn}
+\def\Keywords{\tkeywordsEn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% \convertDate converts D:20080419103507+02'00' to 2008-04-19T10:35:07+02:00
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\def\convertDate{%
+    \getYear
+}
+
+{\catcode`\D=12
+ \gdef\getYear D:#1#2#3#4{\edef\xYear{#1#2#3#4}\getMonth}
+}
+\def\getMonth#1#2{\edef\xMonth{#1#2}\getDay}
+\def\getDay#1#2{\edef\xDay{#1#2}\getHour}
+\def\getHour#1#2{\edef\xHour{#1#2}\getMin}
+\def\getMin#1#2{\edef\xMin{#1#2}\getSec}
+\def\getSec#1#2{\edef\xSec{#1#2}\getTZh}
+\def\getTZh +#1#2{\edef\xTZh{#1#2}\getTZm}
+\def\getTZm '#1#2'{%
+    \edef\xTZm{#1#2}%
+    \edef\convDate{\xYear-\xMonth-\xDay T\xHour:\xMin:\xSec+\xTZh:\xTZm}%
+}
+
+\expandafter\convertDate\pdfcreationdate 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% get pdftex version string
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcount\countA
+\countA=\pdftexversion
+\advance \countA by -100
+\def\pdftexVersionStr{pdfTeX-1.\the\countA.\pdftexrevision}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% XMP data
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+\usepackage{xmpincl}
+\includexmp{pdfa-1b}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% pdfInfo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+\pdfinfo{%
+    /Title    (\ttitleEn)
+    /Author   (\tauthor, damjan@cvetan.si)
+    /Subject  (\ttitleEn)
+    /Keywords (\tkeywordsEn)
+    /ModDate  (\pdfcreationdate)
+    /Trapped  /False
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\selectlanguage{english}
+\frontmatter
+\setcounter{page}{1} %
+\renewcommand{\thepage}{}       % preprecimo težave s številkami strani v kazalu
+\newcommand{\sn}[1]{"`#1"'}                    % dodal Solina (slovenski narekovaji)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%naslovnica
+ \thispagestyle{empty}%
+   \begin{center}
+    {\large\sc University of Ljubljana\\%
+%      Faculty of Electrical Engineering\\% za študijski program Multimedija
+%      Faculty of Public Administration\\% za študijski program Upravna informatika
+      Faculty of Computer and Information Science\\%
+%      Faculty of Mathematics and Physics\\% za študijski program Računalništvo in matematika
+     }
+    \vskip 10em%
+    {\autfont \tauthor\par}%
+    {\titfont \ttitleEn \par}%
+    {\vskip 3em \textsc{BACHELOR'S THESIS\\[5mm]         % dodal Solina za ostale študijske programe
+%    PROFESSIONAL UNDERGRADUATE STUDY PROGRAM\\ FIRST CYCLE\\ COMPUTER SCIENCE AND INFORMATION TECHNOLOGY}\par}%
+     UNDERGRADUATE ACADEMIC PROGRAMME\\ FIRST CYCLE\\ COMPUTER SCIENCE AND MATHEMATICS}\par}%
+%    INTERDISCIPLINARY UNDERGRADUATE\\ FIRST CYCLE STUDY PROGRAMME\\ MULTIMEDIA}\par}%
+%    INTERDISCIPLINARY UNDERGRADUATE\\ FIRST CYCLE STUDY PROGRAMME\\ PUBLIC ADMINISTRATION INFORMATICS}\par}%
+%    INTERDISCIPLINARY UNDERGRADUATE\\ FIRST CYCLE STUDY PROGRAMME\\ COMPUTER SCIENCE AND MATHEMATICS}\par}%
+    \vfill\null%
+% izberite pravi habilitacijski naziv mentorja!
+    {\large \textsc{Supervisor}: Assoc. Prof. Dr. Veljko Pejović\par}%
+   {\large \textsc{Co-supervisor}: Assist. Prof. Dr. Areeb Ahmed \par}%
+    {\vskip 2em \large Ljubljana, 2026 \par}%
+\end{center}
+% prazna stran
+%\clearemptydoublepage      % dodal Solina (izjava o licencah itd. se izpiše na hrbtni strani naslovnice)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%copyright stran
+\thispagestyle{empty}
+\vspace*{8cm}
+
+\noindent
+{\sc Copyright}. 
+The results of the bachelor's thesis are the intellectual property of the author and the home faculty of the University of Ljubljana.
+Publication and use of the thesis results require written consent from the author, the faculty, and the supervisor.
+
+\begin{center}
+\mbox{}\vfill
+\emph{The text was typeset with the \LaTeX{} document preparation system.}
+\end{center}
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% stran 3 med uvodnimi listi
+\thispagestyle{empty}
+\
+\vfill
+
+\bigskip
+\noindent\textbf{Candidate:} Žan Perat\\
+\noindent\textbf{Title:} Noise-Based Wireless Communication Using Software-Defined Radio\\
+% vstavite ustrezen naziv študijskega programa!
+\noindent\textbf{Type of thesis:} Bachelor's thesis in the undergraduate academic programme Computer Science and Mathematics\\
+% izberite pravi habilitacijski naziv mentorja!
+\noindent\textbf{Supervisor:} Assoc. Prof. Dr. Veljko Pejović\\
+\noindent\textbf{Co-supervisor:} Assist. Prof. Dr. Areeb Ahmed
+
+\bigskip
+\noindent\textbf{Description:}\\
+The thesis topic description is copied by the student from the academic information system, where it was entered by the supervisor. 
+In a few sentences it describes what is expected of the candidate's thesis work. 
+What the goals are, which methods should be used, and perhaps the key literature are also stated.
+
+\bigskip
+\noindent\textbf{Title:} Noise-Based Wireless Communication Using Software-Defined Radio
+
+\bigskip
+\noindent\textbf{Description:}\\
+Thesis description in English
+
+\vfill
+
+
+
+\vspace{2cm}
+
+% prazna stran
+\clearemptydoublepage
+
+% zahvala
+\thispagestyle{empty}\mbox{}\vfill\null\it%
+\noindent
+Write here whom you would like to thank for helping you prepare the thesis. Be careful not to forget anyone; they might take offense. You can avoid that by omitting the acknowledgements section entirely.
+\rm\normalfont
+
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% posvetilo, če sama zahvala ne zadošča :-)
+\thispagestyle{empty}\mbox{}{\vskip0.20\textheight}\mbox{}\hfill\begin{minipage}{0.55\textwidth}%
+To my dear Alenčica.
+\normalfont\end{minipage}
+
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% kazalo
+\pagestyle{empty}
+\def\thepage{}% preprecimo tezave s stevilkami strani v kazalu
+\tableofcontents{}
+
+
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% seznam kratic
+
+\chapter*{List of Abbreviations}  % spremenil Solina, da predolge vrstice ne gredo preko desnega roba
+
+\begin{comment}
+\begin{tabular}{l|l|l}
+  {\bf kratica} & {\bf angleško} & {\bf slovensko} \\ \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  {\bf OFDM} & Orthogonal Frequency-Division Multiple Access & Ortogonalni frekvenčno deljeni večkratni dostop \\
+  {\bf MIMO} & Multiple-input and multiple-output & večantenski sistem \\
+  \dots & \dots & \dots \\
+\end{tabular}
+\end{comment}
+
+\noindent\begin{tabular}{p{0.1\textwidth}|p{.4\textwidth}|p{.4\textwidth}}    % po potrebi razširi prvo kolono tabele na račun drugih dveh!
+  {\bf abbreviation} & {\bf English}                             & {\bf Slovene} \\ \hline
+  {\bf OFDM} & Orthogonal Frequency-Division Multiple Access & Ortogonalni frekvenčno deljeni večkratni dostop \\
+  {\bf MIMO} & Multiple-input and multiple-output & večantenski sistem \\
+%  \dots & \dots & \dots \\
+\end{tabular}
+
+
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% summary
+\addcontentsline{toc}{chapter}{Summary}
+\chapter*{Summary}
+
+\noindent\textbf{Title:} \ttitleEn
+\bigskip
+
+\noindent\textbf{Author:} \tauthor
+\bigskip
+
+%\noindent\textbf{Povzetek:} 
+\noindent This sample document presents a method for preparing a bachelor's thesis using \LaTeX. Your summary should contain around 100 words, whereas this one is clearly too short.
+A good summary includes: (1) a brief description of the problem being addressed, (2) a brief description of your approach to solving the problem, and (3) the most successful result or contribution of the thesis.
+
+\bigskip
+
+\noindent\textbf{Keywords:} \tkeywordsEn.
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% abstract
+\selectlanguage{english}
+\addcontentsline{toc}{chapter}{Abstract}
+\chapter*{Abstract}
+
+\noindent\textbf{Title:} \ttitleEn
+\bigskip
+
+\noindent\textbf{Author:} \tauthor
+\bigskip
+
+%\noindent\textbf{Abstract:} 
+\noindent This sample document presents an approach to typesetting your BSc thesis using \LaTeX. 
+A proper abstract should contain around 100 words, which makes this one way too short.
+\bigskip
+
+\noindent\textbf{Keywords:} \tkeywordsEn.
+\selectlanguage{english}
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
+\setcounter{page}{1}
+\pagestyle{fancy}
+
+\chapter{Introduction}
+Wireless communication has become part of everyday life. We use it in mobile telephony, wireless internet access, satellite links, and many other places. The development of these technologies has helped people exchange data and knowledge quickly without the need for physical connections, but this also brings its own challenges. 
+
+Modern wireless communication systems such as Wi-Fi, Bluetooth, 4G and 5G mobile networks are all based on advanced modulation methods (amplitude, phase, frequency), coding, and signal processing. This approach is the basis of practically all communication standards used today and is the result of decades of development in this field, improving speed, reliability, and security from one generation to the next.
+
+Despite the success and established use of modulation techniques, new ways of transmitting information are still being sought. One possible approach is to use the statistical properties of the signal to transmit information. Instead of encoding data only through changes in amplitude, phase, and frequency, information can also be represented by choosing suitable parameters of the signal's statistical distribution.
+
+This thesis presents a communication system based on the $\alpha$-stable distribution. In contrast to classical modulation processes, this type of communication is much harder to detect and decipher, even without additional cryptographic methods. Of course, all this also introduces new challenges.
+
+The goal of the thesis is to develop and present such a method of data representation, describe the process of encoding and decoding information, and analyze the system's performance. The thesis studies the possibility of using the $\alpha$-stable distribution as an information carrier and proposes a different approach to developing new communication methods in wireless communications.
+
+
+\chapter{Current State of Mobile Networks}
+\label{ch0}
+Modern mobile networks are designed around information transmission using deterministic signals whose properties are defined by various modulation techniques. Technologies used in 4G and 5G networks rely on changing the amplitude, phase, or frequency of the carrier signal, with the aim of using the available spectrum as efficiently as possible while ensuring reliable data transmission. To improve performance, advanced methods such as OFDM, MIMO, and adaptive coding are used. 
+
+In the design of such networks, the signal is treated as the information carrier, while noise is an unwanted phenomenon that degrades transmission quality. As a result, much of the development effort is directed toward reducing the influence of noise using coding, filtering, channel estimation, and advanced signal-processing methods.
+
+Despite significant progress, existing communication systems still have certain limitations. As the number of users grows and bandwidth demands increase, the search for alternative communication methods becomes an increasingly important research area. In addition to increasing capacity, security and communication protection are becoming increasingly important. Classical modulation techniques have well-known properties, which makes them relatively easy to detect, analyze, and intercept with suitable equipment.
+
+This opens opportunities for developing new communication methods in which, in addition to reliable data transmission, low detectability of the communication signal itself is important. The use of stochastic signals as information carriers is one of the more effective approaches, since their random and therefore unpredictable nature makes communication harder to detect and thus increases transmission security.
+
+\section{History of the $\alpha$-Stable Distribution} 
+Stable distributions are a family of probability distributions that share some nice properties. They were first described by the French mathematician Paul Lévy in 1925 and are therefore sometimes called Lévy alpha-stable distributions. His work showed that certain distributions preserve their shape even when independent random variables are added together. Such distributions are called stable distributions, and one of them is the $\alpha$-stable distribution, a natural generalization of the normal distribution. Because of properties such as heavy tails and the ability to model asymmetry, this distribution has very good properties for use in finance, telecommunications, physics, and signal processing, where the classical normal distribution often does not satisfy all criteria for describing extreme data.
+
+\chapter{$\alpha$-Stable Distribution}
+\label{ch1}
+The $\alpha$-stable distribution is a continuous distribution. This means that there exists an integrable function
+$p_X$, called the \emph{probability density}, such that for every $x \in \mathbb{R}$,
+
+\[
+F_X(x)=\int_{-\infty}^{x} p_X(t)\,dt,
+\]
+
+where $F_X$ is the distribution function of the random variable $X$.
+
+The probability density of an $\alpha$-stable distribution cannot, in general, be expressed with elementary functions. Therefore, this distribution is usually given through its characteristic function $\phi_X(t): \mathbb{R} \rightarrow \mathbb{C}$:
+
+\[
+\phi_X(t)=\mathbb{E}\!\left[e^{itX}\right]
+=\int_{-\infty}^{\infty} e^{itx}\,p_X(x)\,dx,
+\qquad t\in\mathbb{R}.
+\]
+
+It is given by:
+\[
+\phi(t)=
+\begin{cases}
+\exp\!\left(
+ i\mu t
+ -\gamma^{\alpha}|t|^{\alpha}
+ \left(
+ 1-i\beta\,\operatorname{sign}(t)\tan\frac{\pi\alpha}{2}
+ \right)
+ \right),
+ & \alpha \neq 1, \\[1.2em]
+\exp\!\left(
+ i\mu t
+ -\gamma|t|
+ \left(
+ 1+i\beta\frac{2}{\pi}\operatorname{sign}(t)\ln\frac{\pi\alpha}{2}
+ \right)
+ \right),
+ & \alpha = 1.
+\end{cases}
+\]
+
+As mentioned above, the most important property of $\alpha$-stable distributions is their stability, so it is also useful to define what this stability means.
+
+Definition:
+Let $X_1$ and $X_2$ be independent copies of the random variable $X$. The distribution of $X$ is stable if for arbitrary constants $a,b>0$ there exist constants $c>0$ and $d\in\mathbb{R}$ such that
+
+\[
+aX_1+bX_2 \overset{d}{=} cX+d.
+\]
+
+This means that a linear combination of two independent random variables with the same stable distribution again belongs to the same family of distributions; only its location and scale may change.
+
+Of course, we cannot see this immediately, but we can nicely connect it with the definition of our characteristic function and prove it.
+
+Proof:
+Let $X$ be a random variable with an $\alpha$-stable distribution and let $X_1$ and $X_2$ be its independent copies. By independence we have
+
+\[
+\phi_{aX_1+bX_2}(t)
+=
+\phi_X(at)\phi_X(bt),
+\]
+since
+\[\phi_{aX_1+bX_2}(t)=\mathbb{E}\!\left[e^{it(aX_1 +bX_2)}\right] =  \mathbb{E}\!\left[e^{itaX_1}e^{itbX_2}\right] = \mathbb{E}\!\left[e^{itaX_1}\right]\mathbb{E}\!\left[e^{itbX_2}\right] = \phi_{X_1}(at) \phi_{X_2}(bt)\] 
+For an $\alpha$-stable distribution ($\alpha\neq1$), the characteristic function is given by
+
+\[
+\phi_X(t)
+=
+\exp\!\left(
+i\mu t
+-\gamma^\alpha |t|^\alpha
+\left[
+1-i\beta\,\operatorname{sign}(t)\tan\!\left(\frac{\pi\alpha}{2}\right)
+\right]
+\right).
+\]
+
+Using the form of the characteristic function with the substitutions $t \mapsto at$ and $t \mapsto bt$, together with the independence of $X_1$ and $X_2$, we obtain:
+
+\[
+\begin{aligned}
+\phi_{aX_1+bX_2}(t)
+&=
+\phi_X(at)\phi_X(bt) \\
+&=
+\exp\!\left(
+i\mu(a+b)t
+-
+\gamma^\alpha(a^\alpha+b^\alpha)|t|^\alpha
+\left[
+1-i\beta\,\operatorname{sign}(t)\tan\!\left(\frac{\pi\alpha}{2}\right)
+\right]
+\right).
+\end{aligned}
+\]
+
+We want to show that this is equal to:
+
+\[
+\phi_{cX + d}(t)
+\exp\!\left(
+i(\mu c + d)t 
+-
+\gamma^\alpha c^\alpha|t|^\alpha
+\left[
+1-i\beta\,\operatorname{sign}(t)\tan\!\left(\frac{\pi\alpha}{2}\right)
+\right]
+\right).
+\]
+
+If we define
+
+\[
+c=\left(a^\alpha+b^\alpha\right)^{1/\alpha},
+\]
+
+then
+
+\[
+c^\alpha=a^\alpha+b^\alpha,
+\]
+and then \[d = \mu (a +b - c) \].
+
+Therefore, the above expression can be written as the characteristic function of the random variable $cX+d$, where $d$ is an appropriate constant. Since the characteristic function uniquely determines the distribution, it follows that
+
+\[
+aX_1+bX_2 \overset{d}{=} cX+d.
+\]
+
+This shows that the class of $\alpha$-stable distributions is closed under linear combinations of independent identically distributed random variables, which is exactly the property of stability.
+
+\section{$\alpha$-Stable Distribution and the Central Limit Theorem}
+
+The central limit theorem is one of the most important theorems in probability theory. It describes the behavior of sums of a large number of independent random variables.
+
+Definition: Let $X_1,X_2,\dots,X_n$ be independent and identically distributed random variables with finite expected value
+
+\[
+\mathbb{E}[X_i]=\mu
+\]
+
+and finite variance
+
+\[
+\operatorname{Var}(X_i)=\sigma^2<\infty.
+\]
+
+Then
+
+\[
+\frac{X_1+\cdots+X_n-n\mu}{\sigma\sqrt{n}}
+\overset{d}{\longrightarrow}
+N(0,1),
+\]
+
+where the symbol $\overset{d}{\longrightarrow}$ denotes convergence in distribution. 
+This means that the distribution function of the normalized sum approaches the distribution function of the standard normal distribution. An important property of this result is that the initial distribution of the individual random variables does not have to be normal, but it always converges to a normal distribution. This is why this distribution appears so often in nature and in everyday life.
+
+The connection between the central limit theorem and $\alpha$-stable distributions lies in their stability under addition. The normal distribution is in fact a special case of our distribution, where
+
+\[
+\alpha=2.
+\]
+
+For other values of the parameter
+
+\[
+0<\alpha<2
+\]
+
+we can obtain stable distributions with infinite variance. Because of their heavy tails, their sums do not converge to the normal distribution, but to another stable distribution. Therefore, $\alpha$-stable distributions represent a natural generalization of the central limit theorem.
+
+This connection is described by the generalized central limit theorem. It states that a random variable $Z$ is a stable distribution if and only if there exists a sequence of independent and identically distributed random variables
+
+\[
+X_1,X_2,X_3,\dots
+\]
+
+and constants
+
+\[
+a_n>0,\qquad b_n\in\mathbb{R},
+\]
+
+such that
+
+\[
+a_n(X_1+\cdots+X_n)-b_n
+\overset{d}{\longrightarrow}
+Z.
+\]
+
+So, if the sum of a large number of independent and identically distributed random variables, after appropriate scaling and shifting, converges to a non-degenerate distribution, that distribution must be stable.
+
+For the classical central limit theorem, finite variance is the key condition for obtaining a normal distribution. The generalized central limit theorem expands this condition and also includes distributions with infinite variance. In this case, the limit distribution is an $\alpha$-stable distribution, where the parameter $\alpha$ determines the scaling rate of the sum:
+
+\[
+a_n \propto n^{-1/\alpha}.
+\]
+This is the generalized scaling factor in the central limit theorem. In the CLT, the scaling factor is $\frac{1}{\sqrt{n}}$; since the central limit theorem considers the standard normal distribution, where $\alpha = 2$, we see that this is indeed only a generalization.
+
+With this, $\alpha$-stable distributions are the only possible limit distributions when a large number of independent and identically distributed random variables are summed.
+
+\chapter{Using the $\alpha$-Stable Distribution as an Information Carrier}
+
+Now that we have covered the necessary theory, we can understand how it can be used for data transmission. In classical wireless communication, we use deterministic signal properties such as changes in amplitude, phase, or frequency, and thereby transmit our data. In communication based on the $\alpha$-stable distribution, information is represented by the statistical properties of the signal.
+
+With the $\alpha$-stable distribution, this works by choosing its parameters at the transmitter and generating a sequence of samples:
+\[
+X_1, X_2,\dots,X_n \sim S_\alpha(\beta,\gamma,\mu)
+\]
+At the receiver, we then try to determine these parameters. Because of the stability property, these parameters can also be estimated approximately, and this property gives us the ability to infer an approximate distribution from multiple random samples, from which the transmitter generated the samples.
+
+Why is a single sample not enough?
+Due to randomness, a single random variable does not contain enough information to reliably determine an individual parameter. The receiver therefore analyzes multiple samples and estimates the statistical properties of their distribution. In other words, we estimate the distribution with which parameters were used by the transmitter.
+
+How is this related to the generalized central limit theorem?
+In a communication channel, the received signal usually represents a combination of many random influences, so it can be written as a sum:
+
+\[
+Y=X_1+X_2+\dots+X_n .
+\]
+
+The classical central limit theorem says that such sums converge to a normal distribution, but only when the random variables have finite variance. In phenomena where rare large amplitudes or impulsive noise occur, this assumption is no longer satisfied.
+
+The generalized central limit theorem extends this result and states that normalized sums of independent and identically distributed random variables converge to stable distributions:
+
+\[
+a_n(X_1+\dots+X_n)-b_n
+\overset{d}{\longrightarrow} Z .
+\]
+
+The limit distribution $Z$ is therefore an $\alpha$-stable distribution, where the parameter $\alpha$ determines the scaling behavior of the sum. For $\alpha=2$ we obtain the special case of the normal distribution, while for values $\alpha<2$ we obtain heavy-tailed distributions that make it possible to describe extreme values.
+
+This explains why $\alpha$-stable distributions are suitable for modeling communication signals. If a signal is composed of a large number of random influences, its statistical form naturally converges toward a stable distribution. Because stability ensures that the family of distributions is preserved under the addition of independent influences, the receiver can still estimate the parameters of the distribution and thus obtain the information encoded in it.
+
+\chapter{Simulations}
+\label{ch2}
+
+
+\chapter{Implementation and Simulation in a Real Environment}
+\label{ch3}
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{References}
+\bibliography{literatura}
+\bibliographystyle{plainnat}
+
+\end{document}
