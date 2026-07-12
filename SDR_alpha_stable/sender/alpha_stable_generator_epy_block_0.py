@@ -30,7 +30,7 @@ class alpha_encoder(gr.basic_block):
             self,
             name="alpha_encoder",
             in_sig=[np.uint8],
-            out_sig=[np.float32],
+            out_sig=[np.complex64],
         )
 
         self.alpha_map = list(alpha_map)
@@ -198,7 +198,7 @@ class alpha_encoder(gr.basic_block):
             alpha, beta, gama = self._encode_one_symbol(bit_offset)
             samples = self.alpha_stable(
                 self.samples_per_symbol, alpha=alpha, beta=beta, gama=gama
-            ).astype(np.float32)
+            ).astype(np.complex64)
 
             start = produced_symbols * self.samples_per_symbol
             end = start + self.samples_per_symbol
