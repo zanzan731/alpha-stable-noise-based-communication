@@ -282,7 +282,9 @@ Svoji dragi Alenčici.
   {\bf kratica} & {\bf angleško} & {\bf slovensko} \\ \hline
   % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
   {\bf OFDM} & Orthogonal Frequency-Division Multiple Access & Ortogonalni frekvenčno deljeni večkratni dostop \\
-  {\bf MIMO} & Multiple-input and multiple-output & večantenski sistem \\
+  {\bf MIMO} & Multiple-input and multiple-output & Večantenski sistem \\
+  {\bf BER} & Bit Error Rate & Stopnja bitnih napak \\
+  {\bf GRC} & GNU Radio Companion & GNU Radio Companion \\
   \dots & \dots & \dots \\
 \end{tabular}
 \end{comment}
@@ -291,6 +293,8 @@ Svoji dragi Alenčici.
   {\bf kratica} & {\bf angleško}                             & {\bf slovensko} \\ \hline
   {\bf OFDM} & Orthogonal Frequency-Division Multiple Access & Ortogonalni frekvenčno deljeni večkratni dostop \\
   {\bf MIMO} & Multiple-input and multiple-output & večantenski sistem \\
+  {\bf BER} & Bit Error Rate & Stopnja bitnih napak \\
+  {\bf GRC} & GNU Radio Companion & GNU Radio Companion \\
 %  \dots & \dots & \dots \\
 \end{tabular}
 
@@ -611,6 +615,107 @@ To pojasni, zakaj so $\alpha$-stabilne porazdelitve primerne za modeliranje komu
 
 \chapter{Simulacije}
 \label{ch2}
+
+Po predstavitvi matematičnega ozadja se v nadaljevanju osredotočimo na implementacijo sistema in izvedbo simulacij. Simulacije so bile izvedene v programskem okolju GNU Radio Companion (GRC), ki predstavlja grafično razvojno okolje za načrtovanje, implementacijo in testiranje komunikacijskih sistemov.
+
+GNU Radio Companion nam omogoča sestavljanje komunikacijskega sistema iz medsebojno povezanih blokov.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{GNU_radio_flow_graph.png}
+\end{center}
+\caption{GNU Radio blokovni diagram}
+\label{pic1}
+\end{figure}
+
+V našem blokovnem diagramu vidimo, da imamo naključen vir, ki ustvari 128 vzorcev 8-bitnih vrednosti. Skupno tako obdelamo oziroma prenesemo 1024 bitov. Bite nato shranimo v zunanjo datoteko, nato pa jih pošljemo v kodirni blok, ki podatke zakodira v signal s pomočjo $\alpha$-stabilne distribucije. Signal nato pošljemo skozi kanal, kjer mu lahko po želji dodamo tudi šum. Nato pa ga dekodiramo in shranimo v novo datoteko. Na koncu primerjamo obe datoteki in določimo stopnjo bitnih napak (Bit Error Rate - BER). 
+Najprej pa rabimo razumeti tudi kako kodirnik in dekodirnik delujeta.
+
+\section{Parametri}
+Mogoče dodaj poglavje kjer razložiš katere parametre uporabljaš pole ko spišeš dodaj raje mam več ku manj....
+
+
+\section{Kodirnik}
+Kodirnik prejme vhodni tok bajtov, ki jih najprej pretvori v zaporedje posameznih bitov. Bite nato shranimo v medpomnilnik, iz katerega se nato glede na izbrano konfiguracijo bere ustrezno število bitov za kodiranje enega simbola.
+
+Število bitov, ki jih predstavlja posamezen simbol, je odvisen od števila različnik parametrov $\beta$, je pa koda tudi že pripravljena na razširitev za parametre $\alpha$ in $\gamma$, ki jih uporabimo pri kodiranju. Za vsak parameter velja, da mora biti število možnih vrednosti potenca števila dve, saj lahko le tako enolično preslikamo kombinacije bitov v posamezne vrednosti parametra. Število bitov, ki jih kodira posamezen parameter, je tako določeno kot:
+
+$n = \log_2(M)$
+
+kjer je $M$ število elementov v preslikovalni tabeli. Skupno število bitov, predstavljenih z enim simbolov, je tako vsota števila bitov, ki jih kodirajo posamezni parametri.
+
+V implementaciji, uporabljeni v tem delu, se za prenos informacij uporablja le parameter $\beta$, medtem ko parametra $\alpha$ in $\gamma$ ostaneta konstantna. Vrednost parametra $\beta$ se določi glede na trenutno kombinacijo vhodnih bitov.
+
+Za vsak simbol se nato generira določeno število vzorcev $\alpha$-stabilne porazdelitve. Ta parameter je spremenljiv in se imenuje \texttt{samples\_per\_symbol}. Ti vzorci predstavljajo izhod kodirnika in se posredujejo komunikacijskemu kanalu oziroma naslednjemu bloku v GNU Radio Companion.
+
+Za generiranje signala uporabljam Chambers-Mallows-Struckov algoritem(CMS), ki se izračuna po enačbi:
+\begin{equation}
+X=\gamma C
+\frac{\sin\left(\alpha V+B\right)}
+{\left(\cos V\right)^{1/\alpha}}
+\left(
+\frac{\cos\left((1-\alpha)V-B\right)}
+{W}
+\right)^{\frac{1-\alpha}{\alpha}},
+\end{equation}
+kjer je
+\begin{equation}
+B=\arctan\left(\beta\tan\frac{\pi\alpha}{2}\right),
+\end{equation}
+ter
+\begin{equation}
+C=\left(1+\beta^2\tan^2\frac{\pi\alpha}{2}\right)^{\frac{1}{2\alpha}}.
+\end{equation}
+
+V implementaciji se za vsak simbol tako generira \texttt{samples\_per\_symbol} vzorcev po tej enačbi. Parametri $\alpha$, $\beta$ in $\gamma$ se pa določijo iz vhodnih bitov glede na izbrane preslikovalne tabele.
+
+\section{Dekodirnik}
+
+Dekodirnik nato prejema vzorce $\alpha$-stabilne porazdelitve in jih najprej shranjuje v medpomnilnik, dokler ni zbranih dovolj vzorcev za en simbol. Torej dokler ni zbranih \texttt{samples\_per\_symbol} vzorcev. Ker kodirnik za vsak simbol ustvari fiksno število vzorcev, lahko dekodirnik posamezne simbole enostavno loči. 
+
+Vsak simbol namreč razdelimo na $L$ enako velikih segmentov. Za vsak segment se dološita največja in najmanjša vrednost vzorcev, iz katerih se izračunata varianca maksimumov ($Y_{\max}$) in minimumov ($Y_{\min}$). 
+
+\begin{equation}
+Y_{\max}=\frac{1}{L}\sum_{l=1}^{L}Y_{l,\max},
+\end{equation}
+
+\begin{equation}
+S^2_{\max}=\frac{1}{L-1}\sum_{l=1}^{L}(Y_{l,\max}-Y_{\max})^2,
+\end{equation}
+
+\begin{equation}
+Y_{\min}=\frac{1}{L}\sum_{l=1}^{L}Y_{l,\min},
+\end{equation}
+
+\begin{equation}
+S^2_{\min}=\frac{1}{L-1}\sum_{l=1}^{L}(Y_{l,\min}-Y_{\min})^2.
+\end{equation}
+iz česar se nato izračuna parameter $\beta$ po enačbi:
+\begin{equation}
+\hat{\beta}
+=
+1-
+\frac{2}
+{\exp\left(\hat{\alpha}(S_{\max}-S_{\min})\right)},
+\end{equation}
+, kjer je $\alpha$ določen kot:
+
+\begin{equation}
+\hat{\alpha}
+=
+\frac{\pi}{2\sqrt{6}}
+\left(
+\frac{1}{Y_{\max}}
++
+\frac{1}{Y_{\min}}
+\right).
+\end{equation}
+
+Izračunana vrednost se nato primerja z dovoljenimi vrednostmi parametra $\beta$ oziroma z vrednostmi, ki so zapisane v tabeli, pri čemer se nato izbere najbližja vrednost. Indeks izbrane vrednosti predstavlja dekodirano kombinacijo bitov, ki se nato shrani v bitni medpomnilnik. Ko se zbere osem bitov, jih dekotirnik združi v bajt in ga posreduje na izhod.
+
+\section{Rezultati simulacije}
+
+V simulaciji smo merili koliko bitov se je pokvarilo pri pošiljanju 1024 bitov preko takšnega kanala. Pri tem smo spreminjali različne parametre in sicer različne $\beta$ parametre,  različne vrednosti $\gamma$, dodali različno velik šum in različne velikosti vzorca.
 
 
 \chapter{Implementacija in simulacija v realnem okolju}

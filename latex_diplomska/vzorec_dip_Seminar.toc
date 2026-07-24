@@ -11,5 +11,9 @@
 \contentsline {section}{\numberline {3.1}$\alpha $-stabilna porazdelitev in centralni limitni izrek}{7}{section.3.1}%
 \contentsline {chapter}{\numberline {4}Uporaba $\alpha $-stabilne porazdelitve kot nosilec informacije}{11}{chapter.4}%
 \contentsline {chapter}{\numberline {5}Simulacije}{13}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Implementacija in simulacija v realnem okolju}{15}{chapter.6}%
-\contentsline {chapter}{Literatura}{17}{chapter.6}%
+\contentsline {section}{\numberline {5.1}Parametri}{14}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Kodirnik}{14}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Dekodirnik}{15}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Rezultati simulacije}{16}{section.5.4}%
+\contentsline {chapter}{\numberline {6}Implementacija in simulacija v realnem okolju}{17}{chapter.6}%
+\contentsline {chapter}{Literatura}{19}{chapter.6}%

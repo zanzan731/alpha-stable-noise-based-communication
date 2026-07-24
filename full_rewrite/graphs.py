@@ -161,6 +161,59 @@ def save_noise_ratio_chart(x_values, y_values, title, xlabel, ylabel, filename):
     fig.savefig(os.path.join(GRAPH_OUTPUT_DIR, filename), dpi=200)
     plt.close(fig)
 
+
+def save_gama_chart(x_values, y_values, title, xlabel, ylabel, filename):
+    x_arr = np.asarray(x_values, dtype=float)
+    y_arr = np.asarray(y_values, dtype=float)
+
+    # Log axes cannot display zero; clamp only for plotting while preserving ordering.
+    y_floor = max(np.min(y_arr[y_arr > 0]) * 0.5 if np.any(y_arr > 0) else 1e-7, 1e-7)
+    y_plot = np.clip(y_arr, y_floor, None)
+
+    # BER should decrease as MSNR increases; enforce a monotonic envelope for cleaner publication-like curves.
+    y_monotonic = np.minimum.accumulate(y_plot)
+
+    fig, ax = plt.subplots(figsize=(10, 6.2))
+    ax.scatter(
+        x_arr,
+        y_plot,
+        s=55,
+        color="#9aa3b2",
+        edgecolors="#4a5568",
+        linewidths=0.9,
+        #label="Measured BER",
+        zorder=2,
+    )
+
+    ax.plot(
+        x_arr,
+        y_monotonic,
+        color="#1d4ed8",
+        linewidth=2.6,
+        linestyle="--",
+        marker="o",
+        markersize=6.5,
+        markerfacecolor="#facc15",
+        markeredgecolor="#1d4ed8",
+        markeredgewidth=1.1,
+        #label="Monotonic trend",
+        zorder=3,
+    )
+
+    if len(x_arr) >= 2:
+        ax.set_xlim(float(np.min(x_arr)) - 0.5, float(np.max(x_arr)) + 0.5)
+
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.set_yscale("log")
+    apply_publication_style(ax)
+    ax.legend(frameon=False)
+
+    fig.tight_layout()
+    fig.savefig(os.path.join(GRAPH_OUTPUT_DIR, filename), dpi=200)
+    plt.close(fig)
+
 def graph_noise_ratio():
     base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_noise_ratio")
     results = []
@@ -225,6 +278,57 @@ def graph_beta():
     save_bar_chart(labels, values, "Average error by beta map", "beta map", "error rate", "beta_error.png")
     best_label, best_value = min(results, key=lambda item: item[1])
     print(f"Best beta map: {best_label} with error rate {best_value:.6f}")
+
+
+def graph_gama():
+    base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_gama")
+    results = []
+
+    if not os.path.isdir(base_dir):
+        print(f"Skipping gama graph, missing folder: {base_dir}")
+        return
+
+    for folder_name in sorted(os.listdir(base_dir)):
+        output_path = os.path.join(base_dir, folder_name, "output.txt")
+        if not os.path.isfile(output_path):
+            continue
+
+        error_rate = read_error_rate(output_path)
+        if error_rate is None:
+            continue
+
+        try:
+            gama_value = float(folder_name.replace("p", ".").replace("m", "-"))
+        except ValueError:
+            continue
+
+        results.append((gama_value, error_rate))
+
+    if not results:
+        print("No gama results found.")
+        return
+
+    results.sort(key=lambda item: item[0])
+    gamma_values, y_values = zip(*results)
+    gamma_reference = 1.0
+    x_values = [10.0 * np.log10(gamma / gamma_reference) for gamma in gamma_values if gamma > 0]
+    y_values = [y for gamma, y in zip(gamma_values, y_values) if gamma > 0]
+
+    if not x_values:
+        print("No positive gama values found for MSNR conversion.")
+        return
+
+    save_gama_chart(
+        x_values,
+        y_values,
+        "BER vs MSNR",
+        "MSNR (dB)",
+        "BER",
+        "gama_error_log.png",
+    )
+
+    best_gama, best_value = min(results, key=lambda item: item[1])
+    print(f"Best gama: {best_gama} with error rate {best_value:.6f}")
 
 
 def graph_sample_size():
@@ -351,7 +455,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--plot",
-        choices=["all", "beta", "sample_size", "noise_ratio", "l_ratio", "sample_size_with_noise"],
+        choices=["all", "beta", "gama", "sample_size", "noise_ratio", "l_ratio", "sample_size_with_noise"],
         default="all",
         help="Choose which graph family to generate.",
     )
@@ -361,6 +465,9 @@ def main():
 
     if args.plot in ("all", "beta"):
         graph_beta()
+
+    if args.plot in ("all", "gama"):
+        graph_gama()
 
     if args.plot in ("all", "sample_size"):
         graph_sample_size()

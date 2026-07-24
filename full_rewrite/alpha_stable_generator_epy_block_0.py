@@ -108,7 +108,7 @@ class alpha_encoder(gr.basic_block):
             / (np.cos(v_values)) ** (1 / alpha)
             * (np.cos((1 - alpha) * v_values - shift) / w_values) ** ((1 - alpha) / alpha)
         )
-        return gama * samples
+        return gama * samples #delta je itak 0 pri meni dopolni če bo treba še delto upoštevati
 
     @staticmethod
     def _read_bits(bit_buffer, start, count):

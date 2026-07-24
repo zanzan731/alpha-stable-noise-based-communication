@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  12 JUL 2026 14:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  24 JUL 2026 23:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1025,27 +1025,27 @@ l.273 \clearemptydoublepage
                             [10
 
 ] Excluding 'comment' comment.
-Overfull \hbox (1.76152pt too wide) in paragraph at lines 291--291
+Overfull \hbox (1.76152pt too wide) in paragraph at lines 293--293
 []\OT1/cmr/bx/n/12 kratica| 
  []
 
 
-Overfull \hbox (2.7754pt too wide) in paragraph at lines 292--292
+Overfull \hbox (2.7754pt too wide) in paragraph at lines 294--294
 []\OT1/cmr/bx/n/12 OFDM| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 292--292
+Underfull \hbox (badness 10000) in paragraph at lines 294--294
 []\OT1/cmr/m/n/12 Orthogonal Frequency-
  []
 
 
-Overfull \hbox (1.77542pt too wide) in paragraph at lines 293--293
+Overfull \hbox (1.77542pt too wide) in paragraph at lines 295--295
 []\OT1/cmr/bx/n/12 MIMO| 
  []
 
 
-Underfull \hbox (badness 1009) in paragraph at lines 293--293
+Underfull \hbox (badness 1009) in paragraph at lines 295--295
 []\OT1/cmr/m/n/12 Multiple-input and multiple-
  []
 
@@ -1056,7 +1056,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.299 \clearemptydoublepage
+l.303 \clearemptydoublepage
                             [11
 
 ]
@@ -1066,7 +1066,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.299 \clearemptydoublepage
+l.303 \clearemptydoublepage
                             [12
 
 ]
@@ -1076,7 +1076,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.320 \clearemptydoublepage
+l.324 \clearemptydoublepage
                             [13
 
 ]
@@ -1086,7 +1086,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.320 \clearemptydoublepage
+l.324 \clearemptydoublepage
                             [14
 
 ]
@@ -1096,7 +1096,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.342 \clearemptydoublepage
+l.346 \clearemptydoublepage
                             [15
 
 ]
@@ -1106,7 +1106,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.342 \clearemptydoublepage
+l.346 \clearemptydoublepage
                             [16
 
 ]
@@ -1133,15 +1133,15 @@ Underfull \vbox (badness 2050) has occurred while \output is active []
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 371.
+(hyperref)                removing `math shift' on input line 375.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 371.
+(hyperref)                removing `\alpha' on input line 375.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 371.
+(hyperref)                removing `math shift' on input line 375.
 
 
 
@@ -1149,22 +1149,22 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Poglavje 3.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 374.
+(hyperref)                removing `math shift' on input line 378.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 374.
+(hyperref)                removing `\alpha' on input line 378.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 374.
+(hyperref)                removing `math shift' on input line 378.
 
 
 
 [5
 
 ]
-Overfull \hbox (44.45374pt too wide) detected at line 437
+Overfull \hbox (44.45374pt too wide) detected at line 441
 \OML/cmm/m/it/12 ^^^[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 t\OT1/cmr/m/n/12 ) = \U
 /msb/m/n/12 E  [] \OT1/cmr/m/n/12 = \U/msb/m/n/12 E  [] \OT1/cmr/m/n/12 = \U/ms
 b/m/n/12 E  [] E  [] \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 ^^^[]\OT1/cmr/m/n/12 (\
@@ -1177,28 +1177,28 @@ cmm/m/it/12 bt\OT1/cmr/m/n/12 )
 [6]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 507.
+(hyperref)                removing `math shift' on input line 511.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 507.
+(hyperref)                removing `\alpha' on input line 511.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 507.
+(hyperref)                removing `math shift' on input line 511.
 
 
 
 [7]
 
 [8]
-Overfull \hbox (1.20566pt too wide) in paragraph at lines 568--569
+Overfull \hbox (1.20566pt too wide) in paragraph at lines 572--573
 []\OT1/cmr/m/n/12 Torej, ^^Tce vsota ve-li-kega ^^Tstevila ne-od-vi-snih in ena
 ko po-raz-de-lje-nih slu^^Tcajnih
  []
 
 
-Overfull \hbox (0.2265pt too wide) in paragraph at lines 568--569
+Overfull \hbox (0.2265pt too wide) in paragraph at lines 572--573
 \OT1/cmr/m/n/12 spre-men-ljivk po ustre-znem ska-li-ra-nju in pre-miku kon-ver-
 gira k ne-degenerirani
  []
@@ -1213,15 +1213,15 @@ gira k ne-degenerirani
 Poglavje 4.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 579.
+(hyperref)                removing `math shift' on input line 583.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 579.
+(hyperref)                removing `\alpha' on input line 583.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 579.
+(hyperref)                removing `math shift' on input line 583.
 
 
 
@@ -1229,21 +1229,30 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 [12]
 Poglavje 5.
+<GNU_radio_flow_graph.png, id=197, 915.42pt x 561.59813pt>
+File: GNU_radio_flow_graph.png Graphic file (type png)
+<use GNU_radio_flow_graph.png>
+Package pdftex.def Info: GNU_radio_flow_graph.png  used on input line 625.
+(pdftex.def)             Requested size: 312.00119pt x 191.40358pt.
 
 
 [13
 
-]
+ <./GNU_radio_flow_graph.png>]
 
-[14
-
-]
-Poglavje 6.
-
+[14]
 
 [15]
 
-[16
+[16]
+Poglavje 6.
+
+
+[17
+
+]
+
+[18
 
 ] (vzorec_dip_Seminar.bbl
 Underfull \hbox (badness 3219) in paragraph at lines 31--34
@@ -1253,7 +1262,7 @@ sl . wikipedia . org / wiki /
 
 
 
-[17
+[19
 
 ]
 Underfull \hbox (badness 2799) in paragraph at lines 55--59
@@ -1263,43 +1272,59 @@ Underfull \hbox (badness 2799) in paragraph at lines 55--59
 
 )
 
-[18] (vzorec_dip_Seminar.aux)
+[20] (vzorec_dip_Seminar.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-07-19>
  ***********
-Package rerunfilecheck Info: File `vzorec_dip_Seminar.out' has not changed.
-(rerunfilecheck)             Checksum: EC636C13A57167917A114107F098CCBC;1935.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `vzorec_dip_Seminar.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `vzorec_dip_Seminar.out':
+(rerunfilecheck)             Before: 6600E1E6FDF391281B8C2AA64223ADE8;2382
+(rerunfilecheck)             After:  2C926812D4E268F9A4CE5695D0B7D4B3;2393.
  ) 
 Here is how much of TeX's memory you used:
- 12210 strings out of 468149
- 192486 string characters out of 5431566
- 613667 words of memory out of 5000000
- 40567 multiletter control sequences out of 15000+600000
+ 12245 strings out of 468149
+ 193088 string characters out of 5431566
+ 613724 words of memory out of 5000000
+ 40585 multiletter control sequences out of 15000+600000
  640177 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,13n,79p,862b,595s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
-mbx12.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
-nts/cm/cmcsc10.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/pub
-lic/amsfonts/cm/cmex10.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/amsfonts/cm/cmmi12.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX
-/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/žan/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/žan/AppData/Local/P
-rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/žan/AppData/
-Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/žan/Ap
-pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/�
-�an/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsl12.pfb><C:
-/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10
-.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
-m/cmsy8.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmti12.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/pu
-blic/amsfonts/cm/cmti8.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/amsfonts/cm/cmtt12.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX
-/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on vzorec_dip_Seminar.pdf (34 pages, 252968 bytes).
+
+pdfTeX warning (dest): name{chapter.7} has been referenced but does not exist, 
+replaced by a fixed one
+
+<C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmb
+x12.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
+s/cm/cmcsc10.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmex10.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/typ
+e1/public/amsfonts/cm/cmmi12.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/žan/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/žan/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/žan/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/žan/App
+Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/ž
+an/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Us
+ers/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsl12.pf
+b><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
+msy10.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
+nts/cm/cmsy6.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmsy8.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmti12.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmti8.pfb><C:/Users/žan/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/žan/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on vzorec_dip_Seminar.pdf (36 pages, 437852 bytes).
 PDF statistics:
- 307 PDF objects out of 1000 (max. 8388607)
- 46 named destinations out of 1000 (max. 500000)
- 93 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 362 PDF objects out of 1000 (max. 8388607)
+ 63 named destinations out of 1000 (max. 500000)
+ 130 words of extra memory for PDF output out of 10000 (max. 10000000)
 
