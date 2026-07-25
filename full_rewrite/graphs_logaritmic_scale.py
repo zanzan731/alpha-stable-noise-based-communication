@@ -195,7 +195,7 @@ def graph_beta():
     save_publication_chart(
         x_values,
         y_values,
-        "BER vs β",
+        "BER vs Δβ",
         "β",
         "BER",
         "beta_error.png",

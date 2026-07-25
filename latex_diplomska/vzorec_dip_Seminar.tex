@@ -13,6 +13,7 @@
 %\usepackage{hyperxmp}
 \usepackage[hyphens]{url}  % dodal Solina
 \usepackage{comment}       % dodal Solina
+\usepackage{float}
 
 \usepackage[pdftex, colorlinks=true,
 						citecolor=black, filecolor=black, 
@@ -285,6 +286,8 @@ Svoji dragi Alenčici.
   {\bf MIMO} & Multiple-input and multiple-output & Večantenski sistem \\
   {\bf BER} & Bit Error Rate & Stopnja bitnih napak \\
   {\bf GRC} & GNU Radio Companion & GNU Radio Companion \\
+  {\bf SNR} & Signal-to-Noise Ratio & Razmerje med signalom in šumom \\
+  {\bf MSNR} & Mean Signal-to-Noise Ratio & povprečno razmerje med signalom in šumom \\
   \dots & \dots & \dots \\
 \end{tabular}
 \end{comment}
@@ -295,6 +298,8 @@ Svoji dragi Alenčici.
   {\bf MIMO} & Multiple-input and multiple-output & večantenski sistem \\
   {\bf BER} & Bit Error Rate & Stopnja bitnih napak \\
   {\bf GRC} & GNU Radio Companion & GNU Radio Companion \\
+  {\bf SNR} & Signal-to-Noise Ratio & Razmerje med signalom in šumom \\
+  {\bf MSNR} & Mean Signal-to-Noise Ratio & povprečno razmerje med signalom in šumom \\
 %  \dots & \dots & \dots \\
 \end{tabular}
 
@@ -625,14 +630,14 @@ GNU Radio Companion nam omogoča sestavljanje komunikacijskega sistema iz medseb
 \includegraphics[width=0.8\textwidth]{GNU_radio_flow_graph.png}
 \end{center}
 \caption{GNU Radio blokovni diagram}
-\label{pic1}
+\label{GNU}
 \end{figure}
 
 V našem blokovnem diagramu vidimo, da imamo naključen vir, ki ustvari 128 vzorcev 8-bitnih vrednosti. Skupno tako obdelamo oziroma prenesemo 1024 bitov. Bite nato shranimo v zunanjo datoteko, nato pa jih pošljemo v kodirni blok, ki podatke zakodira v signal s pomočjo $\alpha$-stabilne distribucije. Signal nato pošljemo skozi kanal, kjer mu lahko po želji dodamo tudi šum. Nato pa ga dekodiramo in shranimo v novo datoteko. Na koncu primerjamo obe datoteki in določimo stopnjo bitnih napak (Bit Error Rate - BER). 
 Najprej pa rabimo razumeti tudi kako kodirnik in dekodirnik delujeta.
 
 \section{Parametri}
-Mogoče dodaj poglavje kjer razložiš katere parametre uporabljaš pole ko spišeš dodaj raje mam več ku manj....
+%Mogoče dodaj poglavje kjer razložiš katere parametre uporabljaš pole ko spišeš dodaj raje mam več ku manj....
 
 
 \section{Kodirnik}
@@ -715,8 +720,73 @@ Izračunana vrednost se nato primerja z dovoljenimi vrednostmi parametra $\beta$
 
 \section{Rezultati simulacije}
 
-V simulaciji smo merili koliko bitov se je pokvarilo pri pošiljanju 1024 bitov preko takšnega kanala. Pri tem smo spreminjali različne parametre in sicer različne $\beta$ parametre,  različne vrednosti $\gamma$, dodali različno velik šum in različne velikosti vzorca.
+V simulaciji smo merili število napačno sprejetih bitov pri prenosu 1024 bitov skozi takšen kanal. Da bi zmanjšali vpliv naključnih odstopanj, smo vsako simulacijo ponovili 100-krat. Skupno smo tako analizirali 102 400 prenesenih bitov.  Med simulacijami smo sistematično spreminjali vrednosti parametrov $\beta$ in $\gamma$, raven dodanega šuma ter velikost vzorca.
 
+\subsection{Spreminjanje parametra $\beta$}
+
+V tej simulaciji smo preučevali vpliv parametra $\beta$ na stopnjo bitnih napak. Pomembno je razumeti tudi, zakaj parameter $\beta$ sploh spreminjamo.Parameter $\beta$ se v literaturi pogosto imenuje tudi varnostni parameter (angl. security parameter), saj manjša razlika med vrednostma v $\beta$ mapi otežuje prestrezanje oziroma pravilno dekodiranje signala. Zato pričakujemo, da bo z večanjem razlike med vrednostma parametra $\beta$ dekodiranje signala lažje, vendar se bo s tem zmanjšala stopnja varnosti sistema.
+
+Simulacijo smo izvedli s parametri $samples\_per\_symbol=1000$, $L=20$ in $noise\_ratio=0.0$, pri čemer smo dobili rezultate, prikazane na spodnjem grafu.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{beta_error.png}
+\end{center}
+\caption{Graf BER glede na $\Delta \beta$}
+\label{beta_error}
+\end{figure}
+
+Primerjali smo različne $\beta$ mape, od $[-0.1,0.1]$ do $[-1.0,1.0]$. Vrednost $\Delta\beta$ predstavlja razliko med obema vrednostma v posamezni $\beta$ mapi. Opazimo lahko izrazit padec pri $\Delta\beta = 1$. Razlog je v tem, da pri tej konfiguraciji v nobeni izmed 100 ponovitev nismo zaznali niti ene bitne napake. Ker vrednosti 0 na logaritemski osi ni mogoče prikazati, smo jo nadomestili z najmanjšo merljivo vrednostjo BER, to je $\frac{1}{102400} \approx 10^{-5}$. Enak pristop smo uporabili pri vseh simulacijah, pri katerih ni bilo zaznane nobene bitne napake.
+
+\subsection{Spreminjanje parametra $\gamma$}
+
+V tej simulaciji smo analizirali vpliv parametra $\gamma$ na stopnjo bitnih napak. Parameter $\gamma$ določa razmerje med močjo signala in močjo šuma (MSNR), zato neposredno vpliva na kakovost sprejetega signala. Pri večjih vrednostih parametra $\gamma$ je vpliv šuma manjši, zaradi česar pričakujemo nižjo stopnjo bitnih napak. 
+
+Simulacijo smo izvedli s parametri $samples\_per\_symbol=1000$, $L=20$ in $noise\_ratio=1.0$, pri čemer smo dobili rezultate, prikazane na spodnjem grafu.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{gama_error_log.png}
+\end{center}
+\caption{Graf BER glede na parameter gama}
+\label{gama_error}
+\end{figure}
+
+Iz grafa je razvidno, da stopnja bitnih napak z naraščanjem vrednosti MSNR pada, kar je v skladu s pričakovanji. Zanimivo pa je, da tudi pri najnižjih obravnavanih vrednostih MSNR BER ostane manjši od $10^{-2}$, kar pomeni, da sistem tudi v razmeroma neugodnih razmerah ohranja zadovoljivo zanesljivost prenosa.
+
+V tej simulaciji je bila vrednost MSNR izražena v decibelih po enačbi
+
+\begin{equation}
+\mathrm{MSNR}_{\mathrm{dB}} = 10 \log_{10}(\frac{\gamma}{\gamma_G}),
+\end{equation}
+
+kjer parameter $\gamma_G$ predstavlja $\gamma$ parameter normalne porazdelitve, ki je enak 1.
+
+\subsection{Različne velikosti vzorca}
+
+Do sedaj smo pri vseh simulacijah uporabljali enako velikost vzorca, in sicer 1000 vzorcev na simbol. V nadaljevanju smo preverili, kako se stopnja bitnih napak spreminja glede na velikost vzorca.Pričakujemo, da se bo z večanjem števila vzorcev, uporabljenih za predstavitev enega bita, stopnja bitnih napak zmanjševala.  Simulacija je bila izvedena s parametri $beta_map=[-1.0,1.0]$, $L=8$ in $noise_ratio=0.0$.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{sample_size_error.png}
+\end{center}
+\caption{Graf BER glede na velikost vzorca}
+\label{sample_size_error}
+\end{figure}
+
+Opazimo, da je pri zelo majhnem številu vzorcev stopnja bitnih napak visoka, medtem ko pri 120 vzorcih že dosežemo vrednost BER = 0.
+
+Ker je bila ta simulacija izvedena brez prisotnosti šuma, smo simulacijo ponovili še z vrednostjo $noise_ratio=6.5$, da bi dobili bolj realistično predstavo delovanja sistema v prisotnosti motenj.
+ 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{sample_size_error_with_noise.png}
+\end{center}
+\caption{Graf BER glede na velikost vzorca s šumom}
+\label{sample_size_error_with_noise}
+\end{figure}
+
+Iz grafa je razvidno, da je pri prisotnosti šuma potrebno večje število vzorcev za doseganje nizke stopnje bitnih napak. Vrednost BER = 0 dosežemo šele pri približno 800 vzorcih, kar je pričakovano, saj večja količina šuma zahteva več vzorcev za zanesljivo odločanje.
 
 \chapter{Implementacija in simulacija v realnem okolju}
 \label{ch3}

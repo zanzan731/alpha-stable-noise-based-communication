@@ -103,7 +103,7 @@ def run_different_gama():
     base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_gama"
     for gama_map in gama_options:
         output_dir = os.path.join(base_dir, gama_map.replace(",", "_").replace("-", "m").replace(".", "p"))
-        run_generator("-1.0,1.0", samples_per_symbol=1000, L=5, output_dir=output_dir, gama_map=gama_map, noise_ratio=1.0)
+        run_generator("-1.0,1.0", samples_per_symbol=1000, L=20, output_dir=output_dir, gama_map=gama_map, noise_ratio=0.1)
         run_binary_diff(output_dir)
 
 

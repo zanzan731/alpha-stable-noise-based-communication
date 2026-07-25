@@ -15,5 +15,8 @@
 \contentsline {section}{\numberline {5.2}Kodirnik}{14}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Dekodirnik}{15}{section.5.3}%
 \contentsline {section}{\numberline {5.4}Rezultati simulacije}{16}{section.5.4}%
-\contentsline {chapter}{\numberline {6}Implementacija in simulacija v realnem okolju}{17}{chapter.6}%
-\contentsline {chapter}{Literatura}{19}{chapter.6}%
+\contentsline {subsection}{\numberline {5.4.1}Spreminjanje parametra $\beta $}{16}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Spreminjanje parametra $\gamma $}{18}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Različne velikosti vzorca}{19}{subsection.5.4.3}%
+\contentsline {chapter}{\numberline {6}Implementacija in simulacija v realnem okolju}{21}{chapter.6}%
+\contentsline {chapter}{Literatura}{23}{chapter.6}%
