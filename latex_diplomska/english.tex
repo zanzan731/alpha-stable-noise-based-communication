@@ -12,6 +12,7 @@
 %\usepackage{hyperxmp}
 \usepackage[hyphens]{url}  % dodal Solina
 \usepackage{comment}       % dodal Solina
+\usepackage{float}
 
 \usepackage[pdftex, colorlinks=true,
 						citecolor=black, filecolor=black, 
@@ -280,15 +281,27 @@ To my dear Alenčica.
   {\bf kratica} & {\bf angleško} & {\bf slovensko} \\ \hline
   % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
   {\bf OFDM} & Orthogonal Frequency-Division Multiple Access & Ortogonalni frekvenčno deljeni večkratni dostop \\
-  {\bf MIMO} & Multiple-input and multiple-output & večantenski sistem \\
+  {\bf MIMO} & Multiple-input and multiple-output & Večantenski sistem \\
+  {\bf BER} & Bit Error Rate & Stopnja bitnih napak \\
+  {\bf GRC} & GNU Radio Companion & GNU Radio Companion \\
+  {\bf SNR} & Signal-to-Noise Ratio & Razmerje med signalom in šumom \\
+  {\bf MSNR} & Mean Signal-to-Noise Ratio & Povprečno razmerje med signalom in šumom \\
+  {\bf PLS} & Physical Layer Security & Varnost na fizičnem nivoju \\
+  {\bf SDR} & Software Defined Radio & Programsko opredeljena radijska oprema \\
   \dots & \dots & \dots \\
 \end{tabular}
 \end{comment}
 
 \noindent\begin{tabular}{p{0.1\textwidth}|p{.4\textwidth}|p{.4\textwidth}}    % po potrebi razširi prvo kolono tabele na račun drugih dveh!
-  {\bf abbreviation} & {\bf English}                             & {\bf Slovene} \\ \hline
+  {\bf kratica} & {\bf angleško}                             & {\bf slovensko} \\ \hline
   {\bf OFDM} & Orthogonal Frequency-Division Multiple Access & Ortogonalni frekvenčno deljeni večkratni dostop \\
   {\bf MIMO} & Multiple-input and multiple-output & večantenski sistem \\
+  {\bf BER} & Bit Error Rate & Stopnja bitnih napak \\
+  {\bf GRC} & GNU Radio Companion & GNU Radio Companion \\
+  {\bf SNR} & Signal-to-Noise Ratio & Razmerje med signalom in šumom \\
+  {\bf MSNR} & Mean Signal-to-Noise Ratio & Varnost na fizičnem nivoju \\
+  {\bf PLS} & Physical Layer Security & Varnost na fizičnem nivoju \\
+  {\bf SDR} & Software Defined Radio & Programsko opredeljena radijska oprema \\
 %  \dots & \dots & \dots \\
 \end{tabular}
 
@@ -345,16 +358,36 @@ A proper abstract should contain around 100 words, which makes this one way too 
 \pagestyle{fancy}
 
 \chapter{Introduction}
-Wireless communication has become part of everyday life. We use it in mobile telephony, wireless internet access, satellite links, and many other places. The development of these technologies has helped people exchange data and knowledge quickly without the need for physical connections, but this also brings its own challenges. 
 
-Modern wireless communication systems such as Wi-Fi, Bluetooth, 4G and 5G mobile networks are all based on advanced modulation methods (amplitude, phase, frequency), coding, and signal processing. This approach is the basis of practically all communication standards used today and is the result of decades of development in this field, improving speed, reliability, and security from one generation to the next.
+Wireless communication has become an indispensable part of everyday life, enabling high-speed data transmission in mobile telecommunications, satellite communications, and industrial systems. Modern communication standards such as Wi-Fi, Bluetooth, and 4G/5G networks rely on deterministic modulation techniques (variations in amplitude, phase, or frequency) combined with advanced channel coding. Despite their remarkable speed and reliability, these systems share a common limitation: their signals have well-defined structures, making them relatively easy to detect, analyze, and intercept using appropriate equipment.
 
-Despite the success and established use of modulation techniques, new ways of transmitting information are still being sought. One possible approach is to use the statistical properties of the signal to transmit information. Instead of encoding data only through changes in amplitude, phase, and frequency, information can also be represented by choosing suitable parameters of the signal's statistical distribution.
+Consequently, \textbf{Physical Layer Security} (\textit{PLS}) has become an increasingly important area of research in modern communication systems. Rather than relying solely on cryptographic protocols implemented at higher layers of the communication stack, the objective is to develop communication schemes that are practically undetectable to unauthorized eavesdroppers. One of the most promising approaches is the use of stochastic\footnote{A stochastic signal is a signal whose values vary randomly over time and cannot be described by a deterministic mathematical function. Instead, it is characterized by its statistical properties.} signals, or noise-based communication, in which information is not encoded through changes in the carrier frequency but rather through the parameters of the probability distribution governing the underlying random process.
 
-This thesis presents a communication system based on the $\alpha$-stable distribution. In contrast to classical modulation processes, this type of communication is much harder to detect and decipher, even without additional cryptographic methods. Of course, all this also introduces new challenges.
+This bachelor's thesis presents a communication system based on the $\alpha$-stable probability distribution. Unlike conventional modulation schemes, this approach is significantly more difficult to detect and decode, even in the absence of additional cryptographic techniques.
 
-The goal of the thesis is to develop and present such a method of data representation, describe the process of encoding and decoding information, and analyze the system's performance. The thesis studies the possibility of using the $\alpha$-stable distribution as an information carrier and proposes a different approach to developing new communication methods in wireless communications.
+The objective of this thesis is to develop and present a communication method based on the $\alpha$-stable distribution, describe the corresponding encoding and decoding procedures, and analyze the overall system performance. The thesis investigates the feasibility of using the $\alpha$-stable distribution as an information carrier and proposes an alternative approach to the development of novel wireless communication methods.
 
+\section{Challenges and Motivation}
+
+Developing a communication system based on the $\alpha$-stable distribution presents several theoretical and practical challenges:
+
+\begin{itemize}
+    \item \textbf{Lack of a closed-form expression:} The probability density function of a general $\alpha$-stable distribution cannot be expressed using elementary functions, except for a few special cases such as the Gaussian, Cauchy, and Lévy distributions. Consequently, the receiver must estimate the signal parameters from the received samples using computationally intensive numerical methods, significantly increasing the overall computational complexity.
+
+    \item \textbf{Challenges in hardware implementation:} Translating these concepts to actual \textit{Software Defined Radio} (SDR) platforms introduces numerous practical challenges commonly encountered in wireless communication systems. These include accurate time and frequency synchronization of non-deterministic signals, bandwidth limitations, and real-time parameter estimation on hardware platforms with limited computational resources.
+\end{itemize}
+
+It is particularly important to emphasize that, to the best of the author's knowledge, \textbf{there is currently no open-source implementation} of a communication system based on $\alpha$-stable noise operating on real SDR hardware or within the GNU Radio framework.
+
+\section{Impact and Applications}
+
+The results presented in this thesis demonstrate the potential of this communication paradigm and the feasibility of its implementation in practical environments where conventional communication systems may not be sufficient. The proposed approach is particularly suitable for:
+
+\begin{itemize}
+    \item \textbf{Covert communications:} Data transmission in environments where the very existence of a communication channel must remain undetected (e.g., military applications or the protection of critical infrastructure).
+
+    \item \textbf{Robust industrial sensing:} Information transmission in highly noisy industrial environments characterized by strong impulsive noise, where conventional communication systems often experience significant performance degradation.
+\end{itemize}
 
 \chapter{Current State of Mobile Networks}
 \label{ch0}
@@ -607,8 +640,231 @@ The limit distribution $Z$ is therefore an $\alpha$-stable distribution, where t
 
 This explains why $\alpha$-stable distributions are suitable for modeling communication signals. If a signal is composed of a large number of random influences, its statistical form naturally converges toward a stable distribution. Because stability ensures that the family of distributions is preserved under the addition of independent influences, the receiver can still estimate the parameters of the distribution and thus obtain the information encoded in it.
 
+
 \chapter{Simulations}
 \label{ch2}
+
+After presenting the mathematical background, we now focus on the implementation of the communication system and the simulation results. The simulations were carried out using GNU Radio Companion (GRC), a graphical development environment for designing, implementing, and testing communication systems.
+
+GNU Radio Companion allows a communication system to be constructed from interconnected processing blocks.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{GNU_radio_flow_graph.png}
+\end{center}
+\caption{GNU Radio flow graph}
+\label{GNU}
+\end{figure}
+
+The flow graph used in this work is shown in Figure~\ref{GNU}. A random source first generates 128 samples of 8-bit values, resulting in a total of 1024 transmitted bits. The generated bits are stored in an external file before being passed to the encoder, which maps the information into an $\alpha$-stable signal. The encoded signal is then transmitted through the communication channel, where additive noise can optionally be introduced. At the receiver, the signal is decoded and the recovered bits are stored in a second file. Finally, the transmitted and received files are compared to determine the Bit Error Rate (BER).
+
+Before discussing the simulation results, it is necessary to understand the operation of both the encoder and the decoder.
+
+\section{Parameters}
+
+% Add a section describing all simulation parameters if necessary.
+
+\section{Encoder}
+
+The encoder receives a stream of input bytes, which are first converted into a sequence of individual bits. These bits are stored in a buffer, from which the required number of bits is read according to the selected modulation configuration to form a single symbol.
+
+The number of bits represented by each symbol depends on the number of possible values assigned to the parameter $\beta$. The implementation is also designed to support future extensions in which the parameters $\alpha$ and $\gamma$ may also carry information. For each parameter, the number of possible values must be a power of two so that every bit combination can be mapped uniquely onto a parameter value. Consequently, the number of bits encoded by a parameter is given by
+
+\[
+n=\log_2(M),
+\]
+
+where $M$ denotes the number of entries in the mapping table. The total number of bits represented by one symbol is therefore equal to the sum of the bits encoded by the individual parameters.
+
+In the implementation presented in this thesis, only the parameter $\beta$ is used to convey information, while $\alpha$ and $\gamma$ remain constant. The value of $\beta$ is selected according to the current combination of input bits.
+
+For every symbol, a predefined number of samples is generated from the corresponding $\alpha$-stable distribution. This number is controlled by the parameter \texttt{samples\_per\_symbol}. These generated samples constitute the output of the encoder and are transmitted through the communication channel to the next processing block in GNU Radio Companion.
+
+Signal generation is performed using the Chambers--Mallows--Stuck (CMS) algorithm, defined by
+
+\begin{equation}
+X=\gamma C
+\frac{\sin\left(\alpha V+B\right)}
+{\left(\cos V\right)^{1/\alpha}}
+\left(
+\frac{\cos\left((1-\alpha)V-B\right)}
+{W}
+\right)^{\frac{1-\alpha}{\alpha}},
+\end{equation}
+
+where
+
+\begin{equation}
+B=\arctan\left(\beta\tan\frac{\pi\alpha}{2}\right),
+\end{equation}
+
+and
+
+\begin{equation}
+C=\left(1+\beta^2\tan^2\frac{\pi\alpha}{2}\right)^{\frac{1}{2\alpha}}.
+\end{equation}
+
+$V$ is a uniformly distributed random variable,
+
+\begin{equation}
+V\sim\mathcal{U}\left(-\frac{\pi}{2},\frac{\pi}{2}\right),
+\end{equation}
+
+and $W$ is an exponentially distributed random variable with unit mean,
+
+\begin{equation}
+W\sim\mathrm{Exp}(1).
+\end{equation}
+
+For each transmitted symbol, the encoder generates \texttt{samples\_per\_symbol} samples according to these equations. The parameters $\alpha$, $\beta$, and $\gamma$ are selected from the input bits according to the predefined mapping tables.
+
+\section{Decoder}
+
+The decoder receives samples from the $\alpha$-stable distribution and stores them in a buffer until enough samples have been collected to represent one symbol, i.e., until \texttt{samples\_per\_symbol} samples have been received. Since the encoder always generates a fixed number of samples for each symbol, the decoder can easily separate consecutive symbols.
+
+Each symbol is divided into $L$ equally sized segments. For every segment, the maximum and minimum sample values are determined. These values are then used to compute the mean and variance of the maxima and minima:
+
+\begin{equation}
+Y_{\max}=\frac{1}{L}\sum_{l=1}^{L}Y_{l,\max},
+\end{equation}
+
+\begin{equation}
+S^2_{\max}=\frac{1}{L-1}\sum_{l=1}^{L}(Y_{l,\max}-Y_{\max})^2,
+\end{equation}
+
+\begin{equation}
+Y_{\min}=\frac{1}{L}\sum_{l=1}^{L}Y_{l,\min},
+\end{equation}
+
+\begin{equation}
+S^2_{\min}=\frac{1}{L-1}\sum_{l=1}^{L}(Y_{l,\min}-Y_{\min})^2.
+\end{equation}
+
+These statistics are then used to estimate the parameter $\beta$ according to
+
+\begin{equation}
+\hat{\beta}
+=
+1-
+\frac{2}
+{\exp\left(\hat{\alpha}(S_{\max}-S_{\min})\right)},
+\end{equation}
+
+where $\hat{\alpha}$ is estimated as
+
+\begin{equation}
+\hat{\alpha}
+=
+\frac{\pi}{2\sqrt{6}}
+\left(
+\frac{1}{Y_{\max}}
++
+\frac{1}{Y_{\min}}
+\right).
+\end{equation}
+
+The estimated value is compared with the predefined values in the $\beta$ mapping table, and the closest value is selected. The index of the selected value represents the decoded bit sequence, which is stored in a bit buffer. Once eight bits have been collected, the decoder combines them into a byte and forwards it to the output.
+
+\section{Simulation Results}
+
+The simulations measured the number of incorrectly decoded bits during the transmission of 1024 bits through the proposed communication channel. To reduce the influence of statistical fluctuations, each simulation was repeated 100 times, resulting in a total of 102,400 transmitted bits being analyzed. During the experiments, the values of the parameters $\beta$ and $\gamma$, the noise level, and the number of samples per symbol were systematically varied.
+
+\subsection{Effect of the Parameter $\beta$}
+
+The first experiment investigated the influence of the parameter $\beta$ on the bit error rate. It is important to understand why $\beta$ is varied. In the literature, $\beta$ is often referred to as a \emph{security parameter}, since a smaller separation between the values in the $\beta$ mapping table makes interception and correct decoding of the transmitted signal more difficult. Consequently, increasing the difference between the available $\beta$ values is expected to simplify decoding while simultaneously reducing the overall security of the communication system.
+
+The simulation was performed using the parameters
+$samples\_per\_symbol=1000$, $L=20$, and
+$noise\_ratio=0.0$. The obtained results are shown below.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{beta_error.png}
+\end{center}
+\caption{BER as a function of $\Delta\beta$}
+\label{beta_error}
+\end{figure}
+
+Different $\beta$ mapping tables were evaluated, ranging from $[-0.1,0.1]$ to $[-1.0,1.0]$. The quantity $\Delta\beta$ denotes the separation between the two values in each mapping table. A significant reduction in BER is observed at $\Delta\beta=2$, where no bit errors occurred in any of the 100 simulation runs. Since a BER of zero cannot be represented on a logarithmic scale, it was replaced by the smallest measurable BER value, namely
+
+\[
+\frac{1}{102400}\approx10^{-5}.
+\]
+
+The same approach was adopted for all simulations in which no bit errors were observed.
+
+\subsection{Effect of the Parameter $\gamma$}
+
+The second experiment investigated the influence of the parameter $\gamma$ on the bit error rate. The parameter $\gamma$ determines the signal-to-noise power ratio (MSNR) and therefore directly affects the quality of the received signal. Higher values of $\gamma$ reduce the relative influence of noise and are therefore expected to produce lower BER values.
+
+The simulation was performed using
+$samples\_per\_symbol=1000$, $L=20$, and
+$noise\_ratio=1.0$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{gama_error_log.png}
+\caption{BER as a function of the parameter $\gamma$}
+\label{gama_error}
+\end{figure}
+
+As expected, the BER decreases as MSNR increases. Interestingly, even for the lowest investigated MSNR values, the BER remains below $10^{-2}$, demonstrating that the proposed communication system maintains satisfactory reliability even under relatively unfavorable channel conditions.
+
+The MSNR values shown in this experiment are expressed in decibels according to
+
+\begin{equation}
+\mathrm{MSNR}_{\mathrm{dB}}
+=
+10\log_{10}
+\left(
+\frac{\gamma}{\gamma_G}
+\right),
+\end{equation}
+
+where $\gamma_G$ denotes the $\gamma$ parameter of the Gaussian distribution and is equal to 1.
+
+Additional Gaussian noise was introduced using the built-in GNU Radio Companion channel block. The parameter \texttt{noise\_ratio} was set to 1.0 because, in the absence of noise (\texttt{noise\_ratio}=0), the behavior differs significantly, as shown in Figure~\ref{gama_error_0noise}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{gama_error_log_0noise.png}
+\caption{BER as a function of the parameter $\gamma$ in a noise-free environment}
+\label{gama_error_0noise}
+\end{figure}
+
+The results obtained under ideal conditions confirm that, in the absence of noise, the parameter $\gamma$ has no influence on the bit error rate, since transmission is error-free.
+
+\subsection{Effect of the Sample Size}
+
+In all previous experiments, the number of samples per symbol was fixed at 1000. In the final experiment, we investigated how the BER depends on the number of samples used to represent each transmitted symbol. It is expected that increasing the number of samples improves the accuracy of parameter estimation and therefore reduces the BER.
+
+The simulation was performed using
+$beta\_map=[-1.0,1.0]$,
+$L=8$, and
+$noise\_ratio=0.0$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{sample_size_error.png}
+\caption{BER as a function of the number of samples per symbol}
+\label{sample_size_error}
+\end{figure}
+
+As expected, the BER is relatively high when only a small number of samples is used. However, error-free transmission is already achieved with approximately 120 samples per symbol.
+
+Since this experiment was conducted without channel noise, it was repeated with
+$\mathit{noise\_ratio}=6.5$
+to evaluate system performance under more realistic operating conditions.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{sample_size_error_with_noise.png}
+\caption{BER as a function of the number of samples per symbol in the presence of noise}
+\label{sample_size_error_with_noise}
+\end{figure}
+
+The results show that, in the presence of noise, a significantly larger number of samples is required to achieve a low BER. Error-free transmission is only obtained at approximately 800 samples per symbol, which is expected since stronger noise requires more observations for reliable parameter estimation and symbol detection.
+
 
 
 \chapter{Implementation and Simulation in a Real Environment}

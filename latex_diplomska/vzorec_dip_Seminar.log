@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  26 JUL 2026 15:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  26 JUL 2026 23:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1262,57 +1262,59 @@ Package pdftex.def Info: GNU_radio_flow_graph.png  used on input line 649.
 [16]
 
 [17]
-Overfull \hbox (1.5154pt too wide) in paragraph at lines 746--747
+
+[18]
+Overfull \hbox (1.5154pt too wide) in paragraph at lines 748--749
 \OT1/cmr/m/n/12 Po-membno je ra-zu-meti tudi, za-kaj pa-ra-me-ter $\OML/cmm/m/i
 t/12 ^^L$ \OT1/cmr/m/n/12 sploh spre-mi-njamo.Parameter
  []
 
-
-
-[18]
-<beta_error.png, id=254, 570.6921pt x 354.3639pt>
+<beta_error.png, id=255, 570.6921pt x 354.3639pt>
 File: beta_error.png Graphic file (type png)
 <use beta_error.png>
-Package pdftex.def Info: beta_error.png  used on input line 752.
+Package pdftex.def Info: beta_error.png  used on input line 754.
+(pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
+
+
+[19 <./beta_error.png>]
+<gama_error_log.png, id=263, 570.6921pt x 354.3639pt>
+File: gama_error_log.png Graphic file (type png)
+<use gama_error_log.png>
+Package pdftex.def Info: gama_error_log.png  used on input line 770.
+(pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
+
+
+[20 <./gama_error_log.png>]
+<gama_error_log_0noise.png, id=272, 570.6921pt x 354.3639pt>
+File: gama_error_log_0noise.png Graphic file (type png)
+<use gama_error_log_0noise.png>
+Package pdftex.def Info: gama_error_log_0noise.png  used on input line 790.
+(pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
+
+Underfull \vbox (badness 3668) has occurred while \output is active []
+
+
+
+[21 <./gama_error_log_0noise.png>]
+<sample_size_error.png, id=281, 570.6921pt x 354.3639pt>
+File: sample_size_error.png Graphic file (type png)
+<use sample_size_error.png>
+Package pdftex.def Info: sample_size_error.png  used on input line 804.
+(pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
+<sample_size_error_with_noise.png, id=282, 570.6921pt x 354.3639pt>
+File: sample_size_error_with_noise.png Graphic file (type png)
+<use sample_size_error_with_noise.png>
+Package pdftex.def Info: sample_size_error_with_noise.png  used on input line 8
+14.
 (pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[19 <./beta_error.png>]
-<gama_error_log.png, id=261, 570.6921pt x 354.3639pt>
-File: gama_error_log.png Graphic file (type png)
-<use gama_error_log.png>
-Package pdftex.def Info: gama_error_log.png  used on input line 768.
-(pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
+[22 <./sample_size_error.png>]
 
-
-[20 <./gama_error_log.png>]
-<gama_error_log_0noise.png, id=271, 570.6921pt x 354.3639pt>
-File: gama_error_log_0noise.png Graphic file (type png)
-<use gama_error_log_0noise.png>
-Package pdftex.def Info: gama_error_log_0noise.png  used on input line 788.
-(pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
-<sample_size_error.png, id=272, 570.6921pt x 354.3639pt>
-File: sample_size_error.png Graphic file (type png)
-<use sample_size_error.png>
-Package pdftex.def Info: sample_size_error.png  used on input line 802.
-(pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
-
-
-[21 <./gama_error_log_0noise.png>]
-<sample_size_error_with_noise.png, id=281, 570.6921pt x 354.3639pt>
-File: sample_size_error_with_noise.png Graphic file (type png)
-<use sample_size_error_with_noise.png>
-Package pdftex.def Info: sample_size_error_with_noise.png  used on input line 8
-12.
-(pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
-
-
-[22 <./sample_size_error.png> <./sample_size_error_with_noise.png>]
-
-[23]
+[23 <./sample_size_error_with_noise.png>]
 
 [24
 
@@ -1333,16 +1335,12 @@ Poglavje 6.
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-07-19>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `vzorec_dip_Seminar.out' has not changed.
 (rerunfilecheck)             Checksum: 97ECA78814B430418BE829A62ACE9AA9;2715.
  ) 
 Here is how much of TeX's memory you used:
- 12364 strings out of 468149
- 195509 string characters out of 5431566
+ 12366 strings out of 468149
+ 195535 string characters out of 5431566
  616151 words of memory out of 5000000
  40686 multiletter control sequences out of 15000+600000
  643708 words of font info for 104 fonts, out of 8000000 for 9000
@@ -1372,9 +1370,9 @@ l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Users/žan/AppDa
 ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/ž
 an/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb
 >
-Output written on vzorec_dip_Seminar.pdf (43 pages, 997364 bytes).
+Output written on vzorec_dip_Seminar.pdf (43 pages, 1000588 bytes).
 PDF statistics:
- 428 PDF objects out of 1000 (max. 8388607)
- 73 named destinations out of 1000 (max. 500000)
+ 430 PDF objects out of 1000 (max. 8388607)
+ 75 named destinations out of 1000 (max. 500000)
  171 words of extra memory for PDF output out of 10000 (max. 10000000)
 

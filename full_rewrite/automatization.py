@@ -117,7 +117,7 @@ def run_different_sample_size():
         run_binary_diff(output_dir)
 
 def run_different_sample_size_with_noise():
-    sample_sizes = [16, 24, 32, 40, 80, 120, 200, 240, 320, 400, 800]
+    sample_sizes = [16, 24, 32, 40, 80, 120, 200, 240, 320, 400, 600, 800]
     base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_sample_size_with_noise"
 
     for sample_size in sample_sizes:

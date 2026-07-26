@@ -686,10 +686,12 @@ kjer je
 \begin{equation}
 B=\arctan\left(\beta\tan\frac{\pi\alpha}{2}\right),
 \end{equation}
-ter
+
 \begin{equation}
 C=\left(1+\beta^2\tan^2\frac{\pi\alpha}{2}\right)^{\frac{1}{2\alpha}}.
 \end{equation}
+
+pri čemer je $V$ enakomerno porazdeljena naključna spremenljivka na intervalu \begin{equation} V\sim\mathcal{U}\left(-\frac{\pi}{2},\frac{\pi}{2}\right), \end{equation} $W$ pa eksponentno porazdeljena naključna spremenljivka z enotskim povprečjem, \begin{equation} W\sim\mathrm{Exp}(1). \end{equation}
 
 V implementaciji se za vsak simbol tako generira \texttt{samples\_per\_symbol} vzorcev po tej enačbi. Parametri $\alpha$, $\beta$ in $\gamma$ se pa določijo iz vhodnih bitov glede na izbrane preslikovalne tabele.
 
@@ -755,7 +757,7 @@ Simulacijo smo izvedli s parametri $samples\_per\_symbol=1000$, $L=20$ in $noise
 \label{beta_error}
 \end{figure}
 
-Primerjali smo različne $\beta$ mape, od $[-0.1,0.1]$ do $[-1.0,1.0]$. Vrednost $\Delta\beta$ predstavlja razliko med obema vrednostma v posamezni $\beta$ mapi. Opazimo lahko izrazit padec pri $\Delta\beta = 1$. Razlog je v tem, da pri tej konfiguraciji v nobeni izmed 100 ponovitev nismo zaznali niti ene bitne napake. Ker vrednosti 0 na logaritemski osi ni mogoče prikazati, smo jo nadomestili z najmanjšo merljivo vrednostjo BER, to je $\frac{1}{102400} \approx 10^{-5}$. Enak pristop smo uporabili pri vseh simulacijah, pri katerih ni bilo zaznane nobene bitne napake.
+Primerjali smo različne $\beta$ mape, od $[-0.1,0.1]$ do $[-1.0,1.0]$. Vrednost $\Delta\beta$ predstavlja razliko med obema vrednostma v posamezni $\beta$ mapi. Opazimo lahko izrazit padec pri $\Delta\beta = 2$. Razlog je v tem, da pri tej konfiguraciji v nobeni izmed 100 ponovitev nismo zaznali niti ene bitne napake. Ker vrednosti 0 na logaritemski osi ni mogoče prikazati, smo jo nadomestili z najmanjšo merljivo vrednostjo BER, to je $\frac{1}{102400} \approx 10^{-5}$. Enak pristop smo uporabili pri vseh simulacijah, pri katerih ni bilo zaznane nobene bitne napake.
 
 \subsection{Spreminjanje parametra $\gamma$}
 
