@@ -287,7 +287,9 @@ Svoji dragi Alenčici.
   {\bf BER} & Bit Error Rate & Stopnja bitnih napak \\
   {\bf GRC} & GNU Radio Companion & GNU Radio Companion \\
   {\bf SNR} & Signal-to-Noise Ratio & Razmerje med signalom in šumom \\
-  {\bf MSNR} & Mean Signal-to-Noise Ratio & povprečno razmerje med signalom in šumom \\
+  {\bf MSNR} & Mean Signal-to-Noise Ratio & Povprečno razmerje med signalom in šumom \\
+  {\bf PLS} & Physical Layer Security & Varnost na fizičnem nivoju \\
+  {\bf SDR} & Software Defined Radio & Programsko opredeljena radijska oprema \\
   \dots & \dots & \dots \\
 \end{tabular}
 \end{comment}
@@ -299,7 +301,9 @@ Svoji dragi Alenčici.
   {\bf BER} & Bit Error Rate & Stopnja bitnih napak \\
   {\bf GRC} & GNU Radio Companion & GNU Radio Companion \\
   {\bf SNR} & Signal-to-Noise Ratio & Razmerje med signalom in šumom \\
-  {\bf MSNR} & Mean Signal-to-Noise Ratio & povprečno razmerje med signalom in šumom \\
+  {\bf MSNR} & Mean Signal-to-Noise Ratio & Varnost na fizičnem nivoju \\
+  {\bf PLS} & Physical Layer Security & Varnost na fizičnem nivoju \\
+  {\bf SDR} & Software Defined Radio & Programsko opredeljena radijska oprema \\
 %  \dots & \dots & \dots \\
 \end{tabular}
 
@@ -356,16 +360,31 @@ A proper abstract should contain around 100 words which makes this one way too s
 \pagestyle{fancy}
 
 \chapter{Uvod}
-Brezžična komunikacija je postala del vsakdanjega življenja. Uporabljamo jo pri mobilni telefoniji, brezžičnemu dostopu do interneta, satelitskih povezavah in še marsikje drugje. Razvoj vseh teh tehnologij nam je pomagal pri hitrem izmenjevanju podatkov in znanja vseh ljudi, brez potrebe po fizičnih povezavah, kar predstavlja svoje izzive. 
+Brezžična komunikacija je postala nepogrešljiv del vsakdanjega življenja, saj omogoča hiter prenos podatkov v mobilni telefoniji, satelitskih povezavah in industrijskih sistemih. Sodobni komunikacijski standardi, kot so Wi-Fi, Bluetooth ter omrežja 4G in 5G, temeljijo na determinističnih modulacijskih tehnikah (sprememba amplitude, faze ali frekvence) ter naprednem kodiranju. Kljub izjemni hitrosti in zanesljivosti pa imajo ti sistemi skupno pomankljivost. Njihovi signali imajo dobro poznane strukture, zaradi tega jih je mogoče z ustrezno opremo precej enostavno zaznati, analizirati in prestreči.
 
-Sodobni brezžični komunikacijski sistemi kot so Wi-Fi, bluetooth, mobilna omrežja četrte in pete generacije vse temeljijo na naprednih metodah modulacije (amplituda, faza, frekvenca), kodiranje in obdelave signala. Takšen pristop je osnova praktično vseh danes uporabljenih komunikacijskih standardov in je rezultat desetletij razvoja na tem področju in izboljševanjem z vsako generacijo tako na hitrosti kot na zanesljivosti in varnosti.
+V sodobnih omrežjih zato pridobiva vedno večjo težo tudi \textbf{varnost na fizičnem nivoju} (\textit{Physical Layer Security} – PLS). Namesto zanašanja zgolj na kriptografske protokole na višjih nivojih je cilj razviti takšne komunikacijske vzorce, ki so za nepooblaščenega prisluškovalca praktično nezaznavni. Eden najbolj obetavnih pristopov za dosego takšnega cilja je uporaba stohastičnih\footnote{Stohastični signal je signal, katerega vrednosti se s časom spreminjajo naključno in jih ne moremo natančno napovedati z deterministično matematično funkcijo, temveč jih opisujemo s statističnimi lastnostmi.} signalov oz. komunikacije, ki temeli na šumu, kjer se informacija ne zakodira v spremembo nosilne frekvence, temveč v parametre stohastične porazdelitve samih naključnih procesov.
 
-Kljub uspešnosti in uveljavljanju modulacijskih tehnik se še vedno iščejo tudi novi načini prenašanja informacij. Eden od možnih pristopov je uporaba statičnih lastnosti signala za prenos informacij. Namesto da kodiramo podatke zgolj s spremembami amplitud, faz in frekvenc je mogoče informacije predstaviti tudi z izbiro ustreznih parametrov statične porazdelitve signala.
-
-V tej diplomski nalogi je predstavljen komunikacijski sistem, ki temelji na $\alpha$-stabilni (alpha-stable) porazdelitvi. Za razliko od klasičnih modulacijskih procesov je tak način komunikacije dosti težje zaznati in dešifrirati, tudi brez dodatnih kriptografskih metod. Seveda pa vse to prinese tudi nove izzive.
+V tej diplomski nalogi je predstavljen komunikacijski sistem, ki temelji na $\alpha$-stabilni (angl. alpha-stable) porazdelitvi. Za razliko od klasičnih modulacijskih procesov je tak način komunikacije dosti težje zaznati in dešifrirati, tudi brez dodatnih kriptografskih metod.
 
 Cilj diplomske naloge je razviti in predstaviti takšen način predstavitve podatkov, opisati postopek kodiranja in dekodiranja informacij ter analizirati delovanje sistema. Naloga preučuje možnost uporabe $\alpha$-stabilne porazdelitve kot nosilec informacije in predlaga drugačen pristop za razvoj novih komunikacijskih metod na področju brezžičnih komunikacij.
 
+\section{Izzivi in motivacija}
+
+Razvoj komunikacijskega sistema na podlagi $\alpha$-stabilne porazdelitve prinaša kompleksne teoretične in praktične izzive:
+\begin{itemize}
+	\item \textbf{Odsotnost zapisa z elementarnimi funkcijami:} Gostote verjetnosti $\alpha$-stabilnih porazdelitev za poljubne vrednosti parametrov ni mogoče izraziti z elementarnimi funkcijami (izjema so le redki posebni primeri, kot so Gaussova, Cauchyjeva in Lévyjeva porazdelitev). Sprejemnik mora zato parametre signala ocenjevati iz sprejetih vzorcev z uporabo zahtevnejših numeričnih metod, kar bistveno poveča računsko zahtevnost.
+	\item \textbf{Izzivi strojne implementacije:} Prenašanje takih konceptov na dejansko programsko opredeljeno radijsko opremo (\textit{Software Defined Radio} – SDR) odpira vrsto praktičnih težav, s katerimi se srečamo v brezžičnih omrežjih. Ključni izzivi obsegajo natančno časovno in frekvenčno sinhronizacijo ne-determinističnih signalov, omejitve pasovne širine ter realnočasovno ocenjevanje parametrov na strojni opremi z omejenimi račuskimi viri.
+\end{itemize}
+
+Posebej velja poudariti, da v literaturi in raziskovalni skupnosti še \textbf{ne obstaja odprtokodna implementacija} komunikacijskega sistema, ki bi temeljil na $\alpha$-stabilnem šumu in deloval na realni SDR opremi ali v okolju GNU Radio.
+
+\section{Vpliv in uporabnost:}
+
+Rezultati te diplomske naloge prikazujejo uporabnost takšne brezžične komunikacije in možnost njene implementacije v realnih okoljih, kjer klasični sistemi ne zadoščajo. Razviti pristop je primeren za: 
+\begin{itemize}
+    \item \textbf{Prikrito komunikacijo:} Prenos podatkov v okoljih, kjer sam obstoj komunikacijskega kanala ne sme biti zaznan (npr. vojaške aplikacije ali zaščita kritične infrastrukture).
+    \item \textbf{Robustne industrijske senzorje:} Prenos informacij v izjemno hrupnih industrijskih okoljih z močnim impulznim šumom, kjer imajo klasični sistemi težave.
+\end{itemize}
 
 \chapter{Trenutno stanje mobilnih omrežij}
 \label{ch0}
@@ -762,28 +781,37 @@ V tej simulaciji je bila vrednost MSNR izražena v decibelih po enačbi
 
 kjer parameter $\gamma_G$ predstavlja $\gamma$ parameter normalne porazdelitve, ki je enak 1.
 
-\subsection{Različne velikosti vzorca}
-
-Do sedaj smo pri vseh simulacijah uporabljali enako velikost vzorca, in sicer 1000 vzorcev na simbol. V nadaljevanju smo preverili, kako se stopnja bitnih napak spreminja glede na velikost vzorca.Pričakujemo, da se bo z večanjem števila vzorcev, uporabljenih za predstavitev enega bita, stopnja bitnih napak zmanjševala.  Simulacija je bila izvedena s parametri $beta_map=[-1.0,1.0]$, $L=8$ in $noise_ratio=0.0$.
+V simulacijski model je bil preko vgrajenega bloka v orodju GNU Radio Companion dodan tudi umetni Gaussov šum. Razlog za nastavitev parametra \texttt{noise\_ratio} na vrednost 1,0 tiči v dejstvu, da bi bila brez prisotnosti šuma (\texttt{noise\_ratio} = 0) odvisnost povsem drugačna, kot prikazuje slika~\ref{gama_error_0noise}.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{sample_size_error.png}
+\includegraphics[width=0.8\textwidth]{gama_error_log_0noise.png}
 \end{center}
-\caption{Graf BER glede na velikost vzorca}
-\label{sample_size_error}
+\caption{Graf BER glede na parameter gama v okolju brez šuma}
+\label{gama_error_0noise}
+\end{figure}
+
+Rezultati simulacije v idealnem okolju potrjujejo, da v odsotnosti šuma parameter $\gamma$ nima vpliva na stopnjo bitnih napak, saj je prenos v celoti brez napak.
+
+\subsection{Različne velikosti vzorca}
+
+Do sedaj smo pri vseh simulacijah uporabljali enako velikost vzorca, in sicer 1000 vzorcev na simbol. V nadaljevanju smo preverili, kako se stopnja bitnih napak spreminja glede na velikost vzorca.Pričakujemo, da se bo z večanjem števila vzorcev, uporabljenih za predstavitev enega bita, stopnja bitnih napak zmanjševala.  Simulacija je bila izvedena s parametri $beta\_map=[-1.0,1.0]$, $L=8$ in $noise\_ratio=0.0$.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{sample_size_error.png}
+  \caption{Graf BER glede na velikost vzorca}
+  \label{sample_size_error}
 \end{figure}
 
 Opazimo, da je pri zelo majhnem številu vzorcev stopnja bitnih napak visoka, medtem ko pri 120 vzorcih že dosežemo vrednost BER = 0.
+Ker je bila ta simulacija izvedena brez prisotnosti šuma, smo simulacijo ponovili še z vrednostjo $\mathit{noise\_ratio}=6.5$, da bi dobili bolj realistično predstavo delovanja sistema v prisotnosti motenj.
 
-Ker je bila ta simulacija izvedena brez prisotnosti šuma, smo simulacijo ponovili še z vrednostjo $noise_ratio=6.5$, da bi dobili bolj realistično predstavo delovanja sistema v prisotnosti motenj.
- 
 \begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.8\textwidth]{sample_size_error_with_noise.png}
-\end{center}
-\caption{Graf BER glede na velikost vzorca s šumom}
-\label{sample_size_error_with_noise}
+  \centering
+  \includegraphics[width=0.8\textwidth]{sample_size_error_with_noise.png}
+  \caption{Graf BER glede na velikost vzorca s šumom}
+  \label{sample_size_error_with_noise}
 \end{figure}
 
 Iz grafa je razvidno, da je pri prisotnosti šuma potrebno večje število vzorcev za doseganje nizke stopnje bitnih napak. Vrednost BER = 0 dosežemo šele pri približno 800 vzorcih, kar je pričakovano, saj večja količina šuma zahteva več vzorcev za zanesljivo odločanje.
@@ -793,6 +821,7 @@ Iz grafa je razvidno, da je pri prisotnosti šuma potrebno večje število vzorc
 
 \cleardoublepage
 \addcontentsline{toc}{chapter}{Literatura}
+\nocite{*}
 \bibliography{literatura}
 \bibliographystyle{plainnat}
 
