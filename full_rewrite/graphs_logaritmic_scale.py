@@ -53,28 +53,31 @@ def decode_beta_label(folder_name):
 
 def ensure_output_dir():
     os.makedirs(GRAPH_OUTPUT_DIR, exist_ok=True)
-
-def save_publication_chart(x_values, y_values, title, xlabel, ylabel, filename):
-    x_arr = np.asarray(x_values, dtype=float)
-    y_plot = prepare_log_values(y_values)
-
+def save_publication_chart(
+    curves,
+    title,
+    xlabel,
+    ylabel,
+    filename,
+):
     fig, ax = plt.subplots(figsize=(8, 5))
 
-    ax.plot(
-        x_arr,
-        y_plot,
-        "-o",
-        linewidth=2.2,
-        markersize=6,
-        markerfacecolor="white",
-        markeredgewidth=1.5,
-    )
+    colors = plt.cm.tab10.colors
 
-    if len(x_arr) >= 2:
-        step = np.mean(np.diff(np.sort(x_arr)))
-        ax.set_xlim(
-            np.min(x_arr) - step * 0.5,
-            np.max(x_arr) + step * 0.5,
+    for i, (label, x_values, y_values) in enumerate(curves):
+        x_arr = np.asarray(x_values, dtype=float)
+        y_plot = prepare_log_values(y_values)
+
+        ax.plot(
+            x_arr,
+            y_plot,
+            "-o",
+            linewidth=2.2,
+            markersize=6,
+            markerfacecolor="white",
+            markeredgewidth=1.5,
+            color=colors[i % len(colors)],
+            label=label,
         )
 
     ax.set_title(title, fontsize=14)
@@ -84,6 +87,8 @@ def save_publication_chart(x_values, y_values, title, xlabel, ylabel, filename):
     ax.set_yscale("log")
 
     apply_publication_style(ax)
+
+    ax.legend(loc="upper right")
 
     fig.tight_layout()
 
@@ -121,206 +126,181 @@ def apply_publication_style(ax):
     )
 
 
-def graph_noise_ratio():
-    base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_noise_ratio")
-    results = []
-
-    if not os.path.isdir(base_dir):
-        print(f"Skipping noise-ratio graph, missing folder: {base_dir}")
-        return
-
-    for folder_name in sorted(os.listdir(base_dir)):
-        output_path = os.path.join(base_dir, folder_name, "output.txt")
-        if not os.path.isfile(output_path) or not folder_name.startswith("noise_"):
-            continue
-
-        error_rate = read_error_rate(output_path)
-        if error_rate is None:
-            continue
-
-        noise_value = float(folder_name.replace("noise_", "").replace("p", "."))
-        results.append((noise_value, error_rate))
-
-    if not results:
-        print("No noise-ratio results found.")
-        return
-
-    results.sort(key=lambda item: item[0])
-    x_values, y_values = zip(*results)
-    save_publication_chart(
-        x_values,
-        y_values,
-        "Error rate vs noise ratio",
-        "noise ratio",
-        "error rate",
-        "noise_ratio_error.png",
-    )
-    best_noise, best_value = min(results, key=lambda item: item[1])
-    print(f"Best noise ratio: {best_noise} with error rate {best_value:.6f}")
 def graph_beta():
     base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_beta")
-    results = []
 
     if not os.path.isdir(base_dir):
-        print(f"Skipping beta graph, missing folder: {base_dir}")
         return
 
-    for folder_name in sorted(os.listdir(base_dir)):
-        output_path = os.path.join(base_dir, folder_name, "output.txt")
-        if not os.path.isfile(output_path):
-            continue
+    curves = []
 
-        error_rate = read_error_rate(output_path)
-        if error_rate is None:
-            continue
+    sample_dirs = sorted(
+        [d for d in os.listdir(base_dir) if d.isdigit()],
+        key=int
+    )
 
-        label = decode_beta_label(folder_name)
+    for sample_dir in sample_dirs:
 
-        try:
-            beta_min, beta_max = map(float, label.split(","))
-        except ValueError:
-            continue
+        results = []
 
-        delta_beta = beta_max - beta_min
+        current_dir = os.path.join(base_dir, sample_dir)
 
-        results.append((delta_beta, error_rate))
+        for folder_name in os.listdir(current_dir):
 
-    if not results:
-        print("No beta results found.")
-        return
+            output_path = os.path.join(current_dir, folder_name, "output.txt")
 
-    results.sort(key=lambda x: x[0])
-    x_values, y_values = zip(*results)
+            if not os.path.isfile(output_path):
+                continue
+
+            error_rate = read_error_rate(output_path)
+
+            if error_rate is None:
+                continue
+
+            label = decode_beta_label(folder_name)
+
+            try:
+                beta_min, beta_max = map(float, label.split(","))
+            except ValueError:
+                continue
+
+            delta_beta = beta_max - beta_min
+
+            results.append((delta_beta, error_rate))
+
+        results.sort()
+
+        if results:
+            x, y = zip(*results)
+            curves.append((f"N={sample_dir}", x, y))
 
     save_publication_chart(
-        x_values,
-        y_values,
+        curves,
         "BER vs Δβ",
-        "β",
+        "Δβ",
         "BER",
         "beta_error.png",
     )
 
-    best_beta, best_value = min(results, key=lambda x: x[1])
-    print(f"Best beta: {best_beta} with error rate {best_value:.6f}")
-
 def graph_gama():
     base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_gama")
-    results = []
 
     if not os.path.isdir(base_dir):
-        print(f"Skipping gama graph, missing folder: {base_dir}")
         return
 
-    for folder_name in sorted(os.listdir(base_dir)):
-        output_path = os.path.join(base_dir, folder_name, "output.txt")
-        if not os.path.isfile(output_path):
-            continue
+    curves = []
 
-        error_rate = read_error_rate(output_path)
-        if error_rate is None:
-            continue
+    sample_dirs = sorted(
+        [d for d in os.listdir(base_dir) if d.isdigit()],
+        key=int
+    )
 
-        try:
-            gama_value = float(folder_name.replace("p", ".").replace("m", "-"))
-        except ValueError:
-            continue
+    for sample_dir in sample_dirs:
 
-        results.append((gama_value, error_rate))
+        results = []
 
-    if not results:
-        print("No gama results found.")
-        return
+        current_dir = os.path.join(base_dir, sample_dir)
 
-    results.sort(key=lambda item: item[0])
-    gamma_values, y_values = zip(*results)
-    gamma_reference = 1.0
-    x_values = [10.0 * np.log10(gamma / gamma_reference) for gamma in gamma_values if gamma > 0]
-    y_values = [y for gamma, y in zip(gamma_values, y_values) if gamma > 0]
+        for folder_name in os.listdir(current_dir):
 
-    if not x_values:
-        print("No positive gama values found for MSNR conversion.")
-        return
+            output_path = os.path.join(current_dir, folder_name, "output.txt")
+
+            if not os.path.isfile(output_path):
+                continue
+
+            error_rate = read_error_rate(output_path)
+
+            if error_rate is None:
+                continue
+
+            try:
+                gamma = float(folder_name.replace("p", "."))
+            except ValueError:
+                continue
+
+            results.append((gamma, error_rate))
+
+        results.sort()
+
+        if results:
+
+            gamma_values, ber = zip(*results)
+
+            msnr = [10*np.log10(g) for g in gamma_values]
+
+            curves.append((f"N={sample_dir}", msnr, ber))
 
     save_publication_chart(
-        x_values,
-        y_values,
+        curves,
         "BER vs MSNR",
         "MSNR (dB)",
         "BER",
         "gama_error_log.png",
     )
 
-    best_gama, best_value = min(results, key=lambda item: item[1])
-    print(f"Best gama: {best_gama} with error rate {best_value:.6f}")
-
-
 def graph_sample_size():
-    base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_sample_size")
-    results = []
+    base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_noise")
 
     if not os.path.isdir(base_dir):
-        print(f"Skipping sample-size graph, missing folder: {base_dir}")
         return
 
-    for folder_name in sorted(os.listdir(base_dir), key=lambda value: int(value) if value.isdigit() else value):
-        output_path = os.path.join(base_dir, folder_name, "output.txt")
-        if not os.path.isfile(output_path) or not folder_name.isdigit():
+    curves = []
+
+    noise_dirs = sorted(os.listdir(base_dir))
+
+    for noise_dir in noise_dirs:
+
+        current_dir = os.path.join(base_dir, noise_dir)
+
+        if not os.path.isdir(current_dir):
             continue
 
-        error_rate = read_error_rate(output_path)
-        if error_rate is None:
-            continue
+        results = []
 
-        results.append((int(folder_name), error_rate))
+        sample_dirs = sorted(
+            [d for d in os.listdir(current_dir) if d.isdigit()],
+            key=int
+        )
 
-    if not results:
-        print("No sample-size results found.")
-        return
+        for sample_dir in sample_dirs:
 
-    x_values, y_values = zip(*results)
-    save_publication_chart(x_values, y_values, "Error rate vs sample size", "samples per symbol", "error rate", "sample_size_error.png")
-    best_sample, best_value = min(results, key=lambda item: item[1])
-    print(f"Best sample size: {best_sample} with error rate {best_value:.6f}")
+            output_path = os.path.join(current_dir, sample_dir, "output.txt")
 
+            if not os.path.isfile(output_path):
+                continue
 
+            error_rate = read_error_rate(output_path)
 
-def graph_sample_size_with_noise():
-    base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_sample_size_with_noise")
-    results = []
+            if error_rate is None:
+                continue
 
-    if not os.path.isdir(base_dir):
-        print(f"Skipping sample-size graph, missing folder: {base_dir}")
-        return
+            results.append((int(sample_dir), error_rate))
 
-    for folder_name in sorted(os.listdir(base_dir), key=lambda value: int(value) if value.isdigit() else value):
-        output_path = os.path.join(base_dir, folder_name, "output.txt")
-        if not os.path.isfile(output_path) or not folder_name.isdigit():
-            continue
+        if results:
 
-        error_rate = read_error_rate(output_path)
-        if error_rate is None:
-            continue
+            x, y = zip(*results)
 
-        results.append((int(folder_name), error_rate))
+            noise = noise_dir.replace("noise_", "").replace("p", ".")
 
-    if not results:
-        print("No sample-size results found.")
-        return
+            curves.append((f"Noise={noise}", x, y))
 
-    x_values, y_values = zip(*results)
-    save_publication_chart(x_values, y_values, "Error rate vs sample size", "samples per symbol", "error rate", "sample_size_error_with_noise.png")
-    best_sample, best_value = min(results, key=lambda item: item[1])
-    print(f"Best sample size: {best_sample} with error rate {best_value:.6f}")
-
-
-
-
+    save_publication_chart(
+        curves,
+        "BER vs samples per symbol",
+        "Samples per symbol",
+        "BER",
+        "sample_size_error.png",
+    )
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--plot",
-        choices=["all", "beta", "gama", "sample_size", "noise_ratio", "l_ratio", "sample_size_with_noise"],
+        choices=[
+            "all",
+            "beta",
+            "gama",
+            "sample_size",
+        ],
         default="all",
         help="Choose which graph family to generate.",
     )
@@ -336,15 +316,8 @@ def main():
 
     if args.plot in ("all", "sample_size"):
         graph_sample_size()
-    
-    if args.plot in ("all", "sample_size_with_noise"):
-        graph_sample_size_with_noise()
-
-    if args.plot in ("all", "noise_ratio"):
-        graph_noise_ratio()
 
     print(f"Graphs written to {GRAPH_OUTPUT_DIR}")
-
 
 if __name__ == "__main__":
     main()
