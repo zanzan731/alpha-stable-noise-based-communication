@@ -100,10 +100,10 @@ def run_different_gama():
         "0.316227766"
     ]
 
-    base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_gama"
+    base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_gama_noise1"
     for gama_map in gama_options:
         output_dir = os.path.join(base_dir, gama_map.replace(",", "_").replace("-", "m").replace(".", "p"))
-        run_generator("-1.0,1.0", samples_per_symbol=1000, L=20, output_dir=output_dir, gama_map=gama_map, noise_ratio=0.1)
+        run_generator("-1.0,1.0", samples_per_symbol=1000, L=20, output_dir=output_dir, gama_map=gama_map, noise_ratio=1.0)
         run_binary_diff(output_dir)
 
 
@@ -163,7 +163,7 @@ def main():
 
     if args.experiment is None:
         print("Choose an experiment to run:")
-        print("1 - all")
+        print("1 - all (without l ratio, noise ratio and graphs)")
         print("2 - different_beta")
         print("3 - different_gama")
         print("4 - different_sample_size")
@@ -199,10 +199,10 @@ def main():
     if args.experiment in ("all", "different_sample_size_with_noise"):
         run_different_sample_size_with_noise()
 
-    if args.experiment in ("all", "different_noise_ratio"):
+    if args.experiment in ("different_noise_ratio"):
         run_different_noise_ratio()
 
-    if args.experiment in ("all", "different_l_ratio"):
+    if args.experiment in ("different_l_ratio"):
         run_different_l_ratio()
    
     if args.experiment == "graphs":
