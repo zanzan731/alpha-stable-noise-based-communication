@@ -25,6 +25,11 @@
 \usepackage{soul}       % dodal Solina
 \usepackage[numbers]{natbib}  % dodal Solina
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsthm}
+\usepackage[most]{tcolorbox}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	DIPLOMA INFO
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -360,48 +365,191 @@ A proper abstract should contain around 100 words which makes this one way too s
 \pagestyle{fancy}
 
 \chapter{Uvod}
-Brezžična komunikacija je postala nepogrešljiv del vsakdanjega življenja, saj omogoča hiter prenos podatkov v mobilni telefoniji, satelitskih povezavah in industrijskih sistemih. Sodobni komunikacijski standardi, kot so Wi-Fi, Bluetooth ter omrežja 4G in 5G, temeljijo na determinističnih modulacijskih tehnikah (sprememba amplitude, faze ali frekvence) ter naprednem kodiranju. Kljub izjemni hitrosti in zanesljivosti pa imajo ti sistemi skupno pomankljivost. Njihovi signali imajo dobro poznane strukture, zaradi tega jih je mogoče z ustrezno opremo precej enostavno zaznati, analizirati in prestreči.
+Brezžična komunikacija je postala nepogrešljiv del vsakdanjega življenja. Omogoča uporabo mobilnih telefonov, brezžičnega dostopa do interneta, satelitske navigacije ter številnih industrijskih in IoT (Internet of Things) aplikacij, brez česar si sodobne družbe skoraj ni več mogoče predstavljati. Skupna značilnost večine sodobnih komunikacijskih sistemov je uporaba determinističnih\footnote{Deterministični signal je vsak signal, katerega vrednost je v vsakem trenutku popolnoma znana in jo lahko opišemo z natančno matematično enačbo.} signalov, pri katerih je informacija kodirana v spremembi amplitude, frekvence ali faze nosilnega vala. Takšni pristopi so se izkazali za zelo učinkovite, vendar imajo tudi pomembno omejitev. Zaradi dobro poznane strukture signalov jih je mogoče z ustreznimi metodami obdelave signalov zaznati, analizirati in v določenih primerih tudi prestreči. %Tle rabim dobit najbrž neki kar bo podprlo ta claim
 
-V sodobnih omrežjih zato pridobiva vedno večjo težo tudi \textbf{varnost na fizičnem nivoju}\cite{lutovac2025physical} (\textit{Physical Layer Security} – PLS). Namesto zanašanja zgolj na kriptografske protokole na višjih nivojih je cilj razviti takšne komunikacijske vzorce, ki so za nepooblaščenega prisluškovalca praktično nezaznavni. Eden najbolj obetavnih pristopov za dosego takšnega cilja je uporaba stohastičnih\footnote{Stohastični signal je signal, katerega vrednosti se s časom spreminjajo naključno in jih ne moremo natančno napovedati z deterministično matematično funkcijo, temveč jih opisujemo s statističnimi lastnostmi.} signalov oz. komunikacije, ki temeli na šumu, kjer se informacija ne zakodira v spremembo nosilne frekvence, temveč v parametre stohastične porazdelitve samih naključnih procesov.
+V sodobnih omrežjih zato pridobiva vedno večjo težo tudi \textbf{varnost na fizičnem nivoju}\cite{lutovac2025physical} (\textit{Physical Layer Security} – PLS). Namesto zanašanja zgolj na kriptografske protokole na višjih nivojih je cilj razviti takšne komunikacijske vzorce, ki so za nepooblaščenega prisluškovalca praktično nezaznavni. Eden izmed obetavnih pristopov za doseganje takšne komunikacije je uporaba stohastičnih\footnote{Stohastični signal je signal, katerega vrednosti se s časom spreminjajo naključno in jih ne moremo natančno napovedati z deterministično matematično funkcijo, temveč jih opisujemo s statističnimi lastnostmi.} signalov. Pri tem pristopu informacija ni več kodirana v spremembi lastnosti nosilnega elektromagnetnega vala, temveč v statističnih parametrih naključnega procesa. Takšna sprememba predstavlja bistveno drugačen pristop od tistega, na kateri temeljijo klasični brezžični komunikacijski sistemi.
 
-V tej diplomski nalogi je predstavljen komunikacijski sistem, ki temelji na $\alpha$-stabilni (angl. alpha-stable) porazdelitvi. Za razliko od klasičnih modulacijskih procesov je tak način komunikacije dosti težje zaznati in dešifrirati, tudi brez dodatnih kriptografskih metod.
+Cilj diplomskega dela je razviti implementacijo komunikacijskega sistema, ki temelji na $\alpha$-stabilnem šumu, v okolju GNU Radio ter ga prenesti na programsko opredeljeno radijsko opremo (SDR). Namen implementacije je omogočiti uporabo takšnega komunikacijskega sistema na standardni SDR platformi in s tem olajšati njegovo uporabo pri nadaljnjih raziskavah ter drugih brezžičnih aplikacijah.
 
-Cilj diplomske naloge je razviti in predstaviti takšen način predstavitve podatkov, opisati postopek kodiranja in dekodiranja informacij ter analizirati delovanje sistema. Naloga preučuje možnost uporabe $\alpha$-stabilne porazdelitve kot nosilec informacije in predlaga drugačen pristop za razvoj novih komunikacijskih metod na področju brezžičnih komunikacij.
+Poleg implementacije je cilj dela eksperimentalno ovrednotiti delovanje sistema s simulacijami in preveriti njegovo delovanje pri dejanskem brezžičnem prenosu med dvema SDR napravama.
 
-\section{Izzivi in motivacija}
+Pri implementaciji takšnega sistema se pojavijo številni izzivi:
 
-Razvoj komunikacijskega sistema na podlagi $\alpha$-stabilne porazdelitve prinaša kompleksne teoretične in praktične izzive:
 \begin{itemize}
-	\item \textbf{Odsotnost zapisa z elementarnimi funkcijami:} Gostote verjetnosti $\alpha$-stabilnih porazdelitev za poljubne vrednosti parametrov ni mogoče izraziti z elementarnimi funkcijami (izjema so le redki posebni primeri, kot so Gaussova, Cauchyjeva in Lévyjeva porazdelitev). Sprejemnik mora zato parametre signala ocenjevati iz sprejetih vzorcev z uporabo zahtevnejših numeričnih metod, kar bistveno poveča računsko zahtevnost.
-	\item \textbf{Izzivi strojne implementacije:} Prenašanje takih konceptov na dejansko programsko opredeljeno radijsko opremo (\textit{Software Defined Radio} – SDR) odpira vrsto praktičnih težav, s katerimi se srečamo v brezžičnih omrežjih. Ključni izzivi obsegajo natančno časovno in frekvenčno sinhronizacijo ne-determinističnih signalov, omejitve pasovne širine ter realnočasovno ocenjevanje parametrov na strojni opremi z omejenimi račuskimi viri.
+	 \item Ocenjevanje parametrov $\alpha$-stabilnih porazdelitev zahteva uporabo numeričnih metod, saj njihove gostote verjetnosti praviloma ni mogoče izraziti v zaprti obliki\footnote{Izraz ima zaprto obliko, če se ga da zapisati izključno z elementarnimi funkcijami.} (izjema so le redki primeri, kot so Gaussova, Cauchyjeva in Lévyjeva porazdelitev). Posledično je ocenjevanje parametrov računsko zahtevnejše od metod, ki temeljijo na klasičnih porazdelitvah.
+
+    \item Razvoj komunikacijskega sistema v okolju GNU Radio zahteva implementacijo novih kodirnih in dekodirnih blokov, ki omogočajo uporabo $\alpha$-stabilnega šuma kot nosilca informacije.
+
+    \item Prenos sistema na programsko opredeljeno radijsko opremo (\textit{Software Defined Radio} -- SDR) zahteva prilagoditev implementacije za delovanje v realnem času ter reševanje številnih praktičnih izzivov, med katerimi so časovna in frekvenčna sinhronizacija, omejitve pasovne širine ter omejeni računski viri strojne opreme.
 \end{itemize}
 
-Posebej velja poudariti, da v literaturi in raziskovalni skupnosti še \textbf{ne obstaja odprtokodna implementacija} komunikacijskega sistema, ki bi temeljil na $\alpha$-stabilnem šumu in deloval na realni SDR opremi ali v okolju GNU Radio.
+V tej diplomski nalogi obravnavamo navedene izzive in predstavimo implementacijo komunikacijskega sistema, ki temelji na $\alpha$-stabilnem šumu. Glavni prispevki diplomskega dela so:
 
-\section{Vpliv in uporabnost:}
-
-Rezultati te diplomske naloge prikazujejo uporabnost takšne brezžične komunikacije in možnost njene implementacije v realnih okoljih, kjer klasični sistemi ne zadoščajo. Razviti pristop je primeren za: 
 \begin{itemize}
-    \item \textbf{Prikrito komunikacijo:} Prenos podatkov v okoljih, kjer sam obstoj komunikacijskega kanala ne sme biti zaznan (npr. vojaške aplikacije ali zaščita kritične infrastrukture).
-    \item \textbf{Robustne industrijske senzorje:} Prenos informacij v izjemno hrupnih industrijskih okoljih z močnim impulznim šumom, kjer imajo klasični sistemi težave.
+
+\item Razvoj kodirnika in dekodirnika za komunikacijo z uporabo $\alpha$-stabilnega šuma v okolju GNU Radio.
+
+\item Implementacija sistema na programsko opredeljeni radijski opremi USRP, ki omogoča brezžični prenos podatkov v realnem okolju.
+
+\item Eksperimentalna analiza vpliva parametrov sistema na stopnjo bitnih napak (BER), vključno z vplivom parametrov $\beta$, $\gamma$ ter številom vzorcev na simbol.
+
+\item Demonstracija delovanja komunikacijskega sistema na dejanski brezžični povezavi med dvema SDR napravama.
+
 \end{itemize}
 
-\chapter{Trenutno stanje mobilnih omrežij}
+Kolikor nam je znano, predstavljeno delo predstavlja prvo odprtokodno implementacijo komunikacijskega sistema na osnovi $\alpha$-stabilnega šuma v okolju GNU Radio, skupaj z demonstracijo njegovega delovanja na SDR strojni opremi.
+
+Rezultati te diplomske naloge potrjujejo, da je komunikacijski sistem, ki temelji na $\alpha$-stabilnem šumu, mogoče uspešno implementirati v okolju GNU Radio ter prenesti na programsko opredeljeno radijsko opremo. Razvita implementacija predstavlja osnovo za nadaljnje raziskave komunikacijskih sistemov, ki uporabljajo stohastične signale kot nosilce informacije, saj omogoča enostavno uporabo in nadaljnji razvoj v odprtokodnem okolju. Takšen pristop je posebej zanimiv na področjih, kjer je pomembna nizka zaznavnost komunikacije, na primer pri prikriti komunikaciji ali zaščiti kritične infrastrukture. Hkrati je zaradi odpornosti na impulzni šum primeren tudi za uporabo v industrijskih okoljih, kjer imajo klasični komunikacijski sistemi pogosto težave z zagotavljanjem zanesljivega prenosa podatkov.
+
+\chapter{Brezžična komunikacija in njeni izzivi} %Mogoče rabim kako boljše ime za ta chapter
 \label{ch0}
-Sodobna mobilna omrežja so zasnovana na prenosu informacij z uporabo determinističnih signalov, katerih lastnosti so določene z različnimi modulacijskimi tehnikami. Tehnologije, uporabljene v omrežjih 4G in 5G, temeljijo na spreminjanju amplitude, faze ali frekvence nosilnega signala, pri čemer je cilj čim učinkovitejša izraba razpoložljivega spektra ter zagotavljanje zanesljivega prenosa podatkov. Za izboljšanje zmogljivosti se uporabljajo napredne metode, kot so OFDM, MIMO in prilagodljivo kodiranje. 
 
-Pri načrtovanju takih omrežij se signal obravnava kot nosilec podatkov, medtem ko šum predstavlja nezaželjen pojav, ki zmanjšuje kakovost prenosa. Posledično je velik del razvoja usmerjen v zmanjševanje vpliva šuma z uporabo kodiranja, filtriranja, ocenjevanja kanalov in naprednih metod obdelave signalov.
+Brezžična komunikacija je danes postala nepogrešljiv del vsakdanjega življenja. Vsakodnevno uporabljamo mobilne telefone, brezžična omrežja, pametne ure, brezžične slušalke in številne druge naprave, pri čemer se le redko vprašamo, kako informacije dejansko potujejo med njimi. Kljub temu da je danes brezžična komunikacija samoumevna, je rezultat desetletij razvoja komunikacijskih teorij, modulacijskih tehnik ter radijskih tehnologij, ki omogočajo zanesljiv prenos podatkov skozi prostor brez fizičnega prenosnega medija.
 
-Kljub velikemu napredku imajo obstoječi komunikacijsi sistemi določene omejitve. Z naraščanjem števila uporabnikov, vse večjimi zahtevami po pasovni širini  postaja iskanje alternativnih komunikacij vse pomembnejše raziskovalno področje. Poleg povečanja zmogljivosti postajajo vedno pomembnejši tudi vidiki varnosti in zaščite komunikacije. Klasične modulacijske tehnike imajo dobro poznane lastnosti, zaradi česar jih je mogoče precej enostavno zaznati, analizirati in prestreči z ustrezno opremo.
+V tem poglavju so predstavljeni osnovni principi brezžične komunikacije, pregled najpogosteje uporabljenih brezžičnih tehnologij ter ključni izzivi, s katerimi se soočajo sodobni komunikacijski sistemi. Poseben poudarek je namenjen omejitvam obstoječih pristopov, ki predstavljajo motivacijo za razvoj novih komunikacijskih sistemov.
 
-Zaradi tega se odpirajo možnosti za razvoj novih načinov komunikacije, pri katerih je poleg zaneslivega prenosa podatkov pomembna tudi nizka zaznava samega komunikacijskega signala. Uporaba stohastičnih signalov kot nosilcev informacije predstavlja enega izmed učinkovitejših pristopov, saj njihova naključna in zato nepredvidljiva narava otežuje zaznavanje komunikacije in s tem posledično poveča varnost prenosa podatkov.
+\section{Osnove brezžičnih komunikacij}
+Na prvi pogled se zdi prenos informacij brez fizične povezave med napravama skoraj samoumeven, saj se s tako komunikacijo srečamo vsak dan. V resnici pa mora vsaka brezžična komunikacija izkoristiti nek pojav v naravi, ki omogoča širjenje informacij skozi prostor. Takšen prenos je mogoče izvesti na več načinov, najpogosteje z uporabo elektromagnetnih valov, magnetnih polj ali svetlobnega prenosa. %svetloba je tudi elektro tho ne vem ku bi to lepše napisu
+Med omenjenimi načini ima vsak svoje prednosti in omejitve. Magnetna polja omogočajo komunikacijo le na zelo kratkih razdaljah in se uporabljajo predvsem pri tehnologijah, kot je NFC (near field communication). Svetlobni prenos omogoča zelo visoke hitrosti prenosa podatkov, vendar zahteva neposredno vidno povezavo med oddajnikom in sprejemnikom. Zaradi ugodnega razmerja med dosegom, hitrostjo prenosa in zanesljivosjo pa se v večini sodobnih komunikacijskih sistemih najpogosteje uporabljajo elektromagnetni valovi. %Upam da ne zveni kot da mislim da je to najboljša komunikacija
+Brezžična komunikacija bo zato v nadaljevanju pomenila prenos informacij z \textbf{elektromagnetnimi valovi} med oddajnikom in sprejemnikom brez uporabe fizičnega prenosnega medij. %Mogoče to spustim, ker sm že reku da bom govoru o elektromagnetnem prenosu?
+Elektromagnetni val služi kot nosilec informacije, ki se med prenosom širi skozi komunikacijski kanal do sprejemnika. Ker elektktromagnetni val sam po sebi ne vsebuje informacije, jo je potrebno vanj nekako zapisati. Ta postopek imenujemo modulacija. Pri modulaciji se informacija kodira v eno ali več lastnosti elektromagnetnega vala, in sicer v amplitudo, fazo ali frekvenco. Preprosto povedano: amplituda je višina vala, faza je njegov zamik, frekvenca pa pove, kako gosto oziroma na kakšni razdalji si sledijo valovi. Ko je signal na oddajnikovi strani zakodiran, ga je treba na prejemnikovi strani dekodirati in tako dobiti prvotno sporočilo. Ta postopek se imenuje demodulacija.
 
-\section{Zgodovina $\alpha$-stabilne porazdelitve} 
-Stabilne porazdelitve so družina verjetnostnih porazdelitev, ki si delijo nekatere lepe lastnosti. Prvič jih je opisal francoski matematik Paul Lévy leta 1925 in so zato tudi kdaj poimenovane Lévy alpha-stabilne distribucije. Njegovo delo je pokazalo, da določene porazdelitve ohranjajo svojo obliko tudi pri seštevanju neodvisnih slučajnih spremenljivk. Take porazdelitve se imenujejo stabilne porazdelitve in ena izmed njih je tudi $\alpha$-stabilne porazdelitve, ki je naravna posplošitev normalne porazdelitve. Zaradi svojih lastnosti, kot so težki repi in možnost modeliranja asimetrije ima ta porazdelitev zelo dobre lastnosti za uporabo v financah, telekomunikaciji, fiziki in obdelavi signalov, kjer klasična normalna porazdelitev pogosto ne zadošča vsem kriterijem, za opis ekstremnih podatkov.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{sender_receiver.png}
+    \caption{Shema brezžičnega komunikacijskega sistema \cite{murataWirelessBasics}.}
+    \label{fig:wireless}
+\end{figure}
 
-\chapter{$\alpha$-stabilna distribucija}
+Različne komunikacijske aplikacije postavljajo različne zahteve glede dosega, hitrosti prenosa podatkov, porabe energije in odpornosti proti motnjami. Zaradi tega se je skozi razvoj brezžične komunikacije oblikovalo več komunikacijskih tehnologij in protokolov, pri čemer je vsak optimiziran za določeno področje uporabe. V nadaljevanju so predstavljene najpogosteje uporabljene brezžične komunikacijske tehnologije ter njihove značilnosti.
+
+\section{Obstoječe brezžične komunikacijske tehnologije}
+
+Ker različne aplikacije postavljajo različne zahteve glede dosega, hitrosti prenosa podatkov, porabe energije, zakasnitve in zanesljivosti, danes ne obstaja enoten brezžični komunikacijski sistem, ki bi bil primeren za vse primere uporabe. Namesto tega je bilo razvitih več komunikacijskih tehnologij, pri čemer je vsaka optimizirana za določen namen. Med najbolj razširjene sodijo mobilna omrežja pete generacije (5G), brezžična lokalna omrežja Wi-Fi, tehnologija Bluetooth ter komunikacijski sistemi LoRa. Najpogosteje uporabljene brezžične komunikacijske tehnologije se med seboj razlikujejo predvsem glede dosega, hitrosti prenosa podatkov, porabe energije in področja uporabe. Vsaka izmed njih je optimizirana za določen komunikacijski scenarij, zato univerzalna rešitev ne obstaja. Preglednica~\ref{tab:wireless_technologies} povzema glavne značilnosti najpogosteje uporabljenih tehnologij.
+
+\begin{table}[H]
+\centering
+
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{2.5cm}|p{2.8cm}|p{2.8cm}|p{2.6cm}|p{3.8cm}|}
+\hline
+\textbf{Tehnologija} &
+\textbf{Prednosti} &
+\textbf{Omejitve} &
+\textbf{Tipični doseg} &
+\textbf{Najpogostejše uporabe} \\
+\hline
+
+5G &
+Visoka hitrost prenosa, nizka zakasnitev, podpora velikemu številu uporabnikov &
+Zahteva infrastrukturo baznih postaj, večja poraba energije &
+Do nekaj kilometrov &
+Mobilna omrežja, širokopasovni dostop, industrijske aplikacije \\
+\hline
+
+Wi-Fi &
+Visoka prepustnost, enostavna uporaba &
+Omejen doseg, občutljivost na motnje &
+Približno 20--100 m &
+Domača in poslovna lokalna omrežja \\
+\hline
+
+Bluetooth &
+Nizka poraba energije &
+Kratek doseg, nižja hitrost prenosa &
+Približno 10--100 m &
+Brezžične slušalke, tipkovnice, pametne ure, senzorji \\
+\hline
+
+LoRa &
+Zelo velik doseg, zelo nizka poraba energije &
+Nizka hitrost prenosa podatkov &
+Do več kilometrov &
+Internet stvari (IoT), senzorska omrežja, pametna mesta \\
+\hline
+
+\end{tabular}
+\caption{Primerjava najpogosteje uporabljenih brezžičnih komunikacijskih tehnologij.}
+\label{tab:wireless_technologies}
+\end{table}
+
+Kot je razvidno iz preglednice~\ref{tab:wireless_technologies}, je vsaka komunikacijska tehnologija zasnovana za specifične zahteve glede hitrosti prenosa, dosega, porabe energije in zanesljivosti. Kljub razlikam pa imajo vse naštete tehnologije skupno lastnost – informacije prenašajo z modulacijo determinističnih signalov, pri katerih je informacija kodirana v amplitudi, frekvenci, fazi ali njihovi kombinaciji. Takšen pristop predstavlja osnovo praktično vseh sodobnih brezžičnih komunikacijskih sistemov.
+
+Čeprav so se omenjene tehnologije v zadnjih desetletjih izkazale za zelo uspešne, imajo tudi določene omejitve. Njihovo delovanje je odvisno od razmer v komunikacijskem kanalu, predvsem od prisotnosti šuma, motenj in možnosti zaznave same komunikacije. V naslednjem poglavju so predstavljeni ključni izzivi obstoječih komunikacijskih sistemov, ki predstavljajo motivacijo za razvoj alternativnih pristopov.
+
+\section{Ključni izzivi sodobnih brezžičnih komunikacijskih sistemov}
+Čeprav so sodobne brezžične komunikacijske tehnologije dosegle izjemen napredek glede hitrosti prenosa podatkov, energijske učinkovitosti in zanesljivosti, se še vedno soočajo z več odprtimi izzivi. Ti postanejo posebej izraziti v zahtevnih komunikacijskih okoljih, kjer šum ni več ustrezno opisan z običajno predpostavko aditivnega belega Gaussovega šuma (AWGN), ali kjer je poleg zanesljivega prenosa pomembna tudi nizka zaznavnost same komunikacije.
+
+\subsection{Šum}
+Eden izmed najpomembnejših dejavnikov, ki vplivajo na kakovost brezžične komunikacije, je šum. Med prenosom se signal širi skozi komunikacijski kanal, kjer nanj vplivajo različni naravni in umetni viri motenj. Posledica je popačenje prejetega signala, zaradi katerega lahko sprejemnik napačno dekodira poslane podatke, kar se odraža v povečani stopnji bitnih napak (BER).
+
+Pri analizi in načrtovanju večine sodobnih komunikacijskih sistemov se predpostavlja model aditivnega belega Gaussovega šuma (\textit{Additive White Gaussian Noise} -- AWGN). Ta model zaradi svoje matematične enostavnosti predstavlja osnovo številnih modulacijskih, detekcijskih in kodirnih metod ter se je izkazal za ustreznega v številnih komunikacijskih scenarijih.\cite{wikiAWGN}\cite{iblAWGN}
+
+V številnih realnih okoljih pa šum ni ustrezno opisan z Gaussovo porazdelitvijo. V industrijskih obratih, elektroenergetskih sistemih in drugih elektromagnetno zahtevnih okoljih se pogosto pojavlja impulzni šum, za katerega so značilni redki, vendar izrazito močni motilni sunki. Takšno okolje bistveno odstopa od predpostavke AWGN, zato se lahko zmogljivost komunikacijskih sistemov, ki temeljijo na tem modelu, občutno poslabša.
+
+\subsection{Zaznavnost komunikacije}
+Poleg robustnosti komunikacije postaja vse pomembnejša tudi njena varnost. Večina sodobnih komunikacijskih sistemov uporablja kriptografske metode, ki učinkovito zaščitijo vsebino prenesenih podatkov. Kljub temu pa šifriranje samo po sebi ne prepreči zaznave komunikacije.
+
+V določenih aplikacijah, kot so vojaški sistemi, zaščita kritične infrastrukture ali nekatere industrijske aplikacije, je zaželeno, da zunanji opazovalec ne zazna niti samega obstoja komunikacijskega kanala. Če napadalec komunikacije ne zazna, je bistveno težje izvesti motenje prenosa ali usmerjene napade na komunikacijski sistem.
+
+\subsection{Obstoječe rešitve}
+Za zmanjšanje možnosti zaznave komunikacije in povečanje odpornosti proti motnjam so bile razvite različne tehnike prenosa. Med njimi so tudi frequency hopping in spread spectrum.
+
+Frequency hopping je tehnika, pri kateri oddajnik in sprejemnik med prenosom podatkov hitro preklapljata med različnimi frekvenčnimi kanali po vnaprej določenem zaporedju. Takšen način prenosa zmanjšuje vpliv motenj, saj lahko izbiraš kanale na katerem je manj šuma, prav tako pa tudi otežuje prestrezanje komunikacije.\cite{bluetoothAFH}
+
+Spread spectrum je način prenosa, pri katerem se signal razširi čez širši frekvenčni pas, kot je potrebno za prenos informacij. Zaradi razpršitve energije je signal odpornejši proti šumu in motnjami, ter omogoča zaneslivejšo komunikacijo.
+
+%UWB ultra-wideband mogoče ne vem morem še kej prebrat o tem tudi da tocno vem kaj je to in če gre lepo sm not
+
+Čeprav omenjene tehnike bistveno izboljšajo odpornost komunikacije proti motnjam ter zmanjšajo možnost prestrezanja, še vedno temeljijo na determinističnih signalih, katerih prisotnost je mogoče zaznati z dovolj občutljivimi sprejemniki in ustreznimi metodami obdelave signalov. Zato je pomembno nadaljnje raziskovanje signalov in komunikacijskih metod, ki bi omogočale bolj zanesljiv, varen in manj zaznaven prenos informacij.
+
+\section{Komunikacija, temelječa na šumu}
+
+V prejšnjih poglavjih je bil šum obravnavan kot eden izmed glavnih dejavnikov, ki zmanjšujejo kakovost brezžične komunikacije. Zato je cilj večine komunikacijskih sistemov zmanjšati njegov vpliv z uporabo ustreznih modulacijskih tehnik, kodiranja ter različnih metod za odpravljanje napak. Takšen pristop je prisoten praktično v vseh sodobnih komunikacijskih tehnologijah.
+
+Kaj pa, če sedaj na šum pogledamo iz drugačnega zornega kota? Namesto da ga obravnavamo kot nezaželen pojav, ga lahko uporabimo kot sam nosilec informacije. S tem popolnoma obrnemo tradicionalni pogled na brezžično komunikacijo, saj šum ne predstavlja več omejitve, ampak postane samo sredstvo za prenos informacije. %To zveni malo čudno bi rad napisu da se naše znanje o brezžični komunikaciji obrne na glavo al neki ne vem
+Informacija namreč tako ni več kodirana v amplitudi, frekvenci ali fazi determinističnega signala, temveč v stohastičnih lastnostih naključnega procesa.
+
+Takšen pristop odpira nove možnosti na področjih, kjer klasične komunikacijske metode niso optimalne. Ker prenos temelji na naključnem signalu, je komunikacijo težje zaznati, hkrati pa je mogoče bolje modelirati komunikacijske kanale, v katerih prevladuje impulzni šum.
+
+Med različnimi pristopi predstavlja posebno skupino komunikacija, ki temelji na $\alpha$-stabilnem šumu. Zaradi matematičnih lastnosti $\alpha$-stabilnih porazdelitev omogoča učinkovito modeliranje impulznega šuma ter kodiranje informacij v njihovih statističnih parametrih. Osnovne lastnosti $\alpha$-stabilnih porazdelitev so predstavljene v naslednjem poglavju.
+
+
+\chapter{$\alpha$-stabilne porazdelitve}
 \label{ch1}
-$\alpha$-stabilna porazdelitev je zvezna porazdelitev. To pomeni, da obstaja integrabilna funkcija
+Stabilne porazdelitve predstavljajo pomembno družino verjetnostnih porazdelitev, ki si delijo nekatere posebne matematične lastnosti. Njihove temelje je sistematično postavil francoski matematik Paul Lévy leta 1925, zato jih pogosto imenujemo tudi Lévy $\alpha$-stabilne distribucije. 
+
+Poseben predstavnik te družine je $\alpha$-stabilna porazdelitev, ki predstavlja naravno posplošitev normalne porazdelitve. Za razliko od normalne porazdelitve omogoča modeliranje težkih repov\footnote{Porazdelitve s težkimi repi so verjetnostne porazdelitve, pri katerih imajo skrajni dogodki (ekstremne vrednosti) večjo verjetnost pojavljanja kot pri normalni (Gaussovi) porazdelitvi. Eden najbolj znanih primerov je Studentova $t$-porazdelitev.} in asimetrije, zaradi česar omogoča bistveno natančnejše modeliranje pojavov z izrazitimi ekstremnimi vrednostmi. Zaradi teh lastnosti je našla pomembno uporabo na področjih telekomunikacij, obdelave signalov, financ in fizike, kjer klasični Gaussov model pogosto ne predstavlja ustreznega opisa opazovanih podatkov.
+
+\section{Stabilne porazdelitve}
+Stabilne porazdelitve so bile v prejšnjih poglavjih večkrat omenjene kot matematična osnova komunikacije, obravnavane v tej diplomski nalogi. Preden podrobneje predstavimo $\alpha$-stabilne porazdelitve, je smiselno najprej odgovoriti na vprašanje, kaj pravzaprav pomeni, da je verjetnostna porazdelitev stabilna.
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definicija 1: Stabilnih porazdelitev]
+\label{def:stable}
+
+Naj bosta $X_1$ in $X_2$ neodvisni kopiji slučajne spremenljivke $X$. Porazdelitev $X$ je stabilna, če za poljubni konstanti $a,b>0$ obstajata konstanti $c>0$ in $d\in\mathbb{R}$, tako da velja
+
+\[
+aX_1+bX_2\overset{d}{=}cX+d.
+\]
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=yellow!5!white, colframe=orange!70!black, title=\textbf{Intuicija}, fonttitle=\bfseries]
+
+Intuitivno definicija pomeni, da vsota dveh neodvisnih slučajnih spremenljivk z enako stabilno porazdelitvijo ponovno pripada isti družini porazdelitev. Seštevanje spremeni le parametra lege in skale, medtem ko oblika porazdelitve ostane nespremenjena.
+\end{tcolorbox}
+
+Lastnost stabilnosti je izjemnega pomena pri modeliranju naključnih procesov. Če je pojav sestavljen iz velikega števila neodvisnih vplivov, želimo, da tudi njihova vsota pripada enaki družini porazdelitev. Normalna porazdelitev je najbolj znan primer stabilne porazdelitve, vendar ni edina. Obstaja mnogo širša družina stabilnih porazdelitev, katerih najpomembnejši predstavnik je $\alpha$-stabilna porazdelitev, predstavljena v nadaljevanju.
+
+\section{Definicija $\alpha$-stabilnih porazdelitev}
+Čeprav imajo vse stabilne porazdelitve skupno lastnost stabilnosti, se med seboj razlikujejo po obliki. Družino $\alpha$-stabilnih porazdelitev popolnoma določajo štirje parametri, ki opisujejo debelino repov, asimetrijo, razpršenost in lego porazdelitve.
+
+Vse $\alpha$-stabilne porazdelitve so zvezne porazdelitve.
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definicija 2: Zvezna porazdelitev]
+\label{def:zvezna}
+Porazdelitev je zvezna, če obstaja  integrabilna funkcija
 $p_X$, imenovana \emph{gostota verjetnosti}, tako da za vsak $x \in \mathbb{R}$ velja
 
 \[
@@ -409,16 +557,24 @@ F_X(x)=\int_{-\infty}^{x} p_X(t)\,dt,
 \]
 
 kjer je $F_X$ porazdelitvena funkcija slučajne spremenljivke $X$.
+\end{tcolorbox}
 
-Gostote verjetnosti $\alpha$-stabilne porazdelitve praviloma ni mogoče izraziti z elementarnimi funkcijami. Zato je ta porazdelitev običajno podana prek svoje karakteristične funkcije $\phi_X(t): \mathbb{R} \rightarrow \mathbb{C}$:
+Za razliko od normalne porazdelitve gostote verjetnosti $\alpha$-stabilnih porazdelitev v splošnem ni mogoče zapisati v zaprti obliki. Zaradi tega jih običajno definiramo s pomočjo karakteristične funkcije.
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definicija 3: Definicija karakteristične funkcije]
+\label{def:karakteristicna}
+Če ima slučajna spremenljivka X gostoto verjetnosti $p_{X}$, lahko njeno karakteristično funkcijo zapišemo kot:
+$\phi_X(t): \mathbb{R} \rightarrow \mathbb{C}$:
 
 \[
 \phi_X(t)=\mathbb{E}\!\left[e^{itX}\right]
 =\int_{-\infty}^{\infty} e^{itx}\,p_X(x)\,dx,
 \qquad t\in\mathbb{R}.
 \]
+\end{tcolorbox}
 
-Ta se glasi:
+Karakteristična funkcija za $\alpha$-stabilno porazdelitev se glasi:
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definicija 4: Karakteristična funkcija]
 \[
 \phi(t)=
 \begin{cases}
@@ -440,29 +596,19 @@ i\mu t
 & \alpha = 1.
 \end{cases}
 \]
+\label{def:karakteristicnaAlpha}
+\end{tcolorbox}
 
-Kot smo že omenili, je najpomembnejša lastnost $\alpha$-stabilnih porazdelitev njihova stabilnost, zato je smiselno tudi definirati, kaj ta stabilnost pomeni.
-
-Definicija:
-Naj bosta $X_1$ in $X_2$ neodvisni kopiji slučajne spremenljivke $X$. Porazdelitev $X$ je stabilna, če za poljubni konstanti $a,b>0$ obstajata konstanti $c>0$ in $d\in\mathbb{R}$, da velja
-
-\[
-aX_1+bX_2 \overset{d}{=} cX+d.
-\]
-
-To pomeni, da linearna kombinacija dveh neodvisnih slučajnih spremenljivk z enako stabilno porazdelitvijo ponovno pripada isti družini porazdelitev; spremeni se lahko le njena lega in skala.
-
-Tega seveda ne moremo takoj opaziti, ampak lahko to lepo povežemo z definicijo naše karakteristične funkcije in to tudi dokažemo.
-
-Dokaz:
-Naj bo $X$ slučajna spremenljivka z $\alpha$-stabilno porazdelitvijo in naj bosta $X_1$ in $X_2$ njeni neodvisni kopiji. Zaradi neodvisnosti velja
+Ključna lastnost $\alpha$-stabilnih porazdelitev je njihova stabilnost. Lastnost stabilnosti neposredno iz definicije ni razvidna, zato jo dokažimo.
+\begin{tcolorbox}[colback=red!5!white,colframe=red!50!black,title=Dokaz 1: Stabilnost $\alpha$-stabilne porazdelitve]
+Naj bo $X$ slučajna spremenljivka z $\alpha$-stabilno porazdelitvijo, naj bosta $X_1$ in $X_2$ njeni neodvisni kopijiter naj velja $a,b \textgreater 0$. Zaradi neodvisnosti velja
 
 \[
 \phi_{aX_1+bX_2}(t)
 =
 \phi_X(at)\phi_X(bt),
 \]
-saj \[\phi_{aX_1+bX_2}(t)=\mathbb{E}\!\left[e^{it(aX_1 +bX_2)}\right] =  \mathbb{E}\!\left[e^{itaX_1}e^{itbX_2}\right] = \mathbb{E}\!\left[e^{itaX_1}\right]\mathbb{E}\!\left[e^{itbX_2}\right] = \phi_{X_1}(at) \phi_{X_2}(bt)\] 
+saj \[\phi_{aX_1+bX_2}(t)=\mathbb{E}\!\left[e^{it(aX_1 +bX_2)}\right] =  \mathbb{E}\!\left[e^{itaX_1}\right]\mathbb{E}\!\left[e^{itbX_2}\right] = \phi_{X_1}(at) \phi_{X_2}(bt)\] 
 Za $\alpha$-stabilno porazdelitev ($\alpha\neq1$) je karakteristična funkcija podana z izrazom
 
 \[
@@ -497,7 +643,7 @@ i\mu(a+b)t
 \]
 
 
-Želimo dokazati da je to enako:
+Opazimo, da želimo dobljeno karakteristično funkcijo zapisati v enaki obliki kot karakteristično funkcijo slučajne spremenljivke $cX+d$.
 
 \[
 \phi_{cX + d}(t)=
@@ -511,32 +657,155 @@ i(\mu c + d)t
 \right).
 \]
 
-Če definiramo
+Iz izbire
 
 \[
 c=\left(a^\alpha+b^\alpha\right)^{1/\alpha},
 \]
 
-potem velja
+in  \[d = \mu (a +b - c) \].
 
-\[
-c^\alpha=a^\alpha+b^\alpha,
-\]
-in je potem \[d = \mu (a +b - c) \].
-
-zato lahko zgornji izraz zapišemo kot karakteristično funkcijo slučajne spremenljivke $cX+d$, kjer je $d$ ustrezna konstanta. Ker karakteristična funkcija enolično določa porazdelitev, sledi
+sledi, da je dobljena karakteristična funkcija natanko karakteristična funkcija slučajne spremenljivke $cX+d$. Ker karakteristična funkcija enolično določa porazdelitev, dobimo
 
 \[
 aX_1+bX_2 \overset{d}{=} cX+d.
 \]
+\end{tcolorbox}
+S tem smo dokazali, da je razred $\alpha$-stabilnih porazdelitev zaprt za linearne kombinacije neodvisnih enako porazdeljenih slučajnih spremenljivk. To je ravno lastnost, po kateri so stabilne porazdelitve dobile ime.
 
-S tem smo pokazali, da je razred $\alpha$-stabilnih porazdelitev zaprt za linearne kombinacije neodvisnih enako porazdeljenih slučajnih spremenljivk, kar je natanko lastnost stabilnosti.
+\section{Parametri $\alpha$-stabilne porazdelitve}
 
-\section{$\alpha$-stabilna porazdelitev in centralni limitni izrek}
+Iz karakteristične funkcije \eqref{def:karakteristicnaAlpha}, predstavljene v prejšnjem poglavju, je razvidno, da je $\alpha$-stabilna porazdelitev določena s štirimi parametri: parametrom stabilnosti $\alpha$, parametrom asimetrije $\beta$, parametrom skale $\gamma$ in parametrom lege $\mu$. Vsak od teh parametrov vpliva na drugačno lastnost porazdelitve.
+
+\subsection{Parameter stabilnosti $\alpha$}
+Parameter stabilnosti $\alpha$ zadošča pogoju $0<\alpha\le2$. Določa debelino repov porazdelitve: manjše vrednosti $\alpha$ pomenijo debelejše repe in s tem večjo verjetnost pojava ekstremnih vrednosti. Za $\alpha=2$ dobimo normalno (Gaussovo) porazdelitev, ki ima znotraj družine $\alpha$-stabilnih porazdelitev najtanjše repe.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{alpha_parameter.png}
+    \caption{Graf za različne parametre $\alpha$ \cite{wikiStableDistribution}.}
+    \label{fig:wireless}
+\end{figure}
+
+\subsection{Parameter asimetrije $\beta$}
+
+Parameter asimetrije $\beta$ zadošča pogoju $-1\leq\beta\leq1$. Določa stopnjo in smer asimetrije porazdelitve. Pri $\beta=0$ je porazdelitev simetrična, pozitivne vrednosti $\beta$ pomenijo izrazitejši desni rep, negativne vrednosti pa izrazitejši levi rep.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{beta_parameter.png}
+    \caption{Graf za različne parametre $\beta$ \cite{wikiStableDistribution}.}
+    \label{fig:wireless}
+\end{figure}
+
+Za prikaz vpliva negativnih vrednosti parametra $\beta$ zadostuje zrcaljenje prikazane slike.
+
+\subsection{Parameter skale $\gamma$}
+
+Parameter skale $\gamma$ zadošča pogoju $\gamma \textgreater 0$. Določa razpršenost oziroma skalo porazdelitve. Večje vrednosti parametra $\gamma$ povzročijo širšo oziroma bolj raztegnjeno porazdelitev. Njegova vloga je podobna vlogi standardnega odklona pri normalni porazdelitvi, vendar z njim ni enak, saj pri večini $\alpha$-stabilnih porazdelitev varianca oziroma disperzija ni končna.
+
+\subsection{Parameter lege $\mu$}
+
+Parameter lege $\mu$ lahko zavzame poljubno realno vrednost, torej $\mu\in\mathbb{R}$. Določa lego porazdelitve na realni osi. Spreminjanje vrednosti parametra $\mu$ povzroči premik celotne porazdelitve levo ali desno, ne da bi pri tem vplivalo na njeno obliko ali razpršenost.
+
+\section{Posebni primeri $\alpha$-stabilnih porazdelitev}
+
+Čeprav $\alpha$-stabilne porazdelitve predstavljajo zelo splošno družino porazdelitev, vsebujejo tudi več dobro poznanih posebnih primerov, ki imajo pomembno vlogo v matematiki, fiziki in telekomunikacijah. Nekateri izmed njih so predstavljeni v Tabeli~\ref{tab}.
+
+\begin{table}[H]
+\centering
+\label{tab}
+\begin{tabular}{ccc}
+\hline
+$\alpha$ & $\beta$ & Porazdelitev \\
+\hline
+2 & 0 & Normalna (Gaussova) \\
+1 & 0 & Cauchyjeva \\
+$\frac{1}{2}$ & 1 & Lévyjeva \\
+\hline
+\end{tabular}
+\caption{Posebni primeri $\alpha$-stabilnih porazdelitev.}
+\end{table}
+
+
+\subsection{Normalna (Gaussova) porazdelitev}
+Za $\alpha=2$ dobimo normalno porazdelitev, ki predstavlja edino $\alpha$-stabilno porazdelitev s končno disperzijo. Njena gostota je simetrična, repi pa so najtanjši znotraj $\alpha$-stabilnih porazdelitev. 
+
+Gostoto normalne porazdelitve lahko zapišemo v zaprti obliki:
+
+\[
+f(x)=
+\frac{1}{\sqrt{2\pi\sigma^2}}
+\exp\left(
+-\frac{(x-\mu)^2}{2\sigma^2}
+\right),
+\]
+
+kjer je $\mu$ pričakovana vrednost in $\sigma^2$ pa disperzija porazdelitve.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{normalna_porazdelitev.png}
+    \caption{Gostote verjetnosti Normalnih porazdelitev za različne vrednosti parametrov \cite{wikiNormalDistribution}.}
+    \label{fig:normalna}
+\end{figure}
+
+
+\subsection{Cauchyjeva porazdelitev}
+Cauchyjeva porazdelitev je poseben primer $\alpha$-stabilne porazdelitve za $\alpha=1$ in $\beta=0$. Je simetrična porazdelitev z zelo debelimi repi, zaradi katerih nima definiranega matematičnega upanja in variance. Pogosto se uporablja kot primer porazdelitve z izrazito možnostjo pojava ekstremnih vrednosti.
+
+Njena gostota je podana z izrazom:
+
+\[
+f(x)=
+\frac{1}{\pi}
+\frac{\gamma}
+{{(x-x_{0})}^2+\gamma^2},
+\]
+
+kjer parameter $x_{0}$ določa lego središča porazdelitve, parameter $\gamma$ pa njeno razpršenost.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{cauchijeva_porazdelitev.png}
+    \caption{Gostote verjetnosti Cauchyjevih porazdelitev za različne vrednosti parametrov \cite{wikiCauchyDistribution}.}
+    \label{fig:cauchy}
+\end{figure}
+
+\subsection{Lévyjeva porazdelitev}
+
+Lévyjeva porazdelitev predstavlja enega izmed najbolj asimetričnih primerov $\alpha$-stabilnih porazdelitev in ustreza parametroma $\alpha=\frac{1}{2}$ ter $\beta=1$. Zanjo je značilen zelo debel desni rep, zato je primerna za opis procesov, pri katerih lahko pride do redkih, vendar zelo velikih odklonov.
+
+Njena gostota je:
+
+\[
+f(x)=
+\sqrt{\frac{c}{2\pi}}
+\frac{
+\exp\left(-\frac{c}{2(x-\mu)}\right)
+}
+{(x-\mu)^{3/2}},
+\qquad x>\mu .
+\]
+
+Pri tem je $\mu$  parameter lege, ki določa premik porazdelitve po realni osi, $c$ pa parameter skale, ki določa njeno razširjenost.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{levy_destribution.png}
+    \caption{Gostote verjetnosti Lévyjevih porazdelitev za različne vrednosti parametrov \cite{wikiLevyDistribution}.}
+    \label{fig:levy}
+\end{figure}
+
+\section{Lastnost stabilnosti in povezava z brezžičnimi komunikacijami}
+%Mogoče je tle za narediti prve omembe?
+
+
+\section{Posplošeni centralni limitni izrek}
+
 
 Centralni limitni izrek je eden najpomembnejših izrekov teorije verjetnosti. Opisuje obnašanje vsot velikega števila neodvisnih slučajnih spremenljivk.
-
-Definicija: Naj bodo $X_1,X_2,\dots,X_n$ neodvisne in enako porazdeljene slučajne spremenljivke z končnim matematičnim upanjem
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definicija 5: Centralni limitni izrek (CLI)]
+Naj bodo $X_1,X_2,\dots,X_n$ neodvisne in enako porazdeljene slučajne spremenljivke s končnim matematičnim upanjem
 
 \[
 \mathbb{E}[X_i]=\mu
@@ -557,23 +826,29 @@ N(0,1),
 \]
 
 kjer znak $\overset{d}{\longrightarrow}$ označuje konvergenco v porazdelitvi. 
+\end{tcolorbox}
+\begin{tcolorbox}[colback=yellow!5!white, colframe=orange!70!black, title=\textbf{Intuicija}, fonttitle=\bfseries]
 To pomeni, da se porazdelitvena funkcija normirane vsote približuje porazdelitveni funkciji standardne normalne porazdelitve. Pomembna lastnost tega rezultata je, da začetna porazdelitev posameznih slučajnih spremenljivk ni nujno normalna, ampak vedno konvergira v normalno, zaradi tega se tudi ta porazdelitev tako pogosto pojavlja v naravi in našem vsakdanu.
+\end{tcolorbox}
 
-Povezava med centralnim limitnim izrekom in $\alpha$-stabilnimi porazdelitvami je v njihovi stabilnosti pri seštevanju. Normalna porazdelitev je namreč poseben primer naše porazdelitve, kjer je
+Povezava med centralnim limitnim izrekom in $\alpha$-stabilnimi porazdelitvami opisuja njihova stabilnost pri seštevanju neodvisnih naključnih spremenljivk. Normalna porazdelitev predstavlja poseben primer $\alpha$-stabilne porazdelitve, za katerega velja
 
 \[
 \alpha=2.
 \]
 
-Za druge vrednosti parametra
+Pri drugih vrednostih parametra
 
 \[
 0<\alpha<2
 \]
 
-lahko dobimo stabilne porazdelitve z neskončno varianco. Zaradi težkih repov njihove vsote ne konvergirajo proti normalni porazdelitvi, ampak proti drugi stabilni porazdelitvi. Zato $\alpha$-stabilne porazdelitve predstavljajo naravno posplošitev centralnega limitnega izreka.
+dobimo stabilne porazdelitve z neskončno varianco. Zaradi težkih repov njihove vsote ne konvergirajo proti normalni porazdelitvi, ampak proti drugi stabilni porazdelitvi. Zato predstavljajo $\alpha$-stabilne porazdelitve naravno posplošitev klasičnega centralnega limitnega izreka.
 
-To povezavo opiše posplošeni centralni limitni izrek (Generalized Central Limit Theorem). Ta pravi, da je slučajna spremenljivka $Z$ stabilna porazdelitev natanko takrat, ko obstaja zaporedje neodvisnih in enako porazdeljenih slučajnih spremenljivk
+To povezavo formalno opiše posplošeni centralni limitni izrek (angl. Generalized Central Limit Theorem). 
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black, title=Definicija 6: Posplošeni centralni limitni izrek]
+Naj bo $Z$ slučajna spremenljivka. Porazdelitev slučajne spremenljivke $Z$ je stabilna natanko tedaj, ko obstajajo neodvisne in enako porazdeljene slučajne spremenljivke
 
 \[
 X_1,X_2,X_3,\dots
@@ -592,17 +867,33 @@ a_n(X_1+\cdots+X_n)-b_n
 \overset{d}{\longrightarrow}
 Z.
 \]
-
+\end{tcolorbox}
+\begin{tcolorbox}[colback=yellow!5!white, colframe=orange!70!black, title=\textbf{Intuicija}, fonttitle=\bfseries]
 Torej, če vsota velikega števila neodvisnih in enako porazdeljenih slučajnih spremenljivk po ustreznem skaliranju in premiku konvergira k ne-degenerirani porazdelitvi, mora biti ta porazdelitev stabilna.
+\end{tcolorbox}
 
 Za klasični centralni limitni izrek je končna varianca ključni pogoj, da dobimo normalno porazdelitev. Posplošeni centralni limitni izrek pa ta pogoj razširi in vključuje tudi porazdelitve z neskončno varianco. V tem primeru je mejna porazdelitev $\alpha$-stabilna porazdelitev, pri čemer parameter $\alpha$ določa hitrost skaliranja vsote:
 
 \[
 a_n \propto n^{-1/\alpha}.
 \]
-Ta je posplošen skalirni faktor v centralnem limitnem izreku. V CLI velja da je skalirni faktor $\frac{1}{\sqrt{n}}$, ker v centralnem limitnem obravnavamo standardno normalno porazdelitev, kjer je $\alpha = 2$, vidimo da je to res samo posplošitev.
+To je posplošen skalirni faktor v centralnem limitnem izreku. V CLI velja da je skalirni faktor $\frac{1}{\sqrt{n}}$, ker v centralnem limitnem obravnavamo standardno normalno porazdelitev, kjer je $\alpha = 2$, vidimo da je to res samo posplošitev.
 
-S tem so $\alpha$-stabilne porazdelitve edine možne mejne porazdelitve pri seštevanju velikega števila neodvisnih in enako porazdeljenih slučajnih spremenljivk.
+S tem so $\alpha$-stabilne porazdelitve edine možne mejne porazdelitve pri seštevanju velikega števila neodvisnih in enako porazdeljenih slučajnih spremenljivk. In zato ta izrek pojasnjuje, zakaj so $\alpha$-stabilne porazdelitve primerne za opis signalov, ki nastanejo kot rezultat velikega števila naključnih prispevkov. Njihova stabilnost zagotavlja, da se statistična oblika signala ohrani tudi pri združevanju več neodvisnih komponent.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \chapter{Uporaba $\alpha$-stabilne porazdelitve kot nosilec informacije}
 

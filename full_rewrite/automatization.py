@@ -96,7 +96,7 @@ def run_different_beta():
                 beta_map,
                 samples_per_symbol=sample_size,
                 L=20,
-                noise_ratio=0.0,
+                noise_ratio=6.5,
                 output_dir=output_dir,
             )
 

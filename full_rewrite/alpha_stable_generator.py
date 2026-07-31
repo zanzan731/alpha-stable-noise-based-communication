@@ -28,7 +28,7 @@ import threading
 
 class alpha_stable_generator(gr.top_block):
 
-    def __init__(self, L=8, alpha_map_str="1.2,1.4,1.6,1.8", beta_map_str="-1.0,1.0", decoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\decoded.bin", encoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\encoded.bin", eos_timeout=3.0, gama_map_str="0.5,1.0,1.5,2.0", noise_ratio=0, samples_per_symbol=24, source_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin", source_number_of_samples=128):
+    def __init__(self, L=8, alpha_map_str="1.0", beta_map_str="-0.1,0.1", decoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\decoded.bin", encoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\encoded.bin", eos_timeout=3.0, gama_map_str="0.0", noise_ratio=0, samples_per_symbol=24, source_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin", source_number_of_samples=128):
         gr.top_block.__init__(self, "Alpha stable simulation", catch_exceptions=True)
         self.flowgraph_started = threading.Event()
 
@@ -207,10 +207,10 @@ def argument_parser():
         "--L", dest="L", type=intx, default=8,
         help="Set L [default=%(default)r]")
     parser.add_argument(
-        "--alpha-map-str", dest="alpha_map_str", type=str, default="1.2,1.4,1.6,1.8",
+        "--alpha-map-str", dest="alpha_map_str", type=str, default="1.0",
         help="Set alpha_map_str [default=%(default)r]")
     parser.add_argument(
-        "--beta-map-str", dest="beta_map_str", type=str, default="-1.0,1.0",
+        "--beta-map-str", dest="beta_map_str", type=str, default="-0.1,0.1",
         help="Set beta_map_str [default=%(default)r]")
     parser.add_argument(
         "--decoded-file", dest="decoded_file", type=str, default=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\decoded.bin",
@@ -222,7 +222,7 @@ def argument_parser():
         "--eos-timeout", dest="eos_timeout", type=eng_float, default=eng_notation.num_to_str(float(3.0)),
         help="Set EOS_timeout [default=%(default)r]")
     parser.add_argument(
-        "--gama-map-str", dest="gama_map_str", type=str, default="0.5,1.0,1.5,2.0",
+        "--gama-map-str", dest="gama_map_str", type=str, default="0.0",
         help="Set gama_map_str [default=%(default)r]")
     parser.add_argument(
         "--noise-ratio", dest="noise_ratio", type=eng_float, default=eng_notation.num_to_str(float(0)),

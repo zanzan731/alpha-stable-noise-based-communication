@@ -94,8 +94,7 @@ class alpha_encoder(gr.basic_block):
         raise ValueError("One of the mups is not the size of 2^n (something went wrong, this mesage should not be reachable)")
 
     @staticmethod
-    def alpha_stable(size, alpha=1.1, beta=0.0, gama=1.0): #default values that should be the best, encoding
-        #print(gama)
+    def alpha_stable(size, alpha=1.1, beta=0.0, gama=1.0): #default walues that should be the best, encoding
         v_values = np.random.uniform(-np.pi / 2, np.pi / 2, size)
         w_values = np.random.exponential(1, size)
 
@@ -109,7 +108,7 @@ class alpha_encoder(gr.basic_block):
             / (np.cos(v_values)) ** (1 / alpha)
             * (np.cos((1 - alpha) * v_values - shift) / w_values) ** ((1 - alpha) / alpha)
         )
-        return gama * samples #delta je itak 0 pri meni dopolni če bo treba še delto upoštevati
+        return gama * samples
 
     @staticmethod
     def _read_bits(bit_buffer, start, count):

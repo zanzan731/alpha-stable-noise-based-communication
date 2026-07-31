@@ -107,7 +107,7 @@ blocks:
     label: ''
     short_id: ''
     type: str
-    value: '"1.2,1.4,1.6,1.8"'
+    value: '"1.0"'
   states:
     bus_sink: false
     bus_source: false
@@ -163,7 +163,7 @@ blocks:
     label: ''
     short_id: ''
     type: str
-    value: '"-1.0,1.0"'
+    value: '"-0.1,0.1"'
   states:
     bus_sink: false
     bus_source: false
@@ -656,7 +656,7 @@ blocks:
     label: ''
     short_id: ''
     type: str
-    value: '"0.5,1.0,1.5,2.0"'
+    value: '"0.0"'
   states:
     bus_sink: false
     bus_source: false

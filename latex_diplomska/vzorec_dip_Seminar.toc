@@ -5,20 +5,36 @@
 \contentsline {chapter}{Abstract}{}{chapter*.3}%
 \babel@toc {slovene}{}\relax 
 \contentsline {chapter}{\numberline {1}Uvod}{1}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Izzivi in motivacija}{2}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Vpliv in uporabnost:}{3}{section.1.2}%
-\contentsline {chapter}{\numberline {2}Trenutno stanje mobilnih omrežij}{5}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Zgodovina $\alpha $-stabilne porazdelitve}{6}{section.2.1}%
-\contentsline {chapter}{\numberline {3}$\alpha $-stabilna distribucija}{7}{chapter.3}%
-\contentsline {section}{\numberline {3.1}$\alpha $-stabilna porazdelitev in centralni limitni izrek}{9}{section.3.1}%
-\contentsline {chapter}{\numberline {4}Uporaba $\alpha $-stabilne porazdelitve kot nosilec informacije}{13}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Simulacije}{15}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Parametri}{16}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Kodirnik}{16}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Dekodirnik}{17}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Rezultati simulacije}{18}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Spreminjanje parametra $\beta $}{19}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Spreminjanje parametra $\gamma $}{20}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Različne velikosti vzorca}{22}{subsection.5.4.3}%
-\contentsline {chapter}{\numberline {6}Implementacija in simulacija v realnem okolju}{25}{chapter.6}%
-\contentsline {chapter}{Literatura}{27}{chapter.6}%
+\contentsline {chapter}{\numberline {2}Brezžična komunikacija in njeni izzivi}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Osnove brezžičnih komunikacij}{5}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Obstoječe brezžične komunikacijske tehnologije}{7}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Ključni izzivi sodobnih brezžičnih komunikacijskih sistemov}{9}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Šum}{9}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Zaznavnost komunikacije}{10}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Obstoječe rešitve}{10}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}Komunikacija, temelječa na šumu}{11}{section.2.4}%
+\contentsline {chapter}{\numberline {3}$\alpha $-stabilne porazdelitve}{13}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Stabilne porazdelitve}{13}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Definicija $\alpha $-stabilnih porazdelitev}{14}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Parametri $\alpha $-stabilne porazdelitve}{17}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Parameter stabilnosti $\alpha $}{17}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Parameter asimetrije $\beta $}{18}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Parameter skale $\gamma $}{18}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Parameter lege $\mu $}{19}{subsection.3.3.4}%
+\contentsline {section}{\numberline {3.4}Posebni primeri $\alpha $-stabilnih porazdelitev}{19}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Normalna (Gaussova) porazdelitev}{19}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Cauchyjeva porazdelitev}{20}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Lévyjeva porazdelitev}{21}{subsection.3.4.3}%
+\contentsline {section}{\numberline {3.5}Lastnost stabilnosti in povezava z brezžičnimi komunikacijami}{22}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Posplošeni centralni limitni izrek}{22}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Uporaba $\alpha $-stabilne porazdelitve kot nosilec informacije}{27}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Simulacije}{29}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Parametri}{30}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Kodirnik}{30}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Dekodirnik}{31}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Rezultati simulacije}{32}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Spreminjanje parametra $\beta $}{33}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Spreminjanje parametra $\gamma $}{34}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Različne velikosti vzorca}{36}{subsection.5.4.3}%
+\contentsline {chapter}{\numberline {6}Implementacija in simulacija v realnem okolju}{39}{chapter.6}%
+\contentsline {chapter}{Literatura}{41}{chapter.6}%
