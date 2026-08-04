@@ -124,7 +124,7 @@ blocks:
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
-    noise_type: analog.GR_GAUSSIAN
+    noise_type: analog.GR_IMPULSE
     seed: '0'
     type: float
   states:
@@ -163,7 +163,7 @@ blocks:
     label: ''
     short_id: ''
     type: str
-    value: '"-0.1,0.1"'
+    value: '"-1.0,1.0"'
   states:
     bus_sink: false
     bus_source: false
@@ -186,7 +186,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [792, 572.0]
+    coordinate: [824, 564.0]
     rotation: 0
     state: enabled
 - name: blocks_file_sink_0
@@ -222,7 +222,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1560, 556.0]
+    coordinate: [1488, 564.0]
     rotation: 0
     state: enabled
 - name: blocks_file_sink_2
@@ -240,7 +240,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [784, 356.0]
+    coordinate: [800, 324.0]
     rotation: 0
     state: enabled
 - name: blocks_head_0
@@ -487,7 +487,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [480, 432.0]
+    coordinate: [424, 408.0]
     rotation: 0
     state: enabled
 - name: epy_block_1
@@ -656,7 +656,7 @@ blocks:
     label: ''
     short_id: ''
     type: str
-    value: '"0.0"'
+    value: '"1.0"'
   states:
     bus_sink: false
     bus_source: false
@@ -673,12 +673,29 @@ blocks:
     label: ''
     short_id: ''
     type: eng_float
-    value: '0'
+    value: '5'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
     coordinate: [1408, 296.0]
+    rotation: 0
+    state: enabled
+- name: noise_source_type
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: tip
+    short_id: ''
+    type: ''
+    value: analog.GR_GAUSSIAN
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1592, 288.0]
     rotation: 0
     state: enabled
 - name: qtgui_sink_x_0
@@ -719,7 +736,7 @@ blocks:
     label: ''
     short_id: ''
     type: intx
-    value: '24'
+    value: '1000'
   states:
     bus_sink: false
     bus_source: false

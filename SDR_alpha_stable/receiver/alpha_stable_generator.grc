@@ -9,7 +9,7 @@ options:
     description: ''
     gen_cmake: 'On'
     gen_linking: dynamic
-    generate_options: no_gui
+    generate_options: qt_gui
     hier_block_src_path: '.:'
     id: alpha_stable_generator
     max_nouts: '0'
@@ -149,7 +149,7 @@ blocks:
     bus_structure: null
     coordinate: [1560, 556.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: decoded_file
   id: parameter
   parameters:
@@ -356,9 +356,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1008, 428.0]
+    coordinate: [1120, 460.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: gama_map_str
   id: parameter
   parameters:
@@ -391,6 +391,87 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [1408, 296.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_freq_sink_x_0
+  id: qtgui_freq_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '1.0'
+    axislabels: 'True'
+    bw: samp_rate
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    ctrlpanel: 'False'
+    fc: '0'
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label: Relative Gain
+    label1: ''
+    label10: ''''''
+    label2: ''''''
+    label3: ''''''
+    label4: ''''''
+    label5: ''''''
+    label6: ''''''
+    label7: ''''''
+    label8: ''''''
+    label9: ''''''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '1'
+    norm_window: 'False'
+    showports: 'False'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_tag: '""'
+    type: complex
+    units: dB
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    wintype: window.WIN_BLACKMAN_hARRIS
+    ymax: '10'
+    ymin: '-140'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1584, 396.0]
     rotation: 0
     state: enabled
 - name: samples_per_symbol
@@ -513,7 +594,7 @@ blocks:
     bw7: '0'
     bw8: '0'
     bw9: '0'
-    center_freq0: '0'
+    center_freq0: '2400000000'
     center_freq1: '0'
     center_freq10: '0'
     center_freq11: '0'
@@ -884,6 +965,7 @@ blocks:
 connections:
 - [epy_block_1, '0', blocks_file_sink_1, '0']
 - [uhd_usrp_source_0, '0', epy_block_1, '0']
+- [uhd_usrp_source_0, '0', qtgui_freq_sink_x_0, '0']
 
 metadata:
   file_format: 1

@@ -12,8 +12,9 @@
     3.2 Definicija α-stabilne porazdelitve
     3.3 Parametri α-stabilne porazdelitve
     3.4 Posebni primeri α-stabilnih porazdelitev
-    3.5 Lastnost stabilnosti (Stability Property)
     3.6 Posplošeni centralni limitni izrek
+    3.5 Lastnost stabilnosti in kako so povezani s komunikacijo (povežem v naslednje poglavje)
+
 
 4 Alpha-Stable Noise Communication
     4.1 Basic communication principle

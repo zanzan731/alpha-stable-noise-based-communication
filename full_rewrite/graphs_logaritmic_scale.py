@@ -37,14 +37,14 @@ def read_error_rate(output_path):
                 total_bits += int(match.group(2))
 
     if total_bits == 0:
-        return None
+        return None, False
 
     # BER cannot be shown as zero on a logarithmic axis.
     # If no errors were observed, plot the smallest measurable BER.
     if total_errors == 0:
-        return 1.0 / total_bits
+        return 1.0 / total_bits, True
 
-    return total_errors / total_bits
+    return total_errors / total_bits, False
 
 
 def decode_beta_label(folder_name):
@@ -62,7 +62,7 @@ def save_publication_chart(
 ):
     fig, ax = plt.subplots(figsize=(8, 5))
 
-    colors = plt.cm.tab10.colors
+    colors = plt.cm.tab20.colors
 
     for i, (label, x_values, y_values) in enumerate(curves):
         x_arr = np.asarray(x_values, dtype=float)
@@ -145,18 +145,8 @@ def graph_beta():
 
         current_dir = os.path.join(base_dir, sample_dir)
 
+        beta_folders = []
         for folder_name in os.listdir(current_dir):
-
-            output_path = os.path.join(current_dir, folder_name, "output.txt")
-
-            if not os.path.isfile(output_path):
-                continue
-
-            error_rate = read_error_rate(output_path)
-
-            if error_rate is None:
-                continue
-
             label = decode_beta_label(folder_name)
 
             try:
@@ -165,8 +155,25 @@ def graph_beta():
                 continue
 
             delta_beta = beta_max - beta_min
+            beta_folders.append((delta_beta, folder_name))
+
+        for delta_beta, folder_name in sorted(beta_folders):
+
+            output_path = os.path.join(current_dir, folder_name, "output.txt")
+
+            if not os.path.isfile(output_path):
+                continue
+
+            error_rate, stop_curve = read_error_rate(output_path)
+
+            if error_rate is None:
+                continue
 
             results.append((delta_beta, error_rate))
+
+            # After first zero-error point, skip all remaining folders for this curve.
+            if stop_curve:
+                break
 
         results.sort()
 
@@ -201,24 +208,32 @@ def graph_gama():
 
         current_dir = os.path.join(base_dir, sample_dir)
 
+        gamma_folders = []
         for folder_name in os.listdir(current_dir):
+            try:
+                gamma = float(folder_name.replace("p", "."))
+            except ValueError:
+                continue
+
+            gamma_folders.append((gamma, folder_name))
+
+        for gamma, folder_name in sorted(gamma_folders):
 
             output_path = os.path.join(current_dir, folder_name, "output.txt")
 
             if not os.path.isfile(output_path):
                 continue
 
-            error_rate = read_error_rate(output_path)
+            error_rate, stop_curve = read_error_rate(output_path)
 
             if error_rate is None:
                 continue
 
-            try:
-                gamma = float(folder_name.replace("p", "."))
-            except ValueError:
-                continue
-
             results.append((gamma, error_rate))
+
+            # After first zero-error point, skip all remaining folders for this curve.
+            if stop_curve:
+                break
 
         results.sort()
 
@@ -239,16 +254,23 @@ def graph_gama():
     )
 
 def graph_sample_size():
-    base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_noise")
+    base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_noise_impulsive")
 
     if not os.path.isdir(base_dir):
         return
 
     curves = []
 
-    noise_dirs = sorted(os.listdir(base_dir))
+    noise_entries = []
+    for noise_dir in os.listdir(base_dir):
+        try:
+            noise_value = float(noise_dir.replace("noise_", "").replace("p", "."))
+        except ValueError:
+            continue
 
-    for noise_dir in noise_dirs:
+        noise_entries.append((noise_value, noise_dir))
+
+    for noise_value, noise_dir in sorted(noise_entries):
 
         current_dir = os.path.join(base_dir, noise_dir)
 
@@ -269,27 +291,31 @@ def graph_sample_size():
             if not os.path.isfile(output_path):
                 continue
 
-            error_rate = read_error_rate(output_path)
+            error_rate, stop_curve = read_error_rate(output_path)
 
             if error_rate is None:
                 continue
 
             results.append((int(sample_dir), error_rate))
 
+            # After first zero-error point, skip all remaining folders for this curve.
+            if stop_curve:
+                break
+
         if results:
 
             x, y = zip(*results)
 
-            noise = noise_dir.replace("noise_", "").replace("p", ".")
+            noise = f"{noise_value:g}"
 
             curves.append((f"Noise={noise}", x, y))
 
     save_publication_chart(
         curves,
         "BER vs samples per symbol",
-        "Samples per symbol",
+        "Samples per symbol (N)",
         "BER",
-        "sample_size_error.png",
+        "sample_size_error_impulsive.png",
     )
 def main():
     parser = argparse.ArgumentParser()

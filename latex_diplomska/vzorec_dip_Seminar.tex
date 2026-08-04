@@ -295,6 +295,8 @@ Svoji dragi Alenčici.
   {\bf MSNR} & Mean Signal-to-Noise Ratio & Povprečno razmerje med signalom in šumom \\
   {\bf PLS} & Physical Layer Security & Varnost na fizičnem nivoju \\
   {\bf SDR} & Software Defined Radio & Programsko opredeljena radijska oprema \\
+  {\bf AWGN} & Additive White Gaussian Noise& Aditivni beli Gaussov šum \\
+  {\bf USRP} & Universal Software Radio Peripheral & Univerzalna strojna oprema za programsko definiran radio \\
   \dots & \dots & \dots \\
 \end{tabular}
 \end{comment}
@@ -309,6 +311,8 @@ Svoji dragi Alenčici.
   {\bf MSNR} & Mean Signal-to-Noise Ratio & Varnost na fizičnem nivoju \\
   {\bf PLS} & Physical Layer Security & Varnost na fizičnem nivoju \\
   {\bf SDR} & Software Defined Radio & Programsko opredeljena radijska oprema \\
+  {\bf AWGN} & Additive White Gaussian Noise& Aditivni beli Gaussov šum \\
+  {\bf USRP} & Universal Software Radio Peripheral & Univerzalna strojna oprema za programsko definiran radio \\
 %  \dots & \dots & \dots \\
 \end{tabular}
 
@@ -387,7 +391,7 @@ V tej diplomski nalogi obravnavamo navedene izzive in predstavimo implementacijo
 
 \begin{itemize}
 
-\item Razvoj kodirnika in dekodirnika za komunikacijo z uporabo $\alpha$-stabilnega šuma v okolju GNU Radio.
+\item Razvoj kodirnika in dekodirnika za komunikacijo z uporabo $\alpha$-stabilnega šuma v okolju GNU Radio Companion.
 
 \item Implementacija sistema na programsko opredeljeni radijski opremi USRP, ki omogoča brezžični prenos podatkov v realnem okolju.
 
@@ -397,14 +401,14 @@ V tej diplomski nalogi obravnavamo navedene izzive in predstavimo implementacijo
 
 \end{itemize}
 
-Kolikor nam je znano, predstavljeno delo predstavlja prvo odprtokodno implementacijo komunikacijskega sistema na osnovi $\alpha$-stabilnega šuma v okolju GNU Radio, skupaj z demonstracijo njegovega delovanja na SDR strojni opremi.
+Kolikor nam je znano, predstavljeno delo predstavlja prvo odprtokodno implementacijo komunikacijskega sistema na osnovi $\alpha$-stabilnega šuma v okolju GNU Radio Companion, skupaj z demonstracijo njegovega delovanja na SDR strojni opremi.
 
-Rezultati te diplomske naloge potrjujejo, da je komunikacijski sistem, ki temelji na $\alpha$-stabilnem šumu, mogoče uspešno implementirati v okolju GNU Radio ter prenesti na programsko opredeljeno radijsko opremo. Razvita implementacija predstavlja osnovo za nadaljnje raziskave komunikacijskih sistemov, ki uporabljajo stohastične signale kot nosilce informacije, saj omogoča enostavno uporabo in nadaljnji razvoj v odprtokodnem okolju. Takšen pristop je posebej zanimiv na področjih, kjer je pomembna nizka zaznavnost komunikacije, na primer pri prikriti komunikaciji ali zaščiti kritične infrastrukture. Hkrati je zaradi odpornosti na impulzni šum primeren tudi za uporabo v industrijskih okoljih, kjer imajo klasični komunikacijski sistemi pogosto težave z zagotavljanjem zanesljivega prenosa podatkov.
+Rezultati te diplomske naloge potrjujejo, da je komunikacijski sistem, ki temelji na $\alpha$-stabilnem šumu, mogoče uspešno implementirati v okolju GNU Radio Companion ter prenesti na programsko opredeljeno radijsko opremo. Razvita implementacija predstavlja osnovo za nadaljnje raziskave komunikacijskih sistemov, ki uporabljajo stohastične signale kot nosilce informacije, saj omogoča enostavno uporabo in nadaljnji razvoj v odprtokodnem okolju. Takšen pristop je posebej zanimiv na področjih, kjer je pomembna nizka zaznavnost komunikacije, na primer pri prikriti komunikaciji ali zaščiti kritične infrastrukture. Hkrati je zaradi odpornosti na impulzni šum primeren tudi za uporabo v industrijskih okoljih, kjer imajo klasični komunikacijski sistemi pogosto težave z zagotavljanjem zanesljivega prenosa podatkov.
 
 \chapter{Brezžična komunikacija in njeni izzivi} %Mogoče rabim kako boljše ime za ta chapter
 \label{ch0}
 
-Brezžična komunikacija je danes postala nepogrešljiv del vsakdanjega življenja. Vsakodnevno uporabljamo mobilne telefone, brezžična omrežja, pametne ure, brezžične slušalke in številne druge naprave, pri čemer se le redko vprašamo, kako informacije dejansko potujejo med njimi. Kljub temu da je danes brezžična komunikacija samoumevna, je rezultat desetletij razvoja komunikacijskih teorij, modulacijskih tehnik ter radijskih tehnologij, ki omogočajo zanesljiv prenos podatkov skozi prostor brez fizičnega prenosnega medija.
+Brezžični komunikacijski sistemi omogočajo prenos informacij brez uporabe fizičnega prenosnega medija. Danes predstavljajo temelj številnih tehnologij, kot so mobilna omrežja, brezžični dostop do interneta, satelitska navigacija in številni drugi sistemi, pri čemer se le redko vprašamo, kako informacije dejansko potujejo med njimi. Kljub temu da je danes brezžična komunikacija samoumevna, je rezultat desetletij razvoja komunikacijskih teorij, modulacijskih tehnik ter radijskih tehnologij, ki omogočajo zanesljiv prenos podatkov skozi prostor brez fizičnega prenosnega medija.
 
 V tem poglavju so predstavljeni osnovni principi brezžične komunikacije, pregled najpogosteje uporabljenih brezžičnih tehnologij ter ključni izzivi, s katerimi se soočajo sodobni komunikacijski sistemi. Poseben poudarek je namenjen omejitvam obstoječih pristopov, ki predstavljajo motivacijo za razvoj novih komunikacijskih sistemov.
 
@@ -429,7 +433,7 @@ Ker različne aplikacije postavljajo različne zahteve glede dosega, hitrosti pr
 
 \begin{table}[H]
 \centering
-
+\label{tab:wireless_technologies}
 \renewcommand{\arraystretch}{1.3}
 \begin{tabular}{|p{2.5cm}|p{2.8cm}|p{2.8cm}|p{2.6cm}|p{3.8cm}|}
 \hline
@@ -470,7 +474,6 @@ Internet stvari (IoT), senzorska omrežja, pametna mesta \\
 
 \end{tabular}
 \caption{Primerjava najpogosteje uporabljenih brezžičnih komunikacijskih tehnologij.}
-\label{tab:wireless_technologies}
 \end{table}
 
 Kot je razvidno iz preglednice~\ref{tab:wireless_technologies}, je vsaka komunikacijska tehnologija zasnovana za specifične zahteve glede hitrosti prenosa, dosega, porabe energije in zanesljivosti. Kljub razlikam pa imajo vse naštete tehnologije skupno lastnost – informacije prenašajo z modulacijo determinističnih signalov, pri katerih je informacija kodirana v amplitudi, frekvenci, fazi ali njihovi kombinaciji. Takšen pristop predstavlja osnovo praktično vseh sodobnih brezžičnih komunikacijskih sistemov.
@@ -483,7 +486,7 @@ Kot je razvidno iz preglednice~\ref{tab:wireless_technologies}, je vsaka komunik
 \subsection{Šum}
 Eden izmed najpomembnejših dejavnikov, ki vplivajo na kakovost brezžične komunikacije, je šum. Med prenosom se signal širi skozi komunikacijski kanal, kjer nanj vplivajo različni naravni in umetni viri motenj. Posledica je popačenje prejetega signala, zaradi katerega lahko sprejemnik napačno dekodira poslane podatke, kar se odraža v povečani stopnji bitnih napak (BER).
 
-Pri analizi in načrtovanju večine sodobnih komunikacijskih sistemov se predpostavlja model aditivnega belega Gaussovega šuma (\textit{Additive White Gaussian Noise} -- AWGN). Ta model zaradi svoje matematične enostavnosti predstavlja osnovo številnih modulacijskih, detekcijskih in kodirnih metod ter se je izkazal za ustreznega v številnih komunikacijskih scenarijih.\cite{wikiAWGN}\cite{iblAWGN}
+Pri analizi in načrtovanju večine sodobnih komunikacijskih sistemov se predpostavlja model aditivnega belega Gaussovega šuma (\textit{Additive White Gaussian Noise} -- AWGN). Ta model zaradi svoje matematične enostavnosti predstavlja osnovo številnih modulacijskih, detekcijskih in kodirnih metod ter se je izkazal za ustreznega v številnih komunikacijskih scenarijih\cite{wikiAWGN}\cite{iblAWGN}.
 
 V številnih realnih okoljih pa šum ni ustrezno opisan z Gaussovo porazdelitvijo. V industrijskih obratih, elektroenergetskih sistemih in drugih elektromagnetno zahtevnih okoljih se pogosto pojavlja impulzni šum, za katerega so značilni redki, vendar izrazito močni motilni sunki. Takšno okolje bistveno odstopa od predpostavke AWGN, zato se lahko zmogljivost komunikacijskih sistemov, ki temeljijo na tem modelu, občutno poslabša.
 
@@ -493,11 +496,11 @@ Poleg robustnosti komunikacije postaja vse pomembnejša tudi njena varnost. Več
 V določenih aplikacijah, kot so vojaški sistemi, zaščita kritične infrastrukture ali nekatere industrijske aplikacije, je zaželeno, da zunanji opazovalec ne zazna niti samega obstoja komunikacijskega kanala. Če napadalec komunikacije ne zazna, je bistveno težje izvesti motenje prenosa ali usmerjene napade na komunikacijski sistem.
 
 \subsection{Obstoječe rešitve}
-Za zmanjšanje možnosti zaznave komunikacije in povečanje odpornosti proti motnjam so bile razvite različne tehnike prenosa. Med njimi so tudi frequency hopping in spread spectrum.
+Za zmanjšanje možnosti zaznave komunikacije in povečanje odpornosti proti motnjam so bile razvite različne tehnike prenosa. Med njimi so tudi frekvenčno preskakovanje (angl. frequency hopping) in razpršeni spekter (angl. spread spectrum).
 
-Frequency hopping je tehnika, pri kateri oddajnik in sprejemnik med prenosom podatkov hitro preklapljata med različnimi frekvenčnimi kanali po vnaprej določenem zaporedju. Takšen način prenosa zmanjšuje vpliv motenj, saj lahko izbiraš kanale na katerem je manj šuma, prav tako pa tudi otežuje prestrezanje komunikacije.\cite{bluetoothAFH}
+Frekvenčno preskakovanje je tehnika, pri kateri oddajnik in sprejemnik med prenosom podatkov hitro preklapljata med različnimi frekvenčnimi kanali po vnaprej določenem zaporedju. Takšen način prenosa zmanjšuje vpliv motenj, saj lahko izbiraš kanale na katerem je manj šuma, prav tako pa tudi otežuje prestrezanje komunikacije\cite{bluetoothAFH}.
 
-Spread spectrum je način prenosa, pri katerem se signal razširi čez širši frekvenčni pas, kot je potrebno za prenos informacij. Zaradi razpršitve energije je signal odpornejši proti šumu in motnjami, ter omogoča zaneslivejšo komunikacijo.
+Razpršeni spekter je način prenosa, pri katerem se signal razširi čez širši frekvenčni pas, kot je potrebno za prenos informacij. Zaradi razpršitve energije je signal odpornejši proti šumu in motnjami, ter omogoča zaneslivejšo komunikacijo.
 
 %UWB ultra-wideband mogoče ne vem morem še kej prebrat o tem tudi da tocno vem kaj je to in če gre lepo sm not
 
@@ -574,7 +577,7 @@ $\phi_X(t): \mathbb{R} \rightarrow \mathbb{C}$:
 \end{tcolorbox}
 
 Karakteristična funkcija za $\alpha$-stabilno porazdelitev se glasi:
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definicija 4: Karakteristična funkcija]
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definicija 4: Karakteristična funkcija $\alpha$-stabilne porazdelitve]
 \[
 \phi(t)=
 \begin{cases}
@@ -796,15 +799,12 @@ Pri tem je $\mu$  parameter lege, ki določa premik porazdelitve po realni osi, 
     \label{fig:levy}
 \end{figure}
 
-\section{Lastnost stabilnosti in povezava z brezžičnimi komunikacijami}
-%Mogoče je tle za narediti prve omembe?
-
-
 \section{Posplošeni centralni limitni izrek}
 
 
 Centralni limitni izrek je eden najpomembnejših izrekov teorije verjetnosti. Opisuje obnašanje vsot velikega števila neodvisnih slučajnih spremenljivk.
 \begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definicija 5: Centralni limitni izrek (CLI)]
+\label{def:CLI}
 Naj bodo $X_1,X_2,\dots,X_n$ neodvisne in enako porazdeljene slučajne spremenljivke s končnim matematičnim upanjem
 
 \[
@@ -848,6 +848,7 @@ dobimo stabilne porazdelitve z neskončno varianco. Zaradi težkih repov njihove
 To povezavo formalno opiše posplošeni centralni limitni izrek (angl. Generalized Central Limit Theorem). 
 
 \begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black, title=Definicija 6: Posplošeni centralni limitni izrek]
+\label{def:GCLI}
 Naj bo $Z$ slučajna spremenljivka. Porazdelitev slučajne spremenljivke $Z$ je stabilna natanko tedaj, ko obstajajo neodvisne in enako porazdeljene slučajne spremenljivke
 
 \[
@@ -881,88 +882,182 @@ To je posplošen skalirni faktor v centralnem limitnem izreku. V CLI velja da je
 
 S tem so $\alpha$-stabilne porazdelitve edine možne mejne porazdelitve pri seštevanju velikega števila neodvisnih in enako porazdeljenih slučajnih spremenljivk. In zato ta izrek pojasnjuje, zakaj so $\alpha$-stabilne porazdelitve primerne za opis signalov, ki nastanejo kot rezultat velikega števila naključnih prispevkov. Njihova stabilnost zagotavlja, da se statistična oblika signala ohrani tudi pri združevanju več neodvisnih komponent.
 
+\section{Pomen lastnosti stabilnosti za modeliranje komunikacijskih kanalov}
+Pri obravnavi komunikacijskih sistemov signal, ki ga sprejme sprejemnik, praviloma ni enak oddanemu signalu. Med prenosom nanj vplivajo številni neodvisni naključni pojavi, kot so elektromagnetne motnje, večpotno razširjanje signala, motnje drugih uporabnikov ter šum elektronskih komponent. Sprejeti signal zato pogosto predstavlja vsoto velikega števila naključnih prispevkov.
+
+Za matematični model komunikacijskega kanala je zato zaželeno, da ostane njegova porazdelitev nespremenjena tudi po seštevanju več neodvisnih komponent. Prav to zagotavlja lastnost stabilnosti~\ref{def:stable}~\ref{def:GCLI}.
+
+Matematično to pomeni, da če posamezni naključni prispevki sledijo stabilni porazdelitvi, bo tudi njihova vsota ponovno sledila isti družini porazdelitev. Spreminjajo se lahko le parametri porazdelitve, medtem ko njena osnovna oblika ostane nespremenjena. Ta lastnost bistveno poenostavi analizo komunikacijskih sistemov, saj omogoča opis celotnega komunikacijskega kanala z eno samo družino porazdelitev ne glede na število prispevkov, ki sestavljajo sprejeti signal.
+
+Pri klasičnih komunikacijskih sistemih se običajno predpostavlja, da posamezni prispevki vsebujejo končno disperzijo. Posledično zaradi centralnega limitnega izreka~\ref{def:CLI} vsota velikega števila takšnih prispevkov konvergira proti normalni porazdelitvi, zato je model AWGN v številnih primerih zelo uspešen.
+
+V številnih realnih okoljih pa ta predpostavka ni več izpolnjena. Impulzivni šum vsebuje redke, vendar zelo očitne odklone, zaradi katerih varianca pogosto ni končna. V takšnih primerih klasični Gaussov model ne predstavlja več ustreznega opisa komunikacijskega kanala.
+
+Ravno v takšnih primerih postanejo pomembne $\alpha$-stabilne porazdelitve. Zaradi lastnosti stabilnosti ostanejo tudi vsote velikega števila impulzivnih prispevkov znotraj iste družine porazdelitev. To omogoča bistveno natančnejše modeliranje komunikacijskih kanalov, v katerih prevladuje impulzivni šum.
+Poleg modeliranja šuma pa ta lastnost odpira tudi možnost povsem drugačnega načina komunikacije. Namesto da šum predstavlja nezaželen pojav, lahko njegove statistične lastnosti uporabimo kot nosilec informacije. Prav na tej ideji temelji komunikacija, obravnavana v tej diplomski nalogi.
 
 
 
+\chapter{Komunikacija z uporabo $\alpha$-stabilnega šuma}
+V prejšnjem poglavju smo predstavili matematične lastnosti $\alpha$-stabilnih porazddelitev. V tem poglavju bomo pokazali, kako lahko te lastnosti uporabimo za prenos informacij.
 
+Pri klasičnih komunikacijskih sistemih se informacija kodira v deterministične lastnosti nosilnega signala, kot so amplituda, faza ali frekvenca. Pri $\alpha$-stabilni komunikaciji pa informacija ni predstavljena z obliko signala, temveč s statičnimi parametri njegove porazdelitve. 
 
-
-
-
-
-
-
-
-
-
-\chapter{Uporaba $\alpha$-stabilne porazdelitve kot nosilec informacije}
-
-Sedaj smo predelali potrebno teorijo da lahko zastopimo, kako lahko to izkoristimo za prenos podatkov. V klasični brezžični komunikaciji uporabljamo deterministične lastnosti signalov, kot so spreminjanje amplitude, faze ali frekvence in s tem prenašamo naše podatke. Pri komunikaciji z $\alpha$-stabilno porazdelitvijo pa je informacija predstavljena s statičnimi lastnostmi signala.
-
-Pri $\alpha$-stabilni porazdelitvi to deluje, tako da pri oddajniku izberemo njene parametre in generiramo zaporedje vzorcev:
-\[
-X_1, X_2,\dots,X_n \sim S_\alpha(\beta,\gamma,\mu)
-\]
-Pri sprejemniku, pa nato poskušamo ugotoviti te parametre. Zaradi lastnosti stabilnosti lahko te parametre tudi približno določimo in prav ta lastnost nam daje možnost da iz več naključnih vzorcev potem določimo približno porazdelitev iz katere je oddajnik generiral vzorce.
-
-Zakaj pa en vzorec ni zadosti?
-Zaradi naključnosti ena sama slučajna spremenljivka, ne nosi zadosti podatkov za zanesljivo določitev posameznega parametra. Sprejemnik zato analizira več vzorcev in oceni statistične lastnosti njihove porazdelitve. Z drugimi besedami ocenjujemo porazdelitev s kakšnimi parametri smo poslali pri oddajniku.
-
-Kako je to povezano z generaliziranim centralnim limitnim izrekom?
-V komunikacijskem kanalu sprejeti signal običajno predstavlja kombinacijo velikih naključnih vplivov, zato ga lahko zapišemo z vsoto:
+Namesto določanja trenutne vrednosti signala oddajnik generira zaporedje naključnih vzorcev iz $\alpha$-stabilne porazdelitve
 
 \[
-Y=X_1+X_2+\dots+X_n .
+X_1,X_2,\ldots,X_n
+\sim
+S_\alpha(\beta,\gamma,\delta),
 \]
 
-Klasični centralni limitni izrek pravi, da takšne vsote konvergirajo proti normalni porazdelitvi, vendar le v primeru, ko imajo naključne spremenljivke končno varianco. Pri pojavih, kjer se pojavljajo redke velike amplitude oziroma impulzni šum, ta predpostavka ni več izpolnjena.
+pri čemer izbrani parametri predstavljajo informacijo, ki jo želimo prenesti.
 
-Generalizirani centralni limitni izrek razširi ta rezultat in pravi, da normalizirane vsote neodvisnih in enako porazdeljenih slučajnih spremenljivk konvergirajo proti stabilnim porazdelitvam:
+\section{Kodiranje informacije}
 
+Pri komunikaciji z uporabo $\alpha$-stabilnega šuma informacija ni predstavljena s posamezno vrednostjo signala, temveč s parametri $\alpha$-stabilne porazdelitve, iz katere je signal generiran. 
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black, title=Definicija 7: Teoretično delovanje oddajnika]
+Naj bo $N$ število vzorcev, ki predstavljajo en simbol. Za vsak simbol oddajnik generira zaporedje
 \[
-a_n(X_1+\dots+X_n)-b_n
-\overset{d}{\longrightarrow} Z .
+X_1,X_2,\dots,X_N
+\sim
+S_\alpha(\beta, \gamma,\mu)
+\],
+kjer izbrani parametri porazdelitve določajo poslani simbol.
+\end{tcolorbox}
+
+Posamezen vzorec sam po sebi ne vsebuje dovolj informacij o uporabljeni porazdelitvi, saj je vsak vzorec tudi do neke mere naključen. Šele zaporedje več vzorcev konvergira proti porazdelitvi, ki razkrije prave statistične lastnosti. Zato je vsak simbol, oziroma zaporedje bitov predstavljen z $N$ zaporednimi vzorci. Večja kot je vrednost $N$, bolj izrazite so lastnosti porazdelitve in bomo zato meli manjše napake, ampak se zato tudi poveča dolžina prenosa posameznega simbola.
+
+Za prenos digitalnih podatkov je potrebno določiti preslikavo med binarnimi simboli in parametri naše porazdelitve. Vsaka kombinacija vhodnih bitov je dodeljena ena kombinacija parametrov $\alpha, \beta, \gamma, \mu$. Po tej preslikavi oddajnik za vsak simbol izbere ustrezne parametre in generira $N$ vzorcev. Nato pa dekodernik te vzorce sprejme in jih dekodira.
+
+\section{Dekodiranje informacije}
+
+Po prenosu skozi komunikacijski kanal dekodirnik prejme za vsak simbol $N$ zaporednih vzorcev. Cilj dekodiranja je iz tega zaporedja določiti, kateri parametri $\alpha$-stabilne porazdelitve so bili uporabljeni pri njegovi generaciji.
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black, title=Definicija 8: Teoretično delovanje sprejemnika]
+Naj bo $N$ število vzorcev, ki predstavljajo en simbol. Za vsak simbol sprejemnik prejme zaporedje
+\[
+Y_1,Y_2,\dots,Y_N
+\],
+kjer velja
+\[
+Y_i = X_i + W_i, \qquad i=1,\ldots,N,
 \]
 
-Mejna porazdelitev $Z$ je zato $\alpha$-stabilna porazdelitev, kjer parameter $\alpha$ določa način skaliranja vsote. Pri $\alpha=2$ dobimo posebno primer normalne porazdelitve, pri vrednostih $\alpha<2$ pa dobimo porazdelitve z težkimi repi, ki omogočajo opis ekstremnih vrednosti.
+pri čemer je $X_i$ oddani vzorec, $W_i$ pa šum komunikacijskega kanala.
+\end{tcolorbox}
 
-To pojasni, zakaj so $\alpha$-stabilne porazdelitve primerne za modeliranje komunikacijskih signalov. Če je signal sestavljen iz velikega števila naključnih vplivov, njegova statistična oblika naravno konvergira proti stabilni porazdelitvi. Ker stabilnost zagotavlja, da se družina porazdelitve ohrani pri seštevanju neodvisnih vplivov, lahko sprejemnik še vedno oceni parametre porazdelitve in s tem pridobi informacijo, ki je bila v njih zakodirana.
+\begin{tcolorbox}[colback=purple!5!white,colframe=purple!50!black,
+title=Primer komunikacije]
+Predpostavimo, da informacijo kodiramo le s parametrom $\beta$, pri čemer vrednost $\beta=-1$ predstavlja bit 0, vrednost $\beta=1$ pa bit 1. Oddajnik za vsak bit generira $N$ vzorcev iz ustrezne $\alpha$-stabilne porazdelitve. Sprejemnik iz prejetih vzorcev oceni vrednost parametra $\beta$. Če je ocenjena vrednost pozitivna, simbol dekodira kot bit 1, sicer kot bit 0.
+\end{tcolorbox}
 
-\chapter{Simulacije}
-\label{ch2}
 
-Po predstavitvi matematičnega ozadja se v nadaljevanju osredotočimo na implementacijo sistema in izvedbo simulacij. Simulacije so bile izvedene v programskem okolju GNU Radio Companion (GRC), ki predstavlja grafično razvojno okolje za načrtovanje, implementacijo in testiranje komunikacijskih sistemov.
+Natančnost dekodiranja je predvsem odvisna od kokovosti ocene parametrov. Večje število vzorcev $N$ zato običajno omogoča boljšo oceno parametrov in s tem zanesljivo rekonstrukcijo informacije.
 
-GNU Radio Companion nam omogoča sestavljanje komunikacijskega sistema iz medsebojno povezanih blokov.
+\section{Zakaj komunikcaija deluje?}
 
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=0.8\textwidth]{GNU_radio_flow_graph.png}
-\end{center}
-\caption{GNU Radio blokovni diagram}
+Komunikacija z uporabo $\alpha$-stabilnega šuma temelji na matematičnih lastnostih $\alpha$-stabilnih porazdelitev, predstavljenih v prejšnjih poglavjih. Ključni lastnosti sta stabilnost porazdelitve~\ref{def:stable} in pospločeni centralni limitni izrek~\ref{def:GCLI}.
+
+Lastnost stabilnosti zagotavlja, da vsota neodvisnih $\alpha$-stabilnih naključnih spremenljivk ostane $\alpha$-stabilno porazdeljena. Zaradi tega se statistična struktura signala med generiranjem in prenosom ohranja, informacija pa ostaja zapisana v parametrih porazdelitve in ne v posameznem vzorcu. 
+
+Posplošeni centralni limitni izrek pojasni, zakaj je mogoče parametre porazdelitve oceniti iz zaporedja vzorcev. Z večanjem števila vzorcev $N$ postajajo statistične lastnosti opazovanega zaporedja vedno bolj reprezentativne za izvorno $\alpha$-stabilno porazdelitev. Posledično postajajo tudi ocene njenih parametrov vedno natančnejše.
+
+Če so različnim simbolom dodeljene dovolj različne kombinacije parametrov, jih je mogoče na podlagi ocenjenih parametrov med seboj zanesljivo ločiti. Večje število vzorcev zato praviloma pomeni manjšo verjetnost napačne odločitve in bolj zanesljiv prenos informacije.
+
+\chapter{Načrtovanje in implementacija sistema}
+
+
+\section{GNU Radio Companion}
+
+Za implementacijo komunikacijskega sistema je bilo uporabljeno odprtokodno programsko okolje GNU Radio Companion (GRC), ki predstavlja grafično razvojno okolje za načrtovanje, implementacijo in testiranje digitalnih komunikacijskih sistemov.
+
+GNU Radio temelji na konceptu blokovnega procesiranja signalov. Posamezni funkcionalni elementi sistema, kot so vir podatkov, kodirnik, komunikacijski kanal, dekodirnik in ponor podatkov, so predstavljeni kot ločeni bloki. Ti so med seboj povezani v usmerjen graf, po katerem potujejo vzorci signala.
+
+Takšen pristop omogoča hitro sestavljanje komunikacijskih sistemov brez potrebe po implementaciji celotne obdelave signalov iz nič. Poleg simulacij podpira tudi neposredno uporabo programsko opredeljenih radijskih naprav (Software Defined Radio – SDR), zaradi česar lahko isti sistem brez večjih sprememb uporabimo tako v simulacijah kot tudi na realni strojni opremi.
+
+V ozadju GNU Radio Companion samodejno generira programsko kodo v jeziku Python, posamezni bloki pa so implementirani kot Python ali C++ razredi. Zaradi tega je mogoče enostavno dodajati tudi lastne bloke, kar je bilo uporabljeno pri implementaciji kodirnika in dekodirnika za komunikacijo z uporabo $\alpha$-stabilnih porazdelitev.
+
+\section{Arhitektura komunikacijskega sistema}
+
+Celoten komunikacijski sistem je prikazan na sliki \ref{GNU}. Namen sistema je preveriti pravilnost delovanja razvitega kodirnika in dekodirnika ter izmeriti uspešnost prenosa podatkov.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.2\textwidth]{GNU_radio_flow_graph.png}
+\caption{Blokovni diagram komunikacijskega sistema v GNU Radio Companion.}
 \label{GNU}
 \end{figure}
 
-V našem blokovnem diagramu vidimo, da imamo naključen vir, ki ustvari 128 vzorcev 8-bitnih vrednosti. Skupno tako obdelamo oziroma prenesemo 1024 bitov. Bite nato shranimo v zunanjo datoteko, nato pa jih pošljemo v kodirni blok, ki podatke zakodira v signal s pomočjo $\alpha$-stabilne distribucije. Signal nato pošljemo skozi kanal, kjer mu lahko po želji dodamo tudi šum. Nato pa ga dekodiramo in shranimo v novo datoteko. Na koncu primerjamo obe datoteki in določimo stopnjo bitnih napak (Bit Error Rate - BER). 
-Najprej pa rabimo razumeti tudi kako kodirnik in dekodirnik delujeta.
+Komunikacija se začne z blokom Random Source, ki ustvari 128 naključnih bajtov oziroma skupaj 1024 bitov. Generirani podatki se hkrati shranijo v datoteko in pošljejo v razviti kodirnik.
+
+Kodirnik vhodne bite pretvori v zaporedje vzorcev $\alpha$-stabilne porazdelitve, pri čemer so informacije zakodirane v izbranih parametrih porazdelitve. Tako generiran signal nato potuje skozi komunikacijski kanal, kjer mu lahko dodamo tudi šum.
+
+Na sprejemni strani dekodirnik iz prejetih vzorcev oceni parametre porazdelitve in iz njih rekonstruira prvotno zaporedje bitov. Dekodirani podatki se shranijo v drugo datoteko.
+
+Preden podrobneje predstavimo implementacijo kodirnika in dekodirnika, je smiselno najprej opisati najpomembnejše parametre sistema. Ti določajo način kodiranja, število generiranih vzorcev in nastavitve dekodiranja ter omogočajo prilagajanje sistema različnim eksperimentalnim pogojem.
 
 \section{Parametri}
-%Mogoče dodaj poglavje kjer razložiš katere parametre uporabljaš pole ko spišeš dodaj raje mam več ku manj....
 
+\begin{table}[H]
+\centering
+\label{tab:parametri}
+\begin{tabular}{|l|p{9cm}|}
+\hline
+\textbf{Parameter} & \textbf{Opis} \\ \hline
 
-\section{Kodirnik}
-Kodirnik prejme vhodni tok bajtov, ki jih najprej pretvori v zaporedje posameznih bitov. Bite nato shranimo v medpomnilnik, iz katerega se nato glede na izbrano konfiguracijo bere ustrezno število bitov za kodiranje enega simbola.
+\texttt{alpha\_map} &
+Seznam možnih vrednosti parametra $\alpha$. Zaenkrat je pripravljen za nadaljnjo implementacijo. \\ \hline
 
-Število bitov, ki jih predstavlja posamezen simbol, je odvisen od števila različnik parametrov $\beta$, je pa koda tudi že pripravljena na razširitev za parametre $\alpha$ in $\gamma$, ki jih uporabimo pri kodiranju. Za vsak parameter velja, da mora biti število možnih vrednosti potenca števila dve, saj lahko le tako enolično preslikamo kombinacije bitov v posamezne vrednosti parametra. Število bitov, ki jih kodira posamezen parameter, je tako določeno kot:
+\texttt{beta\_map} &
+Seznam možnih vrednosti parametra $\beta$. V trenutni implementaciji se informacije kodirajo izključno preko tega parametra. \\ \hline
+
+\texttt{gama\_map} &
+Seznam možnih vrednosti parametra $\gamma$. Trenutna implementacija tega parametra ne uporablja za prenos informacij, mogoče pa ga je spreminjati pri izvajanju eksperimentov z različnimi parametri. \\ \hline
+
+\texttt{samples\_per\_symbol} &
+Število generiranih vzorcev za posamezen simbol, ki smo ga označili z $N$. Večje število vzorcev običajno izboljša natančnost ocene parametrov pri dekodiranju, vendar poveča količino prenesenih podatkov in čas simulacije. \\ \hline
+
+\texttt{encode\_\{alpha,beta,gama\}} &
+Omogoča izbiro parametrov $\alpha$, $\beta$ in $\gamma$, v katere se kodira informacija. V trenutni implementaciji je uporabljen zgolj $\beta$ \\ \hline
+
+\texttt{L} &
+Število segmentov, na katere dekodirnik razdeli vzorce posameznega simbola pri ocenjevanju parametra $\beta$. Iz največjih in najmanjših vrednosti posameznih segmentov izračuna oceno parametra. \\ \hline
+
+\texttt{noise\_ratio} &
+Amplituda dodanega Gaussovega šuma v kanalu. Parameter določa standardni odklon šuma v bloku GNU Radio \textit{Noise Source}; večja vrednost pomeni večjo moč dodanega šuma in s tem nižje razmerje signal–šum (SNR). \cite{gnuradioNoiseSource} \\ \hline
+
+\texttt{source\_number\_of\_samples} &
+Število vhodnih bajtov, ki jih vir podatkov pošlje skozi komunikacijski sistem. Parameter določa dolžino poslanega sporočila in s tem skupno število simbolov, ki se kodirajo ter prenesejo skozi kanal. \\ \hline
+
+\end{tabular}
+\caption{Parametri simulacije.}
+\end{table}
+
+\section{Implementacija kodirnika}
+
+Naloga kodirnika je pretvorba vhodnega zaporedja bitov v signal, katerega statistične lastnosti predstavljajo informacijo. Za razliko od klasičnih komunikacijskih sistemov se informacija ne kodira v amplitudo, fazo ali frekvenco nosilnega signala, temveč v parametre $\alpha$-stabilne porazdelitve.
+
+Kodirnik prejme vhodni tok bajtov, ki jih pretvori v zaporedje posameznih bitov. Ti se nato shranimo v medpomnilnik, iz katerega se nato bere ustrezno število bitov za kodiranje enega simbola.
+
+\subsection{Preslikava bitov v parametre}
+
+Število bitov, ki jih predstavlja posamezen simbol, je odvisen od števila možnih parametrov, uporabljenih pri kodiranju. Za vsak parameter velja, da mora biti število možnih vrednosti potenca števila dve, saj lahko le tako enolično preslikamo kombinacije bitov v posamezne vrednosti parametra. Število bitov, ki jih kodira posamezen parameter, je tako določeno kot:
 
 $n = \log_2(M)$
 
-kjer je $M$ število elementov v preslikovalni tabeli. Skupno število bitov, predstavljenih z enim simbolov, je tako vsota števila bitov, ki jih kodirajo posamezni parametri.
+kjer je $M$ število možnih vrednosti parametra. Skupno število bitov, predstavljenih z enim simbolov, je tako vsota števila bitov, ki jih kodirajo posamezni parametri.
 
-V implementaciji, uporabljeni v tem delu, se za prenos informacij uporablja le parameter $\beta$, medtem ko parametra $\alpha$ in $\gamma$ ostaneta konstantna. Vrednost parametra $\beta$ se določi glede na trenutno kombinacijo vhodnih bitov.
+\subsection{Preslikava simbolov v parametre porazdelitve}
+Implementacija omogoča kodiranje informacij v parametre $\alpha$, $\beta$ in $\gamma$. V vseh simulacijah, predstavljenih v tej diplomski nalogi, se za prenos informacij uporablja parameter $\beta$, medtem ko parameter $\alpha$ in $\gamma$ ostaneta konstantna.
 
-Za vsak simbol se nato generira določeno število vzorcev $\alpha$-stabilne porazdelitve. Ta parameter je spremenljiv in se imenuje \texttt{samples\_per\_symbol}. Ti vzorci predstavljajo izhod kodirnika in se posredujejo komunikacijskemu kanalu oziroma naslednjemu bloku v GNU Radio Companion.
+Vhodna kombinacija bitov določa indeks v preslikovalni tabeli, iz katere se nato izbere ustrezna vrednost parametra $\beta$. Na ta način vsak simbol predstavlja določeno $\alpha$-stabilno porazdelitev.
 
+\subsection{Generiranje vzorcev}
+Za vsak simbol se nato generira $N$ vzorcev $\alpha$-stabilne porazdelitve, kjer parameter N ustreza spremenljivki $\texttt{samples\_per\_symbol}$. Generirani vzorci predstavljajo izhod kodirnika in se posredujejo komunikacijskemu kanalu oziroma naslednjemu bloku v GNU Radio Companion.
+
+\subsection{Chambers-Mallows-Stuckov algoritem}
 Za generiranje signala uporabljam Chambers-Mallows-Struckov algoritem(CMS), ki se izračuna po enačbi:
 \begin{equation}
 X=\gamma C
@@ -984,13 +1079,16 @@ C=\left(1+\beta^2\tan^2\frac{\pi\alpha}{2}\right)^{\frac{1}{2\alpha}}.
 
 pri čemer je $V$ enakomerno porazdeljena naključna spremenljivka na intervalu \begin{equation} V\sim\mathcal{U}\left(-\frac{\pi}{2},\frac{\pi}{2}\right), \end{equation} $W$ pa eksponentno porazdeljena naključna spremenljivka z enotskim povprečjem, \begin{equation} W\sim\mathrm{Exp}(1). \end{equation}
 
-V implementaciji se za vsak simbol tako generira \texttt{samples\_per\_symbol} vzorcev po tej enačbi. Parametri $\alpha$, $\beta$ in $\gamma$ se pa določijo iz vhodnih bitov glede na izbrane preslikovalne tabele.
+Na ta način kodirnik za vsak vhodni simbol ustvari zaporedje $N$ vzorcev, katerih porazdelitev je določena z izbranimi parametri $\alpha$, $\beta$ in $\gamma$.
 
-\section{Dekodirnik}
+\section{Implementacija dekodirnik}
+Naloga dekodirnika je iz prejetih vzorcev oceniti parametre $\alpha$-stabilne porazdelitve in iz njih rekonstruirati prvotno zaporedje bitov. Ker posamezen vzorec ne vsebuje dovolj informacij za zanesljivo določitev parametrov, dekodirnik analizira več vzorcev hkrati.
 
-Dekodirnik nato prejema vzorce $\alpha$-stabilne porazdelitve in jih najprej shranjuje v medpomnilnik, dokler ni zbranih dovolj vzorcev za en simbol. Torej dokler ni zbranih \texttt{samples\_per\_symbol} vzorcev. Ker kodirnik za vsak simbol ustvari fiksno število vzorcev, lahko dekodirnik posamezne simbole enostavno loči. 
+\subsection{Razdelitev simbola na segmente}
+Dekodirnik prejema tok vzorcev in jih shranjuje v medpomnilnik. Ker kodirnik za vsak simbol ustvari natanko $N$ vzorcev, lahko dekodirnik posamezne simbole loči tako, da vedno obdela naslenjih $N$ prejetih vzorcev.
 
-Vsak simbol namreč razdelimo na $L$ enako velikih segmentov. Za vsak segment se dološita največja in najmanjša vrednost vzorcev, iz katerih se izračunata varianca maksimumov ($Y_{\max}$) in minimumov ($Y_{\min}$). 
+\subsection{Ocenjevanje parametra $\beta$}
+Zbrane vzorce posameznega simbola razdelimo na $L$ enako velikih segmentov. Za vsak segment se določita največja in najmanjša vrednost vzorcev, iz katerih se izračunata varianca maksimumov ($Y_{\max}$) in minimumov ($Y_{\min}$). 
 
 \begin{equation}
 Y_{\max}=\frac{1}{L}\sum_{l=1}^{L}Y_{l,\max},
@@ -1028,17 +1126,31 @@ iz česar se nato izračuna parameter $\beta$ po enačbi:
 \right).
 \end{equation}
 
-Izračunana vrednost se nato primerja z dovoljenimi vrednostmi parametra $\beta$ oziroma z vrednostmi, ki so zapisane v tabeli, pri čemer se nato izbere najbližja vrednost. Indeks izbrane vrednosti predstavlja dekodirano kombinacijo bitov, ki se nato shrani v bitni medpomnilnik. Ko se zbere osem bitov, jih dekotirnik združi v bajt in ga posreduje na izhod.
+\subsection{Dekodiranje bitov}
+Ocenjena vrednost $\hat{\beta}$ se nato primerja z dovoljenimi vrednostmi iz preslikovalne tabele. Izbere se najbližja vrednost, njen indeks pa predstavlja dekodirano kombinacijo bitov. Dekodirani biti se shranjujejo v medpomnilnik, dokler se ne zbere osem bitov, ki jih dekodirnik združi v en bajt in posreduje na izhod.
 
-\section{Rezultati simulacije}
+\section{SDR implementacija}
+To be added.
 
-V simulaciji smo merili število napačno sprejetih bitov pri prenosu 1024 bitov skozi takšen kanal. Da bi zmanjšali vpliv naključnih odstopanj, smo vsako simulacijo ponovili 100-krat. Skupno smo tako analizirali 102 400 prenesenih bitov.  Med simulacijami smo sistematično spreminjali vrednosti parametrov $\beta$ in $\gamma$, raven dodanega šuma ter velikost vzorca.
 
-\subsection{Spreminjanje parametra $\beta$}
 
-V tej simulaciji smo preučevali vpliv parametra $\beta$ na stopnjo bitnih napak. Pomembno je razumeti tudi, zakaj parameter $\beta$ sploh spreminjamo.Parameter $\beta$ se v literaturi pogosto imenuje tudi varnostni parameter (angl. security parameter), saj manjša razlika med vrednostma v $\beta$ mapi otežuje prestrezanje oziroma pravilno dekodiranje signala. Zato pričakujemo, da bo z večanjem razlike med vrednostma parametra $\beta$ dekodiranje signala lažje, vendar se bo s tem zmanjšala stopnja varnosti sistema.
 
-Simulacijo smo izvedli s parametri $samples\_per\_symbol=1000$, $L=20$ in $noise\_ratio=0.0$, pri čemer smo dobili rezultate, prikazane na spodnjem grafu.
+
+
+
+\chapter{Evalvacija v simulacijskem okolju}
+
+V tem poglavju so predstavljeni rezultati simulacij razvitega komunikacijskega sistema. Uspešnost sistema je bila ocenjena s stopnjo bitnih napak (Bit Error Rate -- BER), ki predstavlja razmerje med številom napačno sprejetih bitov in skupnim številom prenesenih bitov.
+
+Pri posamezni simulaciji je bilo skozi komunikacijski kanal prenesenih 1024 bitov. Zaradi naključne narave $\alpha$-stabilnih porazdelitev in dodanega šuma je bila vsaka simulacija ponovljena 100-krat, kar pomeni, da je bilo za vsako konfiguracijo parametrov analiziranih skupno 102.400 prenesenih bitov. Na ta način smo zmanjšali vpliv naključnih odstopanj in pridobili zanesljivejšo oceno uspešnosti sistema.
+
+V simulacijah smo sistematično spreminjali vrednosti parametrov $\beta$ in $\gamma$, število vzorcev na simbol ($N$)  ter raven dodanega šuma. Cilj simulacij je bil analizirati vpliv posameznih parametrov na uspešnost dekodiranja ter določiti konfiguracije, ki zagotavljajo čim manjšo stopnjo bitnih napak.
+
+\section{Spreminjanje parametra $\beta$}
+
+V tej simulaciji smo preučevali vpliv parametra $\beta$ na stopnjo bitnih napak. Parameter $\beta$ določa asimetrijo $\alpha$-stabilne porazdelitve in predstavlja parameter, v katerega je v naši implementaciji zakodirana informacija. V literaturi ga pogosto imenujejo tudi varnostni parameter (\textit{security parameter}), saj manjša razlika med vrednostmi v preslikovalni tabeli $\beta$ otežuje pravilno ocenjevanje parametra in s tem tudi dekodiranje signala. Zato pričakujemo, da večja razlika med vrednostmi parametra $\beta$ izboljša zanesljivost prenosa, hkrati pa zmanjša stopnjo prikritosti komunikacije.
+
+Simulacijo smo izvedli s parametri $L=20$ in $noise\_ratio=6.5$, pri čemer smo dobili rezultate, prikazane na spodnjem grafu.
 
 \begin{figure}[h]
 \begin{center}
@@ -1048,13 +1160,25 @@ Simulacijo smo izvedli s parametri $samples\_per\_symbol=1000$, $L=20$ in $noise
 \label{beta_error}
 \end{figure}
 
-Primerjali smo različne $\beta$ mape, od $[-0.1,0.1]$ do $[-1.0,1.0]$. Vrednost $\Delta\beta$ predstavlja razliko med obema vrednostma v posamezni $\beta$ mapi. Opazimo lahko izrazit padec pri $\Delta\beta = 2$. Razlog je v tem, da pri tej konfiguraciji v nobeni izmed 100 ponovitev nismo zaznali niti ene bitne napake. Ker vrednosti 0 na logaritemski osi ni mogoče prikazati, smo jo nadomestili z najmanjšo merljivo vrednostjo BER, to je $\frac{1}{102400} \approx 10^{-5}$. Enak pristop smo uporabili pri vseh simulacijah, pri katerih ni bilo zaznane nobene bitne napake.
+Primerjali smo različne $\beta$ mape, od $[-0.1,0.1]$ do $[-1.0,1.0]$. Vrednost $\Delta\beta$ predstavlja razliko med obema vrednostma v posamezni $\beta$ mapi. Iz grafa je razvidno, da se stopnja bitnih napak zmanjšuje z večanjem razlike med vrednostma parametra $\beta$, kar je po pričakovanjih. 
 
-\subsection{Spreminjanje parametra $\gamma$}
+Ker vrednosti BER = 0 na logaritemski osi ni mogoče prikazati, smo jo nadomestili z najmanjšo merljivo vrednostjo
 
-V tej simulaciji smo analizirali vpliv parametra $\gamma$ na stopnjo bitnih napak. Parameter $\gamma$ določa razmerje med močjo signala in močjo šuma (MSNR), zato neposredno vpliva na kakovost sprejetega signala. Pri večjih vrednostih parametra $\gamma$ je vpliv šuma manjši, zaradi česar pričakujemo nižjo stopnjo bitnih napak. 
+\[
+\mathrm{BER}=\frac{1}{102\,400}\approx10^{-5},
+\]
 
-Simulacijo smo izvedli s parametri $samples\_per\_symbol=1000$, $L=20$ in $noise\_ratio=1.0$, pri čemer smo dobili rezultate, prikazane na spodnjem grafu.
+kar predstavlja eno napačno dekodiran bit med vsemi analiziranimi biti. Enak pristop smo uporabili tudi pri vseh nadaljnjih simulacijah.
+
+Opazimo tudi, da se pri  $N\geq600$ vse tri krivulje praktično prekrivajo. To nakazuje, da ima izbira parametra $\beta$ bistveno večji vpliv na uspešnost dekodiranja kot nadaljnje povečevanje števila vzorcev na simbol.
+
+Rezultati kažejo, da izbira parametra $\beta$ predstavlja enega ključnih dejavnikov uspešnosti sistema.
+
+\section{Spreminjanje parametra $\gamma$}
+
+V tej simulaciji smo analizirali vpliv parametra $\gamma$ na stopnjo bitnih napak. Parameter $\gamma$ določa razpršenost $\alpha$-stabilne porazdelitve in neposredno vpliva na razmerje med močjo signala in močjo šuma (MSNR). Večje vrednosti parametra $\gamma$ pomenijo večjo moč uporabnega signala glede na šum, zato pričakujemo izboljšanje uspešnosti dekodiranja.
+
+Simulacijo smo izvedli s parametri $L=20$ in $noise\_ratio=1.0$ in parameter $\beta$=[-1.0,1.0] pri čemer smo dobili rezultate, prikazane na spodnjem grafu.
 
 \begin{figure}[h]
 \begin{center}
@@ -1064,7 +1188,7 @@ Simulacijo smo izvedli s parametri $samples\_per\_symbol=1000$, $L=20$ in $noise
 \label{gama_error}
 \end{figure}
 
-Iz grafa je razvidno, da stopnja bitnih napak z naraščanjem vrednosti MSNR pada, kar je v skladu s pričakovanji. Zanimivo pa je, da tudi pri najnižjih obravnavanih vrednostih MSNR BER ostane manjši od $10^{-2}$, kar pomeni, da sistem tudi v razmeroma neugodnih razmerah ohranja zadovoljivo zanesljivost prenosa.
+Iz grafa je razvidno, da stopnja bitnih napak z naraščanjem vrednosti MSNR pada, kar je v skladu s pričakovanji. Pri konfiguracijah, kjer med vsemi ponovitvami ni bilo zaznane nobene bitne napake, nadaljnjih točk nismo več prikazovali, saj bi bile vse nadaljnje vrednosti enake BER = 0. Opazimo da je število vzorcev $N$, ključno upliva na BER in zato posledično tudi na uporabnost povezave. Večje vrednosti $N$ omogočajo natančnejšo oceno parametrov porazdelitve, zato se stopnja bitnih napak bistveno hitreje zmanjšuje.
 
 V tej simulaciji je bila vrednost MSNR izražena v decibelih po enačbi
 
@@ -1074,21 +1198,12 @@ V tej simulaciji je bila vrednost MSNR izražena v decibelih po enačbi
 
 kjer parameter $\gamma_G$ predstavlja $\gamma$ parameter normalne porazdelitve, ki je enak 1.
 
-V simulacijski model je bil preko vgrajenega bloka v orodju GNU Radio Companion dodan tudi umetni Gaussov šum. Razlog za nastavitev parametra \texttt{noise\_ratio} na vrednost 1,0 tiči v dejstvu, da bi bila brez prisotnosti šuma (\texttt{noise\_ratio} = 0) odvisnost povsem drugačna, kot prikazuje slika~\ref{gama_error_0noise}.
+V simulacijski model je bil preko vgrajenega bloka v orodju GNU Radio Companion dodan tudi umetni Gaussov šum. Parameter \texttt{noise\_ratio} je bil nastavljen na vrednost 1,0, saj se je med testiranjem pokazalo, da je vpliv parametra $\gamma$ v popolnoma idealnem kanalu (\texttt{noise\_ratio}=0) precej manj izrazit. Prisotnost tudi razmeroma majhne količine šuma bistveno bolje pokaže vpliv parametra $\gamma$ na uspešnost dekodiranja.
 
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=0.8\textwidth]{gama_error_log_0noise.png}
-\end{center}
-\caption{Graf BER glede na parameter gama v okolju brez šuma}
-\label{gama_error_0noise}
-\end{figure}
+Rezultati potrjujejo pričakovano odvisnost BER od razmerja med močjo signala in šuma.
+\section{Različne velikosti vzorca glede na šum}
 
-Rezultati simulacije v idealnem okolju potrjujejo, da v odsotnosti šuma parameter $\gamma$ nima vpliva na stopnjo bitnih napak, saj je prenos v celoti brez napak.
-
-\subsection{Različne velikosti vzorca}
-
-Do sedaj smo pri vseh simulacijah uporabljali enako velikost vzorca, in sicer 1000 vzorcev na simbol. V nadaljevanju smo preverili, kako se stopnja bitnih napak spreminja glede na velikost vzorca.Pričakujemo, da se bo z večanjem števila vzorcev, uporabljenih za predstavitev enega bita, stopnja bitnih napak zmanjševala.  Simulacija je bila izvedena s parametri $beta\_map=[-1.0,1.0]$, $L=8$ in $noise\_ratio=0.0$.
+V prejšnjih simulacijah smo že opazili, da število vzorcev na simbol pomembno vpliva na uspešnost dekodiranja. Zato smo v tej simulaciji podrobneje analizirali vpliv velikosti vzorca pri različnih stopnjah dodanega šuma. Pričakujemo, da se bo z večanjem števila vzorcev izboljšala natančnost ocene parametrov porazdelitve, posledično pa se bo zmanjševala tudi stopnja bitnih napak. Simulacija je bila izvedena s parametri $\beta_{\mathrm{map}}=[-1.0,1.0]$ in $L=8$.
 
 \begin{figure}[H]
   \centering
@@ -1097,20 +1212,14 @@ Do sedaj smo pri vseh simulacijah uporabljali enako velikost vzorca, in sicer 10
   \label{sample_size_error}
 \end{figure}
 
-Opazimo, da je pri zelo majhnem številu vzorcev stopnja bitnih napak visoka, medtem ko pri 120 vzorcih že dosežemo vrednost BER = 0.
-Ker je bila ta simulacija izvedena brez prisotnosti šuma, smo simulacijo ponovili še z vrednostjo $\mathit{noise\_ratio}=6.5$, da bi dobili bolj realistično predstavo delovanja sistema v prisotnosti motenj.
+Rezultati potrjujejo pričakovano obnašanje sistema. Pri majhnem številu vzorcev je ocena parametrov porazdelitve nezanesljiva, zato je stopnja bitnih napak visoka, zlasti pri večjih stopnjah šuma. Pri najmanjšem številu vzorcev ($N=16$) je BER znašal skoraj 40\,\%, kar predstavlja praktično neuporabno komunikacijo.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.8\textwidth]{sample_size_error_with_noise.png}
-  \caption{Graf BER glede na velikost vzorca s šumom}
-  \label{sample_size_error_with_noise}
-\end{figure}
+Z večanjem števila vzorcev se natančnost ocene parametrov izboljšuje, zato BER postopoma pada. Rezultati kažejo, da je mogoče tudi v prisotnosti razmeroma močnega šuma z zadostnim številom vzorcev doseči komunikacijo brez zaznanih bitnih napak.
 
-Iz grafa je razvidno, da je pri prisotnosti šuma potrebno večje število vzorcev za doseganje nizke stopnje bitnih napak. Vrednost BER = 0 dosežemo šele pri približno 800 vzorcih, kar je pričakovano, saj večja količina šuma zahteva več vzorcev za zanesljivo odločanje.
-
-\chapter{Implementacija in simulacija v realnem okolju}
+Število vzorcev na simbol predstavlja kompromis med hitrostjo prenosa in zanesljivostjo komunikacije.
+\chapter{Rezultati uporabe na SDR opremi}
 \label{ch3}
+To be added.
 
 \cleardoublepage
 \addcontentsline{toc}{chapter}{Literatura}

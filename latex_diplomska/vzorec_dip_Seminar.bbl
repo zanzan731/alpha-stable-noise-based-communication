@@ -95,4 +95,11 @@ V.~Lutovac and E.~Kočan.
 \url{https://en.wikipedia.org/wiki/L%C3%A9vy_distribution}.
 \newblock [Dostopano: 31. 7. 2026].
 
+\bibitem[{GNU Radio}(2025)]{gnuradioNoiseSource}
+{GNU Radio}.
+\newblock Noise Source.
+\newblock Dosegljivo:
+\url{https://wiki.gnuradio.org/index.php/Noise_Source}.
+\newblock [Dostopano: 10. 2. 2026].
+
 \end{thebibliography}

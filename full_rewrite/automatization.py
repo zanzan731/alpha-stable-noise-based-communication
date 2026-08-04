@@ -64,9 +64,20 @@ def run_graphs_logarithmic():
     print(GRAPH_LOGARITHMIC_SCRIPT)
     subprocess.run(["python", GRAPH_LOGARITHMIC_SCRIPT], check=True)
 
+def run_test():
+    output_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\test"
+    run_generator(
+        "-1.0,1.0",
+        samples_per_symbol=1000,
+        L=20,
+        noise_ratio=6.5,
+        output_dir=output_dir,
+    )
+    
+    run_binary_diff(output_dir)
 
 def run_different_beta():
-    beta_options = [
+    """beta_options = [
         "-1.0,1.0",
         "-0.9,0.9",
         "-0.8,0.8",
@@ -77,11 +88,11 @@ def run_different_beta():
         "-0.3,0.3",
         "-0.2,0.2",
         "-0.1,0.1"
-    ]
+    ]"""
+    beta_options = ["-0.9,0.9"]
 
     sample_sizes = [40, 80, 160, 240, 320, 400, 600, 800, 1000]
-
-    base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_beta"
+    base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_beta_2"
 
     for sample_size in sample_sizes:
         sample_dir = os.path.join(base_dir, str(sample_size))
@@ -95,8 +106,8 @@ def run_different_beta():
             run_generator(
                 beta_map,
                 samples_per_symbol=sample_size,
-                L=20,
-                noise_ratio=6.5,
+                L=2,
+                noise_ratio=1.0,
                 output_dir=output_dir,
             )
 
@@ -145,7 +156,6 @@ def run_different_gama():
 
 def run_different_noise_for_sample_size():
     sample_sizes = [16, 24, 32, 40, 80, 120, 200, 240, 320, 400, 800]
-
     noise_ratios = [
         0.0,
         0.5,
@@ -161,7 +171,7 @@ def run_different_noise_for_sample_size():
         10.0,
     ]
 
-    base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_noise"
+    base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_noise_impulsive"
 
     for noise_ratio in noise_ratios:
         noise_tag = str(noise_ratio).replace(".", "p")
@@ -202,8 +212,9 @@ def main():
         print("2 - different_beta")
         print("3 - different_gama")
         print("4 - different_noise")
-        print("5 - graphs")
-        print("6 - graphs_logarithmic")
+        print("5 - test")
+        print("6 - graphs")
+        print("7 - graphs_logarithmic")
         choice = input("Enter choice: ").strip()
 
         menu = {
@@ -211,8 +222,9 @@ def main():
             "2": "different_beta",
             "3": "different_gama",
             "4": "different_noise",
-            "5": "graphs",
-            "6": "graphs_logarithmic",
+            "5": "test",
+            "6": "graphs",
+            "7": "graphs_logarithmic",
         }
         args.experiment = menu.get(choice, "all")
 
@@ -225,6 +237,9 @@ def main():
     if args.experiment in ("all", "different_noise"):
         run_different_noise_for_sample_size()
 
+    if args.experiment in ("test"):
+            run_test()
+    
     if args.experiment == "graphs":
         run_graphs()
 
