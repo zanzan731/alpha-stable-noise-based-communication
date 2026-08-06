@@ -106,7 +106,7 @@ def run_different_beta():
             run_generator(
                 beta_map,
                 samples_per_symbol=sample_size,
-                L=2,
+                L=20,
                 noise_ratio=1.0,
                 output_dir=output_dir,
             )
@@ -190,6 +190,29 @@ def run_different_noise_for_sample_size():
 
             run_binary_diff(output_dir)
 
+
+
+def run_different_l():
+    sample_sizes = [40, 80, 160, 240, 320, 400, 600, 800, 1000]
+    L = [2, 4, 5, 8, 10, 20]
+
+    base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_L"
+
+    for sample_size in sample_sizes:
+        for l_value in L:
+            l_dir = os.path.join(base_dir, f"L_{l_value}")
+            output_dir = os.path.join(l_dir, str(sample_size))
+
+            run_generator(
+                "-1.0,1.0",
+                samples_per_symbol=sample_size,
+                L=l_value,
+                noise_ratio=1.0,
+                output_dir=output_dir,
+            )
+
+            run_binary_diff(output_dir)
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -199,6 +222,7 @@ def main():
             "different_beta",
             "different_gama",
             "different_noise",
+            "different_L",
             "graphs",
             "graphs_logarithmic",
         ],
@@ -212,9 +236,10 @@ def main():
         print("2 - different_beta")
         print("3 - different_gama")
         print("4 - different_noise")
-        print("5 - test")
-        print("6 - graphs")
-        print("7 - graphs_logarithmic")
+        print("5 - different_L")
+        print("6 - test")
+        print("7 - graphs")
+        print("8 - graphs_logarithmic")
         choice = input("Enter choice: ").strip()
 
         menu = {
@@ -222,9 +247,10 @@ def main():
             "2": "different_beta",
             "3": "different_gama",
             "4": "different_noise",
-            "5": "test",
-            "6": "graphs",
-            "7": "graphs_logarithmic",
+            "5": "different_L",
+            "6": "test",
+            "7": "graphs",
+            "8": "graphs_logarithmic",
         }
         args.experiment = menu.get(choice, "all")
 
@@ -236,6 +262,9 @@ def main():
 
     if args.experiment in ("all", "different_noise"):
         run_different_noise_for_sample_size()
+
+    if args.experiment in ("all", "different_L"):
+        run_different_l()
 
     if args.experiment in ("test"):
             run_test()

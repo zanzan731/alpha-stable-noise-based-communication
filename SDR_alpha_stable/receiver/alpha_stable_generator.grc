@@ -150,6 +150,23 @@ blocks:
     coordinate: [1560, 556.0]
     rotation: 0
     state: disabled
+- name: center_frequency
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: intx
+    value: '915000000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1656, 168.0]
+    rotation: 0
+    state: enabled
 - name: decoded_file
   id: parameter
   parameters:
@@ -411,7 +428,7 @@ blocks:
     autoscale: 'False'
     average: '1.0'
     axislabels: 'True'
-    bw: samp_rate
+    bw: '250000'
     color1: '"blue"'
     color10: '"dark blue"'
     color2: '"red"'
@@ -423,8 +440,8 @@ blocks:
     color8: '"dark red"'
     color9: '"dark green"'
     comment: ''
-    ctrlpanel: 'False'
-    fc: '0'
+    ctrlpanel: 'True'
+    fc: center_frequency
     fftsize: '1024'
     freqhalf: 'True'
     grid: 'False'
@@ -562,7 +579,7 @@ blocks:
     ant7: '"RX2"'
     ant8: '"RX2"'
     ant9: '"RX2"'
-    bw0: '0'
+    bw0: '250000'
     bw1: '0'
     bw10: '0'
     bw11: '0'
@@ -594,7 +611,7 @@ blocks:
     bw7: '0'
     bw8: '0'
     bw9: '0'
-    center_freq0: '2400000000'
+    center_freq0: center_frequency
     center_freq1: '0'
     center_freq10: '0'
     center_freq11: '0'
@@ -702,7 +719,7 @@ blocks:
     dc_offs_enb9: default
     dev_addr: '"source=30F4146"'
     dev_args: ''
-    gain0: '0'
+    gain0: '45'
     gain1: '0'
     gain10: '0'
     gain11: '0'

@@ -28,7 +28,7 @@ import threading
 
 class alpha_stable_generator(gr.top_block, Qt.QWidget):
 
-    def __init__(self, L=8, alpha_map_str="1.2,1.4,1.6,1.8", beta_map_str="-1.0,1.0", decoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\decoded.bin", encoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\encoded.bin", eos_timeout=3.0, gama_map_str="0.5,1.0,1.5,2.0", noise_ratio=10, samples_per_symbol=24, source_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin", source_number_of_samples=128):
+    def __init__(self, L=8, alpha_map_str="1.2,1.4,1.6,1.8", beta_map_str="-1.0,1.0", center_frequency=915000000, decoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\decoded.bin", encoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\encoded.bin", eos_timeout=3.0, gama_map_str="0.5,1.0,1.5,2.0", noise_ratio=10, samples_per_symbol=24, source_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin", source_number_of_samples=128):
         gr.top_block.__init__(self, "Alpha stable simulation", catch_exceptions=True)
         Qt.QWidget.__init__(self)
         self.setWindowTitle("Alpha stable simulation")
@@ -65,6 +65,7 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
         self.L = L
         self.alpha_map_str = alpha_map_str
         self.beta_map_str = beta_map_str
+        self.center_frequency = center_frequency
         self.decoded_file = decoded_file
         self.encoded_file = encoded_file
         self.eos_timeout = eos_timeout
@@ -97,14 +98,15 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
         self.uhd_usrp_source_0.set_samp_rate(samp_rate)
         self.uhd_usrp_source_0.set_time_unknown_pps(uhd.time_spec(0))
 
-        self.uhd_usrp_source_0.set_center_freq(2400000000, 0)
+        self.uhd_usrp_source_0.set_center_freq(center_frequency, 0)
         self.uhd_usrp_source_0.set_antenna("TX/RX", 0)
-        self.uhd_usrp_source_0.set_gain(0, 0)
+        self.uhd_usrp_source_0.set_bandwidth(250000, 0)
+        self.uhd_usrp_source_0.set_gain(45, 0)
         self.qtgui_freq_sink_x_0 = qtgui.freq_sink_c(
             1024, #size
             window.WIN_BLACKMAN_hARRIS, #wintype
-            0, #fc
-            samp_rate, #bw
+            center_frequency, #fc
+            250000, #bw
             "", #name
             1,
             None # parent
@@ -117,7 +119,7 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
         self.qtgui_freq_sink_x_0.enable_grid(False)
         self.qtgui_freq_sink_x_0.set_fft_average(1.0)
         self.qtgui_freq_sink_x_0.enable_axis_labels(True)
-        self.qtgui_freq_sink_x_0.enable_control_panel(False)
+        self.qtgui_freq_sink_x_0.enable_control_panel(True)
         self.qtgui_freq_sink_x_0.set_fft_window_normalized(False)
 
 
@@ -176,6 +178,14 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
     def set_beta_map_str(self, beta_map_str):
         self.beta_map_str = beta_map_str
 
+    def get_center_frequency(self):
+        return self.center_frequency
+
+    def set_center_frequency(self, center_frequency):
+        self.center_frequency = center_frequency
+        self.qtgui_freq_sink_x_0.set_frequency_range(self.center_frequency, 250000)
+        self.uhd_usrp_source_0.set_center_freq(self.center_frequency, 0)
+
     def get_decoded_file(self):
         return self.decoded_file
 
@@ -229,7 +239,6 @@ class alpha_stable_generator(gr.top_block, Qt.QWidget):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.qtgui_freq_sink_x_0.set_frequency_range(0, self.samp_rate)
         self.uhd_usrp_source_0.set_samp_rate(self.samp_rate)
 
     def get_gama_map(self):
@@ -264,6 +273,9 @@ def argument_parser():
         "--beta-map-str", dest="beta_map_str", type=str, default="-1.0,1.0",
         help="Set beta_map_str [default=%(default)r]")
     parser.add_argument(
+        "--center-frequency", dest="center_frequency", type=intx, default=915000000,
+        help="Set center_frequency [default=%(default)r]")
+    parser.add_argument(
         "--decoded-file", dest="decoded_file", type=str, default=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\decoded.bin",
         help="Set decoded_file [default=%(default)r]")
     parser.add_argument(
@@ -296,7 +308,7 @@ def main(top_block_cls=alpha_stable_generator, options=None):
 
     qapp = Qt.QApplication(sys.argv)
 
-    tb = top_block_cls(L=options.L, alpha_map_str=options.alpha_map_str, beta_map_str=options.beta_map_str, decoded_file=options.decoded_file, encoded_file=options.encoded_file, eos_timeout=options.eos_timeout, gama_map_str=options.gama_map_str, noise_ratio=options.noise_ratio, samples_per_symbol=options.samples_per_symbol, source_file=options.source_file, source_number_of_samples=options.source_number_of_samples)
+    tb = top_block_cls(L=options.L, alpha_map_str=options.alpha_map_str, beta_map_str=options.beta_map_str, center_frequency=options.center_frequency, decoded_file=options.decoded_file, encoded_file=options.encoded_file, eos_timeout=options.eos_timeout, gama_map_str=options.gama_map_str, noise_ratio=options.noise_ratio, samples_per_symbol=options.samples_per_symbol, source_file=options.source_file, source_number_of_samples=options.source_number_of_samples)
 
     tb.start()
     tb.flowgraph_started.set()

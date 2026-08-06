@@ -127,7 +127,7 @@ def apply_publication_style(ax):
 
 
 def graph_beta():
-    base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_beta")
+    base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_beta_2")
 
     if not os.path.isdir(base_dir):
         return
@@ -186,7 +186,7 @@ def graph_beta():
         "BER vs Δβ",
         "Δβ",
         "BER",
-        "beta_error.png",
+        "beta_error_2.png",
     )
 
 def graph_gama():
@@ -317,6 +317,66 @@ def graph_sample_size():
         "BER",
         "sample_size_error_impulsive.png",
     )
+
+
+def graph_l():
+    base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_L")
+
+    if not os.path.isdir(base_dir):
+        return
+
+    curves = []
+
+    l_dirs = []
+    for folder_name in os.listdir(base_dir):
+        if not folder_name.startswith("L_"):
+            continue
+
+        try:
+            l_value = int(folder_name.replace("L_", ""))
+        except ValueError:
+            continue
+
+        l_dirs.append((l_value, folder_name))
+
+    for l_value, folder_name in sorted(l_dirs):
+        results = []
+        current_dir = os.path.join(base_dir, folder_name)
+
+        sample_dirs = sorted(
+            [d for d in os.listdir(current_dir) if d.isdigit()],
+            key=int,
+        )
+
+        for sample_dir in sample_dirs:
+            output_path = os.path.join(current_dir, sample_dir, "output.txt")
+
+            if not os.path.isfile(output_path):
+                continue
+
+            error_rate, stop_curve = read_error_rate(output_path)
+
+            if error_rate is None:
+                continue
+
+            results.append((int(sample_dir), error_rate))
+
+            if stop_curve:
+                break
+
+        if results:
+            x, y = zip(*results)
+            curves.append((f"L={l_value}", x, y))
+
+    save_publication_chart(
+        curves,
+        "BER vs samples per symbol",
+        "Samples per symbol (N)",
+        "BER",
+        "l_error_log.png",
+    )
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -326,6 +386,7 @@ def main():
             "beta",
             "gama",
             "sample_size",
+            "l",
         ],
         default="all",
         help="Choose which graph family to generate.",
@@ -342,6 +403,9 @@ def main():
 
     if args.plot in ("all", "sample_size"):
         graph_sample_size()
+
+    if args.plot in ("all", "l"):
+        graph_l()
 
     print(f"Graphs written to {GRAPH_OUTPUT_DIR}")
 

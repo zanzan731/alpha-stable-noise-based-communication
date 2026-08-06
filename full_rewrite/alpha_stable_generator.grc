@@ -124,7 +124,7 @@ blocks:
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
-    noise_type: analog.GR_IMPULSE
+    noise_type: analog.GR_GAUSSIAN
     seed: '0'
     type: float
   states:
