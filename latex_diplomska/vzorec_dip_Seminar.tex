@@ -1132,9 +1132,9 @@ Ocenjena vrednost $\hat{\beta}$ se nato primerja z dovoljenimi vrednostmi iz pre
 
 Pri prenosu komunikacijskega sistema iz simulacijskega okolja na fizično opremo se pojavljajo dodatne omejitve, ki jih v simulaciji ni bilo treba obravnavati. Med najpomembnejše sodita zagotavljanje vzorcev v realnem času in sinhronizacija med oddajnikom in sprejemnikom.
 
-V simulacijskem okolju hitrost generiranja vzorcev ni bila ključnega pomena, saj je bilo bil začetek signala natančno znan. Na fizičnem sprejemniku pa vzorčenje poteka neprekinjeno, zato sprejeti tok pred začetkom paketa vsebuje šum, motnje in morebitne druge signale iz okolice. Sprejemnik mora zato sam ugotoviti, kdaj se paket začne.
+V simulacijskem okolju hitrost generiranja vzorcev ni bila ključnega pomena, saj je bil začetek signala natančno znan. Na fizičnem sprejemniku pa vzorčenje poteka neprekinjeno, zato sprejeti tok pred začetkom paketa vsebuje šum, motnje in morebitne druge signale iz okolice. Sprejemnik mora zato sam ugotoviti, kdaj se paket začne.
 
-Oddajnik SDR mora kompleksne vzorce dostaviti z zahtevano vzorčno frekvenco. Če računalnik vzorcev ne zagotavlja dovolj hitro, pride do pojava, ki mu rečemo \texttt{podkoračitev (angl. underflow)}. V tem primeru oddajana naprava začasno ostane brez novih vzorcev, kar lahko povzroči prekinitev signala in napake pri dekodiranju. Ker je generiranje vzorcev $\alpha$-stabilne porazdelitve računsko zahtevnejše od generiranja enostavnih determinističnih signalov, je bilo treba način generiranja prilagoditi delovanju v realnem času. 
+Oddajnik SDR mora kompleksne vzorce dostaviti z zahtevano vzorčno frekvenco. Če računalnik vzorcev ne zagotavlja dovolj hitro, pride do pojava, ki mu rečemo \texttt{podkoračitev}  (angl. underflow). V tem primeru oddajana naprava začasno ostane brez novih vzorcev, kar lahko povzroči prekinitev signala in napake pri dekodiranju. Ker je generiranje vzorcev $\alpha$-stabilne porazdelitve računsko zahtevnejše od generiranja enostavnih determinističnih signalov, je bilo treba način generiranja prilagoditi delovanju v realnem času. 
 
 V nadaljevanju sta predstavljena vektorizirano generiranje $\alpha$-stabilnih vzorcev in postopek sinhronizacije, uporabljen pri komunikaciji med dvema napravama SDR.
 
@@ -1238,7 +1238,7 @@ Simulacijo smo izvedli s parametri $L=20$ in $noise\_ratio=6.5$, pri čemer smo 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{beta_error_cut.png}
+\includegraphics[width=0.8\textwidth]{beta_error.png}
 \end{center}
 \caption{Graf BER glede na $\Delta \beta$}
 \label{beta_error}
@@ -1266,7 +1266,7 @@ Simulacijo smo izvedli s parametri $L=20$ in $noise\_ratio=1.0$ in parameter $\b
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{gama_error_log_cut.png}
+\includegraphics[width=0.8\textwidth]{gama_error_log.png}
 \end{center}
 \caption{Graf BER glede na parameter gama}
 \label{gama_error}
@@ -1296,7 +1296,7 @@ V prejšnjih simulacijah smo že opazili, da število vzorcev na simbol pomembno
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\textwidth]{sample_size_error_cut.png}
+  \includegraphics[width=0.8\textwidth]{l_error_log.png}
   \caption{Graf BER glede na velikost vzorca}
   \label{sample_size_error}
 \end{figure}

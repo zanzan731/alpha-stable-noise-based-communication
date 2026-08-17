@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  17 AUG 2026 11:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  17 AUG 2026 16:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2090,14 +2090,14 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 [42
 
 ]
-<beta_error_cut.png, id=551, 568.524pt x 352.6776pt>
-File: beta_error_cut.png Graphic file (type png)
-<use beta_error_cut.png>
-Package pdftex.def Info: beta_error_cut.png  used on input line 1241.
+<beta_error.png, id=551, 568.524pt x 352.6776pt>
+File: beta_error.png Graphic file (type png)
+<use beta_error.png>
+Package pdftex.def Info: beta_error.png  used on input line 1241.
 (pdftex.def)             Requested size: 312.00119pt x 193.55351pt.
 
 
-[43 <./beta_error_cut.png>]
+[43 <./beta_error.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 1261.
@@ -2110,26 +2110,26 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 1261.
 
-<gama_error_log_cut.png, id=558, 568.524pt x 352.6776pt>
-File: gama_error_log_cut.png Graphic file (type png)
-<use gama_error_log_cut.png>
-Package pdftex.def Info: gama_error_log_cut.png  used on input line 1269.
+<gama_error_log.png, id=558, 568.524pt x 352.6776pt>
+File: gama_error_log.png Graphic file (type png)
+<use gama_error_log.png>
+Package pdftex.def Info: gama_error_log.png  used on input line 1269.
 (pdftex.def)             Requested size: 312.00119pt x 193.55351pt.
 
 
 [44]
 
-[45 <./gama_error_log_cut.png>]
-<sample_size_error_cut.png, id=569, 568.524pt x 352.6776pt>
-File: sample_size_error_cut.png Graphic file (type png)
-<use sample_size_error_cut.png>
-Package pdftex.def Info: sample_size_error_cut.png  used on input line 1299.
+[45 <./gama_error_log.png>]
+<l_error_log.png, id=569, 568.524pt x 352.6776pt>
+File: l_error_log.png Graphic file (type png)
+<use l_error_log.png>
+Package pdftex.def Info: l_error_log.png  used on input line 1299.
 (pdftex.def)             Requested size: 312.00119pt x 193.55351pt.
 
 
 [46]
 
-[47 <./sample_size_error_cut.png>]
+[47 <./l_error_log.png>]
 
 [48] (vzorec_dip_Seminar.bbl
 
@@ -2170,7 +2170,7 @@ Package rerunfilecheck Info: File `vzorec_dip_Seminar.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  29534 strings out of 468149
- 594805 string characters out of 5431566
+ 594679 string characters out of 5431566
  1019116 words of memory out of 5000000
  57465 multiletter control sequences out of 15000+600000
  643695 words of font info for 105 fonts, out of 8000000 for 9000
@@ -2201,7 +2201,7 @@ ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Users/ž
 an/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/
 Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/ms
 bm10.pfb>
-Output written on vzorec_dip_Seminar.pdf (64 pages, 1624722 bytes).
+Output written on vzorec_dip_Seminar.pdf (64 pages, 1461614 bytes).
 PDF statistics:
  745 PDF objects out of 1000 (max. 8388607)
  154 named destinations out of 1000 (max. 500000)

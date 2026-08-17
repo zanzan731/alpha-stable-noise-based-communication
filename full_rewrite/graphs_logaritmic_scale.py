@@ -88,7 +88,8 @@ def save_publication_chart(
 
     apply_publication_style(ax)
 
-    ax.legend(loc="upper right")
+    legend_location = "lower left" if filename == "beta_error.png" else "upper right"
+    ax.legend(loc=legend_location)
 
     fig.tight_layout()
 

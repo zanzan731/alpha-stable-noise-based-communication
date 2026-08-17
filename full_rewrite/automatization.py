@@ -147,7 +147,7 @@ def run_different_gama():
                 L=2,
                 output_dir=output_dir,
                 gama_map=gama_map,
-                noise_ratio=0.0,
+                noise_ratio=1.0,
             )
 
             run_binary_diff(output_dir)
