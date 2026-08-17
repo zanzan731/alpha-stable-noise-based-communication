@@ -127,7 +127,7 @@ def apply_publication_style(ax):
 
 
 def graph_beta():
-    base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_beta_2")
+    base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_beta")
 
     if not os.path.isdir(base_dir):
         return
@@ -186,7 +186,7 @@ def graph_beta():
         "BER vs Δβ",
         "Δβ",
         "BER",
-        "beta_error_2.png",
+        "beta_error.png",
     )
 
 def graph_gama():
@@ -254,7 +254,7 @@ def graph_gama():
     )
 
 def graph_sample_size():
-    base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_noise_impulsive")
+    base_dir = os.path.join(SIMULATION_ROOT, "BERvsMSNR_different_noise")
 
     if not os.path.isdir(base_dir):
         return
@@ -315,7 +315,7 @@ def graph_sample_size():
         "BER vs samples per symbol",
         "Samples per symbol (N)",
         "BER",
-        "sample_size_error_impulsive.png",
+        "sample_size_error.png",
     )
 
 

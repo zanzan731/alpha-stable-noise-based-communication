@@ -90,7 +90,7 @@ blocks:
     label: ''
     short_id: ''
     type: intx
-    value: '8'
+    value: '2'
   states:
     bus_sink: false
     bus_source: false
@@ -547,17 +547,22 @@ blocks:
       \ int(np.argmin(np.abs(arr - value)))\n\n    def estimate_beta(self, symbol_samples):\n\
       \        samples_per_segment = self.samples_per_symbol // self.L\n        if\
       \ samples_per_segment <= 0:\n            return 0.0\n\n        symbol_array\
-      \ = np.asarray(symbol_samples, dtype=np.float32)\n        segments = symbol_array[:\
+      \ = np.asarray(symbol_samples, dtype=np.float64)\n        segments = symbol_array[:\
       \ samples_per_segment * self.L].reshape(\n            self.L, samples_per_segment\n\
-      \        )\n\n        y_max = np.max(segments, axis=1)\n        y_min = np.min(segments,\
-      \ axis=1)\n\n        if y_max.size == 0 or y_min.size == 0:\n            return\
-      \ 0.0\n\n        s2_max = float(np.var(y_max, ddof=1)) if len(y_max) > 1 else\
-      \ 0.0\n        s2_min = float(np.var(y_min, ddof=1)) if len(y_min) > 1 else\
-      \ 0.0\n        s2_max = float(np.nan_to_num(s2_max, nan=0.0, posinf=0.0, neginf=0.0))\n\
-      \        s2_min = float(np.nan_to_num(s2_min, nan=0.0, posinf=0.0, neginf=0.0))\n\
-      \n        spread = np.sqrt(max(0.0, s2_max)) + np.sqrt(max(0.0, s2_min)) + 1e-12\n\
-      \        score = (np.sqrt(max(0.0, s2_max)) - np.sqrt(max(0.0, s2_min))) / spread\n\
-      \        return float(np.clip(score, -1.0, 1.0))\n\n    def _append_input_samples(self,\
+      \        )\n\n        maximums = np.max(segments, axis=1)\n        minimum_magnitudes\
+      \ = -np.min(segments, axis=1)\n        valid = (\n            np.isfinite(maximums)\n\
+      \            & np.isfinite(minimum_magnitudes)\n            & (maximums > 0.0)\n\
+      \            & (minimum_magnitudes > 0.0)\n        )\n        if np.count_nonzero(valid)\
+      \ < 2:\n            return 0.0\n\n        y_max = np.log(maximums[valid])\n\
+      \        y_min = np.log(minimum_magnitudes[valid])\n        mean_max = float(np.mean(y_max))\n\
+      \        mean_min = float(np.mean(y_min))\n        std_max = float(np.std(y_max,\
+      \ ddof=1))\n        std_min = float(np.std(y_min, ddof=1))\n        if (\n \
+      \           not np.all(np.isfinite([mean_max, mean_min, std_max, std_min]))\n\
+      \            or std_max <= 1e-12\n            or std_min <= 1e-12\n        ):\n\
+      \            return 0.0\n\n        alpha_hat = np.pi / (2.0 * np.sqrt(6.0))\
+      \ * (\n            1.0 / std_max + 1.0 / std_min\n        )\n        log_tail_ratio\
+      \ = alpha_hat * (mean_max - mean_min)\n        beta_hat = np.tanh(0.5 * log_tail_ratio)\n\
+      \        return float(np.clip(beta_hat, -1.0, 1.0))\n\n    def _append_input_samples(self,\
       \ input_samples):\n        if input_samples.size:\n            self._sample_buffer\
       \ = np.concatenate(\n                (self._sample_buffer, input_samples.astype(np.float32,\
       \ copy=False))\n            )\n\n    def _flush_bits_to_output(self, out, out_index):\n\

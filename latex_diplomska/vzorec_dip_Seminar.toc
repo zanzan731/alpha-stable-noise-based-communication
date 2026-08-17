@@ -5,49 +5,56 @@
 \contentsline {chapter}{Abstract}{}{chapter*.3}%
 \babel@toc {slovene}{}\relax 
 \contentsline {chapter}{\numberline {1}Uvod}{1}{chapter.1}%
-\contentsline {chapter}{\numberline {2}Brezžična komunikacija in njeni izzivi}{5}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Osnove brezžičnih komunikacij}{5}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Obstoječe brezžične komunikacijske tehnologije}{7}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Ključni izzivi sodobnih brezžičnih komunikacijskih sistemov}{9}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Šum}{9}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Zaznavnost komunikacije}{10}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}Obstoječe rešitve}{10}{subsection.2.3.3}%
-\contentsline {section}{\numberline {2.4}Komunikacija, temelječa na šumu}{11}{section.2.4}%
-\contentsline {chapter}{\numberline {3}$\alpha $-stabilne porazdelitve}{13}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Stabilne porazdelitve}{13}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Definicija $\alpha $-stabilnih porazdelitev}{14}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Parametri $\alpha $-stabilne porazdelitve}{17}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Parameter stabilnosti $\alpha $}{17}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Parameter asimetrije $\beta $}{18}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Parameter skale $\gamma $}{18}{subsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.3.4}Parameter lege $\mu $}{19}{subsection.3.3.4}%
-\contentsline {section}{\numberline {3.4}Posebni primeri $\alpha $-stabilnih porazdelitev}{19}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Normalna (Gaussova) porazdelitev}{19}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Cauchyjeva porazdelitev}{20}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Lévyjeva porazdelitev}{21}{subsection.3.4.3}%
-\contentsline {section}{\numberline {3.5}Posplošeni centralni limitni izrek}{22}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Pomen lastnosti stabilnosti za modeliranje komunikacijskih kanalov}{25}{section.3.6}%
-\contentsline {chapter}{\numberline {4}Komunikacija z uporabo $\alpha $-stabilnega šuma}{27}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Kodiranje informacije}{27}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Dekodiranje informacije}{28}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Zakaj komunikcaija deluje?}{29}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Načrtovanje in implementacija sistema}{31}{chapter.5}%
-\contentsline {section}{\numberline {5.1}GNU Radio Companion}{31}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Arhitektura komunikacijskega sistema}{32}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Parametri}{35}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Implementacija kodirnika}{36}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Preslikava bitov v parametre}{36}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Preslikava simbolov v parametre porazdelitve}{36}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Generiranje vzorcev}{37}{subsection.5.4.3}%
-\contentsline {subsection}{\numberline {5.4.4}Chambers-Mallows-Stuckov algoritem}{37}{subsection.5.4.4}%
-\contentsline {section}{\numberline {5.5}Implementacija dekodirnik}{37}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Razdelitev simbola na segmente}{38}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}Ocenjevanje parametra $\beta $}{38}{subsection.5.5.2}%
-\contentsline {subsection}{\numberline {5.5.3}Dekodiranje bitov}{38}{subsection.5.5.3}%
-\contentsline {section}{\numberline {5.6}SDR implementacija}{39}{section.5.6}%
-\contentsline {chapter}{\numberline {6}Evalvacija v simulacijskem okolju}{41}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Spreminjanje parametra $\beta $}{42}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Spreminjanje parametra $\gamma $}{43}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Različne velikosti vzorca glede na šum}{44}{section.6.3}%
-\contentsline {chapter}{\numberline {7}Rezultati uporabe na SDR opremi}{47}{chapter.7}%
-\contentsline {chapter}{Literatura}{49}{chapter.7}%
+\contentsline {chapter}{\numberline {2}Brezžična komunikacija in njeni izzivi}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Osnove brezžičnih komunikacij}{4}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Obstoječe brezžične komunikacijske tehnologije}{6}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Ključni izzivi sodobnih brezžičnih komunikacijskih sistemov}{8}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Šum}{8}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Zaznavnost komunikacije}{9}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Obstoječe rešitve}{9}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}Komunikacija, temelječa na šumu}{10}{section.2.4}%
+\contentsline {chapter}{\numberline {3}$\alpha $-stabilne porazdelitve}{11}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Stabilne porazdelitve}{11}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Definicija $\alpha $-stabilnih porazdelitev}{12}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Parametri $\alpha $-stabilne porazdelitve}{15}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Parameter stabilnosti $\alpha $}{15}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Parameter asimetrije $\beta $}{16}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Parameter skale $\gamma $}{16}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Parameter lege $\mu $}{17}{subsection.3.3.4}%
+\contentsline {section}{\numberline {3.4}Posebni primeri $\alpha $-stabilnih porazdelitev}{17}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Normalna (Gaussova) porazdelitev}{17}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Cauchyjeva porazdelitev}{18}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Lévyjeva porazdelitev}{19}{subsection.3.4.3}%
+\contentsline {section}{\numberline {3.5}Posplošeni centralni limitni izrek}{20}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Pomen lastnosti stabilnosti za modeliranje komunikacijskih kanalov}{23}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Komunikacija z uporabo $\alpha $-stabilnega šuma}{25}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Kodiranje informacije}{25}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Dekodiranje informacije}{26}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Zakaj komunikcaija deluje?}{27}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Načrtovanje in implementacija sistema}{29}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Programsko opremljena radijska oprema in GNU Radio}{29}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Programsko opremljena radijska oprema}{29}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}GNU Radio}{30}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}GNU Radio Companion}{31}{subsection.5.1.3}%
+\contentsline {section}{\numberline {5.2}Arhitektura komunikacijskega sistema}{31}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Implementacija kodirnika}{32}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Preslikava bitov v parametre}{33}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Preslikava simbolov v parametre porazdelitve}{33}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Generiranje vzorcev}{33}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Chambers-Mallows-Stuckov algoritem}{34}{subsection.5.3.4}%
+\contentsline {section}{\numberline {5.4}Implementacija dekodirnik}{34}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Razdelitev simbola na segmente}{34}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Ocenjevanje parametra $\beta $}{35}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Dekodiranje bitov}{35}{subsection.5.4.3}%
+\contentsline {section}{\numberline {5.5}Implementacija na opremi SDR}{36}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Vektorsko generiranje $\alpha $-stabilnih vzorcev}{36}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Sihronizacija}{37}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Pilotski simboli in sledenje nosilcu}{38}{subsection.5.5.3}%
+\contentsline {subsection}{\numberline {5.5.4}Popravljanje odmika ur}{39}{subsection.5.5.4}%
+\contentsline {chapter}{\numberline {6}Evalvacija v simulacijskem okolju}{40}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Parametri}{42}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Spreminjanje parametra $\beta $}{43}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Spreminjanje parametra $\gamma $}{44}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Različne velikosti vzorca glede na šum}{46}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Rezultati uporabe na opremi SDR}{47}{section.6.5}%
+\contentsline {chapter}{Literatura}{49}{section.6.5}%

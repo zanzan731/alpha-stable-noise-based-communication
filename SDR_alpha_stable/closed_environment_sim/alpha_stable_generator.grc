@@ -1,0 +1,514 @@
+options:
+  parameters:
+    author: ''
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: no_gui
+    hier_block_src_path: '.:'
+    id: alpha_stable_generator
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: run
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: Alpha stable simulation
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: alpha_map
+  id: variable
+  parameters:
+    comment: ''
+    value: '[float(x) for x in alpha_map_str.split(",")]'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [584, 16.0]
+    rotation: 0
+    state: enabled
+- name: beta_map
+  id: variable
+  parameters:
+    comment: ''
+    value: '[float(x) for x in beta_map_str.split(",")]'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [584, 128.0]
+    rotation: 0
+    state: enabled
+- name: gama_map
+  id: variable
+  parameters:
+    comment: ''
+    value: '[float(x) for x in gama_map_str.split(",")]'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [584, 240.0]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '64000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [256, 8.0]
+    rotation: 0
+    state: enabled
+- name: L
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: intx
+    value: '20'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1168, 116.0]
+    rotation: 0
+    state: enabled
+- name: alpha_map_str
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: str
+    value: '"1.2,1.4,1.6,1.8"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 12.0]
+    rotation: 0
+    state: enabled
+- name: analog_random_source_x_0
+  id: analog_random_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    max: '255'
+    maxoutbuf: '0'
+    min: '0'
+    minoutbuf: '0'
+    num_samps: source_number_of_samples
+    repeat: 'False'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [472, 656.0]
+    rotation: 0
+    state: enabled
+- name: beta_map_str
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: str
+    value: '"-1.0,1.0"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 124.0]
+    rotation: 0
+    state: enabled
+- name: blocks_file_sink_0
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'False'
+    comment: ''
+    file: source_file
+    type: byte
+    unbuffered: 'False'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [688, 852.0]
+    rotation: 0
+    state: enabled
+- name: blocks_file_sink_1
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'False'
+    comment: ''
+    file: decoded_file
+    type: byte
+    unbuffered: 'False'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1704, 596.0]
+    rotation: 0
+    state: enabled
+- name: center_frequency
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: intx
+    value: '915000000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1656, 168.0]
+    rotation: 0
+    state: enabled
+- name: decoded_file
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: str
+    value: r"decoded.bin"
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [896, 228.0]
+    rotation: 0
+    state: enabled
+- name: encoded_file
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: str
+    value: r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\encoded.bin"
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [896, 116.0]
+    rotation: 0
+    state: enabled
+- name: eos_timeout
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: EOS_timeout
+    short_id: ''
+    type: eng_float
+    value: '3.0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1448, 144.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_0
+  id: epy_block
+  parameters:
+    _source_code: |-
+      import sys
+      from pathlib import Path
+
+      _PROJECT_DIR = str(Path(__file__).resolve().parent.parent)
+      if _PROJECT_DIR not in sys.path:
+          sys.path.insert(0, _PROJECT_DIR)
+
+      from sender.alpha_stable_generator_epy_block_0 import alpha_encoder
+    affinity: ''
+    alias: ''
+    alpha_map: alpha_map
+    beta_map: beta_map
+    comment: ''
+    encode_alpha: 'False'
+    encode_beta: 'True'
+    encode_gama: 'False'
+    expected_input_bytes: source_number_of_samples
+    gama_map: gama_map
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_symbol: samples_per_symbol
+    sync_symbols: '32'
+  states:
+    _io_cache: ('alpha_encoder', 'alpha_encoder', [('alpha_map', '[1.2, 1.4, 1.6,
+      1.8]'), ('beta_map', '[-1.0, 1.0]'), ('gama_map', '[0.5, 1.0, 1.5, 2.0]'), ('samples_per_symbol',
+      '500'), ('encode_alpha', 'False'), ('encode_beta', 'True'), ('encode_gama',
+      'False'), ('expected_input_bytes', 'None'), ('sync_symbols', '16')], [('0',
+      'byte', 1)], [('0', 'complex', 1)], '', ['alpha_map', 'beta_map', 'encode_alpha',
+      'encode_beta', 'encode_gama', 'expected_input_bytes', 'gama_map', 'samples_per_symbol',
+      'sync_symbols'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [856, 556.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_1
+  id: epy_block
+  parameters:
+    L: L
+    _source_code: |-
+      import sys
+      from pathlib import Path
+
+      _PROJECT_DIR = str(Path(__file__).resolve().parent.parent)
+      if _PROJECT_DIR not in sys.path:
+          sys.path.insert(0, _PROJECT_DIR)
+
+      from receiver.alpha_stable_generator_epy_block_1 import alpha_decoder
+    affinity: ''
+    alias: ''
+    beta_map: beta_map
+    comment: ''
+    debug_symbols: '20'
+    expected_output_bytes: source_number_of_samples
+    header_repetitions: '3'
+    max_payload_bytes: '1000000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_symbol: samples_per_symbol
+    sync_symbols: '32'
+    sync_threshold: '0.90'
+  states:
+    _io_cache: ('alpha_decoder', 'alpha_decoder', [('alpha_map', '[1.2, 1.4, 1.6,
+      1.8]'), ('beta_map', '[-1.0, 1.0]'), ('gama_map', '[0.5, 1.0, 1.5, 2.0]'), ('samples_per_symbol',
+      '500'), ('L', '20'), ('encode_alpha', 'False'), ('encode_beta', 'True'), ('encode_gama',
+      'False'), ('expected_input_samples', 'None'), ('sync_symbols', '16'), ('sync_threshold',
+      '0.8')], [('0', 'complex', 1)], [('0', 'byte', 1)], '', ['L', 'alpha_map', 'beta_map',
+      'encode_alpha', 'encode_beta', 'encode_gama', 'expected_input_samples', 'gama_map',
+      'samples_per_symbol', 'sync_symbols', 'sync_threshold'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1208, 516.0]
+    rotation: 0
+    state: enabled
+- name: gama_map_str
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: str
+    value: '"0.5,1.0,1.5,2.0"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 240.0]
+    rotation: 0
+    state: enabled
+- name: noise_ratio
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: eng_float
+    value: '10'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1408, 296.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_freq_sink_x_0
+  id: qtgui_freq_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '1.0'
+    axislabels: 'True'
+    bw: '250000'
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    ctrlpanel: 'True'
+    fc: center_frequency
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label: Relative Gain
+    label1: ''
+    label10: ''''''
+    label2: ''''''
+    label3: ''''''
+    label4: ''''''
+    label5: ''''''
+    label6: ''''''
+    label7: ''''''
+    label8: ''''''
+    label9: ''''''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '1'
+    norm_window: 'False'
+    showports: 'False'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_tag: '""'
+    type: complex
+    units: dB
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    wintype: window.WIN_BLACKMAN_hARRIS
+    ymax: '10'
+    ymin: '-140'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1608, 348.0]
+    rotation: 0
+    state: disabled
+- name: samples_per_symbol
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: intx
+    value: '500'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1168, 4.0]
+    rotation: 0
+    state: enabled
+- name: source_file
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: str
+    value: r"source.bin"
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [896, 4.0]
+    rotation: 0
+    state: enabled
+- name: source_number_of_samples
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: ''
+    type: intx
+    value: '128'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1424, 8.0]
+    rotation: 0
+    state: enabled
+
+connections:
+- [analog_random_source_x_0, '0', blocks_file_sink_0, '0']
+- [analog_random_source_x_0, '0', epy_block_0, '0']
+- [epy_block_0, '0', epy_block_1, '0']
+- [epy_block_1, '0', blocks_file_sink_1, '0']
+
+metadata:
+  file_format: 1
+  grc_version: 3.10.12.0

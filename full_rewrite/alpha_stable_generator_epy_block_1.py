@@ -115,25 +115,41 @@ class alpha_decoder(gr.basic_block):
         if samples_per_segment <= 0:
             return 0.0
 
-        symbol_array = np.asarray(symbol_samples, dtype=np.float32)
+        symbol_array = np.asarray(symbol_samples, dtype=np.float64)
         segments = symbol_array[: samples_per_segment * self.L].reshape(
             self.L, samples_per_segment
         )
 
-        y_max = np.max(segments, axis=1)
-        y_min = np.min(segments, axis=1)
-
-        if y_max.size == 0 or y_min.size == 0:
+        maximums = np.max(segments, axis=1)
+        minimum_magnitudes = -np.min(segments, axis=1)
+        valid = (
+            np.isfinite(maximums)
+            & np.isfinite(minimum_magnitudes)
+            & (maximums > 0.0)
+            & (minimum_magnitudes > 0.0)
+        )
+        if np.count_nonzero(valid) < 2:
             return 0.0
 
-        s2_max = float(np.var(y_max, ddof=1)) if len(y_max) > 1 else 0.0
-        s2_min = float(np.var(y_min, ddof=1)) if len(y_min) > 1 else 0.0
-        s2_max = float(np.nan_to_num(s2_max, nan=0.0, posinf=0.0, neginf=0.0))
-        s2_min = float(np.nan_to_num(s2_min, nan=0.0, posinf=0.0, neginf=0.0))
+        y_max = np.log(maximums[valid])
+        y_min = np.log(minimum_magnitudes[valid])
+        mean_max = float(np.mean(y_max))
+        mean_min = float(np.mean(y_min))
+        std_max = float(np.std(y_max, ddof=1))
+        std_min = float(np.std(y_min, ddof=1))
+        if (
+            not np.all(np.isfinite([mean_max, mean_min, std_max, std_min]))
+            or std_max <= 1e-12
+            or std_min <= 1e-12
+        ):
+            return 0.0
 
-        spread = np.sqrt(max(0.0, s2_max)) + np.sqrt(max(0.0, s2_min)) + 1e-12
-        score = (np.sqrt(max(0.0, s2_max)) - np.sqrt(max(0.0, s2_min))) / spread
-        return float(np.clip(score, -1.0, 1.0))
+        alpha_hat = np.pi / (2.0 * np.sqrt(6.0)) * (
+            1.0 / std_max + 1.0 / std_min
+        )
+        log_tail_ratio = alpha_hat * (mean_max - mean_min)
+        beta_hat = np.tanh(0.5 * log_tail_ratio)
+        return float(np.clip(beta_hat, -1.0, 1.0))
 
     def _append_input_samples(self, input_samples):
         if input_samples.size:

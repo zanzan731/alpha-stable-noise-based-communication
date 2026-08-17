@@ -77,7 +77,7 @@ def run_test():
     run_binary_diff(output_dir)
 
 def run_different_beta():
-    """beta_options = [
+    beta_options = [
         "-1.0,1.0",
         "-0.9,0.9",
         "-0.8,0.8",
@@ -88,11 +88,10 @@ def run_different_beta():
         "-0.3,0.3",
         "-0.2,0.2",
         "-0.1,0.1"
-    ]"""
-    beta_options = ["-0.9,0.9"]
+    ]
 
     sample_sizes = [40, 80, 160, 240, 320, 400, 600, 800, 1000]
-    base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_beta_2"
+    base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_beta"
 
     for sample_size in sample_sizes:
         sample_dir = os.path.join(base_dir, str(sample_size))
@@ -106,8 +105,8 @@ def run_different_beta():
             run_generator(
                 beta_map,
                 samples_per_symbol=sample_size,
-                L=20,
-                noise_ratio=1.0,
+                L=2,
+                noise_ratio=0.0,
                 output_dir=output_dir,
             )
 
@@ -145,10 +144,10 @@ def run_different_gama():
             run_generator(
                 "-1.0,1.0",
                 samples_per_symbol=sample_size,
-                L=20,
+                L=2,
                 output_dir=output_dir,
                 gama_map=gama_map,
-                noise_ratio=1.0,
+                noise_ratio=0.0,
             )
 
             run_binary_diff(output_dir)
@@ -171,7 +170,7 @@ def run_different_noise_for_sample_size():
         10.0,
     ]
 
-    base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_noise_impulsive"
+    base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_noise"
 
     for noise_ratio in noise_ratios:
         noise_tag = str(noise_ratio).replace(".", "p")
@@ -183,7 +182,7 @@ def run_different_noise_for_sample_size():
             run_generator(
                 "-1.0,1.0",
                 samples_per_symbol=sample_size,
-                L=8,
+                L=2,
                 noise_ratio=noise_ratio,
                 output_dir=output_dir,
             )

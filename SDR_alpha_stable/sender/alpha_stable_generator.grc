@@ -73,7 +73,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '32000'
+    value: '64000'
   states:
     bus_sink: false
     bus_source: false
@@ -90,7 +90,7 @@ blocks:
     label: ''
     short_id: ''
     type: intx
-    value: '8'
+    value: '20'
   states:
     bus_sink: false
     bus_source: false
@@ -126,7 +126,7 @@ blocks:
     min: '0'
     minoutbuf: '0'
     num_samps: source_number_of_samples
-    repeat: 'True'
+    repeat: 'False'
     type: byte
   states:
     bus_sink: false
@@ -134,7 +134,7 @@ blocks:
     bus_structure: null
     coordinate: [16, 680.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: analog_sig_source_x_0
   id: analog_sig_source_x
   parameters:
@@ -155,9 +155,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [752, 768.0]
+    coordinate: [784, 896.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: beta_map_str
   id: parameter
   parameters:
@@ -192,25 +192,7 @@ blocks:
     bus_structure: null
     coordinate: [496, 860.0]
     rotation: 0
-    state: disabled
-- name: blocks_head_0
-  id: blocks_head
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    num_items: source_number_of_samples
-    type: byte
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [240, 716.0]
-    rotation: 0
-    state: disabled
+    state: enabled
 - name: decoded_file
   id: parameter
   parameters:
@@ -265,135 +247,157 @@ blocks:
 - name: epy_block_0
   id: epy_block
   parameters:
-    _source_code: "\"\"\"\nGNU Radio Embedded Python Block: alpha_encoder\n\nKodira\
-      \ vhodne bajte v serijo vzorcev alfa-stabilne porazdelitve.\n\"\"\"\n\nimport\
-      \ numpy as np\nfrom gnuradio import gr\nimport sys\nimport time  # fallback-only\
-      \ now, see comments below\n\n\n\nclass alpha_encoder(gr.basic_block):\n    \"\
-      \"\"Kodira bajte v serijo vzorcev alfa-stabilne porazdelitve.\"\"\"\n\n    def\
-      \ __init__(\n        self, \n        alpha_map=[1.2, 1.4, 1.6, 1.8], \n    \
-      \    beta_map=[-1.0, 1.0],\n        gama_map=[0.5, 1.0, 1.5, 2.0],\n       \
-      \ samples_per_symbol=500,\n        encode_alpha=False,\n        encode_beta=True,\n\
-      \        encode_gama=False,\n        eos_timeout=2.0,\n        expected_input_bytes=None,\n\
-      \    ):\n        gr.basic_block.__init__(\n            self,\n            name=\"\
-      alpha_encoder\",\n            in_sig=[np.uint8],\n            out_sig=[np.complex64],\n\
-      \        )\n\n        self.alpha_map = list(alpha_map)\n        self.beta_map\
-      \ = list(beta_map)\n        self.gama_map = list(gama_map)\n        self.samples_per_symbol\
+    _source_code: "\"\"\"Shared framed alpha-stable SDR protocol used by sender and\
+      \ receiver.\n\nThe synchronization word and header are deterministic BPSK. \
+      \ Only the payload\nuses alpha-stable symbols, so acquisition does not depend\
+      \ on a statistical\nestimate and the payload modulation remains unchanged in\
+      \ principle.\n\"\"\"\n\nimport struct\nimport sys\nimport time\nimport zlib\n\
+      \nimport numpy as np\nfrom gnuradio import gr\n\n\nSYNC_WORD = 0x1ACFFC1D  #\
+      \ 32-bit CCSDS attached synchronization marker\nMIN_SYNC_SYMBOLS = 32\nMAGIC\
+      \ = 0xD39A\nHEADER_BYTES = 10  # uint16 magic, uint32 payload length, uint32\
+      \ CRC32\n\n\ndef bytes_to_bits(data):\n    \"\"\"Return least-significant-bit-first\
+      \ bits, matching the payload mapping.\"\"\"\n    values = np.frombuffer(bytes(data),\
+      \ dtype=np.uint8)\n    return np.unpackbits(values, bitorder=\"little\").astype(np.uint8,\
+      \ copy=False)\n\n\ndef bits_to_bytes(bits):\n    bits = np.asarray(bits, dtype=np.uint8)\n\
+      \    if len(bits) % 8:\n        raise ValueError(\"Number of bits must be a\
+      \ multiple of 8\")\n    return np.packbits(bits, bitorder=\"little\").tobytes()\n\
+      \n\ndef sync_pattern(symbols=MIN_SYNC_SYMBOLS):\n    \"\"\"Build a deterministic,\
+      \ non-periodic +/-1 synchronization sequence.\"\"\"\n    symbols = max(MIN_SYNC_SYMBOLS,\
+      \ int(symbols))\n    word_bits = np.asarray(\n        [(SYNC_WORD >> (31 - index))\
+      \ & 1 for index in range(32)],\n        dtype=np.float32,\n    )\n    bits =\
+      \ np.resize(word_bits, symbols)\n    return np.where(bits > 0, 1.0, -1.0).astype(np.float32)\n\
+      \n\nclass alpha_encoder(gr.basic_block):\n    \"\"\"Frame bytes and encode payload\
+      \ bits as skewed alpha-stable symbols.\"\"\"\n\n    def __init__(\n        self,\n\
+      \        alpha_map=(1.2, 1.4, 1.6, 1.8),\n        beta_map=(-1.0, 1.0),\n  \
+      \      gama_map=(0.5, 1.0, 1.5, 2.0),\n        samples_per_symbol=500,\n   \
+      \     encode_alpha=False,\n        encode_beta=True,\n        encode_gama=False,\n\
+      \        eos_timeout=2.0,\n        expected_input_bytes=None,\n        sync_symbols=MIN_SYNC_SYMBOLS,\n\
+      \        header_repetitions=3,\n        tx_amplitude=0.70,\n        payload_scale=0.05,\n\
+      \        sample_rate=64000,\n        subcarrier_frequency=4000,\n        payload_pilot_amplitude=0.70,\n\
+      \        tx_tail_symbols=8,\n    ):\n        gr.basic_block.__init__(\n    \
+      \        self, name=\"alpha_encoder\", in_sig=[np.uint8], out_sig=[np.complex64]\n\
+      \        )\n\n        self.alpha_map = np.asarray(alpha_map, dtype=np.float64)\n\
+      \        self.beta_map = np.asarray(beta_map, dtype=np.float64)\n        self.gama_map\
+      \ = np.asarray(gama_map, dtype=np.float64)\n        self.samples_per_symbol\
       \ = int(samples_per_symbol)\n        self.encode_alpha = bool(encode_alpha)\n\
       \        self.encode_beta = bool(encode_beta)\n        self.encode_gama = bool(encode_gama)\n\
-      \n        self._bit_buffer = [] #mogo\u010De vr\u017Eemo potem ven\n       \
-      \ #ta buffer bo ostal ker ima ful smisla da ostane boj input \u010De ga preberem\
-      \ morem prebrat cel byte, \u010De ne shranim moji padatki izginejo to je najbolj\
-      \ simple na\u010Din kako se tega re\u0161iti\n\n        self._eos_reached =\
-      \ False #zato da lahko se samo ustavi\n        self._ever_received_input = False\
-      \ #\u010De tega ni bi lahko scheduler klical general_work preden dobi karkoli\
-      \ in kon\u010Da pred\u010Dasno\n\n        # Fallback-only timing state (kept\
-      \ in case expected_input_bytes is not provided)\n        self.eos_timeout =\
-      \ float(eos_timeout)\n        self._last_input_time = None\n\n        # NEW:\
-      \ deterministic byte-count tracking (this is the real fix)\n        self.expected_input_bytes\
-      \ = (\n            int(expected_input_bytes) if expected_input_bytes is not\
-      \ None else None\n        )\n        self._total_bytes_seen = 0  # running total\
-      \ of bytes consumed so far this run\n\n        if self.samples_per_symbol <=\
-      \ 0:\n            raise ValueError(\"samples_per_symbol must be pozitive number\"\
-      )\n        if self.encode_alpha and not self.is_power_of_two(len(self.alpha_map)):\n\
-      \            raise ValueError(\"The size of alpha_map must be 2^n\")\n     \
-      \   if self.encode_beta and not self.is_power_of_two(len(self.beta_map)):\n\
-      \            raise ValueError(\"The size of beta_map must be 2^n\")\n      \
-      \  if self.encode_gama and not self.is_power_of_two(len(self.gama_map)):\n \
-      \           raise ValueError(\"The size of gama_map must be 2^n\")\n\n     \
-      \   self.bits_alpha = self.log2_za_potence2(len(self.alpha_map)) if self.encode_alpha\
-      \ else 0\n        self.bits_beta  = self.log2_za_potence2(len(self.beta_map))\
-      \  if self.encode_beta  else 0\n        self.bits_gama  = self.log2_za_potence2(len(self.gama_map))\
-      \  if self.encode_gama  else 0\n        self.bits_per_symbol = self.bits_alpha\
-      \ + self.bits_beta + self.bits_gama # log(map_size) nam pove koliko bitov lahko\
-      \ predstavimo z vsakim parametrom, \u010De to se\u0161tejemo imamo \u0161tevilo\
-      \ bitov glede na semple\n\n        if self.bits_per_symbol <= 0:\n         \
-      \   raise ValueError(\"At least one of encode_alpha, encode_beta, encode_gama\
-      \ nust be True\")\n\n    def forecast(self, noutput_items, ninputs):\n     \
-      \   return [0] * int(ninputs)\n\n    @staticmethod\n    def is_power_of_two(x):\n\
-      \        return x > 0 and (x & (x - 1)) == 0\n\n    @staticmethod\n    def log2_za_potence2(x):\n\
-      \        if x == 0:\n            return 0\n        if alpha_encoder.is_power_of_two(x):\n\
-      \            vrednost = 0\n            while x > 1:\n                x >>= 1\n\
-      \                vrednost += 1\n            return vrednost\n        raise ValueError(\"\
-      One of the mups is not the size of 2^n (something went wrong, this mesage should\
-      \ not be reachable)\")\n\n    @staticmethod\n    def alpha_stable(size, alpha=1.1,\
-      \ beta=0.0, gama=1.0): #default walues that should be the best, encoding\n \
-      \       v_values = np.random.uniform(-np.pi / 2, np.pi / 2, size)\n        w_values\
-      \ = np.random.exponential(1, size)\n\n        constant = beta * np.tan(np.pi\
-      \ * alpha / 2)\n        shift = np.arctan(constant)\n        scale = (1 + constant\
-      \ ** 2) ** (1 / (2 * alpha))\n\n        samples = (\n            scale\n   \
-      \         * np.sin(alpha * v_values + shift)\n            / (np.cos(v_values))\
-      \ ** (1 / alpha)\n            * (np.cos((1 - alpha) * v_values - shift) / w_values)\
-      \ ** ((1 - alpha) / alpha)\n        )\n        return gama * samples\n\n   \
-      \ @staticmethod\n    def _read_bits(bit_buffer, start, count):\n        #Kadar\
-      \ enkodiram za en simbol morem vedet kolko bitov lahko ta simbol enkoda (count\
-      \ parameter)\n        #pazi ker vrne niz kjer je prvi prebran bit least significant,\
-      \ torej obrne (na\u010Deloma je vseeno samo rabi\u0161 upo\u0161tevat pri kodiranju\
-      \ da da\u0161 tud obrnt mapo)\n        value = 0\n        for index in range(count):\n\
-      \            value |= (bit_buffer[start + index] << index)\n        return value\n\
-      \n    #iz inputa preberi vse BYTE in vrni v bit_buffer \n    def _append_input_bits(self,\
-      \ input_bytes):\n        for byte in input_bytes:\n            byte_value =\
-      \ int(byte)\n            for bit_index in range(8):\n                self._bit_buffer.append((byte_value\
-      \ >> bit_index) & 1) #dubi samo zadnji bit zato &1  uno pa premakne na pravo\
-      \ mesto binary shift ku v c++\n\n    def _encode_one_symbol(self, bit_offset):\n\
-      \        alpha = 1.1\n        beta = 0.0\n        gama = 1.0\n        offset\
-      \ = bit_offset\n\n        if self.encode_alpha:\n            alpha_index = self._read_bits(self._bit_buffer,\
-      \ offset, self.bits_alpha)\n            alpha = self.alpha_map[alpha_index]\n\
-      \            offset += self.bits_alpha\n\n        if self.encode_beta:\n   \
-      \         beta_index = self._read_bits(self._bit_buffer, offset, self.bits_beta)\n\
-      \            beta = self.beta_map[beta_index]\n            offset += self.bits_beta\n\
-      \n        if self.encode_gama:\n            gama_index = self._read_bits(self._bit_buffer,\
-      \ offset, self.bits_gama)\n            gama = self.gama_map[gama_index]\n  \
-      \          offset += self.bits_gama\n\n        return alpha, beta, gama\n\n\
-      \    def general_work(self, input_items, output_items):\n        input_bytes\
-      \ = input_items[0]\n        output_samples = output_items[0]\n\n        '''\n\
-      \        if not hasattr(self, '_dbg_call'):\n            self._dbg_call = 0\n\
-      \        self._dbg_call += 1 # da vem kolkokrat pokli\u010Dem ta blok general_work\n\
-      \        c = self._dbg_call\n        print(f\"[ENC #{c}] id={id(self)} in={len(input_bytes)}\
-      \ out_buf={len(output_samples)} bit_buf={len(self._bit_buffer)} eos={self._eos_reached}\
-      \ ever={self._ever_received_input} seen={self._total_bytes_seen}/{self.expected_input_bytes}\"\
-      , file=sys.stderr, flush=True) \n        ''' #debuging\n\n        if len(input_bytes)\
-      \ > 0:\n            self._ever_received_input = True\n            self._eos_reached\
-      \ = False\n            self._last_input_time = time.time()  # fallback bookkeeping\
-      \ only\n            self._total_bytes_seen += len(input_bytes)  # NEW: exact\
-      \ running count\n            self._append_input_bits(input_bytes) #direktno\
-      \ preberi dol iz inputa za delo naprej\n            self.consume(0, len(input_bytes))\
-      \ # to je za GNU radio da mu povem kolko podatkov sem pobral dol z vhoda, v\
-      \ tem klicu general work ostaja input_samples enak stream se ne nadaljuje po\
-      \ tem ko sem v tem bloku to je pomembno ker druga\u010De ne bi smel delati tako\n\
-      \n            if (\n                self.expected_input_bytes is not None\n\
-      \                and self._total_bytes_seen >= self.expected_input_bytes\n \
-      \           ):\n                self._eos_reached = True\n\n        elif self._ever_received_input:\n\
-      \            if (time.time() - self._last_input_time) >= self.eos_timeout:\n\
-      \                self._eos_reached = True\n        else:\n            # \u010C\
-      e nikoli \u0161e nisem dubu podatkov samo loopi dokler jih ne dobim\n      \
-      \      return 0\n        \n        if self._eos_reached and 0 < len(self._bit_buffer)\
-      \ < self.bits_per_symbol:\n            # Zadnji delni simbol dopolnimo z ni\u010D\
-      lami, da ga \u0161e lahko zakodiramo, druga\u010De lahko imamo v bit_bufferju\
-      \ ostanek \u010De vhod ni deljiv z bits_per_symbol\n            self._bit_buffer.extend([0]\
-      \ * (self.bits_per_symbol - len(self._bit_buffer)))\n        \n        # Encode\
-      \ as many symbols as we can fit in the output buffer\n        max_symbols =\
-      \ len(output_samples) // self.samples_per_symbol #buffer ima v GNU radio omejeno\
-      \ velikost za output smiselno sicer ampak jaz bi \u0161opal rad podatke \u010D\
-      ez\n        produced_symbols = 0\n        bit_offset = 0\n\n        while (\n\
-      \            produced_symbols < max_symbols #\u010De gremo \u010Dez bomo pisali\
-      \ v prazno in zgubili podatke, ne prekora\u010Dit bufferja\n            and\
-      \ len(self._bit_buffer) - bit_offset >= self.bits_per_symbol #v bit_bufferju\
-      \ rabim zadosti simbolov da encodam celotno \n        ):\n            alpha,\
-      \ beta, gama = self._encode_one_symbol(bit_offset)\n            samples = self.alpha_stable(\n\
-      \                self.samples_per_symbol, alpha=alpha, beta=beta, gama=gama\n\
-      \            ).astype(np.complex64)\n\n            start = produced_symbols\
-      \ * self.samples_per_symbol\n            end = start + self.samples_per_symbol\n\
-      \            output_samples[start:end] = samples\n\n            produced_symbols\
-      \ += 1\n            bit_offset += self.bits_per_symbol\n\n        if bit_offset\
-      \ > 0:\n            self._bit_buffer = self._bit_buffer[bit_offset:] #zamakni\
-      \ seznam vr\u017Ei stran vse kar sem \u017Ee predelal\n\n        #print(f\"\
-      [ENC #{c}] produced={produced_symbols} samples={produced_symbols*self.samples_per_symbol}\
-      \ bit_buf_after={len(self._bit_buffer)}\", file=sys.stderr, flush=True)\n\n\
-      \        if produced_symbols > 0:\n            return produced_symbols * self.samples_per_symbol\n\
-      \n        if self._eos_reached and len(self._bit_buffer) < self.bits_per_symbol:\n\
-      \            #print(f\"[ENC #{c}] WORK_DONE\", file=sys.stderr, flush=True)\n\
-      \            return gr.WORK_DONE #to je GNU radio na\u010Din da pove da je blok\
-      \ kon\u010Dal delo\n\n        return 0"
+      \        self.eos_timeout = float(eos_timeout)\n        self.expected_input_bytes\
+      \ = (\n            None if expected_input_bytes is None else int(expected_input_bytes)\n\
+      \        )\n        self.sync_symbols = max(MIN_SYNC_SYMBOLS, int(sync_symbols))\n\
+      \        self.header_repetitions = int(header_repetitions)\n        self.tx_amplitude\
+      \ = float(tx_amplitude)\n        self.payload_scale = float(payload_scale)\n\
+      \        self.sample_rate = float(sample_rate)\n        self.subcarrier_frequency\
+      \ = float(subcarrier_frequency)\n        self.payload_pilot_amplitude = float(payload_pilot_amplitude)\n\
+      \        self.tx_tail_symbols = int(tx_tail_symbols)\n\n        if self.samples_per_symbol\
+      \ <= 0:\n            raise ValueError(\"samples_per_symbol must be positive\"\
+      )\n        if len(self.beta_map) != 2 or not self.encode_beta:\n           \
+      \ raise ValueError(\"Hardware protocol requires two beta values\")\n       \
+      \ if self.encode_alpha or self.encode_gama:\n            raise ValueError(\"\
+      Framed hardware protocol currently encodes beta only\")\n        if self.header_repetitions\
+      \ < 1 or self.header_repetitions % 2 == 0:\n            raise ValueError(\"\
+      header_repetitions must be a positive odd number\")\n        if not (0.0 < self.tx_amplitude\
+      \ <= 0.95):\n            raise ValueError(\"tx_amplitude must be in (0, 0.95]\"\
+      )\n        if self.payload_scale <= 0.0:\n            raise ValueError(\"payload_scale\
+      \ must be positive\")\n        if self.sample_rate <= 0.0:\n            raise\
+      \ ValueError(\"sample_rate must be positive\")\n        if abs(self.subcarrier_frequency)\
+      \ >= self.sample_rate / 4.0:\n            raise ValueError(\"subcarrier_frequency\
+      \ must be below sample_rate/4\")\n        if not (0.0 < self.payload_pilot_amplitude\
+      \ <= 0.95):\n            raise ValueError(\"payload_pilot_amplitude must be\
+      \ in (0, 0.95]\")\n        if self.tx_tail_symbols < 1:\n            raise ValueError(\"\
+      tx_tail_symbols must be positive\")\n\n        self._input = bytearray()\n \
+      \       self._output_fifo = np.empty(0, dtype=np.complex64)\n        self._frame_prepared\
+      \ = False\n        self._ever_received_input = False\n        self._last_input_time\
+      \ = None\n\n        print(\n            \"\\n[ENC INIT] protocol=PN32+REPEATED_HEADER+PILOTED_ALPHA_STABLE_PAYLOAD\"\
+      ,\n            file=sys.stderr,\n            flush=True,\n        )\n      \
+      \  print(\n            f\"[ENC INIT] samples_per_symbol={self.samples_per_symbol}\
+      \ \"\n            f\"sync_symbols={self.sync_symbols} \"\n            f\"header_repetitions={self.header_repetitions}\"\
+      ,\n            file=sys.stderr,\n            flush=True,\n        )\n      \
+      \  print(\n            f\"[ENC INIT] tx_amplitude={self.tx_amplitude:.3f} \"\
+      \n            f\"payload_scale={self.payload_scale:.4f} \"\n            f\"\
+      subcarrier={self.subcarrier_frequency:.0f} Hz \"\n            f\"payload_pilot={self.payload_pilot_amplitude:.3f}\
+      \ \"\n            f\"tx_tail_symbols={self.tx_tail_symbols}\",\n           \
+      \ file=sys.stderr,\n            flush=True,\n        )\n\n    def forecast(self,\
+      \ noutput_items, ninputs):\n        if self._frame_prepared or len(self._output_fifo):\n\
+      \            return [0] * int(ninputs)\n        return [1] * int(ninputs)\n\n\
+      \    @staticmethod\n    def alpha_stable_batch(beta_values, samples_per_symbol,\
+      \ alpha=1.1, gamma=1.0):\n        beta_values = np.asarray(beta_values, dtype=np.float64)\n\
+      \        count = len(beta_values) * int(samples_per_symbol)\n        if count\
+      \ == 0:\n            return np.empty(0, dtype=np.float32)\n\n        beta =\
+      \ np.repeat(beta_values, int(samples_per_symbol))\n        v = np.random.uniform(-np.pi\
+      \ / 2.0, np.pi / 2.0, count)\n        w = np.maximum(np.random.exponential(1.0,\
+      \ count), 1e-12)\n        constant = beta * np.tan(np.pi * alpha / 2.0)\n  \
+      \      shift = np.arctan(constant)\n        scale = (1.0 + constant * constant)\
+      \ ** (1.0 / (2.0 * alpha))\n        samples = (\n            scale\n       \
+      \     * np.sin(alpha * v + shift)\n            / np.cos(v) ** (1.0 / alpha)\n\
+      \            * (np.cos((1.0 - alpha) * v - shift) / w)\n            ** ((1.0\
+      \ - alpha) / alpha)\n        )\n        samples = np.nan_to_num(samples * gamma,\
+      \ nan=0.0, posinf=0.0, neginf=0.0)\n        return samples.astype(np.float32,\
+      \ copy=False)\n\n    def _deterministic_symbols(self, values):\n        values\
+      \ = np.asarray(values, dtype=np.float32) * self.tx_amplitude\n        return\
+      \ np.repeat(values, self.samples_per_symbol).astype(np.complex64)\n\n    def\
+      \ build_frame(self, payload):\n        \"\"\"Build one complete contiguous transmit\
+      \ burst.\"\"\"\n        payload = bytes(payload)\n        crc = zlib.crc32(payload)\
+      \ & 0xFFFFFFFF\n\n        preamble = self._deterministic_symbols(sync_pattern(self.sync_symbols))\n\
+      \n        # The header is deterministic and repeated so that packet length and\n\
+      \        # the diagnostic CRC can be recovered before decoding stochastic data.\n\
+      \        header = struct.pack(\"<HII\", MAGIC, len(payload), crc)\n        header_bits\
+      \ = bytes_to_bits(header)\n        repeated_header_bits = np.tile(header_bits,\
+      \ self.header_repetitions)\n        header_samples = self._deterministic_symbols(\n\
+      \            np.where(repeated_header_bits > 0, 1.0, -1.0)\n        )\n\n  \
+      \      payload_bits = bytes_to_bits(payload)\n        beta_values = self.beta_map[payload_bits]\n\
+      \        payload_real = self.alpha_stable_batch(\n            beta_values, self.samples_per_symbol,\
+      \ alpha=1.1, gamma=1.0\n        )\n        # UHD expects normalized complex\
+      \ samples.  Explicit limiting prevents\n        # undocumented DAC clipping\
+      \ while retaining the skew sign in the tails.\n        payload_real = np.clip(\n\
+      \            payload_real * self.payload_scale,\n            -self.tx_amplitude,\n\
+      \            self.tx_amplitude,\n        )\n        alpha_symbols = payload_real.reshape(-1,\
+      \ self.samples_per_symbol)\n        # Every information bit is still represented\
+      \ only by the beta of its\n        # alpha-stable data symbol.  The preceding\
+      \ deterministic symbol is a\n        # local phase/frequency reference and carries\
+      \ no information.\n        pilot_symbols = np.full_like(\n            alpha_symbols,\
+      \ self.payload_pilot_amplitude, dtype=np.float32\n        )\n        pairs =\
+      \ np.empty(\n            (len(payload_bits), 2, self.samples_per_symbol), dtype=np.complex64\n\
+      \        )\n        pairs[:, 0, :] = pilot_symbols\n        pairs[:, 1, :] =\
+      \ alpha_symbols\n        payload_samples = pairs.reshape(-1)\n\n        # Keep\
+      \ the final data symbols away from UHD's end-of-burst boundary.\n        # Without\
+      \ a guard tail, the receiver can observe noise in place of the\n        # last\
+      \ part of the payload when the B210 transmit stream shuts down.\n        # A\
+      \ positive tone maintains a continuous envelope; it is not decoded.\n      \
+      \  tail_samples = np.full(\n            self.tx_tail_symbols * self.samples_per_symbol,\n\
+      \            np.complex64(self.payload_pilot_amplitude + 0j),\n            dtype=np.complex64,\n\
+      \        )\n\n        frame = np.concatenate(\n            (preamble, header_samples,\
+      \ payload_samples, tail_samples)\n        )\n        if self.subcarrier_frequency:\n\
+      \            index = np.arange(len(frame), dtype=np.float64)\n            frame\
+      \ = frame * np.exp(\n                1j * 2.0 * np.pi * self.subcarrier_frequency\
+      \ * index / self.sample_rate\n            )\n            frame = frame.astype(np.complex64,\
+      \ copy=False)\n        print(\n            f\"[ENC FRAME] payload={len(payload)}\
+      \ bytes crc=0x{crc:08X} \"\n            f\"preamble={len(preamble)} header={len(header_samples)}\
+      \ \"\n            f\"payload_samples={len(payload_samples)} tail={len(tail_samples)}\
+      \ \"\n            f\"total={len(frame)}\",\n            file=sys.stderr,\n \
+      \           flush=True,\n        )\n        return frame\n\n    def general_work(self,\
+      \ input_items, output_items):\n        incoming = input_items[0]\n        out\
+      \ = output_items[0]\n\n        if len(incoming):\n            self._ever_received_input\
+      \ = True\n            self._last_input_time = time.monotonic()\n           \
+      \ remaining = None\n            if self.expected_input_bytes is not None:\n\
+      \                remaining = max(0, self.expected_input_bytes - len(self._input))\n\
+      \            accepted = len(incoming) if remaining is None else min(len(incoming),\
+      \ remaining)\n            if accepted:\n                self._input.extend(np.asarray(incoming[:accepted],\
+      \ dtype=np.uint8).tobytes())\n            self.consume(0, len(incoming))\n\n\
+      \        complete = (\n            self.expected_input_bytes is not None\n \
+      \           and len(self._input) >= self.expected_input_bytes\n        )\n \
+      \       timed_out = (\n            self.expected_input_bytes is None\n     \
+      \       and self._ever_received_input\n            and self._last_input_time\
+      \ is not None\n            and time.monotonic() - self._last_input_time >= self.eos_timeout\n\
+      \        )\n\n        # Prepare the entire packet before emitting its first\
+      \ sample.  This\n        # removes the preamble-to-payload underflow seen with\
+      \ the USRP sink.\n        if not self._frame_prepared and (complete or timed_out):\n\
+      \            self._output_fifo = self.build_frame(self._input)\n           \
+      \ self._frame_prepared = True\n\n        if len(self._output_fifo):\n      \
+      \      count = min(len(out), len(self._output_fifo))\n            out[:count]\
+      \ = self._output_fifo[:count]\n            self._output_fifo = self._output_fifo[count:]\n\
+      \            return count\n\n        if self._frame_prepared:\n            print(\"\
+      [ENC] WORK_DONE\", file=sys.stderr, flush=True)\n            return gr.WORK_DONE\n\
+      \        return 0"
     affinity: ''
     alias: ''
     alpha_map: alpha_map
@@ -405,23 +409,36 @@ blocks:
     eos_timeout: eos_timeout
     expected_input_bytes: source_number_of_samples
     gama_map: gama_map
+    header_repetitions: '3'
     maxoutbuf: '0'
     minoutbuf: '0'
+    payload_pilot_amplitude: '0.70'
+    payload_scale: '0.05'
+    sample_rate: samp_rate
     samples_per_symbol: samples_per_symbol
+    subcarrier_frequency: '4000'
+    sync_symbols: '32'
+    tx_amplitude: '0.70'
+    tx_tail_symbols: '8'
   states:
-    _io_cache: ('alpha_encoder', 'alpha_encoder', [('alpha_map', '[1.2, 1.4, 1.6,
-      1.8]'), ('beta_map', '[-1.0, 1.0]'), ('gama_map', '[0.5, 1.0, 1.5, 2.0]'), ('samples_per_symbol',
+    _io_cache: ('alpha_encoder', 'alpha_encoder', [('alpha_map', '(1.2, 1.4, 1.6,
+      1.8)'), ('beta_map', '(-1.0, 1.0)'), ('gama_map', '(0.5, 1.0, 1.5, 2.0)'), ('samples_per_symbol',
       '500'), ('encode_alpha', 'False'), ('encode_beta', 'True'), ('encode_gama',
-      'False'), ('eos_timeout', '2.0'), ('expected_input_bytes', 'None')], [('0',
-      'byte', 1)], [('0', 'complex', 1)], 'Kodira bajte v serijo vzorcev alfa-stabilne
-      porazdelitve.', ['alpha_map', 'beta_map', 'encode_alpha', 'encode_beta', 'encode_gama',
-      'eos_timeout', 'expected_input_bytes', 'gama_map', 'samples_per_symbol'])
+      'False'), ('eos_timeout', '2.0'), ('expected_input_bytes', 'None'), ('sync_symbols',
+      '32'), ('header_repetitions', '3'), ('tx_amplitude', '0.7'), ('payload_scale',
+      '0.05'), ('sample_rate', '64000'), ('subcarrier_frequency', '4000'), ('payload_pilot_amplitude',
+      '0.7'), ('tx_tail_symbols', '8')], [('0', 'byte', 1)], [('0', 'complex', 1)],
+      'Frame bytes and encode payload bits as skewed alpha-stable symbols.', ['alpha_map',
+      'beta_map', 'encode_alpha', 'encode_beta', 'encode_gama', 'eos_timeout', 'expected_input_bytes',
+      'gama_map', 'header_repetitions', 'payload_pilot_amplitude', 'payload_scale',
+      'sample_rate', 'samples_per_symbol', 'subcarrier_frequency', 'sync_symbols',
+      'tx_amplitude', 'tx_tail_symbols'])
     bus_sink: false
     bus_source: false
     bus_structure: null
     coordinate: [712, 432.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: gama_map_str
   id: parameter
   parameters:
@@ -465,7 +482,7 @@ blocks:
     label: ''
     short_id: ''
     type: intx
-    value: '24'
+    value: '500'
   states:
     bus_sink: false
     bus_source: false
@@ -482,7 +499,7 @@ blocks:
     label: ''
     short_id: ''
     type: str
-    value: r"C:\Users\Uporabnik\Documents\GitHub\Diploma\SDR_alpha_stable\sender\source.bin"
+    value: r"source.bin"
   states:
     bus_sink: false
     bus_source: false
@@ -544,7 +561,7 @@ blocks:
     ant7: '"TX/RX"'
     ant8: '"TX/RX"'
     ant9: '"TX/RX"'
-    bw0: '0'
+    bw0: '200000'
     bw1: '0'
     bw10: '0'
     bw11: '0'
@@ -576,7 +593,7 @@ blocks:
     bw7: '0'
     bw8: '0'
     bw9: '0'
-    center_freq0: '2400000000'
+    center_freq0: '915000000'
     center_freq1: '0'
     center_freq10: '0'
     center_freq11: '0'
@@ -618,9 +635,9 @@ blocks:
     clock_source6: ''
     clock_source7: ''
     comment: ''
-    dev_addr: '"source=30F4194"'
+    dev_addr: '"serial=30F4194"'
     dev_args: ''
-    gain0: '0'
+    gain0: '35'
     gain1: '0'
     gain10: '0'
     gain11: '0'
@@ -786,10 +803,8 @@ blocks:
     state: enabled
 
 connections:
-- [analog_random_source_x_0, '0', blocks_head_0, '0']
-- [analog_sig_source_x_0, '0', uhd_usrp_sink_0, '0']
-- [blocks_head_0, '0', blocks_file_sink_0, '0']
-- [blocks_head_0, '0', epy_block_0, '0']
+- [analog_random_source_x_0, '0', blocks_file_sink_0, '0']
+- [analog_random_source_x_0, '0', epy_block_0, '0']
 - [epy_block_0, '0', uhd_usrp_sink_0, '0']
 
 metadata:
