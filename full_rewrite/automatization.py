@@ -126,7 +126,7 @@ def run_different_gama():
         "0.316227766"
     ]
 
-    sample_sizes = [40, 80, 160, 240, 320, 400, 600, 800, 1000]
+    sample_sizes = [240, 320, 400, 600, 800, 1000]
 
     base_dir = r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\BERvsMSNR_different_gama"
 

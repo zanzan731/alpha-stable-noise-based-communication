@@ -977,33 +977,19 @@ Posplošeni centralni limitni izrek pojasni, zakaj je mogoče parametre porazdel
 
 \chapter{Načrtovanje in implementacija sistema}
 
+V tem poglavju sta predstavljena načrtovanje in implementacija razvitega komunikacijskega sistema. Najprej sta na kratko opisana uporabljeno razvojno okolje in arhitektura sistema, nato pa izvedba kodirnika in dekodirnika. Na koncu so predstavljene prilagoditve, potrebne za prenos sistema iz simulacijskega okolja na radijsko opremo SDR.
 
-\section{Programsko opremljena radijska oprema in GNU Radio}
+\section{Razvojno okolje}
 
-\subsection{Programsko opremljena radijska oprema}
-Software-defined radio (SDR) je pristop k načrtovanju radijskih komunikacijskih sistemov, pri katerem se pomemben del funkcionalnosti radijskega sistema izvaja programsko na splošnem računalniškem sistemu. Pri klasičnih radijskih sistemih so posamezne funkcionalnosti, kot so modulacija, demodulacija, filtriranje in obdelava signalov, pogosto izvedene z namensko strojno opremo oziroma integriranimi vezji. Pri pristopu SDR se te funkcionalnosti v večji meri izvajajo programsko, kar omogoča večjo prilagodljivost in enostavnejše spreminjanje komunikacijskega sistema.
+Programsko opredeljena radijska oprema (SDR) je radijska platforma, pri kateri se velik del obdelave signala izvaja programsko. Strojna oprema poskrbi predvsem za pretvorbo med analognim in digitalnim signalom ter za oddajanje in sprejemanje radiofrekvenčnega signala, postopki, kot so filtriranje, modulacija in demodulacija, pa se izvajajo na računalniku. Komunikacijski sistem je zato mogoče spreminjati in preizkušati brez poseganja v strojno zasnovo radijske naprave.
 
-Glavna prednost pristopa SDR je možnost uporabe iste strojne platforme za različne komunikacijske sisteme in protokole. Spremembe komunikacijskega postopka je namesto s spreminjanjem namenske strojne opreme mogoče izvesti s spremembo programske implementacije. To omogoča hitro razvijanje, testiranje in primerjanje različnih algoritmov za obdelavo signalov. SDR je zato posebej primeren za razvoj in raziskovanje novih komunikacijskih sistemov, saj omogoča preizkušanje različnih načinov generiranja, prenosa in obdelave signalov na isti strojni platformi.
+V tej diplomski nalogi je pristop SDR uporabljen za prenos razvitega komunikacijskega sistema iz simulacijskega okolja na dejansko brezžično povezavo. Sistem je bilo tako mogoče najprej razviti in ovrednotiti v nadzorovanem programskem okolju, nato pa njegovo delovanje preveriti še pri prenosu med dvema radijskima napravama. Pri tem je osnovna logika kodiranja in dekodiranja ostala enaka, strojna izvedba pa je zahtevala dodatne prilagoditve za neprekinjeno obdelavo vzorcev in sinhronizacijo.
 
-V okviru te diplomske naloge je pristop SDR uporabljen kot osnova za implementacijo komunikacijskega sistema, pri katerem se informacija prenaša s pomočjo statističnih lastnosti $\alpha$-stabilnih porazdelitev. Sistem je najprej razvit in preverjen v simulacijskem okolju, nato pa ga je mogoče uporabiti tudi na dejanski SDR opremi.
+Za razvoj sistema je bilo uporabljeno odprtokodno okolje GNU Radio, namenjeno obdelavi podatkovnih tokov in digitalnih signalov. Sistem je v njem sestavljen iz medsebojno povezanih funkcionalnih blokov, med katerimi se prenašajo vzorci oziroma drugi podatki. Posamezen blok izvaja določeno nalogo, na primer bere vhodne podatke, generira signal, modelira komunikacijski kanal ali obdela sprejete vzorce. Blokovna zasnova omogoča, da se posamezni deli sistema razvijajo, preizkušajo in zamenjujejo neodvisno od preostalega komunikacijskega toka.
 
-\subsection{GNU Radio}
+Za grafično sestavljanje in konfiguriranje teh blokov je bil uporabljen GNU Radio Companion (GRC). V njem se komunikacijski sistem predstavi kot diagram poteka, na katerem povezave med bloki določajo smer prenosa podatkov, njihovi parametri pa način obdelave. Takšen prikaz olajša pregled nad celotnim sistemom in omogoča hitro spreminjanje nastavitev pri izvajanju simulacij.
 
-GNU Radio je odprtokodno programsko ogrodje za razvoj sistemov za digitalno obdelavo signalov in programsko opredeljene radijske sisteme. Omogoča sestavljanje kompleksnih sistemov iz posameznih funkcionalnih modulov, pri čemer posamezen modul izvaja določeno operacijo nad signalom oziroma podatkovnim tokom.
-
-Med funkcionalnostmi, ki jih omogoča GNU Radio, so na primer generiranje in vzorčenje signalov, filtriranje, Fourierjeva transformacija, modulacija in demodulacija, dodajanje šuma ter različne druge operacije digitalne obdelave signalov. Poleg tega omogoča povezovanje programske obdelave z različnimi SDR napravami, zato lahko isti koncept komunikacijskega sistema uporabljamo tako v simulacijskem okolju kot tudi pri komunikaciji z dejansko radijsko strojno opremo.
-
-GNU Radio temelji na blokovnem pristopu. Posamezne funkcionalnosti so predstavljene kot bloki, ki so med seboj povezani v usmerjen graf. Podatki oziroma vzorci signala potujejo od izvornih blokov preko blokov za obdelavo do izhodnih blokov. Takšna zasnova omogoča modularno sestavljanje komunikacijskih sistemov, saj je mogoče posamezne dele sistema zamenjati ali prilagoditi brez spreminjanja celotne implementacije.
-
-Posamezni bloki v GNU Radiu so lahko implementirani v programskem jeziku C++ ali Python. To omogoča uporabo že obstoječih funkcionalnih blokov, hkrati pa tudi razvoj lastnih blokov, kadar zahtevane funkcionalnosti v knjižnici GNU Radio niso neposredno na voljo. V okviru te diplomske naloge je bil tak pristop uporabljen za razvoj lastnega kodirnika in dekodirnika, ki izvajata kodiranje in dekodiranje informacij z uporabo $\alpha$-stabilnih porazdelitev.
-
-\subsection{GNU Radio Companion}
-
-GNU Radio Companion (GRC) je grafični uporabniški vmesnik za načrtovanje sistemov v okolju GNU Radio. Namesto neposrednega pisanja programske kode lahko uporabnik posamezne bloke izbere v grafičnem vmesniku, jih med seboj poveže ter nastavi njihove parametre. Tako je mogoče komunikacijski sistem predstaviti kot blokovni diagram, ki neposredno prikazuje tok podatkov skozi posamezne dele sistema.
-
-GRC v ozadju na podlagi izdelanega blokovnega diagrama generira programsko kodo v jeziku Python, ki nato izvede definirani komunikacijski graf. Zaradi tega lahko uporabnik združi enostavnost grafičnega načrtovanja z možnostjo programske razširitve sistema.
-
-V tej diplomski nalogi je bil GNU Radio Companion uporabljen za sestavo in testiranje komunikacijskega sistema. Poleg standardnih blokov GNU Radio so bili v sistem vključeni tudi lastni bloki za kodiranje in dekodiranje informacij z uporabo $\alpha$-stabilnih porazdelitev. Na ta način je bilo mogoče razviti komunikacijski sistem, ga preveriti v simulacijskem okolju ter pripraviti njegovo uporabo na SDR strojni opremi.
+Kodirnik in dekodirnik, razvita v okviru te naloge, sta izvedena kot lastna bloka v jeziku Python, saj zahtevana obdelava $\alpha$-stabilnih porazdelitev ni neposredno na voljo v standardnih blokih GNU Radia. Preostali deli sistema uporabljajo obstoječe bloke za branje in zapisovanje podatkov, dodajanje šuma ter povezavo z radijsko opremo. S tem je bilo mogoče isto razvojno okolje uporabiti tako za simulacijsko ovrednotenje sistema kot za pripravo njegove izvedbe na opremi SDR.
 
 \section{Arhitektura komunikacijskega sistema}
 
@@ -1029,18 +1015,18 @@ Podrobna implementacija kodirnika in dekodirnika je predstavljena v naslednjih p
 
 Naloga kodirnika je pretvorba vhodnega zaporedja bitov v signal, katerega statistične lastnosti predstavljajo informacijo. Za razliko od klasičnih komunikacijskih sistemov se informacija ne kodira v amplitudo, fazo ali frekvenco nosilnega signala, temveč v parametre $\alpha$-stabilne porazdelitve.
 
-Kodirnik prejme vhodni tok bajtov, ki jih pretvori v zaporedje posameznih bitov. Ti se nato shranimo v medpomnilnik, iz katerega se nato bere ustrezno število bitov za kodiranje enega simbola.
+Kodirnik prejme vhodni tok bajtov, ki jih pretvori v zaporedje posameznih bitov. Ti se nato shranijo v medpomnilnik, iz katerega se nato bere ustrezno število bitov za kodiranje enega simbola.
 
 \subsection{Preslikava bitov v parametre}
 
-Število bitov, ki jih predstavlja posamezen simbol, je odvisen od števila možnih parametrov, uporabljenih pri kodiranju. Za vsak parameter velja, da mora biti število možnih vrednosti potenca števila dve, saj lahko le tako enolično preslikamo kombinacije bitov v posamezne vrednosti parametra. Število bitov, ki jih kodira posamezen parameter, je tako določeno kot:
+Število bitov, ki jih predstavlja posamezen simbol, je odvisno od števila možnih parametrov, uporabljenih pri kodiranju. Za vsak parameter velja, da mora biti število možnih vrednosti potenca števila dve, saj lahko le tako enolično preslikamo kombinacije bitov v posamezne vrednosti parametra. Število bitov, ki jih kodira posamezen parameter, je tako določeno kot:
 
 $n = \log_2(M)$
 
-kjer je $M$ število možnih vrednosti parametra. Skupno število bitov, predstavljenih z enim simbolov, je tako vsota števila bitov, ki jih kodirajo posamezni parametri.
+kjer je $M$ število možnih vrednosti parametra. Skupno število bitov, predstavljenih z enim simbolom, je tako vsota števila bitov, ki jih kodirajo posamezni parametri.
 
 \subsection{Preslikava simbolov v parametre porazdelitve}
-Implementacija omogoča kodiranje informacij v parametre $\alpha$, $\beta$ in $\gamma$. V vseh simulacijah, predstavljenih v tej diplomski nalogi, se za prenos informacij uporablja parameter $\beta$, medtem ko parameter $\alpha$ in $\gamma$ ostaneta konstantna.
+Implementacija omogoča kodiranje informacij v parametre $\alpha$, $\beta$ in $\gamma$. V vseh simulacijah, predstavljenih v tej diplomski nalogi, se za prenos informacij uporablja parameter $\beta$, medtem ko parametra $\alpha$ in $\gamma$ ostaneta konstantna.
 
 Vhodna kombinacija bitov določa indeks v preslikovalni tabeli, iz katere se nato izbere ustrezna vrednost parametra $\beta$. Na ta način vsak simbol predstavlja določeno $\alpha$-stabilno porazdelitev.
 
@@ -1048,7 +1034,7 @@ Vhodna kombinacija bitov določa indeks v preslikovalni tabeli, iz katere se nat
 Za vsak simbol se nato generira $N$ vzorcev $\alpha$-stabilne porazdelitve, kjer parameter N ustreza spremenljivki $\texttt{samples\_per\_symbol}$. Generirani vzorci predstavljajo izhod kodirnika in se posredujejo komunikacijskemu kanalu oziroma naslednjemu bloku v GNU Radio Companion.
 
 \subsection{Chambers-Mallows-Stuckov algoritem}
-Za generiranje signala uporabljam Chambers-Mallows-Struckov algoritem(CMS), ki se izračuna po enačbi:
+Za generiranje signala uporabljam Chambers-Mallows-Stuckov algoritem(CMS), ki se izračuna po enačbi:
 \label{CMS}
 \begin{equation}
 X=\gamma C
@@ -1072,11 +1058,11 @@ pri čemer je $V$ enakomerno porazdeljena naključna spremenljivka na intervalu 
 
 Na ta način kodirnik za vsak vhodni simbol ustvari zaporedje $N$ vzorcev, katerih porazdelitev je določena z izbranimi parametri $\alpha$, $\beta$ in $\gamma$.
 
-\section{Implementacija dekodirnik}
+\section{Implementacija dekodirnika}
 Naloga dekodirnika je iz prejetih vzorcev oceniti parametre $\alpha$-stabilne porazdelitve in iz njih rekonstruirati prvotno zaporedje bitov. Ker posamezen vzorec ne vsebuje dovolj informacij za zanesljivo določitev parametrov, dekodirnik analizira več vzorcev hkrati.
 
 \subsection{Razdelitev simbola na segmente}
-Dekodirnik prejema tok vzorcev in jih shranjuje v medpomnilnik. Ker kodirnik za vsak simbol ustvari natanko $N$ vzorcev, lahko dekodirnik posamezne simbole loči tako, da vedno obdela naslenjih $N$ prejetih vzorcev.
+Dekodirnik prejema tok vzorcev in jih shranjuje v medpomnilnik. Ker kodirnik za vsak simbol ustvari natanko $N$ vzorcev, lahko dekodirnik posamezne simbole loči tako, da vedno obdela naslednjih $N$ prejetih vzorcev.
 
 \subsection{Ocenjevanje parametra $\beta$}
 Zbrane vzorce posameznega simbola razdelimo na $L$ enako velikih segmentov, pri čemer vsak segment vsebuje $K=N/L$ vzorcev. Za vsak segment se določita največja in najmanjša vrednost vzorcev ter se njuni velikosti logaritmirata:
@@ -1104,26 +1090,65 @@ Y_{\min}=\frac{1}{L}\sum_{l=1}^{L}Y_{l,\min},
 \begin{equation}
 S^2_{\min}=\frac{1}{L-1}\sum_{l=1}^{L}(Y_{l,\min}-Y_{\min})^2.
 \end{equation}
-Iz tega se nato izračuna parameter $\beta$ po enačbi:
-\begin{equation}
-\hat{\beta}
-=
-1-
-\frac{2}
-{\exp\left(\hat{\alpha}(S_{\max}-S_{\min})\right)},
-\end{equation}
-kjer je $\alpha$ določen kot:
+Pri tem sta $S_{\max}$ in $S_{\min}$ standardna odklona, torej pozitivna kvadratna korena pripadajočih varianc. Najprej se iz njiju oceni parameter $\alpha$:
 
 \begin{equation}
 \hat{\alpha}
 =
 \frac{\pi}{2\sqrt{6}}
 \left(
-\frac{1}{Y_{\max}}
+\frac{1}{S_{\max}}
 +
-\frac{1}{Y_{\min}}
+\frac{1}{S_{\min}}
 \right).
 \end{equation}
+
+Parameter $\beta$ se nato oceni z uporabo hiperboličnega tangensa:
+
+\begin{equation}
+\hat{\beta}
+=
+\tanh\!\left(
+\frac{\hat{\alpha}}{2}
+(Y_{\max}-Y_{\min})
+\right).
+\end{equation}
+
+Isti ocenjevalnik je mogoče zaslediti tudi v ekvivalentni eksponentni obliki:
+
+\begin{equation}
+\hat{\beta}
+=
+1-
+\frac{2}
+{\exp\!\left(\hat{\alpha}(Y_{\max}-Y_{\min})\right)+1}.
+\end{equation}
+
+Enakovrednost obeh zapisov pokažemo v naslednjem dokazu.
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!50!black,title=Dokaz 2: Enakovrednost zapisov ocenjevalnika parametra $\beta$]
+Naj bo
+\[
+z=\hat{\alpha}(Y_{\max}-Y_{\min}).
+\]
+Iz definicije hiperboličnega tangensa sledi
+\[
+\begin{aligned}
+\tanh\!\left(\frac{z}{2}\right)
+&=
+\frac{\exp(z/2)-\exp(-z/2)}
+{\exp(z/2)+\exp(-z/2)} \\
+&=
+\frac{\exp(z)-1}{\exp(z)+1} \\
+&=
+1-
+\frac{2}{\exp(z)+1}.
+\end{aligned}
+\]
+
+Če za $z$ ponovno vstavimo $\hat{\alpha}(Y_{\max}-Y_{\min})$, dobimo navedeno eksponentno obliko ocenjevalnika.
+\end{tcolorbox}
+S tem smo dokazali, da sta zapis s hiperboličnim tangensom in eksponentni zapis ocenjevalnika parametra $\beta$ enakovredna.
 
 \subsection{Dekodiranje bitov}
 Ocenjena vrednost $\hat{\beta}$ se nato primerja z dovoljenimi vrednostmi iz preslikovalne tabele. Izbere se najbližja vrednost, njen indeks pa predstavlja dekodirano kombinacijo bitov. Dekodirani biti se shranjujejo v medpomnilnik, dokler se ne zbere osem bitov, ki jih dekodirnik združi v en bajt in posreduje na izhod.
@@ -1140,9 +1165,9 @@ V nadaljevanju sta predstavljena vektorizirano generiranje $\alpha$-stabilnih vz
 
 \subsection{Vektorsko generiranje $\alpha$-stabilnih vzorcev}
 
-V prvotni simulacijski implementaciji so se lahko vzorci $\alpha$-stabilne porazdelitve generirali zaporedno, saj čas izvajanja ni neposredno vplival na neprekinjenost oddajanja. Takšen pristop pri delu z SDR opremo ni več primeren, ker mora oddajnik vzorce zagotavljati z vnaprej določeno vzorčno frekvenco. Zato se v implementaciji za SDR vzorci genrirajo vektorizirano. Preden začnemo oddajati se najprej prebere celoten paket in vsak vhodni bit preslikamo v parametre $\beta$. 
+V prvotni simulacijski implementaciji so se lahko vzorci $\alpha$-stabilne porazdelitve generirali zaporedno, saj čas izvajanja ni neposredno vplival na neprekinjenost oddajanja. Takšen pristop pri delu z SDR opremo ni več primeren, ker mora oddajnik vzorce zagotavljati z vnaprej določeno vzorčno frekvenco. Zato se v implementaciji za SDR vzorci generirajo vektorizirano. Preden začnemo oddajati se najprej prebere celoten paket in vsak vhodni bit preslikamo v parametre $\beta$. 
 
-Za vsak znak se nato generira $N$ vzorcev, ki predstavljajo en znak. Ker se v trenutni implementaciji uporablja zgolj parameter asimetrije $\beta$ to pomeni da za vsakih $B$ bitov rabimo zgenerirati $\frac{B*N}{\log_2(len(beta\_map))}$ vzorcev.
+V obravnavani implementaciji se informacija kodira samo s parametrom asimetrije $\beta$. Naj bo $M_\beta$ število možnih vrednosti tega parametra v preslikovalni tabeli. Posamezen simbol tako predstavlja $\log_2(M_\beta)$ bitov. Ker je vsak simbol sestavljen iz $N$ vzorcev, je za prenos $B$ bitov treba generirati $\frac{BN}{\log_2(M_\beta)}$ vzorcev. V uporabljeni binarni preslikavi $\beta\in{-1,1}$ velja $M_\beta=2$, zato vsak simbol predstavlja en bit, za prenos $B$ bitov pa je potrebnih $BN$ vzorcev.
  
 Vektor parametrov $\beta$ dobimo tako, da vrednost, ki pripada posameznemu znaku ponovimo $N$-krat. Nato ustvarimo n neodvisnih vrednosti naključnih spremenljivk: $V_i \sim \mathcal{U}\left(-\frac{\pi}{2},\frac{\pi}{2}\right)$ in $W_i \sim \operatorname{Exp}(1)$, kjer indeks i teče od $0$ do $N-1$. Vsak vzorec ima tako svojo neodvisno vrednost $V_i$ in $W_i$, medtem ko imajo vsi vzorci istega simbola enako vrednost parametra $\beta$.  Vzorci se nato izračunajo po metodi CMS po enačbi~\ref{CMS}.
 
@@ -1150,12 +1175,12 @@ Tak način generiranja ne pomeni, da so vsi vzorci posameznega simbola enaki. En
 
 V implementaciji se vsi vzorci tako ustvarijo v enem vektoriziranem klicu. Nato se sestavi celoten oddajni okvir, ki se shrani v izhodni medpomnilnik. GNU Radio lahko tako že pripravljene vzorce postopoma posreduje napravi SDR, ne da bi bilo treba med samim oddajanjem izvajati računsko zahtevno generiranje naključnih spremenljivk. S tem se bistveno zmanjša verjetnost pojava podkoračitve.
 
-\subsection{Sihronizacija}
+\subsection{Sinhronizacija}
 Sinhronizacija $\alpha$-stabilnega signala je zahtevna, ker je tak signal po videzu podoben šumu. Neposredno iskanje začetka paketa samo na podlagi $\alpha$-stabilnih vzorcev bi zato povzročilo veliko lažnih zaznav. Sprejemnik namreč tudi takrat, ko oddajnik ne oddaja, neprekinjeno prejema šum in druge motnje.
 
 Zaradi tega se na začetku vsakega paketa doda deterministična sinhronizacijska sekvenca. Trenutno uporabljena sekvenca vsebuje 32 bitov, vsak bit pa je sestavljen iz $N$ vzorcev. To omogoča zaneslivejšo korelacijsko zaznavo sinhronizacijske sekvence v prisotnosti šuma. Oddajnik sekvenco ustvari vnaprej, prejemnik pa pozna enako referenčno zaporedje in ga išče v sprejetem signalu.
 
-Sprejemnik po vhodnem toku premika referenčno sekvenco in računa korelacijo in koherenco signala. Sinhronizacijski kandidat je sprejet šele ko obe dve vrednosti presežejo nastavljeni prag. S tem zmanjšamo verjetnost, da sprejemnik naključni šum interpretira kot začetek paketa.
+Sprejemnik po vhodnem toku premika referenčno sekvenco in računa korelacijo in koherenco signala. Sinhronizacijski kandidat je sprejet šele ko obe dve vrednosti presežeta nastavljeni prag. S tem zmanjšamo verjetnost, da sprejemnik naključni šum interpretira kot začetek paketa.
 
 Pred začetkom vsakega paketa oddajnik pošlje vnaprej določeno deterministično sinhronizacijsko sekvenco, s katero sprejemnik zazna prihod paketa in določi njegov začetek.
 
@@ -1178,17 +1203,19 @@ Pilotski simbol sam po sebi ne odpravlja odmika med urama oddajnika in sprejemni
 
 \chapter{Evalvacija v simulacijskem okolju}
 
-V tem poglavju je ovrednotena uspešnost razvitega komunikacijskega sistema v simulacijskem okolju GNU Radio. Namen evalvacije je oceniti robustnost komunikacije pri različnih ravneh šuma, določiti, koliko vzorcev na simbol $N$ je potrebnih za zanesljiv prenos, ter analizirati kompromis med zanesljivostjo prenosa in prekrito komunikacijo.
+V tem poglavju je ovrednotena uspešnost razvitega komunikacijskega sistema v simulacijskem okolju GNU Radio. Analizirani so vpliv števila segmentov $L$, razlika med vrednostima parametra $\beta$ in vpliv parametra $\gamma$ na stopnjo bitnih napak. Na koncu so predstavljeni tudi rezultati prenosa na opremi SDR.
 
-Za ta namen smo izvedli tri sklope eksperimentov. V prvem smo analizirali vpliv razlike med vrednostmi parametra $\beta$, v drugem vpliv parametra $\gamma$, ki določa razpršenost porazdelitve oziroma razmerje med močjo signala in šuma, v tretjem pa vpliv števila vzorcev na simbol pri različnih stopnjah dodanega šuma.
+Pri vseh simulacijah smo uporabljali komunikacijski sistem, prikazan na sliki~\ref{GNU}. Vir podatkov je ustvaril naključno binarno zaporedje, ki ga je kodirnik pretvoril v vzorce $\alpha$-stabilne porazdelitve. Signal je nato potoval skozi simulirani komunikacijski kanal, sprejemnik pa je iz prejetih vzorcev ocenil parameter $\beta$ in rekonstruiral poslano bitno zaporedje. Parameter stabilnosti je bil v vseh poskusih nastavljen na $\alpha=1.1$, preostale nastavitve pa so navedene pri posameznih eksperimentih.
 
-V vseh simulacijah smo uporabljali komunikacijski sistem podoben \ref{GNU} v GNU Radio Companion. File source je tukaj bil naključno generirano binarno zaporedje, ki je nato bilo modulirano z uporabo predlagane metode kodiranja v parametre $\alpha$-stabilne porazdelitve. Signal je nato potoval skozi kanal, kjer je bil po potrebi dodan Gaussov šum. Na sprejemni strani je dekodirnik ocenil vrednosti parametrov porazdelitve in poskušal rekonstruirati prvotno bitno zaporedje.
+Za vsako konfiguracijo je bilo izvedenih 100 neodvisnih ponovitev, pri čemer je bilo v vsaki ponovitvi prenesenih 1024 naključno generiranih bitov. Posamezna konfiguracija je bila zato ovrednotena na skupno $102\,400$ bitih. Stopnja bitnih napak je bila izračunana kot razmerje med številom napačno dekodiranih in številom vseh prenesenih bitov.
 
-Uspešnost prenosa smo ovrednotili z bitno stopnjo napak (BER), ki smo jo izračunali s primerjavo poslanega in sprejetega bitnega zaporedja.
+Ker vrednosti $\mathrm{BER}=0$ na logaritemski osi ni mogoče prikazati, je konfiguracija brez zaznanih napak na grafih prikazana pri vrednosti
+\[
+\mathrm{BER}=\frac{1}{102\,400}\approx10^{-5}.
+\]
+Ta vrednost predstavlja spodnjo mejo prikaza in ne pomeni, da je bila pri takšni konfiguraciji dejansko zaznana ena napaka.
 
-Pri vsaki posamezni simulaciji je oddajnik poslal 1024 naključno generiranih bitov skozi komunikacijski kanal. Zaradi naključne narave $\alpha$-stabilnih porazdelitev in dodanega šuma smo vsako konfiguracijo parametrov ponovili 100-krat. Tako smo za vsako konfiguracijo analizirali skupno 102400 prenesenih bitov, kar zmanjšuje vpliv naključnih odstopanj in omogoča zanesljivejšo oceno uspešnosti sistema.
-
-Preden predstavimo rezultate posameznih eksperimentov, najprej pojasnimo parametre simulacijskega okolja in njihovo vlogo pri izvajanju simulacij.
+Pred predstavitvijo rezultatov so v nadaljevanju opisani parametri simulacijskega okolja.
 
 \clearpage
 \enlargethispage{6\baselineskip}
@@ -1230,33 +1257,41 @@ Amplituda dodanega Gaussovega šuma v kanalu. Parameter določa standardni odklo
 \end{table}
 
 
+\section{Vpliv števila segmentov $L$}
+
+Pri ocenjevanju parametra $\beta$ dekodirnik $N$ vzorcev posameznega simbola razdeli na $L$ enako velikih segmentov, zato vsak segment vsebuje $K=N/L$ vzorcev. V tem eksperimentu smo primerjali vrednosti $L\in\{2,4,5,8,10,20\}$ pri različnih vrednostih $N$. Uporabljena je bila preslikava $\beta\in\{-1,1\}$, parameter $\gamma$ je bil nastavljen na 1, parameter \texttt{noise\_ratio} pa prav tako na 1.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{l_error_log.png}
+  \caption{BER v odvisnosti od števila vzorcev na simbol $N$ pri različnih vrednostih $L$.}
+  \label{fig:l_segments}
+\end{figure}
+
+Iz rezultatov je razvidno, da se BER pri vseh uporabljenih vrednostih $L$ zmanjšuje z večanjem števila vzorcev na simbol. Najnižjo stopnjo bitnih napak je v celotnem opazovanem območju dosegel dekodirnik z $L=2$, z večanjem vrednosti $L$ pa je bilo za primerljivo zanesljivost potrebnih vedno več vzorcev.
+
+Razlika je posebej izrazita pri $N=400$. Pri $L=2$ je BER znašal približno $6{,}8\cdot10^{-5}$, kar pomeni, da je bilo med $102\,400$ prenesenimi biti zaznanih 7 napak. Pri $L=8$ je BER znašal približno $9{,}4\cdot10^{-3}$ oziroma 963 napak, kar je približno 138-krat več kot pri $L=2$. Pri $L=20$ pa je BER dosegel približno $0{,}23$, kar ustreza 23\,414 napakam oziroma približno 3345-krat več napakam kot pri $L=2$. Absolutno število napak tako dodatno ponazori razliko med posameznimi vrednostmi $L$, ki je iz samega prikaza na logaritemski lestvici težje razvidna. Pri vrednostih $L=2$, $L=4$ in $L=5$ pri $N=600$ ni bil zaznan noben napačno dekodiran bit, medtem ko je pri $L=20$ tudi pri $N=1000$ ostal BER približno $1{,}3\cdot10^{-4}$.
+
+
 \section{Spreminjanje parametra $\beta$}
 
-V tej simulaciji smo preučevali vpliv parametra $\beta$ na stopnjo bitnih napak. Parameter $\beta$ določa asimetrijo $\alpha$-stabilne porazdelitve in predstavlja parameter, v katerega je v naši implementaciji zakodirana informacija. V literaturi ga pogosto imenujejo tudi varnostni parameter (\textit{security parameter}), saj manjša razlika med vrednostmi v preslikovalni tabeli $\beta$ otežuje pravilno ocenjevanje parametra in s tem tudi dekodiranje signala. Zato pričakujemo, da večja razlika med vrednostmi parametra $\beta$ izboljša zanesljivost prenosa, hkrati pa zmanjša stopnjo prikritosti komunikacije.
+Parameter $\beta$ določa asimetrijo $\alpha$-stabilne porazdelitve in je v razvitem sistemu uporabljen za kodiranje informacije. V eksperimentu smo uporabili simetrične preslikave od $\{-0{,}1,0{,}1\}$ do $\{-1,1\}$, pri čemer je razlika med vrednostima definirana kot $\Delta\beta=\beta_1-\beta_0$. Manjša vrednost $\Delta\beta$ pomeni, da sta porazdelitvi, ki predstavljata posamezna bita, bolj podobni in ju je zato težje razlikovati. Razliko $\Delta\beta$ je mogoče obravnavati tudi kot varnostni parameter, saj večja podobnost porazdelitev oteži dekodiranje sprejemniku, hkrati pa tudi morebitnemu prisluškovalcu.
 
-Simulacijo smo izvedli s parametri $L=20$ in $noise\_ratio=6.5$, pri čemer smo dobili rezultate, prikazane na spodnjem grafu.
+Simulacijo smo izvedli pri $L=2$, $\gamma=1$ in brez dodatnega Gaussovega šuma. Primerjali smo vrednosti $N\in\{40,80,160,240,320,400,600,800,1000\}$.
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{beta_error.png}
 \end{center}
-\caption{Graf BER glede na $\Delta \beta$}
+\caption{BER v odvisnosti od razlike $\Delta\beta$ pri različnih vrednostih $N$.}
 \label{beta_error}
 \end{figure}
 
-Primerjali smo različne $\beta$ mape, od $[-0.1,0.1]$ do $[-1.0,1.0]$. Vrednost $\Delta\beta$ predstavlja razliko med obema vrednostma v posamezni $\beta$ mapi. Iz grafa je razvidno, da se stopnja bitnih napak zmanjšuje z večanjem razlike med vrednostma parametra $\beta$, kar je po pričakovanjih. 
+Rezultati kažejo, da se BER zmanjšuje tako z večanjem razlike $\Delta\beta$ kot tudi z večanjem števila vzorcev na simbol. Pri majhnih razlikah sta porazdelitvi podobni, zato se lahko ocenjeni vrednosti parametra $\beta$ za oba simbola prekrivata in sprejemnik med njima pogosto izbere napačno vrednost.
 
-Ker vrednosti BER = 0 na logaritemski osi ni mogoče prikazati, smo jo nadomestili z najmanjšo merljivo vrednostjo
+Najizrazitejši padec BER je opazen pri $\Delta\beta=2$, kar ustreza preslikavi $\beta\in\{-1,1\}$. Pri teh skrajnih vrednostih je porazdelitev za $\beta=-1$ izrazito asimetrična v eno smer, porazdelitev za $\beta=1$ pa v nasprotno smer. Območja, v katerih se pojavljajo njune značilne ekstremne vrednosti, se zato skoraj ne prekrivajo. Ker sprejemnik parameter $\beta$ ocenjuje prav iz največjih in najmanjših vrednosti posameznih segmentov, sta pri tej preslikavi oceni obeh simbolov dobro ločeni in odločitev sprejemnika bistveno enostavnejša.
 
-\[
-\mathrm{BER}=\frac{1}{102\,400}\approx10^{-5},
-\]
-
-kar predstavlja eno napačno dekodiran bit med vsemi analiziranimi biti. Enak pristop smo uporabili tudi pri vseh nadaljnjih simulacijah.
-
-Opazimo tudi, da se pri  $N\geq600$ vse tri krivulje praktično prekrivajo. To nakazuje, da ima izbira parametra $\beta$ bistveno večji vpliv na uspešnost dekodiranja kot nadaljnje povečevanje števila vzorcev na simbol.
-
-Rezultati kažejo, da izbira parametra $\beta$ predstavlja enega ključnih dejavnikov uspešnosti sistema.
+Vpliv števila vzorcev ostaja pomemben tudi pri največji razliki med porazdelitvama. Pri $\Delta\beta=2$ se je BER zmanjšal s približno $0{,}39$ pri $N=40$ na približno $1{,}4\cdot10^{-4}$ pri $N=320$. Pri $N\geq600$ pa v izvedenih ponovitvah ni bila zaznana nobena bitna napaka.
 
 \section{Spreminjanje parametra $\gamma$}
 
@@ -1289,23 +1324,6 @@ kjer parameter $\gamma_G$ predstavlja $\gamma$ parameter normalne porazdelitve, 
 V simulacijski model je bil preko vgrajenega bloka v orodju GNU Radio Companion dodan tudi umetni Gaussov šum. Parameter \texttt{noise\_ratio} je bil nastavljen na vrednost 1,0, saj se je med testiranjem pokazalo, da je vpliv parametra $\gamma$ v popolnoma idealnem kanalu (\texttt{noise\_ratio}=0) precej manj izrazit. Prisotnost tudi razmeroma majhne količine šuma bistveno bolje pokaže vpliv parametra $\gamma$ na uspešnost dekodiranja.
 
 Monotona povezava med BER, MSNR in številom vzorcev na simbol kaže na možnost preprostega prilagodljivega mehanizma prenosa. Sprejemnik lahko spremlja pojav bitnih napak in ob njihovem povečanju oddajniku predlaga uporabo večjega števila vzorcev na simbol. Ko postane komunikacija ponovno zanesljiva, se lahko število vzorcev postopoma zmanjšuje, s čimer se poveča prepustnost sistema brez večjega tveganja za napake.
-
-\section{Različne velikosti vzorca glede na šum}
-
-V prejšnjih simulacijah smo že opazili, da število vzorcev na simbol pomembno vpliva na uspešnost dekodiranja. Zato smo v tej simulaciji podrobneje analizirali vpliv velikosti vzorca pri različnih stopnjah dodanega šuma. Pričakujemo, da se bo z večanjem števila vzorcev izboljšala natančnost ocene parametrov porazdelitve, posledično pa se bo zmanjševala tudi stopnja bitnih napak. Simulacija je bila izvedena s parametri $\beta_{\mathrm{map}}=[-1.0,1.0]$ in $L=8$.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.8\textwidth]{l_error_log.png}
-  \caption{Graf BER glede na velikost vzorca}
-  \label{sample_size_error}
-\end{figure}
-
-Rezultati potrjujejo pričakovano obnašanje sistema. Pri majhnem številu vzorcev je ocena parametrov porazdelitve nezanesljiva, zato je stopnja bitnih napak visoka, zlasti pri večjih stopnjah šuma. Pri najmanjšem številu vzorcev ($N=16$) je BER znašal skoraj 40\,\%, kar predstavlja praktično neuporabno komunikacijo.
-
-Z večanjem števila vzorcev se natančnost ocene parametrov izboljšuje, zato BER postopoma pada. Rezultati kažejo, da je mogoče tudi v prisotnosti razmeroma močnega šuma z zadostnim številom vzorcev doseči komunikacijo brez zaznanih bitnih napak.
-
-Število vzorcev na simbol predstavlja kompromis med hitrostjo prenosa in zanesljivostjo komunikacije.
 
 \section{Rezultati uporabe na opremi SDR}
 

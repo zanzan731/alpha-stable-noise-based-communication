@@ -741,7 +741,7 @@ blocks:
     label: ''
     short_id: ''
     type: intx
-    value: '1000'
+    value: '500'
   states:
     bus_sink: false
     bus_source: false

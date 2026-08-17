@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  17 AUG 2026 16:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  17 AUG 2026 18:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1996,53 +1996,48 @@ Poglavje 5.
 [29
 
 ]
-Overfull \hbox (0.24826pt too wide) in paragraph at lines 992--993
-\OT1/cmr/m/n/12 talno ob-de-lavo si-gna-lov in pro-gram-sko opre-de-ljene ra-di
-j-ske sis-teme. Omogo^^Tca
- []
-
-
-
-[30]
-Overfull \hbox (3.24475pt too wide) in paragraph at lines 1002--1003
-\OT1/cmr/m/n/12 GNU Ra-dio Com-pa-nion (GRC) je grafi^^Tcni upo-rabni^^Tski vme
--snik za na^^Tcrtovanje
- []
-
-<Alpha_encoder and decoder.png, id=466, 2695.06876pt x 819.06pt>
+<Alpha_encoder and decoder.png, id=460, 2695.06876pt x 819.06pt>
 File: Alpha_encoder and decoder.png Graphic file (type png)
 <use Alpha_encoder and decoder.png>
-Package pdftex.def Info: Alpha_encoder and decoder.png  used on input line 1014
+Package pdftex.def Info: Alpha_encoder and decoder.png  used on input line 1000
 .
 (pdftex.def)             Requested size: 467.99881pt x 142.22534pt.
 
-Overfull \hbox (77.99881pt too wide) in paragraph at lines 1014--1015
+Overfull \hbox (77.99881pt too wide) in paragraph at lines 1000--1001
  [][] 
  []
 
 
 
-[31]
+[30]
 
-[32 <./Alpha_encoder and decoder.png>]
-Overfull \hbox (19.14853pt too wide) in paragraph at lines 1051--1053
-\OT1/cmr/m/n/12 Za ge-ne-ri-ra-nje si-gnala upo-ra-bljam Chambers-Mallows-Struc
-kov al-go-ri-tem(CMS),
+[31 <./Alpha_encoder and decoder.png>]
+Overfull \hbox (14.57913pt too wide) in paragraph at lines 1037--1039
+\OT1/cmr/m/n/12 Za ge-ne-ri-ra-nje si-gnala upo-ra-bljam Chambers-Mallows-Stuck
+ov al-go-ri-tem(CMS),
  []
 
 
 
+[32]
+
 [33]
+Overfull \hbox (0.22234pt too wide) in paragraph at lines 1117--1118
+[]\OT1/cmr/m/n/12 Isti oce-nje-val-nik je mogo^^Tce za-sle-diti tudi v ek-vi-va
+-len-tni ek-spo-nen-tni obliki: 
+ []
+
+
 
 [34]
-
-[35]
-Overfull \hbox (10.04863pt too wide) in paragraph at lines 1133--1134
+Overfull \hbox (10.04863pt too wide) in paragraph at lines 1158--1159
 \OT1/cmr/m/n/12 Pri pre-nosu ko-mu-ni-ka-cij-skega sis-tema iz si-mu-la-cij-ske
 ga oko-lja na fizi^^Tcno opremo
  []
 
 
+
+[35]
 
 [36]
 
@@ -2060,76 +2055,94 @@ Poglavje 6.
 
 [41]
 LaTeX Font Info:    Trying to load font information for OMS+cmtt on input line 
-1215.
-LaTeX Font Info:    No file OMScmtt.fd. on input line 1215.
+1242.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 1242.
 
 
 LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 1215.
+(Font)              for symbol `textbraceleft' on input line 1242.
 
 
-Overfull \hbox (36.1959pt too wide) in paragraph at lines 1199--1228
+Overfull \hbox (36.1959pt too wide) in paragraph at lines 1226--1255
 [][] 
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1233.
+(hyperref)                removing `math shift' on input line 1260.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\beta' on input line 1233.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1233.
+(hyperref)                removing `math shift' on input line 1260.
 
 
 
 [42
 
 ]
-<beta_error.png, id=551, 568.524pt x 352.6776pt>
-File: beta_error.png Graphic file (type png)
-<use beta_error.png>
-Package pdftex.def Info: beta_error.png  used on input line 1241.
-(pdftex.def)             Requested size: 312.00119pt x 193.55351pt.
-
-
-[43 <./beta_error.png>]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1261.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\gamma' on input line 1261.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1261.
-
-<gama_error_log.png, id=558, 568.524pt x 352.6776pt>
-File: gama_error_log.png Graphic file (type png)
-<use gama_error_log.png>
-Package pdftex.def Info: gama_error_log.png  used on input line 1269.
-(pdftex.def)             Requested size: 312.00119pt x 193.55351pt.
-
-
-[44]
-
-[45 <./gama_error_log.png>]
-<l_error_log.png, id=569, 568.524pt x 352.6776pt>
+<l_error_log.png, id=549, 568.524pt x 352.6776pt>
 File: l_error_log.png Graphic file (type png)
 <use l_error_log.png>
-Package pdftex.def Info: l_error_log.png  used on input line 1299.
+Package pdftex.def Info: l_error_log.png  used on input line 1266.
 (pdftex.def)             Requested size: 312.00119pt x 193.55351pt.
 
 
-[46]
+[43 <./l_error_log.png>]
 
-[47 <./l_error_log.png>]
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1276.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\beta' on input line 1276.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1276.
+
+
+Overfull \hbox (7.2609pt too wide) in paragraph at lines 1280--1281
+\OT1/cmr/m/n/12 ^^Tsuma. Pri-mer-jali smo vre-dno-sti $\OML/cmm/m/it/12 N \OMS/
+cmtt/m/n/12 2 f\OT1/cmr/m/n/12 40\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 80\OML/cmm/
+m/it/12 ; \OT1/cmr/m/n/12 160\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 240\OML/cmm/m/i
+t/12 ; \OT1/cmr/m/n/12 320\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 400\OML/cmm/m/it/1
+2 ; \OT1/cmr/m/n/12 600\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 800\OML/cmm/m/it/12 ;
+ \OT1/cmr/m/n/12 1000\OMS/cmtt/m/n/12 g$\OT1/cmr/m/n/12 . 
+ []
+
+<beta_error.png, id=556, 568.524pt x 352.6776pt>
+File: beta_error.png Graphic file (type png)
+<use beta_error.png>
+Package pdftex.def Info: beta_error.png  used on input line 1284.
+(pdftex.def)             Requested size: 312.00119pt x 193.55351pt.
+
+
+[44 <./beta_error.png>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1296.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\gamma' on input line 1296.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1296.
+
+<gama_error_log.png, id=563, 568.524pt x 352.6776pt>
+File: gama_error_log.png Graphic file (type png)
+<use gama_error_log.png>
+Package pdftex.def Info: gama_error_log.png  used on input line 1304.
+(pdftex.def)             Requested size: 312.00119pt x 193.55351pt.
+
+
+[45]
+
+[46 <./gama_error_log.png>]
+
+[47]
 
 [48] (vzorec_dip_Seminar.bbl
 
@@ -2166,13 +2179,13 @@ L3 programming layer <2025-07-19>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `vzorec_dip_Seminar.out' has not changed.
-(rerunfilecheck)             Checksum: 4AEC96D74563DCF5978B8352F5E561E9;6667.
+(rerunfilecheck)             Checksum: C78301B94042FAA1D0BA4516F0E3BE9E;6408.
  ) 
 Here is how much of TeX's memory you used:
- 29534 strings out of 468149
- 594679 string characters out of 5431566
- 1019116 words of memory out of 5000000
- 57465 multiletter control sequences out of 15000+600000
+ 29533 strings out of 468149
+ 594657 string characters out of 5431566
+ 1019203 words of memory out of 5000000
+ 57466 multiletter control sequences out of 15000+600000
  643695 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  98i,13n,105p,1025b,641s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2201,9 +2214,9 @@ ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Users/ž
 an/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/
 Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/ms
 bm10.pfb>
-Output written on vzorec_dip_Seminar.pdf (64 pages, 1461614 bytes).
+Output written on vzorec_dip_Seminar.pdf (64 pages, 1462668 bytes).
 PDF statistics:
- 745 PDF objects out of 1000 (max. 8388607)
- 154 named destinations out of 1000 (max. 500000)
+ 743 PDF objects out of 1000 (max. 8388607)
+ 152 named destinations out of 1000 (max. 500000)
  467 words of extra memory for PDF output out of 10000 (max. 10000000)
 
