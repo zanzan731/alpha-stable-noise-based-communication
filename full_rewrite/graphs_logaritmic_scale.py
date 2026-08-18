@@ -39,9 +39,9 @@ def read_error_rate(output_path):
     if total_bits == 0:
         return None, False
 
-    # BER cannot be shown as zero on a logarithmic axis.
-    # If no errors were observed, plot the smallest measurable BER.
-    if total_errors == 0:
+    # BER cannot be shown as zero on a logarithmic axis. Treat zero or one
+    # observed error as the smallest displayed BER and stop the curve there.
+    if total_errors <= 1:
         return 1.0 / total_bits, True
 
     return total_errors / total_bits, False

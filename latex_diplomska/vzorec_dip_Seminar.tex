@@ -421,8 +421,8 @@ V tem poglavju so predstavljeni osnovni principi brezžične komunikacije, pregl
 \section{Osnove brezžičnih komunikacij}
 Na prvi pogled se zdi prenos informacij brez fizične povezave med napravama skoraj samoumeven, saj se s tako komunikacijo srečamo vsak dan. V resnici pa mora vsaka brezžična komunikacija izkoristiti nek pojav v naravi, ki omogoča širjenje informacij skozi prostor. Takšen prenos je mogoče izvesti na več načinov, najpogosteje z uporabo elektromagnetnih valov, magnetnih polj ali svetlobnega prenosa. %svetloba je tudi elektro tho ne vem ku bi to lepše napisu
 Med omenjenimi načini ima vsak svoje prednosti in omejitve. Magnetna polja omogočajo komunikacijo le na zelo kratkih razdaljah in se uporabljajo predvsem pri tehnologijah, kot je NFC (near field communication). Svetlobni prenos omogoča zelo visoke hitrosti prenosa podatkov, vendar zahteva neposredno vidno povezavo med oddajnikom in sprejemnikom. Zaradi ugodnega razmerja med dosegom, hitrostjo prenosa in zanesljivosjo pa se v večini sodobnih komunikacijskih sistemih najpogosteje uporabljajo elektromagnetni valovi. %Upam da ne zveni kot da mislim da je to najboljša komunikacija
-Brezžična komunikacija bo zato v nadaljevanju pomenila prenos informacij z \textbf{elektromagnetnimi valovi} med oddajnikom in sprejemnikom brez uporabe fizičnega prenosnega medij. %Mogoče to spustim, ker sm že reku da bom govoru o elektromagnetnem prenosu?
-Elektromagnetni val služi kot nosilec informacije, ki se med prenosom širi skozi komunikacijski kanal do sprejemnika. Ker elektktromagnetni val sam po sebi ne vsebuje informacije, jo je potrebno vanj nekako zapisati. Ta postopek imenujemo modulacija. Pri modulaciji se informacija kodira v eno ali več lastnosti elektromagnetnega vala, in sicer v amplitudo, fazo ali frekvenco. Preprosto povedano: amplituda je višina vala, faza je njegov zamik, frekvenca pa pove, kako gosto oziroma na kakšni razdalji si sledijo valovi. Ko je signal na oddajnikovi strani zakodiran, ga je treba na prejemnikovi strani dekodirati in tako dobiti prvotno sporočilo. Ta postopek se imenuje demodulacija.
+Brezžična komunikacija bo zato v nadaljevanju pomenila prenos informacij z \textbf{elektromagnetnimi valovi} med oddajnikom in sprejemnikom brez uporabe fizičnega prenosnega medija. %Mogoče to spustim, ker sm že reku da bom govoru o elektromagnetnem prenosu?
+Elektromagnetni val služi kot nosilec informacije, ki se med prenosom širi skozi komunikacijski kanal do sprejemnika. Ker elektktromagnetni val sam po sebi ne vsebuje informacije, jo je potrebno vanj nekako zapisati. Ta postopek imenujemo modulacija. Pri klasični modulaciji se informacija kodira v eno ali več lastnosti elektromagnetnega vala, in sicer v amplitudo, fazo ali frekvenco. Preprosto povedano: amplituda je višina vala, faza je njegov zamik, frekvenca pa pove, kako gosto oziroma na kakšni razdalji si sledijo valovi. Ko je signal na oddajnikovi strani zakodiran, ga je treba na prejemnikovi strani dekodirati in tako dobiti prvotno sporočilo. Ta postopek se imenuje demodulacija.
 
 \begin{figure}[H]
     \centering
@@ -488,7 +488,7 @@ Kot je razvidno iz preglednice~\ref{tab:wireless_technologies}, je vsaka komunik
 Čeprav so se omenjene tehnologije v zadnjih desetletjih izkazale za zelo uspešne, imajo tudi določene omejitve. Njihovo delovanje je odvisno od razmer v komunikacijskem kanalu, predvsem od prisotnosti šuma, motenj in možnosti zaznave same komunikacije. V naslednjem poglavju so predstavljeni ključni izzivi obstoječih komunikacijskih sistemov, ki predstavljajo motivacijo za razvoj alternativnih pristopov.
 
 \section{Ključni izzivi sodobnih brezžičnih komunikacijskih sistemov}
-Čeprav so sodobne brezžične komunikacijske tehnologije dosegle izjemen napredek glede hitrosti prenosa podatkov, energijske učinkovitosti in zanesljivosti, se še vedno soočajo z več odprtimi izzivi. Ti postanejo posebej izraziti v zahtevnih komunikacijskih okoljih, kjer šum ni več ustrezno opisan z običajno predpostavko aditivnega belega Gaussovega šuma (AWGN), ali kjer je poleg zanesljivega prenosa pomembna tudi nizka zaznavnost same komunikacije.
+Čeprav so sodobne brezžične komunikacijske tehnologije dosegle izjemen napredek glede hitrosti prenosa podatkov, energijske učinkovitosti in zanesljivosti, se še vedno soočajo z več odprtimi izzivi. Ti postanejo posebej izraziti v zahtevnih komunikacijskih okoljih, kjer šum ni več ustrezno opisan z običajno predpostavko aditivnega belega Gaussovega šuma\footnote{Aditivni beli Gaussov šum (AWGN) je standardni model šuma v komunikacijskih sistemih, ki predpostavlja Gaussovsko porazdeljen, časovno nekoreliran aditivni šum.} (AWGN), ali kjer je poleg zanesljivega prenosa pomembna tudi nizka zaznavnost same komunikacije.
 
 \subsection{Šum}
 Eden izmed najpomembnejših dejavnikov, ki vplivajo na kakovost brezžične komunikacije, je šum. Med prenosom se signal širi skozi komunikacijski kanal, kjer nanj vplivajo različni naravni in umetni viri motenj. Posledica je popačenje prejetega signala, zaradi katerega lahko sprejemnik napačno dekodira poslane podatke, kar se odraža v povečani stopnji bitnih napak (BER).
@@ -529,7 +529,7 @@ Med različnimi pristopi predstavlja posebno skupino komunikacija, ki temelji na
 \label{ch1}
 Stabilne porazdelitve predstavljajo pomembno družino verjetnostnih porazdelitev, ki si delijo nekatere posebne matematične lastnosti. Njihove temelje je sistematično postavil francoski matematik Paul Lévy leta 1925, zato jih pogosto imenujemo tudi Lévy $\alpha$-stabilne distribucije. 
 
-Poseben predstavnik te družine je $\alpha$-stabilna porazdelitev, ki predstavlja naravno posplošitev normalne porazdelitve. Za razliko od normalne porazdelitve omogoča modeliranje težkih repov\footnote{Porazdelitve s težkimi repi so verjetnostne porazdelitve, pri katerih imajo skrajni dogodki (ekstremne vrednosti) večjo verjetnost pojavljanja kot pri normalni (Gaussovi) porazdelitvi. Eden najbolj znanih primerov je Studentova $t$-porazdelitev.} in asimetrije, zaradi česar omogoča bistveno natančnejše modeliranje pojavov z izrazitimi ekstremnimi vrednostmi. Zaradi teh lastnosti je našla pomembno uporabo na področjih telekomunikacij, obdelave signalov, financ in fizike, kjer klasični Gaussov model pogosto ne predstavlja ustreznega opisa opazovanih podatkov.
+Stabilne porazdelitve, imenovane tudi $\alpha$-stabilne porazdelitve, so pomembna družina verjetnostnih porazdelitev, saj predstavljajo naravno posplošitev normalne porazdelitve. Za razliko od normalne porazdelitve omogočajo modeliranje težkih repov\footnote{Porazdelitve s težkimi repi so verjetnostne porazdelitve, pri katerih imajo skrajni dogodki (ekstremne vrednosti) večjo verjetnost pojavljanja kot pri normalni (Gaussovi) porazdelitvi. Eden najbolj znanih primerov je Studentova $t$-porazdelitev.} in asimetrije, zaradi česar omogočajo bistveno natančnejše modeliranje pojavov z izrazitimi ekstremnimi vrednostmi. Zaradi teh lastnosti so našle pomembno uporabo na področjih telekomunikacij, obdelave signalov, financ in fizike, kjer klasični Gaussov model pogosto ne predstavlja ustreznega opisa opazovanih podatkov.
 
 \section{Stabilne porazdelitve}
 Stabilne porazdelitve so bile v prejšnjih poglavjih večkrat omenjene kot matematična osnova komunikacije, obravnavane v tej diplomski nalogi. Preden podrobneje predstavimo $\alpha$-stabilne porazdelitve, je smiselno najprej odgovoriti na vprašanje, kaj pravzaprav pomeni, da je verjetnostna porazdelitev stabilna.
@@ -550,23 +550,27 @@ aX_1+bX_2\overset{d}{=}cX+d.
 Intuitivno definicija pomeni, da vsota dveh neodvisnih slučajnih spremenljivk z enako stabilno porazdelitvijo ponovno pripada isti družini porazdelitev. Seštevanje spremeni le parametra lege in skale, medtem ko oblika porazdelitve ostane nespremenjena.
 \end{tcolorbox}
 
-Lastnost stabilnosti je izjemnega pomena pri modeliranju naključnih procesov. Če je pojav sestavljen iz velikega števila neodvisnih vplivov, želimo, da tudi njihova vsota pripada enaki družini porazdelitev. Normalna porazdelitev je najbolj znan primer stabilne porazdelitve, vendar ni edina. Obstaja mnogo širša družina stabilnih porazdelitev, katerih najpomembnejši predstavnik je $\alpha$-stabilna porazdelitev, predstavljena v nadaljevanju.
+Lastnost stabilnosti je izjemnega pomena pri modeliranju naključnih procesov. Če je pojav sestavljen iz velikega števila neodvisnih vplivov, želimo, da tudi njihova vsota pripada enaki družini porazdelitev. Normalna porazdelitev je najbolj znan primer stabilne porazdelitve, vendar ni edina. V naslednjem razdelku zato podrobneje predstavimo družino stabilnih oziroma $\alpha$-stabilnih porazdelitev ter parametre, ki določajo njihovo obliko.
 
 \section{Definicija $\alpha$-stabilnih porazdelitev}
 Čeprav imajo vse stabilne porazdelitve skupno lastnost stabilnosti, se med seboj razlikujejo po obliki. Družino $\alpha$-stabilnih porazdelitev popolnoma določajo štirje parametri, ki opisujejo debelino repov, asimetrijo, razpršenost in lego porazdelitve.
 
-Vse $\alpha$-stabilne porazdelitve so zvezne porazdelitve.
+Vse $\alpha$-stabilne porazdelitve, obravnavane v tej nalogi, so absolutno zvezne in imajo gostoto verjetnosti.
 
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definicija 2: Zvezna porazdelitev]
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definicija 2: Absolutno zvezna porazdelitev]
 \label{def:zvezna}
-Porazdelitev je zvezna, če obstaja  integrabilna funkcija
-$p_X$, imenovana \emph{gostota verjetnosti}, tako da za vsak $x \in \mathbb{R}$ velja
+Porazdelitev slučajne spremenljivke $X$ je absolutno zvezna, če obstaja nenegativna integrabilna funkcija $p_X$, imenovana \emph{gostota verjetnosti}, tako da za vsak $x\in\mathbb{R}$ velja
 
 \[
-F_X(x)=\int_{-\infty}^{x} p_X(t)\,dt,
+F_X(x)=\mathbb{P}(X\leq x)
+=\int_{-\infty}^{x}p_X(t)\,\mathrm{d}t,
 \]
 
-kjer je $F_X$ porazdelitvena funkcija slučajne spremenljivke $X$.
+kjer je $F_X$ porazdelitvena funkcija slučajne spremenljivke $X$. Ker je skupna verjetnost vseh možnih vrednosti enaka 1, velja tudi
+
+\[
+\int_{-\infty}^{\infty}p_X(t)\,\mathrm{d}t=1.
+\]
 \end{tcolorbox}
 
 Za razliko od normalne porazdelitve gostote verjetnosti $\alpha$-stabilnih porazdelitev v splošnem ni mogoče zapisati v zaprti obliki. Zaradi tega jih običajno definiramo s pomočjo karakteristične funkcije.
@@ -609,7 +613,7 @@ i\mu t
 \label{def:karakteristicnaAlpha}
 \end{tcolorbox}
 
-Ključna lastnost $\alpha$-stabilnih porazdelitev je njihova stabilnost. Lastnost stabilnosti neposredno iz definicije ni razvidna, zato jo dokažimo.
+Ker stabilnost iz definicije ni neposredno razvidna, jo dokažemo.
 \begin{tcolorbox}[colback=red!5!white,colframe=red!50!black,title=Dokaz 1: Stabilnost $\alpha$-stabilne porazdelitve]
 Naj bo $X$ slučajna spremenljivka z $\alpha$-stabilno porazdelitvijo, naj bosta $X_1$ in $X_2$ njeni neodvisni kopiji ter naj velja $a,b \textgreater 0$. Zaradi neodvisnosti velja
 
@@ -667,15 +671,19 @@ i(\mu c + d)t
 \right).
 \]
 
-Iz izbire
+Če izberemo
 
 \[
 c=\left(a^\alpha+b^\alpha\right)^{1/\alpha},
 \]
 
-in  \[d = \mu (a +b - c) \].
+in
 
-sledi, da je dobljena karakteristična funkcija natanko karakteristična funkcija slučajne spremenljivke $cX+d$. Ker karakteristična funkcija enolično določa porazdelitev, dobimo
+\[
+d=\mu(a+b-c),
+\]
+
+je dobljena karakteristična funkcija natanko karakteristična funkcija slučajne spremenljivke $cX+d$. Ker karakteristična funkcija enolično določa porazdelitev, dobimo
 
 \[
 aX_1+bX_2 \overset{d}{=} cX+d.
@@ -720,11 +728,10 @@ Parameter lege $\mu$ lahko zavzame poljubno realno vrednost, torej $\mu\in\mathb
 
 \section{Posebni primeri $\alpha$-stabilnih porazdelitev}
 
-Čeprav $\alpha$-stabilne porazdelitve predstavljajo zelo splošno družino porazdelitev, vsebujejo tudi več dobro poznanih posebnih primerov, ki imajo pomembno vlogo v matematiki, fiziki in telekomunikacijah. Nekateri izmed njih so predstavljeni v Tabeli~\ref{tab}.
+Čeprav $\alpha$-stabilne porazdelitve predstavljajo zelo splošno družino porazdelitev, vsebujejo tudi več dobro poznanih posebnih primerov, ki imajo pomembno vlogo v matematiki, fiziki in telekomunikacijah. Nekateri izmed njih so predstavljeni v Tabeli~\ref{tab:alpha_special_cases}.
 
 \begin{table}[H]
 \centering
-\label{tab}
 \begin{tabular}{ccc}
 \hline
 $\alpha$ & $\beta$ & Porazdelitev \\
@@ -735,6 +742,7 @@ $\frac{1}{2}$ & 1 & Lévyjeva \\
 \hline
 \end{tabular}
 \caption{Posebni primeri $\alpha$-stabilnih porazdelitev.}
+\label{tab:alpha_special_cases}
 \end{table}
 
 
@@ -838,19 +846,9 @@ kjer znak $\overset{d}{\longrightarrow}$ označuje konvergenco v porazdelitvi.
 To pomeni, da se porazdelitvena funkcija normirane vsote približuje porazdelitveni funkciji standardne normalne porazdelitve. Pomembna lastnost tega rezultata je, da začetna porazdelitev posameznih slučajnih spremenljivk ni nujno normalna, ampak vedno konvergira v normalno, zaradi tega se tudi ta porazdelitev tako pogosto pojavlja v naravi in našem vsakdanu.
 \end{tcolorbox}
 
-Povezava med centralnim limitnim izrekom in $\alpha$-stabilnimi porazdelitvami opisuja njihova stabilnost pri seštevanju neodvisnih naključnih spremenljivk. Normalna porazdelitev predstavlja poseben primer $\alpha$-stabilne porazdelitve, za katerega velja
+Povezava med centralnim limitnim izrekom in $\alpha$-stabilnimi porazdelitvami izhaja iz njihove stabilnosti pri seštevanju neodvisnih naključnih spremenljivk. Normalna porazdelitev predstavlja poseben primer $\alpha$-stabilne porazdelitve, za katerega velja $\alpha=2$.
 
-\[
-\alpha=2.
-\]
-
-Pri drugih vrednostih parametra
-
-\[
-0<\alpha<2
-\]
-
-dobimo stabilne porazdelitve z neskončno varianco. Zaradi težkih repov njihove vsote ne konvergirajo proti normalni porazdelitvi, ampak proti drugi stabilni porazdelitvi. Zato predstavljajo $\alpha$-stabilne porazdelitve naravno posplošitev klasičnega centralnega limitnega izreka.
+Pri $0<\alpha<2$ imajo $\alpha$-stabilne porazdelitve neskončno varianco, pri $\alpha\leq1$ pa ne obstaja niti končno matematično upanje. Zato niso izpolnjene predpostavke klasičnega centralnega limitnega izreka, ki zahteva končno matematično upanje in varianco. Posplošeni centralni limitni izrek pokaže, da ustrezno normirane vsote takšnih naključnih spremenljivk ne konvergirajo proti normalni, temveč proti $\alpha$-stabilni porazdelitvi. V tem smislu predstavljajo $\alpha$-stabilne porazdelitve naravno posplošitev klasičnega centralnega limitnega izreka.
 
 To povezavo formalno opiše posplošeni centralni limitni izrek (angl. Generalized Central Limit Theorem). 
 
@@ -890,7 +888,7 @@ To je posplošen skalirni faktor v centralnem limitnem izreku. V CLI velja da je
 S tem so $\alpha$-stabilne porazdelitve edine možne mejne porazdelitve pri seštevanju velikega števila neodvisnih in enako porazdeljenih slučajnih spremenljivk. In zato ta izrek pojasnjuje, zakaj so $\alpha$-stabilne porazdelitve primerne za opis signalov, ki nastanejo kot rezultat velikega števila naključnih prispevkov. Njihova stabilnost zagotavlja, da se statistična oblika signala ohrani tudi pri združevanju več neodvisnih komponent.
 
 \section{Pomen lastnosti stabilnosti za modeliranje komunikacijskih kanalov}
-Pri obravnavi komunikacijskih sistemov signal, ki ga sprejme sprejemnik, praviloma ni enak oddanemu signalu. Med prenosom nanj vplivajo številni neodvisni naključni pojavi, kot so elektromagnetne motnje, večpotno razširjanje signala, motnje drugih uporabnikov ter šum elektronskih komponent. Sprejeti signal zato pogosto predstavlja vsoto velikega števila naključnih prispevkov.
+Pri obravnavi komunikacijskih sistemov signal, ki ga sprejme sprejemnik, praviloma ni enak oddanemu signalu. Med prenosom nanj vplivajo številni neodvisni naključni pojavi, kot so elektromagnetne motnje, večpotno razširjanje signala ter motnje drugih uporabnikov. Sprejeti signal zato pogosto predstavlja vsoto velikega števila naključnih prispevkov.
 
 Za matematični model komunikacijskega kanala je zato zaželeno, da ostane njegova porazdelitev nespremenjena tudi po seštevanju več neodvisnih komponent. Prav to zagotavlja lastnost stabilnosti~\ref{def:stable}~\ref{def:GCLI}.
 
@@ -915,7 +913,7 @@ Namesto določanja trenutne vrednosti signala oddajnik generira zaporedje naklju
 \[
 X_1,X_2,\ldots,X_n
 \sim
-S_\alpha(\beta,\gamma,\delta),
+S_\alpha(\beta,\gamma,\mu),
 \]
 
 pri čemer izbrani parametri predstavljajo informacijo, ki jo želimo prenesti.
@@ -929,12 +927,12 @@ Naj bo $N$ število vzorcev, ki predstavljajo en simbol. Za vsak simbol oddajnik
 \[
 X_1,X_2,\dots,X_N
 \sim
-S_\alpha(\beta, \gamma,\mu)
-\],
+S_\alpha(\beta, \gamma,\mu),
+\]
 kjer izbrani parametri porazdelitve določajo poslani simbol.
 \end{tcolorbox}
 
-Posamezen vzorec sam po sebi ne vsebuje dovolj informacij o uporabljeni porazdelitvi, saj je vsak vzorec tudi do neke mere naključen. Šele zaporedje več vzorcev konvergira proti porazdelitvi, ki razkrije prave statistične lastnosti. Zato je vsak simbol, oziroma zaporedje bitov predstavljen z $N$ zaporednimi vzorci. Večja kot je vrednost $N$, bolj izrazite so lastnosti porazdelitve in bomo zato meli manjše napake, ampak se zato tudi poveča dolžina prenosa posameznega simbola.
+Posamezen vzorec sam po sebi ne vsebuje dovolj informacij o uporabljeni porazdelitvi, saj je vsak vzorec tudi do neke mere naključen. Šele zaporedje več vzorcev konvergira proti porazdelitvi, ki razkrije prave statistične lastnosti. Zato je vsak simbol, oziroma zaporedje bitov predstavljen z $N$ zaporednimi vzorci. Večja kot je vrednost $N$, bolj izrazite so lastnosti porazdelitve in bomo zato imeli manjše napake, ampak se zato tudi poveča dolžina prenosa posameznega simbola.
 
 Za prenos digitalnih podatkov je potrebno določiti preslikavo med binarnimi simboli in parametri naše porazdelitve. Vsaka kombinacija vhodnih bitov je dodeljena ena kombinacija parametrov $\alpha, \beta, \gamma, \mu$. Po tej preslikavi oddajnik za vsak simbol izbere ustrezne parametre in generira $N$ vzorcev. Nato pa dekodernik te vzorce sprejme in jih dekodira.
 
@@ -945,8 +943,8 @@ Po prenosu skozi komunikacijski kanal dekodirnik prejme za vsak simbol $N$ zapor
 \begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black, title=Definicija 8: Teoretično delovanje sprejemnika]
 Naj bo $N$ število vzorcev, ki predstavljajo en simbol. Za vsak simbol sprejemnik prejme zaporedje
 \[
-Y_1,Y_2,\dots,Y_N
-\],
+Y_1,Y_2,\dots,Y_N,
+\]
 kjer velja
 \[
 Y_i = X_i + W_i, \qquad i=1,\ldots,N,
@@ -997,7 +995,7 @@ Razviti komunikacijski sistem je namenjen prenosu informacij z uporabo statisti�
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1.2\textwidth]{Alpha_encoder and decoder.png}
+\includegraphics[width=\textwidth]{Alpha_encoder and decoder.png}
 \caption{Blokovni diagram komunikacijskega sistema.}
 \label{GNU}
 \end{figure}
@@ -1006,7 +1004,7 @@ Vir podatkov proizvaja zaporedje bitov oziroma podatkov, ki se posredujejo kodir
 
 Generirani vzorci se nato prenesejo preko komunikacijskega kanala. Kanal je lahko v simulacijskem okolju programsko modeliran, pri čemer mu lahko dodamo različne motnje, kot je Gaussov šum, ali pa ga predstavlja dejanska radijska povezava pri uporabi SDR opreme.
 
-Na sprejemni strani dekodirnik iz prejetih vzorcev oceni parametre $\alpha$-stabilne porazdelitve in na njihovi podlagi določi pripadajoče simbole oziroma bite. Dekodirani podatki se nato posredujejo ponoru, kjer se ponovno sestavijo v izhodne podatke.
+Na sprejemni strani dekodirnik iz prejetih vzorcev oceni parametre $\alpha$-stabilne porazdelitve in na njihovi podlagi določi pripadajoče simbole oziroma bite. Dekodirani podatki se nato posredujejo ponoru, kjer se sestavijo v izhodne podatke.
 
 Podrobna implementacija kodirnika in dekodirnika je predstavljena v naslednjih poglavjih.
 
@@ -1019,14 +1017,10 @@ Kodirnik prejme vhodni tok bajtov, ki jih pretvori v zaporedje posameznih bitov.
 
 \subsection{Preslikava bitov v parametre}
 
-Število bitov, ki jih predstavlja posamezen simbol, je odvisno od števila možnih parametrov, uporabljenih pri kodiranju. Za vsak parameter velja, da mora biti število možnih vrednosti potenca števila dve, saj lahko le tako enolično preslikamo kombinacije bitov v posamezne vrednosti parametra. Število bitov, ki jih kodira posamezen parameter, je tako določeno kot:
-
-$n = \log_2(M)$
-
-kjer je $M$ število možnih vrednosti parametra. Skupno število bitov, predstavljenih z enim simbolom, je tako vsota števila bitov, ki jih kodirajo posamezni parametri.
+Število bitov, ki jih predstavlja posamezen simbol, je odvisno od števila možnih parametrov, uporabljenih pri kodiranju. Za vsak parameter velja, da mora biti število možnih vrednosti potenca števila dve, saj lahko le tako enolično preslikamo kombinacije bitov v posamezne vrednosti parametra. Število bitov, ki jih kodira posamezen parameter, je tako določeno kot: $n = \log_2(M)$, kjer je $M$ število možnih vrednosti parametra. Skupno število bitov, predstavljenih z enim simbolom, je tako vsota števila bitov, ki jih kodirajo posamezni parametri.
 
 \subsection{Preslikava simbolov v parametre porazdelitve}
-Implementacija omogoča kodiranje informacij v parametre $\alpha$, $\beta$ in $\gamma$. V vseh simulacijah, predstavljenih v tej diplomski nalogi, se za prenos informacij uporablja parameter $\beta$, medtem ko parametra $\alpha$ in $\gamma$ ostaneta konstantna.
+Trenutna implementacija omogoča kodiranje informacij s parametrom $\beta$, medtem ko je podpora kodiranju s parametroma $\alpha$ in $\gamma$ predvidena za nadaljnji razvoj. V vseh simulacijah je bil za prenos informacij uporabljen parameter $\beta$. Parameter $\alpha$ je ostal konstanten, parameter $\gamma$ pa se je pri analizi njegovega vpliva na stopnjo bitnih napak spreminjal, vendar ni predstavljal prenesene informacije.
 
 Vhodna kombinacija bitov določa indeks v preslikovalni tabeli, iz katere se nato izbere ustrezna vrednost parametra $\beta$. Na ta način vsak simbol predstavlja določeno $\alpha$-stabilno porazdelitev.
 
@@ -1167,7 +1161,7 @@ V nadaljevanju sta predstavljena vektorizirano generiranje $\alpha$-stabilnih vz
 
 V prvotni simulacijski implementaciji so se lahko vzorci $\alpha$-stabilne porazdelitve generirali zaporedno, saj čas izvajanja ni neposredno vplival na neprekinjenost oddajanja. Takšen pristop pri delu z SDR opremo ni več primeren, ker mora oddajnik vzorce zagotavljati z vnaprej določeno vzorčno frekvenco. Zato se v implementaciji za SDR vzorci generirajo vektorizirano. Preden začnemo oddajati se najprej prebere celoten paket in vsak vhodni bit preslikamo v parametre $\beta$. 
 
-V obravnavani implementaciji se informacija kodira samo s parametrom asimetrije $\beta$. Naj bo $M_\beta$ število možnih vrednosti tega parametra v preslikovalni tabeli. Posamezen simbol tako predstavlja $\log_2(M_\beta)$ bitov. Ker je vsak simbol sestavljen iz $N$ vzorcev, je za prenos $B$ bitov treba generirati $\frac{BN}{\log_2(M_\beta)}$ vzorcev. V uporabljeni binarni preslikavi $\beta\in{-1,1}$ velja $M_\beta=2$, zato vsak simbol predstavlja en bit, za prenos $B$ bitov pa je potrebnih $BN$ vzorcev.
+V obravnavani implementaciji se informacija kodira samo s parametrom asimetrije $\beta$. Naj bo $M_\beta$ število možnih vrednosti tega parametra v preslikovalni tabeli. Posamezen simbol tako predstavlja $\log_2(M_\beta)$ bitov. Ker je vsak simbol sestavljen iz $N$ vzorcev, je za prenos $B$ bitov treba generirati $\frac{BN}{\log_2(M_\beta)}$ vzorcev. V uporabljeni binarni preslikavi $\beta\in\{-1,1\}$ velja $M_\beta=2$, zato vsak simbol predstavlja en bit, za prenos $B$ bitov pa je potrebnih $BN$ vzorcev.
  
 Vektor parametrov $\beta$ dobimo tako, da vrednost, ki pripada posameznemu znaku ponovimo $N$-krat. Nato ustvarimo n neodvisnih vrednosti naključnih spremenljivk: $V_i \sim \mathcal{U}\left(-\frac{\pi}{2},\frac{\pi}{2}\right)$ in $W_i \sim \operatorname{Exp}(1)$, kjer indeks i teče od $0$ do $N-1$. Vsak vzorec ima tako svojo neodvisno vrednost $V_i$ in $W_i$, medtem ko imajo vsi vzorci istega simbola enako vrednost parametra $\beta$.  Vzorci se nato izračunajo po metodi CMS po enačbi~\ref{CMS}.
 
@@ -1293,37 +1287,52 @@ Najizrazitejši padec BER je opazen pri $\Delta\beta=2$, kar ustreza preslikavi 
 
 Vpliv števila vzorcev ostaja pomemben tudi pri največji razliki med porazdelitvama. Pri $\Delta\beta=2$ se je BER zmanjšal s približno $0{,}39$ pri $N=40$ na približno $1{,}4\cdot10^{-4}$ pri $N=320$. Pri $N\geq600$ pa v izvedenih ponovitvah ni bila zaznana nobena bitna napaka.
 
-\section{Spreminjanje parametra $\gamma$}
+\section{Vpliv parametra $\gamma$}
 
-V tej simulaciji smo analizirali vpliv parametra $\gamma$ na stopnjo bitnih napak. Parameter $\gamma$ določa razpršenost $\alpha$-stabilne porazdelitve in neposredno vpliva na razmerje med močjo signala in močjo šuma (MSNR). Večje vrednosti parametra $\gamma$ pomenijo večjo moč uporabnega signala glede na šum, zato pričakujemo izboljšanje uspešnosti dekodiranja.
+V tem eksperimentu smo analizirali vpliv parametra $\gamma$ in števila vzorcev na simbol $N$ na stopnjo bitnih napak. Parameter $\gamma$ določa razpršenost $\alpha$-stabilne porazdelitve in s tem vpliva na razmerje med močjo informacijskega signala in dodanega Gaussovega šuma. Uporabljena je bila preslikava $\beta\in\{-1,1\}$, vrednost $L=2$ in parameter \texttt{noise\_ratio}, nastavljen na 1,0. Primerjali smo vrednosti $N\in\{40,80,160,240,320,400,600,800,1000\}$.
 
-Simulacijo smo izvedli s parametri $L=20$ in $noise\_ratio=1.0$ in parameter $\beta$=[-1.0,1.0] pri čemer smo dobili rezultate, prikazane na spodnjem grafu.
+Vrednost MSNR je bila izražena v decibelih po enačbi
+
+\begin{equation}
+\mathrm{MSNR}_{\mathrm{dB}} = 10 \log_{10}\!\left(\frac{\gamma}{\gamma_G}\right),
+\end{equation}
+
+kjer $\gamma_G=1$ predstavlja parameter razpršenosti dodanega Gaussovega šuma.
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{gama_error_log.png}
 \end{center}
-\caption{Graf BER glede na parameter gama}
+\caption{BER v odvisnosti od MSNR pri različnih vrednostih $N$.}
 \label{gama_error}
 \end{figure}
 
-Iz grafa je razvidno, da stopnja bitnih napak z naraščanjem vrednosti MSNR monotono pada, kar je v skladu s pričakovanji. Pri konfiguracijah, kjer med vsemi ponovitvami ni bila zaznana nobena bitna napaka, nadaljnjih točk nismo več prikazovali, saj bi vse nadaljnje vrednosti imele BER = 0.
+Rezultati kažejo, da se BER zmanjšuje tako z večanjem vrednosti MSNR kot tudi z večanjem števila vzorcev na simbol. Vpliv $N$ je posebej izrazit v šumnih razmerah. Pri $\mathrm{MSNR}=-10\,\mathrm{dB}$ je BER pri $N=40$ znašal približno $0{,}62$, pri $N=400$ približno $1{,}8\cdot10^{-2}$, pri $N=800$ približno $5{,}0\cdot10^{-4}$, pri $N=1000$ pa le še približno $2{,}9\cdot10^{-5}$. V zadnjem primeru so bili med $102\,400$ prenesenimi biti napačno dekodirani samo 3 biti. Tudi pri $\mathrm{MSNR}=-14\,\mathrm{dB}$ je bilo z $N=1000$ mogoče doseči BER približno $1{,}1\cdot10^{-2}$.
 
-Posebej opazen je vpliv števila vzorcev na simbol. V okoljih z razmeroma nizko stopnjo šuma je mogoče zelo nizko stopnjo bitnih napak doseči že pri precej manjšem številu vzorcev. Iz grafa je razvidno, da pri vrednostih približno $\mathrm{MSNR}>-5$ dB že konfiguracija z okoli $N=240$ vzorci omogoča praktično brezhibno komunikacijo. To pomeni, da v takšnih razmerah ni treba uporabljati večjega števila vzorcev na simbol, saj že 240 vzorcev zagotavlja zanesljiv prenos. Ker manjše število vzorcev pomeni manj podatkov za prenos posameznega simbola, se hkrati poveča tudi prepustnost sistema.
+Takšno obnašanje kaže, da je komunikacijski sistem mogoče uporabljati tudi v precej šumnih okoljih. Z ustreznim modelom kanala in pravilom za prilagajanje bi bilo mogoče glede na ocenjeno raven šuma izbrati primerno vrednost $N$. Ob poslabšanju razmer v kanalu bi oddajnik povečal število vzorcev na simbol, s čimer bi sprejemnik dobil več vzorcev za oceno parametra $\beta$. Ko bi se razmere izboljšale, bi bilo mogoče $N$ ponovno zmanjšati.
 
-Po drugi strani se pri slabših pogojih v kanalu prednost večjega števila vzorcev hitro pokaže. Večje vrednosti $N$ omogočajo natančnejšo oceno parametrov porazdelitve, zato BER bistveno hitreje upada tudi pri nižjih vrednostih MSNR.
+Takšna prilagoditev je z vidika implementacije razmeroma preprosta, saj se preslikava parametra $\beta$ in postopek ocenjevanja ne spremenita; spremeniti je treba predvsem število generiranih in obdelanih vzorcev na simbol. Pri običajnih prilagodljivih komunikacijskih sistemih je za odziv na spremenjene razmere pogosto treba preklapljati med različnimi modulacijskimi in kodirnimi shemami, medtem ko je v predstavljenem sistemu mogoče osnovni način kodiranja ohraniti in prilagajati parameter $N$.
 
-V tej simulaciji je bila vrednost MSNR izražena v decibelih po enačbi
+Povečevanje števila vzorcev pa ima tudi neposredno ceno. Pri nespremenjeni vzorčni frekvenci se trajanje simbola povečuje sorazmerno z $N$, zato se podaljša čas prenosa in zmanjša podatkovna hitrost. Za uporabljeno binarno preslikavo, pri kateri en simbol predstavlja en bit, velja
 
 \begin{equation}
-\mathrm{MSNR}_{\mathrm{dB}} = 10 \log_{10}(\frac{\gamma}{\gamma_G}),
+T_s=\frac{N}{f_s},
+\qquad
+R_b=\frac{f_s}{N},
 \end{equation}
 
-kjer parameter $\gamma_G$ predstavlja $\gamma$ parameter normalne porazdelitve, ki je enak 1.
+kjer je $f_s$ vzorčna frekvenca, $T_s$ trajanje simbola in $R_b$ bitna hitrost. Izbira $N$ zato predstavlja kompromis med odpornostjo proti šumu in časovno učinkovitostjo komunikacije, ki je bolj intuitivno prikazan v spodnjem primeru.
 
-V simulacijski model je bil preko vgrajenega bloka v orodju GNU Radio Companion dodan tudi umetni Gaussov šum. Parameter \texttt{noise\_ratio} je bil nastavljen na vrednost 1,0, saj se je med testiranjem pokazalo, da je vpliv parametra $\gamma$ v popolnoma idealnem kanalu (\texttt{noise\_ratio}=0) precej manj izrazit. Prisotnost tudi razmeroma majhne količine šuma bistveno bolje pokaže vpliv parametra $\gamma$ na uspešnost dekodiranja.
-
-Monotona povezava med BER, MSNR in številom vzorcev na simbol kaže na možnost preprostega prilagodljivega mehanizma prenosa. Sprejemnik lahko spremlja pojav bitnih napak in ob njihovem povečanju oddajniku predlaga uporabo večjega števila vzorcev na simbol. Ko postane komunikacija ponovno zanesljiva, se lahko število vzorcev postopoma zmanjšuje, s čimer se poveča prepustnost sistema brez večjega tveganja za napake.
+\begin{tcolorbox}[colback=purple!5!white,colframe=purple!50!black,
+title=Primer vpliva števila vzorcev na hitrost prenosa]
+Pri vzorčni frekvenci $f_s=32\,000$ vzorcev/s in $N=1000$ velja
+\[
+T_s=\frac{1000}{32\,000}=31{,}25\,\mathrm{ms},
+\qquad
+R_b=\frac{32\,000}{1000}=32\,\mathrm{bit/s}.
+\]
+Če $N$ podvojimo na 2000, se trajanje simbola podvoji na $62{,}5\,\mathrm{ms}$, bitna hitrost pa se prepolovi na $16\,\mathrm{bit/s}$.
+\end{tcolorbox}
 
 \section{Rezultati uporabe na opremi SDR}
 

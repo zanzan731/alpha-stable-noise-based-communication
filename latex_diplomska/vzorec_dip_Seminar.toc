@@ -52,6 +52,6 @@
 \contentsline {section}{\numberline {6.1}Parametri}{42}{section.6.1}%
 \contentsline {section}{\numberline {6.2}Vpliv števila segmentov $L$}{43}{section.6.2}%
 \contentsline {section}{\numberline {6.3}Spreminjanje parametra $\beta $}{44}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Spreminjanje parametra $\gamma $}{45}{section.6.4}%
+\contentsline {section}{\numberline {6.4}Vpliv parametra $\gamma $}{45}{section.6.4}%
 \contentsline {section}{\numberline {6.5}Rezultati uporabe na opremi SDR}{47}{section.6.5}%
 \contentsline {chapter}{Literatura}{49}{section.6.5}%

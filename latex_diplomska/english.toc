@@ -5,19 +5,53 @@
 \contentsline {chapter}{Abstract}{}{chapter*.3}%
 \babel@toc {english}{}\relax 
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Challenges and Motivation}{2}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Impact and Applications}{3}{section.1.2}%
-\contentsline {chapter}{\numberline {2}Current State of Mobile Networks}{5}{chapter.2}%
-\contentsline {section}{\numberline {2.1}History of the $\alpha $-Stable Distribution}{6}{section.2.1}%
-\contentsline {chapter}{\numberline {3}$\alpha $-Stable Distribution}{7}{chapter.3}%
-\contentsline {section}{\numberline {3.1}$\alpha $-Stable Distribution and the Central Limit Theorem}{9}{section.3.1}%
-\contentsline {chapter}{\numberline {4}Using the $\alpha $-Stable Distribution as an Information Carrier}{13}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Simulations}{15}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Parameters}{16}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Encoder}{16}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Decoder}{18}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Simulation Results}{19}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Effect of the Parameter $\beta $}{19}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Effect of the Parameter $\gamma $}{20}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Effect of the Sample Size}{22}{subsection.5.4.3}%
-\contentsline {chapter}{\numberline {6}Implementation and Simulation in a Real Environment}{25}{chapter.6}%
+\contentsline {chapter}{\numberline {2}Wireless Communication and Its Challenges}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Fundamentals of Wireless Communication}{4}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Existing Wireless Communication Technologies}{6}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Key Challenges of Modern Wireless Communication Systems}{8}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Noise}{8}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Detectability of Communication}{9}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Existing Solutions}{9}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}Noise-Based Communication}{10}{section.2.4}%
+\contentsline {chapter}{\numberline {3}$\alpha $-Stable Distributions}{11}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Stable Distributions}{11}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Definition of $\alpha $-Stable Distributions}{12}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Parameters of the $\alpha $-Stable Distribution}{15}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Stability Parameter $\alpha $}{15}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Asymmetry Parameter $\beta $}{16}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Scale Parameter $\gamma $}{16}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Location Parameter $\mu $}{17}{subsection.3.3.4}%
+\contentsline {section}{\numberline {3.4}Special Cases of $\alpha $-Stable Distributions}{17}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Normal (Gaussian) Distribution}{17}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Cauchy Distribution}{18}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Lévy Distribution}{19}{subsection.3.4.3}%
+\contentsline {section}{\numberline {3.5}Generalised Central Limit Theorem}{20}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Significance of Stability for Communication-Channel Modelling}{23}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Communication Using $\alpha $-Stable Noise}{25}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Encoding Information}{25}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Decoding Information}{26}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Why Does the Communication Method Work?}{27}{section.4.3}%
+\contentsline {chapter}{\numberline {5}System Design and Implementation}{29}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Development Environment}{29}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Communication-System Architecture}{30}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Encoder Implementation}{31}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Mapping Bits to Parameters}{32}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Mapping Symbols to Distribution Parameters}{32}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Sample Generation}{32}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Chambers--Mallows--Stuck Algorithm}{33}{subsection.5.3.4}%
+\contentsline {section}{\numberline {5.4}Decoder Implementation}{33}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Dividing a Symbol into Segments}{33}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Estimating the Parameter $\beta $}{34}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Bit Decoding}{35}{subsection.5.4.3}%
+\contentsline {section}{\numberline {5.5}Implementation on SDR Hardware}{35}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Vectorised Generation of $\alpha $-Stable Samples}{36}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Synchronisation}{37}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Pilot Symbols and Carrier Tracking}{37}{subsection.5.5.3}%
+\contentsline {subsection}{\numberline {5.5.4}Clock-Offset Correction}{38}{subsection.5.5.4}%
+\contentsline {chapter}{\numberline {6}Evaluation in the Simulation Environment}{39}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Parameters}{41}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Effect of the Number of Segments $L$}{41}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Varying the Parameter $\beta $}{43}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Effect of the Parameter $\gamma $}{44}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Results on SDR Hardware}{46}{section.6.5}%
+\contentsline {chapter}{References}{49}{section.6.5}%

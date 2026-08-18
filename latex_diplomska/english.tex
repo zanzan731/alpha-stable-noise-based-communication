@@ -1,10 +1,11 @@
-\documentclass[a4paper, 12pt]{book}
+
+\documentclass[a4paper, 12pt, openany]{book}
 %\documentclass[a4paper, 12pt, draft]{book}  Nalogo preverite tudi z opcijo draft, ki vam bo pokazala, katere vrstice so predolge!
 
 
 
 \usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
-\usepackage[english,slovene]{babel}    % naloži, med drugim, slovenske delilne vzorce
+\usepackage[english,slovene]{babel}    % loads English and Slovene hyphenation patterns
 \usepackage[pdftex]{graphicx}  % omogoča vlaganje slik različnih formatov
 \usepackage{fancyhdr}          % poskrbi, na primer, za glave strani
 \usepackage{amssymb}           % dodatni simboli
@@ -13,6 +14,11 @@
 \usepackage[hyphens]{url}  % dodal Solina
 \usepackage{comment}       % dodal Solina
 \usepackage{float}
+\usepackage{etoolbox}
+
+% Slike in tabele so privzeto vodoravno poravnane na sredino.
+\AtBeginEnvironment{figure}{\centering}
+\AtBeginEnvironment{table}{\centering}
 
 \usepackage[pdftex, colorlinks=true,
 						citecolor=black, filecolor=black, 
@@ -24,22 +30,26 @@
 \usepackage{soul}       % dodal Solina
 \usepackage[numbers]{natbib}  % dodal Solina
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsthm}
+\usepackage[most]{tcolorbox}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\tDIPLOMA INFO
+%	DIPLOMA INFO
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\ttitle}{Brezžična komunikacija na osnovi šuma z uporabo programsko definiranega radia}
+\newcommand{\ttitle}{Noise-Based Wireless Communication Using Software-Defined Radio}
 \newcommand{\ttitleEn}{Noise-Based Wireless Communication Using Software-Defined Radio}
 \newcommand{\tsubject}{\ttitle}
 \newcommand{\tsubjectEn}{\ttitleEn}
 \newcommand{\tauthor}{Žan Perat}
-\newcommand{\tkeywords}{računalnik, računalnik, računalnik}
-\newcommand{\tkeywordsEn}{computer, computer, computer}
+\newcommand{\tkeywords}{alpha-stable distribution, noise-based communication, software-defined radio, GNU Radio, physical-layer security}
+\newcommand{\tkeywordsEn}{\tkeywords}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\tHYPERREF SETUP
+%	HYPERREF SETUP
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hypersetup{pdftitle={\ttitleEn}}
+\hypersetup{pdftitle={\ttitle}}
 \hypersetup{pdfsubject=\ttitleEn}
 \hypersetup{pdfauthor={\tauthor, zp08116@student.uni-lj.si}}
 \hypersetup{pdfkeywords=\tkeywordsEn}
@@ -57,6 +67,7 @@
 \addtolength{\evensidemargin}{-40pt}
 
 \renewcommand{\baselinestretch}{1.3} % ustrezen razmik med vrsticami
+\raggedbottom
 \setlength{\headheight}{15pt}        % potreben prostor na vrhu
 \renewcommand{\chaptermark}[1]%
 {\markboth{\MakeUppercase{\thechapter.\ #1}}{}} \renewcommand{\sectionmark}[1]%
@@ -65,7 +76,7 @@
 \fancyhead[LE,RO]{\sl \thepage} 
 %\fancyhead[LO]{\sl \rightmark} \fancyhead[RE]{\sl \leftmark}
 \fancyhead[RE]{\sc \tauthor}              % dodal Solina
-\fancyhead[LO]{\sc Bachelor's Thesis}     % dodal Solina
+\fancyhead[LO]{\sc Bachelor's Thesis}     % added by Solina
 
 
 \newcommand{\BibTeX}{{\sc Bib}\TeX}
@@ -78,14 +89,14 @@
 \newcommand{\autfont}{\Large}
 \newcommand{\titfont}{\LARGE\bf}
 \newcommand{\clearemptydoublepage}{\newpage{\pagestyle{empty}\cleardoublepage}}
-\setcounter{tocdepth}{1}      % globina kazala
+\setcounter{tocdepth}{1}	      % globina kazala
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % konstrukti
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
-\newtheorem{theorem}{Theorem}[chapter]
-\newtheorem{proposition}{Proposition}[theorem]
-\newenvironment{proofenv}{\emph{Proof.}\ }{\hspace{\fill}{$\Box$}}
+\newtheorem{izrek}{Theorem}[chapter]
+\newtheorem{trditev}{Proposition}[izrek]
+\newenvironment{dokaz}{\emph{Proof.}\ }{\hspace{\fill}{$\Box$}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% PDF-A
@@ -95,7 +106,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 % define medatata
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\def\Title{\ttitleEn}
+\def\Title{\ttitle}
 \def\Author{\tauthor, matjaz.kralj@fri.uni-lj.si}
 \def\Subject{\ttitleEn}
 \def\Keywords{\tkeywordsEn}
@@ -123,7 +134,7 @@
 
 \expandafter\convertDate\pdfcreationdate 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % get pdftex version string
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \newcount\countA
@@ -132,17 +143,17 @@
 \def\pdftexVersionStr{pdfTeX-1.\the\countA.\pdftexrevision}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % XMP data
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 \usepackage{xmpincl}
 \includexmp{pdfa-1b}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % pdfInfo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 \pdfinfo{%
-    /Title    (\ttitleEn)
+    /Title    (\ttitle)
     /Author   (\tauthor, damjan@cvetan.si)
     /Subject  (\ttitleEn)
     /Keywords (\tkeywordsEn)
@@ -166,24 +177,24 @@
  \thispagestyle{empty}%
    \begin{center}
     {\large\sc University of Ljubljana\\%
-%      Faculty of Electrical Engineering\\% za študijski program Multimedija
-%      Faculty of Public Administration\\% za študijski program Upravna informatika
+%      Fakulteta za elektrotehniko\\% za študijski program Multimedija
+%      Fakulteta za upravo\\% za študijski program Upravna informatika
       Faculty of Computer and Information Science\\%
-%      Faculty of Mathematics and Physics\\% za študijski program Računalništvo in matematika
+%      Fakulteta za matematiko in fiziko\\% za študijski program Računalništvo in matematika
      }
     \vskip 10em%
     {\autfont \tauthor\par}%
     {\titfont \ttitleEn \par}%
-    {\vskip 3em \textsc{BACHELOR'S THESIS\\[5mm]         % dodal Solina za ostale študijske programe
-%    PROFESSIONAL UNDERGRADUATE STUDY PROGRAM\\ FIRST CYCLE\\ COMPUTER SCIENCE AND INFORMATION TECHNOLOGY}\par}%
+    {\vskip 3em \textsc{BACHELOR'S THESIS\\[5mm]         % added by Solina for other study programmes
+%    VISOKOŠOLSKI STROKOVNI ŠTUDIJSKI PROGRAM\\ PRVE STOPNJE\\ RAČUNALNIŠTVO IN INFORMATIKA}\par}%
      UNDERGRADUATE ACADEMIC PROGRAMME\\ FIRST CYCLE\\ COMPUTER SCIENCE AND MATHEMATICS}\par}%
-%    INTERDISCIPLINARY UNDERGRADUATE\\ FIRST CYCLE STUDY PROGRAMME\\ MULTIMEDIA}\par}%
-%    INTERDISCIPLINARY UNDERGRADUATE\\ FIRST CYCLE STUDY PROGRAMME\\ PUBLIC ADMINISTRATION INFORMATICS}\par}%
-%    INTERDISCIPLINARY UNDERGRADUATE\\ FIRST CYCLE STUDY PROGRAMME\\ COMPUTER SCIENCE AND MATHEMATICS}\par}%
+%    INTERDISCIPLINARNI UNIVERZITETNI\\ ŠTUDIJSKI PROGRAM PRVE STOPNJE\\ MULTIMEDIJA}\par}%
+%    INTERDISCIPLINARNI UNIVERZITETNI\\ ŠTUDIJSKI PROGRAM PRVE STOPNJE\\ UPRAVNA INFORMATIKA}\par}%
+%    INTERDISCIPLINARNI UNIVERZITETNI\\ ŠTUDIJSKI PROGRAM PRVE STOPNJE\\ RAČUNALNIŠTVO IN MATEMATIKA}\par}%
     \vfill\null%
 % izberite pravi habilitacijski naziv mentorja!
-    {\large \textsc{Supervisor}: Assoc. Prof. Dr. Veljko Pejović\par}%
-   {\large \textsc{Co-supervisor}: Assist. Prof. Dr. Areeb Ahmed \par}%
+    {\large \textsc{Supervisor}: Assoc. Prof. Veljko Pejović, PhD\par}%
+   {\large \textsc{Co-supervisor}: Assist. Prof. Areeb Ahmed, PhD \par}%
     {\vskip 2em \large Ljubljana, 2026 \par}%
 \end{center}
 % prazna stran
@@ -196,12 +207,12 @@
 
 \noindent
 {\sc Copyright}. 
-The results of the bachelor's thesis are the intellectual property of the author and the home faculty of the University of Ljubljana.
-Publication and use of the thesis results require written consent from the author, the faculty, and the supervisor.
+The results of this bachelor's thesis are the intellectual property of the author and the author's faculty at the University of Ljubljana.
+Publication and use of the thesis results require the written consent of the author, the faculty, and the supervisor.
 
 \begin{center}
 \mbox{}\vfill
-\emph{The text was typeset with the \LaTeX{} document preparation system.}
+\emph{This document was typeset using \LaTeX.}
 \end{center}
 % prazna stran
 \clearemptydoublepage
@@ -216,23 +227,21 @@ Publication and use of the thesis results require written consent from the autho
 \noindent\textbf{Candidate:} Žan Perat\\
 \noindent\textbf{Title:} Noise-Based Wireless Communication Using Software-Defined Radio\\
 % vstavite ustrezen naziv študijskega programa!
-\noindent\textbf{Type of thesis:} Bachelor's thesis in the undergraduate academic programme Computer Science and Mathematics\\
+\noindent\textbf{Type of thesis:} Bachelor's thesis, undergraduate academic programme in Computer Science and Mathematics\\
 % izberite pravi habilitacijski naziv mentorja!
-\noindent\textbf{Supervisor:} Assoc. Prof. Dr. Veljko Pejović\\
-\noindent\textbf{Co-supervisor:} Assist. Prof. Dr. Areeb Ahmed
+\noindent\textbf{Supervisor:} Assoc. Prof. Veljko Pejović, PhD\\
+\noindent\textbf{Co-supervisor:} Assist. Prof. Areeb Ahmed, PhD
 
 \bigskip
 \noindent\textbf{Description:}\\
-The thesis topic description is copied by the student from the academic information system, where it was entered by the supervisor. 
-In a few sentences it describes what is expected of the candidate's thesis work. 
-What the goals are, which methods should be used, and perhaps the key literature are also stated.
+The thesis develops and evaluates a noise-based wireless communication system that conveys information through the parameters of an $\alpha$-stable distribution. The system is implemented in GNU Radio, evaluated through simulations, and demonstrated on software-defined radio hardware.
 
 \bigskip
 \noindent\textbf{Title:} Noise-Based Wireless Communication Using Software-Defined Radio
 
 \bigskip
 \noindent\textbf{Description:}\\
-Thesis description in English
+Implementation and evaluation of noise-based wireless communication using an $\alpha$-stable distribution and software-defined radio.
 
 \vfill
 
@@ -246,7 +255,8 @@ Thesis description in English
 % zahvala
 \thispagestyle{empty}\mbox{}\vfill\null\it%
 \noindent
-Write here whom you would like to thank for helping you prepare the thesis. Be careful not to forget anyone; they might take offense. You can avoid that by omitting the acknowledgements section entirely.
+I would like to thank my supervisor, Assoc. Prof. Veljko Pejović, PhD, and my co-supervisor, Assist. Prof. Areeb Ahmed, PhD, for their help with the research and writing of this bachelor's thesis.
+I would also like to thank everyone else who contributed, directly or indirectly, to the completion of this work.
 \rm\normalfont
 
 % prazna stran
@@ -254,12 +264,13 @@ Write here whom you would like to thank for helping you prepare the thesis. Be c
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % posvetilo, če sama zahvala ne zadošča :-)
-\thispagestyle{empty}\mbox{}{\vskip0.20\textheight}\mbox{}\hfill\begin{minipage}{0.55\textwidth}%
-To my dear Alenčica.
-\normalfont\end{minipage}
+%\thispagestyle{empty}\mbox{}{\vskip0.20\textheight}\mbox{}\hfill\begin{minipage}{0.55\textwidth}%
+%Svoji dragi Alenčici.
+%\normalfont\end{minipage}
 
 % prazna stran
-\clearemptydoublepage
+%\clearemptydoublepage
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % kazalo
@@ -274,7 +285,7 @@ To my dear Alenčica.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % seznam kratic
 
-\chapter*{List of Abbreviations}  % spremenil Solina, da predolge vrstice ne gredo preko desnega roba
+\chapter*{List of Abbreviations}
 
 \begin{comment}
 \begin{tabular}{l|l|l}
@@ -288,20 +299,24 @@ To my dear Alenčica.
   {\bf MSNR} & Mean Signal-to-Noise Ratio & Povprečno razmerje med signalom in šumom \\
   {\bf PLS} & Physical Layer Security & Varnost na fizičnem nivoju \\
   {\bf SDR} & Software Defined Radio & Programsko opredeljena radijska oprema \\
+  {\bf AWGN} & Additive White Gaussian Noise& Aditivni beli Gaussov šum \\
+  {\bf USRP} & Universal Software Radio Peripheral & Univerzalna strojna oprema za programsko definiran radio \\
   \dots & \dots & \dots \\
 \end{tabular}
 \end{comment}
 
 \noindent\begin{tabular}{p{0.1\textwidth}|p{.4\textwidth}|p{.4\textwidth}}    % po potrebi razširi prvo kolono tabele na račun drugih dveh!
-  {\bf kratica} & {\bf angleško}                             & {\bf slovensko} \\ \hline
-  {\bf OFDM} & Orthogonal Frequency-Division Multiple Access & Ortogonalni frekvenčno deljeni večkratni dostop \\
-  {\bf MIMO} & Multiple-input and multiple-output & večantenski sistem \\
-  {\bf BER} & Bit Error Rate & Stopnja bitnih napak \\
-  {\bf GRC} & GNU Radio Companion & GNU Radio Companion \\
-  {\bf SNR} & Signal-to-Noise Ratio & Razmerje med signalom in šumom \\
-  {\bf MSNR} & Mean Signal-to-Noise Ratio & Varnost na fizičnem nivoju \\
-  {\bf PLS} & Physical Layer Security & Varnost na fizičnem nivoju \\
-  {\bf SDR} & Software Defined Radio & Programsko opredeljena radijska oprema \\
+  {\bf Abbreviation} & \multicolumn{2}{l}{\bf English term} \\ \hline
+  {\bf OFDM} & \multicolumn{2}{l}{Orthogonal Frequency-Division Multiple Access} \\
+  {\bf MIMO} & \multicolumn{2}{l}{Multiple-Input Multiple-Output} \\
+  {\bf BER} & \multicolumn{2}{l}{Bit Error Rate} \\
+  {\bf GRC} & \multicolumn{2}{l}{GNU Radio Companion} \\
+  {\bf SNR} & \multicolumn{2}{l}{Signal-to-Noise Ratio} \\
+  {\bf MSNR} & \multicolumn{2}{l}{Mean Signal-to-Noise Ratio} \\
+  {\bf PLS} & \multicolumn{2}{l}{Physical Layer Security} \\
+  {\bf SDR} & \multicolumn{2}{l}{Software-Defined Radio} \\
+  {\bf AWGN} & \multicolumn{2}{l}{Additive White Gaussian Noise} \\
+  {\bf USRP} & \multicolumn{2}{l}{Universal Software Radio Peripheral} \\
 %  \dots & \dots & \dots \\
 \end{tabular}
 
@@ -310,7 +325,7 @@ To my dear Alenčica.
 \clearemptydoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% summary
+% povzetek
 \addcontentsline{toc}{chapter}{Summary}
 \chapter*{Summary}
 
@@ -321,12 +336,11 @@ To my dear Alenčica.
 \bigskip
 
 %\noindent\textbf{Povzetek:} 
-\noindent This sample document presents a method for preparing a bachelor's thesis using \LaTeX. Your summary should contain around 100 words, whereas this one is clearly too short.
-A good summary includes: (1) a brief description of the problem being addressed, (2) a brief description of your approach to solving the problem, and (3) the most successful result or contribution of the thesis.
+\noindent This thesis presents the design, implementation, and evaluation of a wireless communication system in which information is encoded in the statistical parameters of $\alpha$-stable noise. An encoder and decoder were developed in GNU Radio Companion, first evaluated in a simulation environment, and subsequently deployed on USRP software-defined radio hardware. The simulations examine how the asymmetry parameter $\beta$, scale parameter $\gamma$, segment count $L$, and number of samples per symbol $N$ affect the bit error rate. The results show that reliable transmission is possible even in highly noisy conditions when $N$ is selected appropriately. A practical over-the-air demonstration confirms that the proposed method can be implemented on standard SDR equipment, although its reliability depends strongly on synchronization and uninterrupted sample delivery.
 
 \bigskip
 
-\noindent\textbf{Keywords:} \tkeywordsEn.
+\noindent\textbf{Keywords:} $\alpha$-stable distribution, noise-based communication, software-defined radio, GNU Radio, physical-layer security.
 % prazna stran
 \clearemptydoublepage
 
@@ -343,8 +357,7 @@ A good summary includes: (1) a brief description of the problem being addressed,
 \bigskip
 
 %\noindent\textbf{Abstract:} 
-\noindent This sample document presents an approach to typesetting your BSc thesis using \LaTeX. 
-A proper abstract should contain around 100 words, which makes this one way too short.
+\noindent This thesis presents the design, implementation, and evaluation of a wireless communication system in which information is encoded in the statistical parameters of $\alpha$-stable noise. An encoder and decoder were implemented in GNU Radio Companion, evaluated in simulation, and deployed on USRP software-defined radio hardware. The simulations examine how the asymmetry parameter $\beta$, scale parameter $\gamma$, segment count $L$, and number of samples per symbol $N$ affect the bit error rate. The results demonstrate reliable transmission in noisy conditions when $N$ is selected appropriately. Over-the-air measurements confirm the feasibility of the approach while showing that practical reliability depends strongly on synchronisation and uninterrupted sample delivery.
 \bigskip
 
 \noindent\textbf{Keywords:} \tkeywordsEn.
@@ -358,116 +371,253 @@ A proper abstract should contain around 100 words, which makes this one way too 
 \pagestyle{fancy}
 
 \chapter{Introduction}
+Wireless communication has become an indispensable part of everyday life. It enables mobile telephony, wireless Internet access, satellite navigation, and numerous industrial and Internet of Things (IoT) applications without which modern society is difficult to imagine. Most contemporary communication systems share the use of deterministic\footnote{A deterministic signal is a signal whose value is fully known at every instant and can be described by an exact mathematical equation.} signals, in which information is encoded by changing the amplitude, frequency, or phase of a carrier wave. Such approaches have proved highly effective, but they also have an important limitation. Because their signal structure is well known, suitable signal-processing methods can detect and analyse them and, in some cases, intercept them.
 
-Wireless communication has become an indispensable part of everyday life, enabling high-speed data transmission in mobile telecommunications, satellite communications, and industrial systems. Modern communication standards such as Wi-Fi, Bluetooth, and 4G/5G networks rely on deterministic modulation techniques (variations in amplitude, phase, or frequency) combined with advanced channel coding. Despite their remarkable speed and reliability, these systems share a common limitation: their signals have well-defined structures, making them relatively easy to detect, analyze, and intercept using appropriate equipment.
+For this reason, \textbf{physical-layer security}\cite{lutovac2025physical} (PLS) is becoming increasingly important in modern networks. Rather than relying solely on cryptographic protocols at higher layers, the aim is to develop communication waveforms that are practically undetectable to an unauthorised eavesdropper. One promising approach is the use of stochastic\footnote{A stochastic signal changes randomly over time and cannot be predicted exactly by a deterministic mathematical function; instead, it is described through statistical properties.} signals. In this approach, information is no longer encoded by changing the properties of a carrier electromagnetic wave, but in the statistical parameters of a random process. This represents a fundamentally different approach from that underlying conventional wireless communication systems.
 
-Consequently, \textbf{Physical Layer Security} (\textit{PLS}) has become an increasingly important area of research in modern communication systems. Rather than relying solely on cryptographic protocols implemented at higher layers of the communication stack, the objective is to develop communication schemes that are practically undetectable to unauthorized eavesdroppers. One of the most promising approaches is the use of stochastic\footnote{A stochastic signal is a signal whose values vary randomly over time and cannot be described by a deterministic mathematical function. Instead, it is characterized by its statistical properties.} signals, or noise-based communication, in which information is not encoded through changes in the carrier frequency but rather through the parameters of the probability distribution governing the underlying random process.
+The objective of this thesis is to develop a communication system based on $\alpha$-stable noise in GNU Radio and deploy it on software-defined radio (SDR) hardware. The implementation is intended to make such a system usable on a standard SDR platform and thereby facilitate its use in further research and other wireless applications.
 
-This bachelor's thesis presents a communication system based on the $\alpha$-stable probability distribution. Unlike conventional modulation schemes, this approach is significantly more difficult to detect and decode, even in the absence of additional cryptographic techniques.
+In addition to the implementation, the work experimentally evaluates the system through simulations and verifies its operation in an actual wireless transmission between two SDR devices.
 
-The objective of this thesis is to develop and present a communication method based on the $\alpha$-stable distribution, describe the corresponding encoding and decoding procedures, and analyze the overall system performance. The thesis investigates the feasibility of using the $\alpha$-stable distribution as an information carrier and proposes an alternative approach to the development of novel wireless communication methods.
-
-\section{Challenges and Motivation}
-
-Developing a communication system based on the $\alpha$-stable distribution presents several theoretical and practical challenges:
+Implementing such a system gives rise to several challenges:
 
 \begin{itemize}
-    \item \textbf{Lack of a closed-form expression:} The probability density function of a general $\alpha$-stable distribution cannot be expressed using elementary functions, except for a few special cases such as the Gaussian, Cauchy, and Lévy distributions. Consequently, the receiver must estimate the signal parameters from the received samples using computationally intensive numerical methods, significantly increasing the overall computational complexity.
+	 \item Estimating the parameters of $\alpha$-stable distributions requires numerical methods because their probability density functions generally have no closed-form expression\footnote{An expression is in closed form if it can be written using only elementary functions.} (with only a few exceptions, including the Gaussian, Cauchy, and Lévy distributions). Parameter estimation is therefore more computationally demanding than methods based on classical distributions.
 
-    \item \textbf{Challenges in hardware implementation:} Translating these concepts to actual \textit{Software Defined Radio} (SDR) platforms introduces numerous practical challenges commonly encountered in wireless communication systems. These include accurate time and frequency synchronization of non-deterministic signals, bandwidth limitations, and real-time parameter estimation on hardware platforms with limited computational resources.
+    \item Developing the communication system in GNU Radio requires new encoding and decoding blocks that allow $\alpha$-stable noise to be used as the information carrier.
+
+    \item Deploying the system on software-defined radio hardware requires adapting the implementation for real-time operation and addressing practical challenges such as time and frequency synchronisation, bandwidth limitations, and limited hardware computing resources.
 \end{itemize}
 
-It is particularly important to emphasize that, to the best of the author's knowledge, \textbf{there is currently no open-source implementation} of a communication system based on $\alpha$-stable noise operating on real SDR hardware or within the GNU Radio framework.
-
-\section{Impact and Applications}
-
-The results presented in this thesis demonstrate the potential of this communication paradigm and the feasibility of its implementation in practical environments where conventional communication systems may not be sufficient. The proposed approach is particularly suitable for:
+This thesis addresses these challenges and presents an implementation of a communication system based on $\alpha$-stable noise. Its main contributions are:
 
 \begin{itemize}
-    \item \textbf{Covert communications:} Data transmission in environments where the very existence of a communication channel must remain undetected (e.g., military applications or the protection of critical infrastructure).
 
-    \item \textbf{Robust industrial sensing:} Information transmission in highly noisy industrial environments characterized by strong impulsive noise, where conventional communication systems often experience significant performance degradation.
+\item Development of an encoder and decoder for communication using $\alpha$-stable noise in GNU Radio Companion.
+
+\item Implementation of the system on USRP software-defined radio hardware, enabling wireless data transmission in a real environment.
+
+\item Experimental analysis of how the system parameters affect the bit error rate (BER), including the effects of $\beta$, $\gamma$, and the number of samples per symbol.
+
+\item Demonstration of the communication system over an actual wireless link between two SDR devices.
+
 \end{itemize}
 
-\chapter{Current State of Mobile Networks}
+To the best of our knowledge, this work presents the first open-source implementation of an $\alpha$-stable noise-based communication system in GNU Radio Companion together with a demonstration on SDR hardware.
+
+The results confirm that a communication system based on $\alpha$-stable noise can be successfully implemented in GNU Radio Companion and deployed on software-defined radio hardware. The implementation provides a foundation for further research into communication systems that use stochastic signals as information carriers because it supports straightforward use and continued development in an open-source environment. This approach is particularly relevant where low probability of detection is important, for example in covert communication or critical-infrastructure protection. Its resistance to impulsive noise also makes it suitable for industrial environments in which conventional communication systems often struggle to provide reliable data transmission.
+
+\chapter{Wireless Communication and Its Challenges}
 \label{ch0}
-Modern mobile networks are designed around information transmission using deterministic signals whose properties are defined by various modulation techniques. Technologies used in 4G and 5G networks rely on changing the amplitude, phase, or frequency of the carrier signal, with the aim of using the available spectrum as efficiently as possible while ensuring reliable data transmission. To improve performance, advanced methods such as OFDM, MIMO, and adaptive coding are used. 
 
-In the design of such networks, the signal is treated as the information carrier, while noise is an unwanted phenomenon that degrades transmission quality. As a result, much of the development effort is directed toward reducing the influence of noise using coding, filtering, channel estimation, and advanced signal-processing methods.
+Wireless communication systems transfer information without a physical transmission medium. They underpin mobile networks, wireless Internet access, satellite navigation, and many other technologies, although we rarely consider how information actually travels between devices. While wireless communication is now taken for granted, it is the result of decades of development in communication theory, modulation techniques, and radio technology that enable reliable data transmission through space.
 
-Despite significant progress, existing communication systems still have certain limitations. As the number of users grows and bandwidth demands increase, the search for alternative communication methods becomes an increasingly important research area. In addition to increasing capacity, security and communication protection are becoming increasingly important. Classical modulation techniques have well-known properties, which makes them relatively easy to detect, analyze, and intercept with suitable equipment.
+This chapter introduces the basic principles of wireless communication, surveys the most widely used wireless technologies, and outlines the principal challenges faced by modern communication systems. Particular attention is given to the limitations of existing approaches that motivate the development of new communication systems.
 
-This opens opportunities for developing new communication methods in which, in addition to reliable data transmission, low detectability of the communication signal itself is important. The use of stochastic signals as information carriers is one of the more effective approaches, since their random and therefore unpredictable nature makes communication harder to detect and thus increases transmission security.
+\section{Fundamentals of Wireless Communication}
+At first glance, transferring information without a physical connection between devices appears almost self-evident because we encounter it every day. In reality, every form of wireless communication must exploit a natural phenomenon that permits information to propagate through space. This can be achieved in several ways, most commonly by using electromagnetic waves, magnetic fields, or optical transmission.
+Each method has its advantages and limitations. Magnetic fields support communication only over very short distances and are used mainly in technologies such as near-field communication (NFC). Optical transmission offers very high data rates but requires a direct line of sight between transmitter and receiver. Electromagnetic waves are therefore used in most modern systems because they provide a favourable balance between range, data rate, and reliability.
+In the remainder of this thesis, wireless communication refers to the transfer of information by \textbf{electromagnetic waves} between a transmitter and a receiver without a physical transmission medium. An electromagnetic wave serves as the information carrier and propagates through the communication channel to the receiver. Because the wave itself contains no information, the information must be imposed on it through modulation. Modulation encodes information in one or more wave properties: amplitude, phase, or frequency. Put simply, amplitude describes the height of the wave, phase its displacement, and frequency how closely successive waves follow one another. Once encoded at the transmitter, the signal must be decoded at the receiver to recover the original message; this process is called demodulation.
 
-\section{History of the $\alpha$-Stable Distribution} 
-Stable distributions are a family of probability distributions that share some nice properties. They were first described by the French mathematician Paul Lévy in 1925 and are therefore sometimes called Lévy alpha-stable distributions. His work showed that certain distributions preserve their shape even when independent random variables are added together. Such distributions are called stable distributions, and one of them is the $\alpha$-stable distribution, a natural generalization of the normal distribution. Because of properties such as heavy tails and the ability to model asymmetry, this distribution has very good properties for use in finance, telecommunications, physics, and signal processing, where the classical normal distribution often does not satisfy all criteria for describing extreme data.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{sender_receiver.png}
+    \caption{Diagram of a wireless communication system \cite{murataWirelessBasics}.}
+    \label{fig:wireless}
+\end{figure}
 
-\chapter{$\alpha$-Stable Distribution}
+Communication applications impose different requirements on range, data rate, power consumption, and interference resistance. Consequently, many wireless technologies and protocols have emerged, each optimised for a particular application. The following section presents the most widely used wireless technologies and their characteristics.
+
+\section{Existing Wireless Communication Technologies}
+
+Because applications have different requirements for range, data rate, power consumption, latency, and reliability, no single wireless system is suitable for every use case. Instead, several technologies have been developed and optimised for specific purposes. The most widespread include fifth-generation mobile networks (5G), Wi-Fi wireless local-area networks, Bluetooth, and LoRa systems. They differ primarily in range, data rate, energy consumption, and field of application. Table~\ref{tab:wireless_technologies} summarises their main characteristics.
+
+\begin{table}[H]
+\renewcommand{\arraystretch}{1.3}
+\makebox[\textwidth][c]{%
+\begin{tabular}{|p{2.5cm}|p{2.8cm}|p{2.8cm}|p{2.6cm}|p{3.8cm}|}
+\hline
+\textbf{Technology} &
+\textbf{Advantages} &
+\textbf{Limitations} &
+\textbf{Typical range} &
+\textbf{Common applications} \\
+\hline
+
+5G &
+High data rate, low latency, support for many users &
+Requires base-station infrastructure, higher power consumption &
+Up to several kilometres &
+Mobile networks, broadband access, industrial applications \\
+\hline
+
+Wi-Fi &
+High throughput, ease of use &
+Limited range, sensitivity to interference &
+Approximately 20--100 m &
+Home and enterprise local-area networks \\
+\hline
+
+Bluetooth &
+Low power consumption &
+Short range, lower data rate &
+Approximately 10--100 m &
+Wireless headphones, keyboards, smartwatches, sensors \\
+\hline
+
+LoRa &
+Very long range, very low power consumption &
+Low data rate &
+Up to several kilometres &
+Internet of Things (IoT), sensor networks, smart cities \\
+\hline
+
+\end{tabular}
+}
+\caption{Comparison of commonly used wireless communication technologies.}
+\label{tab:wireless_technologies}
+\end{table}
+
+As Table~\ref{tab:wireless_technologies} shows, each technology is designed for particular requirements relating to data rate, range, power consumption, and reliability. Despite their differences, all listed technologies share one property: they transmit information by modulating deterministic signals, with information encoded in amplitude, frequency, phase, or a combination thereof. This approach underlies virtually all modern wireless communication systems.
+
+Although these technologies have proved highly successful, they also have limitations. Their performance depends on channel conditions, especially noise, interference, and the possibility of detecting the communication itself. The next section presents the key challenges of existing systems that motivate alternative approaches.
+
+\section{Key Challenges of Modern Wireless Communication Systems}
+Although modern wireless technologies have made exceptional progress in data rate, energy efficiency, and reliability, several challenges remain. They become particularly pronounced in demanding environments where noise is not adequately described by the usual additive white Gaussian noise (AWGN) assumption or where low detectability is as important as reliable transmission.
+
+\subsection{Noise}
+Noise is one of the most important factors affecting wireless communication quality. As a signal propagates through a channel, it is affected by natural and artificial sources of interference. The resulting distortion can cause the receiver to decode transmitted data incorrectly, increasing the bit error rate (BER).
+
+Most contemporary communication systems are analysed and designed under an additive white Gaussian noise (AWGN) model. Owing to its mathematical simplicity, this model forms the basis of many modulation, detection, and coding methods and is suitable for numerous communication scenarios\cite{wikiAWGN}\cite{iblAWGN}.
+
+In many real environments, however, Gaussian noise is not an adequate model. Industrial plants, power systems, and other electromagnetically demanding environments often contain impulsive noise characterised by rare but extremely strong disturbances. Such environments deviate substantially from the AWGN assumption, and systems based on that model may consequently suffer a marked degradation in performance.
+
+\subsection{Detectability of Communication}
+In addition to robustness, communication security is becoming increasingly important. Most modern systems employ cryptographic methods that effectively protect transmitted content, but encryption alone does not prevent the communication from being detected.
+
+In applications such as military systems, critical-infrastructure protection, or certain industrial settings, it is desirable that an external observer cannot detect even the existence of the communication channel. If an attacker cannot detect the communication, jamming or targeted attacks on the system become substantially more difficult.
+
+\subsection{Existing Solutions}
+Various transmission techniques have been developed to reduce detectability and improve interference resistance, including frequency hopping and spread spectrum.
+
+Frequency hopping is a technique in which the transmitter and receiver rapidly switch among frequency channels according to a predefined sequence. It reduces the effect of interference by allowing less noisy channels to be used and also makes interception more difficult\cite{bluetoothAFH}.
+
+Spread spectrum expands a signal over a wider frequency band than is strictly required to convey the information. Spreading the energy makes the signal more resistant to noise and interference and permits more reliable communication.
+
+%UWB ultra-wideband mogoče ne vem morem še kej prebrat o tem tudi da tocno vem kaj je to in če gre lepo sm not
+
+Although these techniques substantially improve resistance to interference and reduce the possibility of interception, they still rely on deterministic signals whose presence can be detected with sufficiently sensitive receivers and suitable signal-processing methods. Continued research into signals and communication methods that enable more reliable, secure, and less detectable information transfer therefore remains important.
+
+\section{Noise-Based Communication}
+
+The preceding sections treated noise as one of the principal factors degrading wireless communication. Most systems therefore seek to reduce its effect through suitable modulation, coding, and error-correction methods. This approach is used in virtually all modern wireless technologies.
+
+Noise can, however, be viewed from a different perspective. Instead of treating it as an undesirable phenomenon, it can itself serve as the information carrier. This reverses the conventional view of wireless communication: noise is no longer merely a limitation but becomes a means of transmitting information. Information is then encoded not in the amplitude, frequency, or phase of a deterministic signal, but in the stochastic properties of a random process.
+
+This approach opens new possibilities where conventional methods are not optimal. Because transmission is based on a random signal, communication is more difficult to detect, while channels dominated by impulsive noise can also be modelled more accurately.
+
+Communication based on $\alpha$-stable noise forms a distinct class of such approaches. The mathematical properties of $\alpha$-stable distributions permit effective modelling of impulsive noise and the encoding of information in distribution parameters. Their fundamental properties are presented in the next chapter.
+
+
+\chapter{$\alpha$-Stable Distributions}
 \label{ch1}
-The $\alpha$-stable distribution is a continuous distribution. This means that there exists an integrable function
-$p_X$, called the \emph{probability density}, such that for every $x \in \mathbb{R}$,
+Stable distributions form an important family of probability distributions that share several distinctive mathematical properties. Their foundations were systematically established by the French mathematician Paul Lévy in 1925, and they are therefore often called Lévy $\alpha$-stable distributions.
+
+Stable distributions, also known as $\alpha$-stable distributions, provide a natural generalisation of the normal distribution. Unlike the normal distribution, they can model heavy tails\footnote{Heavy-tailed distributions assign extreme events a higher probability than the normal (Gaussian) distribution. Student's $t$-distribution is one well-known example.} and asymmetry, enabling much more accurate models of phenomena with pronounced extreme values. These properties have led to important applications in telecommunications, signal processing, finance, and physics, where the classical Gaussian model often does not adequately describe the observed data.
+
+\section{Stable Distributions}
+The preceding chapters introduced stable distributions as the mathematical basis of the communication method considered in this thesis. Before presenting $\alpha$-stable distributions in detail, it is useful to clarify what it means for a probability distribution to be stable.
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definition 1: Stable distribution]
+\label{def:stable}
+
+Let $X_1$ and $X_2$ be independent copies of a random variable $X$. The distribution of $X$ is stable if, for arbitrary constants $a,b>0$, there exist constants $c>0$ and $d\in\mathbb{R}$ such that
 
 \[
-F_X(x)=\int_{-\infty}^{x} p_X(t)\,dt,
+aX_1+bX_2\overset{d}{=}cX+d.
 \]
 
-where $F_X$ is the distribution function of the random variable $X$.
+\end{tcolorbox}
 
-The probability density of an $\alpha$-stable distribution cannot, in general, be expressed with elementary functions. Therefore, this distribution is usually given through its characteristic function $\phi_X(t): \mathbb{R} \rightarrow \mathbb{C}$:
+\begin{tcolorbox}[colback=yellow!5!white, colframe=orange!70!black, title=\textbf{Intuition}, fonttitle=\bfseries]
+
+Intuitively, the definition states that the sum of two independent random variables with the same stable distribution again belongs to the same family. Addition changes only the location and scale parameters, while the shape of the distribution remains unchanged.
+\end{tcolorbox}
+
+Stability is extremely important when modelling random processes. If a phenomenon consists of many independent contributions, it is desirable for their sum to remain in the same distribution family. The normal distribution is the best-known stable distribution, but it is not the only one. The following section therefore presents the family of stable, or $\alpha$-stable, distributions and the parameters that determine their shape in greater detail.
+
+\section{Definition of $\alpha$-Stable Distributions}
+Although all stable distributions share the stability property, their shapes differ. The family of $\alpha$-stable distributions is fully specified by four parameters describing tail thickness, asymmetry, spread, and location.
+
+All $\alpha$-stable distributions considered in this thesis are absolutely continuous and possess a probability density function.
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definition 2: Absolutely continuous distribution]
+\label{def:zvezna}
+The distribution of a random variable $X$ is absolutely continuous if there exists a non-negative integrable function $p_X$, called the \emph{probability density function}, such that for every $x\in\mathbb{R}$,
+
+\[
+F_X(x)=\mathbb{P}(X\leq x)
+=\int_{-\infty}^{x}p_X(t)\,\mathrm{d}t,
+\]
+
+where $F_X$ is the cumulative distribution function of $X$. Since the total probability of all possible values is equal to 1, it also follows that
+
+\[
+\int_{-\infty}^{\infty}p_X(t)\,\mathrm{d}t=1.
+\]
+\end{tcolorbox}
+
+Unlike the normal distribution, the probability density functions of $\alpha$-stable distributions generally cannot be written in closed form. They are therefore usually defined through their characteristic function.
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definition 3: Characteristic function]
+\label{def:karakteristicna}
+If a random variable $X$ has probability density $p_X$, its characteristic function can be written as
+$\phi_X(t): \mathbb{R} \rightarrow \mathbb{C}$:
 
 \[
 \phi_X(t)=\mathbb{E}\!\left[e^{itX}\right]
 =\int_{-\infty}^{\infty} e^{itx}\,p_X(x)\,dx,
 \qquad t\in\mathbb{R}.
 \]
+\end{tcolorbox}
 
-It is given by:
+The characteristic function of an $\alpha$-stable distribution is
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definition 4: Characteristic function of an $\alpha$-stable distribution]
 \[
 \phi(t)=
 \begin{cases}
 \exp\!\left(
- i\mu t
- -\gamma^{\alpha}|t|^{\alpha}
- \left(
- 1-i\beta\,\operatorname{sign}(t)\tan\frac{\pi\alpha}{2}
- \right)
- \right),
- & \alpha \neq 1, \\[1.2em]
+i\mu t
+-\gamma^{\alpha}|t|^{\alpha}
+\left(
+1-i\beta\,\operatorname{sign}(t)\tan\frac{\pi\alpha}{2}
+\right)
+\right),
+& \alpha \neq 1, \\[1.2em]
 \exp\!\left(
- i\mu t
- -\gamma|t|
- \left(
- 1+i\beta\frac{2}{\pi}\operatorname{sign}(t)\ln\frac{\pi\alpha}{2}
- \right)
- \right),
- & \alpha = 1.
+i\mu t
+-\gamma|t|
+\left(
+1+i\beta\frac{2}{\pi}\operatorname{sign}(t)\ln\frac{\pi\alpha}{2}
+\right)
+\right),
+& \alpha = 1.
 \end{cases}
 \]
+\label{def:karakteristicnaAlpha}
+\end{tcolorbox}
 
-As mentioned above, the most important property of $\alpha$-stable distributions is their stability, so it is also useful to define what this stability means.
-
-Definition:
-Let $X_1$ and $X_2$ be independent copies of the random variable $X$. The distribution of $X$ is stable if for arbitrary constants $a,b>0$ there exist constants $c>0$ and $d\in\mathbb{R}$ such that
-
-\[
-aX_1+bX_2 \overset{d}{=} cX+d.
-\]
-
-This means that a linear combination of two independent random variables with the same stable distribution again belongs to the same family of distributions; only its location and scale may change.
-
-Of course, we cannot see this immediately, but we can nicely connect it with the definition of our characteristic function and prove it.
-
-Proof:
-Let $X$ be a random variable with an $\alpha$-stable distribution and let $X_1$ and $X_2$ be its independent copies. By independence we have
+Because stability is not immediately apparent from the definition, we prove it below.
+\begin{tcolorbox}[colback=red!5!white,colframe=red!50!black,title=Proof 1: Stability of an $\alpha$-stable distribution]
+Let $X$ be an $\alpha$-stable random variable, let $X_1$ and $X_2$ be independent copies of $X$, and let $a,b>0$. Independence gives
 
 \[
 \phi_{aX_1+bX_2}(t)
 =
 \phi_X(at)\phi_X(bt),
 \]
-since
-\[\phi_{aX_1+bX_2}(t)=\mathbb{E}\!\left[e^{it(aX_1 +bX_2)}\right] =  \mathbb{E}\!\left[e^{itaX_1}e^{itbX_2}\right] = \mathbb{E}\!\left[e^{itaX_1}\right]\mathbb{E}\!\left[e^{itbX_2}\right] = \phi_{X_1}(at) \phi_{X_2}(bt)\] 
-For an $\alpha$-stable distribution ($\alpha\neq1$), the characteristic function is given by
+because \[\phi_{aX_1+bX_2}(t)=\mathbb{E}\!\left[e^{it(aX_1 +bX_2)}\right] =  \mathbb{E}\!\left[e^{itaX_1}\right]\mathbb{E}\!\left[e^{itbX_2}\right] = \phi_{X_1}(at) \phi_{X_2}(bt).\]
+For an $\alpha$-stable distribution with $\alpha\neq1$, the characteristic function is
 
 \[
 \phi_X(t)
@@ -481,7 +631,7 @@ i\mu t
 \right).
 \]
 
-Using the form of the characteristic function with the substitutions $t \mapsto at$ and $t \mapsto bt$, together with the independence of $X_1$ and $X_2$, we obtain:
+Substituting $t\mapsto at$ and $t\mapsto bt$ and using the independence of $X_1$ and $X_2$ gives
 
 \[
 \begin{aligned}
@@ -500,10 +650,11 @@ i\mu(a+b)t
 \end{aligned}
 \]
 
-We want to show that this is equal to:
+
+We seek to write the resulting characteristic function in the same form as that of the random variable $cX+d$:
 
 \[
-\phi_{cX + d}(t)
+\phi_{cX + d}(t)=
 \exp\!\left(
 i(\mu c + d)t 
 -
@@ -514,32 +665,156 @@ i(\mu c + d)t
 \right).
 \]
 
-If we define
+Choosing
 
 \[
 c=\left(a^\alpha+b^\alpha\right)^{1/\alpha},
 \]
 
-then
+and
 
 \[
-c^\alpha=a^\alpha+b^\alpha,
+d=\mu(a+b-c),
 \]
-and then \[d = \mu (a +b - c) \].
 
-Therefore, the above expression can be written as the characteristic function of the random variable $cX+d$, where $d$ is an appropriate constant. Since the characteristic function uniquely determines the distribution, it follows that
+shows that the resulting expression is precisely the characteristic function of $cX+d$. Since a characteristic function uniquely determines a distribution, it follows that
 
 \[
 aX_1+bX_2 \overset{d}{=} cX+d.
 \]
+\end{tcolorbox}
+This proves that the class of $\alpha$-stable distributions is closed under linear combinations of independent identically distributed random variables, which is precisely the property from which stable distributions derive their name.
 
-This shows that the class of $\alpha$-stable distributions is closed under linear combinations of independent identically distributed random variables, which is exactly the property of stability.
+\section{Parameters of the $\alpha$-Stable Distribution}
 
-\section{$\alpha$-Stable Distribution and the Central Limit Theorem}
+The characteristic function in \eqref{def:karakteristicnaAlpha} shows that an $\alpha$-stable distribution is specified by four parameters: the stability parameter $\alpha$, asymmetry parameter $\beta$, scale parameter $\gamma$, and location parameter $\mu$. Each controls a different property of the distribution.
 
-The central limit theorem is one of the most important theorems in probability theory. It describes the behavior of sums of a large number of independent random variables.
+\subsection{Stability Parameter $\alpha$}
+The stability parameter satisfies $0<\alpha\le2$ and determines tail thickness. Smaller values of $\alpha$ produce heavier tails and thus a greater probability of extreme values. At $\alpha=2$, the distribution becomes normal (Gaussian), with the thinnest tails in the $\alpha$-stable family.
 
-Definition: Let $X_1,X_2,\dots,X_n$ be independent and identically distributed random variables with finite expected value
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{alpha_parameter.png}
+    \caption{Distributions for different values of $\alpha$ \cite{wikiStableDistribution}.}
+    \label{fig:wikiStableAlpha}
+\end{figure}
+
+\subsection{Asymmetry Parameter $\beta$}
+
+The asymmetry parameter satisfies $-1\leq\beta\leq1$ and determines the magnitude and direction of asymmetry. The distribution is symmetric at $\beta=0$; positive values produce a more pronounced right tail, whereas negative values produce a more pronounced left tail.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{beta_parameter.png}
+    \caption{Distributions for different values of $\beta$ \cite{wikiStableDistribution}.}
+    \label{fig:wikiStableBeta}
+\end{figure}
+
+The effect of negative values of $\beta$ is obtained by reflecting the curves shown in the figure.
+
+\subsection{Scale Parameter $\gamma$}
+
+The scale parameter satisfies $\gamma>0$ and determines the spread or scale of the distribution. Larger values produce a wider distribution. Its role resembles that of the standard deviation of a normal distribution, but the quantities are not identical because most $\alpha$-stable distributions do not have finite variance.
+
+\subsection{Location Parameter $\mu$}
+
+The location parameter may take any real value, $\mu\in\mathbb{R}$, and determines the distribution's position on the real axis. Changing $\mu$ shifts the entire distribution left or right without affecting its shape or spread.
+
+\section{Special Cases of $\alpha$-Stable Distributions}
+
+Although $\alpha$-stable distributions form a very general family, they include several well-known special cases that play important roles in mathematics, physics, and telecommunications. Some are listed in Table~\ref{tab:alpha_special_cases}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc}
+\hline
+$\alpha$ & $\beta$ & Distribution \\
+\hline
+2 & 0 & Normal (Gaussian) \\
+1 & 0 & Cauchy \\
+$\frac{1}{2}$ & 1 & Lévy \\
+\hline
+\end{tabular}
+\caption{Special cases of $\alpha$-stable distributions.}
+\label{tab:alpha_special_cases}
+\end{table}
+
+
+\subsection{Normal (Gaussian) Distribution}
+At $\alpha=2$, the result is the normal distribution, the only $\alpha$-stable distribution with finite variance. Its density is symmetric and its tails are the thinnest within the $\alpha$-stable family.
+
+Its probability density can be written in closed form:
+
+\[
+f(x)=
+\frac{1}{\sqrt{2\pi\sigma^2}}
+\exp\left(
+-\frac{(x-\mu)^2}{2\sigma^2}
+\right),
+\]
+
+where $\mu$ is the expected value and $\sigma^2$ is the variance.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{normalna_porazdelitev.png}
+    \caption{Probability densities of normal distributions for different parameter values \cite{wikiNormalDistribution}.}
+    \label{fig:normalna}
+\end{figure}
+
+
+\subsection{Cauchy Distribution}
+The Cauchy distribution is the special case $\alpha=1$ and $\beta=0$. It is symmetric with very heavy tails and consequently has neither a defined expected value nor a finite variance. It is often used as an example of a distribution with a pronounced probability of extreme values.
+
+Its density is
+
+\[
+f(x)=
+\frac{1}{\pi}
+\frac{\gamma}
+{{(x-x_{0})}^2+\gamma^2},
+\]
+
+where $x_0$ determines the centre of the distribution and $\gamma$ determines its spread.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{cauchijeva_porazdelitev.png}
+    \caption{Probability densities of Cauchy distributions for different parameter values \cite{wikiCauchyDistribution}.}
+    \label{fig:cauchy}
+\end{figure}
+
+\subsection{Lévy Distribution}
+
+The Lévy distribution is one of the most asymmetric $\alpha$-stable distributions and corresponds to $\alpha=\frac{1}{2}$ and $\beta=1$. Its very heavy right tail makes it suitable for processes in which rare but extremely large deviations may occur.
+
+Its density is
+
+\[
+f(x)=
+\sqrt{\frac{c}{2\pi}}
+\frac{
+\exp\left(-\frac{c}{2(x-\mu)}\right)
+}
+{(x-\mu)^{3/2}},
+\qquad x>\mu .
+\]
+
+Here, $\mu$ is the location parameter that shifts the distribution along the real axis, while $c$ is the scale parameter that controls its spread.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{levy_destribution.png}
+    \caption{Probability densities of Lévy distributions for different parameter values \cite{wikiLevyDistribution}.}
+    \label{fig:levy}
+\end{figure}
+
+\section{Generalised Central Limit Theorem}
+
+
+The central limit theorem is one of the most important results in probability theory. It describes the behaviour of sums of many independent random variables.
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definition 5: Central limit theorem (CLT)]
+\label{def:CLI}
+Let $X_1,X_2,\dots,X_n$ be independent and identically distributed random variables with finite expected value
 
 \[
 \mathbb{E}[X_i]=\mu
@@ -559,24 +834,31 @@ Then
 N(0,1),
 \]
 
-where the symbol $\overset{d}{\longrightarrow}$ denotes convergence in distribution. 
-This means that the distribution function of the normalized sum approaches the distribution function of the standard normal distribution. An important property of this result is that the initial distribution of the individual random variables does not have to be normal, but it always converges to a normal distribution. This is why this distribution appears so often in nature and in everyday life.
+where $\overset{d}{\longrightarrow}$ denotes convergence in distribution.
+\end{tcolorbox}
+\begin{tcolorbox}[colback=yellow!5!white, colframe=orange!70!black, title=\textbf{Intuition}, fonttitle=\bfseries]
+The cumulative distribution function of the normalised sum approaches that of the standard normal distribution. Importantly, the individual random variables need not themselves be normally distributed. This helps explain why the normal distribution occurs so frequently in nature and everyday phenomena.
+\end{tcolorbox}
 
-The connection between the central limit theorem and $\alpha$-stable distributions lies in their stability under addition. The normal distribution is in fact a special case of our distribution, where
+The connection between the central limit theorem and $\alpha$-stable distributions lies in their stability under the addition of independent random variables. The normal distribution is the special $\alpha$-stable case
 
 \[
 \alpha=2.
 \]
 
-For other values of the parameter
+For other parameter values,
 
 \[
 0<\alpha<2
 \]
 
-we can obtain stable distributions with infinite variance. Because of their heavy tails, their sums do not converge to the normal distribution, but to another stable distribution. Therefore, $\alpha$-stable distributions represent a natural generalization of the central limit theorem.
+$\alpha$-stable distributions have infinite variance, and for $\alpha\leq1$ they do not possess a finite expected value either. The assumptions of the classical central limit theorem, which requires a finite expected value and variance, are therefore not satisfied. The generalised central limit theorem shows that appropriately normalised sums of such random variables converge not to a normal distribution but to an $\alpha$-stable distribution. In this sense, $\alpha$-stable distributions provide a natural generalisation of the classical central limit theorem.
 
-This connection is described by the generalized central limit theorem. It states that a random variable $Z$ is a stable distribution if and only if there exists a sequence of independent and identically distributed random variables
+This connection is formalised by the generalised central limit theorem.
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black, title=Definition 6: Generalised central limit theorem]
+\label{def:GCLI}
+Let $Z$ be a random variable. Its distribution is stable if and only if there exist independent and identically distributed random variables
 
 \[
 X_1,X_2,X_3,\dots
@@ -595,93 +877,166 @@ a_n(X_1+\cdots+X_n)-b_n
 \overset{d}{\longrightarrow}
 Z.
 \]
+\end{tcolorbox}
+\begin{tcolorbox}[colback=yellow!5!white, colframe=orange!70!black, title=\textbf{Intuition}, fonttitle=\bfseries]
+If the sum of many independent and identically distributed random variables converges to a non-degenerate distribution after suitable scaling and shifting, that limiting distribution must be stable.
+\end{tcolorbox}
 
-So, if the sum of a large number of independent and identically distributed random variables, after appropriate scaling and shifting, converges to a non-degenerate distribution, that distribution must be stable.
-
-For the classical central limit theorem, finite variance is the key condition for obtaining a normal distribution. The generalized central limit theorem expands this condition and also includes distributions with infinite variance. In this case, the limit distribution is an $\alpha$-stable distribution, where the parameter $\alpha$ determines the scaling rate of the sum:
+Finite variance is the key condition under which the classical central limit theorem yields a normal distribution. The generalised theorem extends this result to distributions with infinite variance. In that case, the limiting distribution is $\alpha$-stable, and $\alpha$ determines the scaling rate of the sum:
 
 \[
 a_n \propto n^{-1/\alpha}.
 \]
-This is the generalized scaling factor in the central limit theorem. In the CLT, the scaling factor is $\frac{1}{\sqrt{n}}$; since the central limit theorem considers the standard normal distribution, where $\alpha = 2$, we see that this is indeed only a generalization.
+This is the generalised scaling factor. In the classical theorem, the factor is $\frac{1}{\sqrt{n}}$; substituting $\alpha=2$ recovers exactly this expression.
 
-With this, $\alpha$-stable distributions are the only possible limit distributions when a large number of independent and identically distributed random variables are summed.
+Consequently, $\alpha$-stable distributions are the only possible non-degenerate limiting distributions for suitably normalised sums of many independent and identically distributed random variables. The theorem explains why they are appropriate for signals formed from many random contributions: stability ensures that the statistical form of the signal is preserved when independent components are combined.
 
-\chapter{Using the $\alpha$-Stable Distribution as an Information Carrier}
+\section{Significance of Stability for Communication-Channel Modelling}
+In a communication system, the signal received is generally not identical to the transmitted signal. During transmission it is affected by numerous independent random phenomena, including electromagnetic interference, multipath propagation, interference from other users, and noise from electronic components. The received signal is therefore often a sum of many random contributions.
 
-Now that we have covered the necessary theory, we can understand how it can be used for data transmission. In classical wireless communication, we use deterministic signal properties such as changes in amplitude, phase, or frequency, and thereby transmit our data. In communication based on the $\alpha$-stable distribution, information is represented by the statistical properties of the signal.
+It is therefore desirable for a mathematical channel model to remain in the same distribution family when independent components are added. This is precisely what stability provides; see Definitions~\ref{def:stable} and~\ref{def:GCLI}.
 
-With the $\alpha$-stable distribution, this works by choosing its parameters at the transmitter and generating a sequence of samples:
-\[
-X_1, X_2,\dots,X_n \sim S_\alpha(\beta,\gamma,\mu)
-\]
-At the receiver, we then try to determine these parameters. Because of the stability property, these parameters can also be estimated approximately, and this property gives us the ability to infer an approximate distribution from multiple random samples, from which the transmitter generated the samples.
+Mathematically, if the individual random contributions follow stable distributions, their sum again belongs to the same family. Only the parameters may change; the basic distributional form remains unchanged. This substantially simplifies system analysis because a single family can describe the complete channel regardless of the number of contributions forming the received signal.
 
-Why is a single sample not enough?
-Due to randomness, a single random variable does not contain enough information to reliably determine an individual parameter. The receiver therefore analyzes multiple samples and estimates the statistical properties of their distribution. In other words, we estimate the distribution with which parameters were used by the transmitter.
+Conventional systems usually assume that the individual contributions have finite variance. By the central limit theorem~\ref{def:CLI}, the sum of many such contributions converges to a normal distribution, which explains the success of the AWGN model in many settings.
 
-How is this related to the generalized central limit theorem?
-In a communication channel, the received signal usually represents a combination of many random influences, so it can be written as a sum:
+In many real environments, however, this assumption is not satisfied. Impulsive noise contains rare but pronounced deviations and may not have finite variance. In such cases, the classical Gaussian model no longer adequately describes the channel.
 
-\[
-Y=X_1+X_2+\dots+X_n .
-\]
+This is where $\alpha$-stable distributions become important. Stability keeps sums of many impulsive contributions within the same distribution family, enabling substantially more accurate models of channels dominated by impulsive noise. Beyond noise modelling, the property also suggests a fundamentally different communication method: rather than treating noise as undesirable, its statistical properties can be used to carry information. The communication method investigated in this thesis is based on this idea.
 
-The classical central limit theorem says that such sums converge to a normal distribution, but only when the random variables have finite variance. In phenomena where rare large amplitudes or impulsive noise occur, this assumption is no longer satisfied.
 
-The generalized central limit theorem extends this result and states that normalized sums of independent and identically distributed random variables converge to stable distributions:
+
+\chapter{Communication Using $\alpha$-Stable Noise}
+The preceding chapter presented the mathematical properties of $\alpha$-stable distributions. This chapter explains how those properties can be used to transmit information.
+
+Conventional communication systems encode information in deterministic properties of a carrier, such as amplitude, phase, or frequency. In $\alpha$-stable communication, information is represented not by the signal waveform but by the statistical parameters of its distribution.
+
+Rather than specifying the instantaneous signal value, the transmitter generates a sequence of random samples from an $\alpha$-stable distribution,
 
 \[
-a_n(X_1+\dots+X_n)-b_n
-\overset{d}{\longrightarrow} Z .
+X_1,X_2,\ldots,X_n
+\sim
+S_\alpha(\beta,\gamma,\delta),
 \]
 
-The limit distribution $Z$ is therefore an $\alpha$-stable distribution, where the parameter $\alpha$ determines the scaling behavior of the sum. For $\alpha=2$ we obtain the special case of the normal distribution, while for values $\alpha<2$ we obtain heavy-tailed distributions that make it possible to describe extreme values.
+where the selected parameters represent the information to be transmitted.
 
-This explains why $\alpha$-stable distributions are suitable for modeling communication signals. If a signal is composed of a large number of random influences, its statistical form naturally converges toward a stable distribution. Because stability ensures that the family of distributions is preserved under the addition of independent influences, the receiver can still estimate the parameters of the distribution and thus obtain the information encoded in it.
+\section{Encoding Information}
+
+In communication using $\alpha$-stable noise, information is represented not by an individual signal value but by parameters of the $\alpha$-stable distribution from which the signal is generated.
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black, title=Definition 7: Theoretical operation of the transmitter]
+Let $N$ be the number of samples representing one symbol. For each symbol, the transmitter generates the sequence
+\[
+X_1,X_2,\dots,X_N
+\sim
+S_\alpha(\beta, \gamma,\mu)
+\],
+where the selected distribution parameters determine the transmitted symbol.
+\end{tcolorbox}
+
+An individual sample does not contain sufficient information about the underlying distribution because every sample is random. Only a sequence of samples reveals the distribution's statistical properties. Each symbol, or bit sequence, is therefore represented by $N$ consecutive samples. Increasing $N$ generally improves parameter estimation and reduces errors, but also increases the transmission time of each symbol.
+
+Digital transmission requires a mapping between binary symbols and distribution parameters. Each input-bit combination is assigned a combination of $\alpha$, $\beta$, $\gamma$, and $\mu$. For each symbol, the transmitter selects the appropriate parameters and generates $N$ samples, which the decoder subsequently receives and decodes.
+
+\section{Decoding Information}
+
+After transmission through the channel, the decoder receives $N$ consecutive samples for each symbol. Its objective is to determine which $\alpha$-stable distribution parameters were used to generate the sequence.
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black, title=Definition 8: Theoretical operation of the receiver]
+Let $N$ be the number of samples representing one symbol. For each symbol, the receiver obtains the sequence
+\[
+Y_1,Y_2,\dots,Y_N
+\],
+where
+\[
+Y_i = X_i + W_i, \qquad i=1,\ldots,N,
+\]
+
+where $X_i$ is the transmitted sample and $W_i$ is channel noise.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=purple!5!white,colframe=purple!50!black,
+title=Communication example]
+\label{komunikacija_primer}
+Assume that information is encoded only through $\beta$, with $\beta=-1$ representing bit 0 and $\beta=1$ representing bit 1. For each bit, the transmitter generates $N$ samples from the corresponding $\alpha$-stable distribution. The receiver estimates $\beta$ from the received samples. A positive estimate is decoded as bit 1; otherwise, the symbol is decoded as bit 0.
+
+\end{tcolorbox}
 
 
-\chapter{Simulations}
-\label{ch2}
+Decoding accuracy primarily depends on parameter-estimation quality. A larger $N$ generally provides a better estimate and therefore more reliable recovery of the information.
 
-After presenting the mathematical background, we now focus on the implementation of the communication system and the simulation results. The simulations were carried out using GNU Radio Companion (GRC), a graphical development environment for designing, implementing, and testing communication systems.
+\section{Why Does the Communication Method Work?}
 
-GNU Radio Companion allows a communication system to be constructed from interconnected processing blocks.
+Communication using $\alpha$-stable noise relies on the mathematical properties introduced above. The key results are distributional stability~\ref{def:stable} and the generalised central limit theorem~\ref{def:GCLI}.
 
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=0.8\textwidth]{GNU_radio_flow_graph.png}
-\end{center}
-\caption{GNU Radio flow graph}
+Stability ensures that a sum of independent $\alpha$-stable random variables remains $\alpha$-stable. The statistical structure is consequently preserved during generation and transmission, and the information remains encoded in the distribution parameters rather than in any individual sample.
+
+The generalised central limit theorem explains why distribution parameters can be estimated from a sample sequence. As $N$ increases, the observed statistical properties become increasingly representative of the source distribution, and parameter estimates become more accurate.
+
+If sufficiently distinct parameter combinations are assigned to different symbols, the estimated parameters can reliably distinguish them. A larger sample count therefore generally reduces the probability of an incorrect decision and improves transmission reliability.
+
+\chapter{System Design and Implementation}
+
+This chapter presents the design and implementation of the developed communication system. It first outlines the development environment and system architecture, then describes the encoder and decoder, and finally presents the adaptations required to transfer the system from simulation to SDR hardware.
+
+\section{Development Environment}
+
+Software-defined radio (SDR) is a radio platform in which a large portion of signal processing is performed in software. The hardware primarily converts between analogue and digital signals and transmits or receives radio-frequency signals, while operations such as filtering, modulation, and demodulation run on a computer. The communication system can therefore be modified and tested without changing the radio hardware design.
+
+In this thesis, SDR is used to transfer the developed system from simulation to an actual wireless link. The system could first be developed and evaluated in a controlled software environment and then verified through transmission between two radio devices. The fundamental encoding and decoding logic remained unchanged, while the hardware implementation required additional adaptations for continuous sample processing and synchronisation.
+
+The system was developed in the open-source GNU Radio environment for processing data streams and digital signals. A system is assembled from interconnected functional blocks that exchange samples or other data. Each block performs a specific task, such as reading input, generating a signal, modelling a channel, or processing received samples. This block-based design allows individual components to be developed, tested, and replaced independently of the rest of the flowgraph.
+
+GNU Radio Companion (GRC) was used to assemble and configure the blocks graphically. It represents the communication system as a flowgraph in which connections determine the direction of data transfer and block parameters determine processing behaviour. This view makes the complete system easier to inspect and permits rapid changes to simulation settings.
+
+The encoder and decoder developed for this thesis are custom Python blocks because the required processing of $\alpha$-stable distributions is not directly available in the standard GNU Radio blocks. The remaining components use existing blocks for reading and writing data, adding noise, and interfacing with radio hardware. The same environment could therefore be used both for simulation and for preparing the SDR implementation.
+
+\section{Communication-System Architecture}
+
+The developed system transmits information through the statistical properties of $\alpha$-stable distributions. Its basic flow consists of a data source, encoder, communication channel, decoder, and data sink. Figure~\ref{GNU} shows the block diagram.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{Alpha_encoder and decoder.png}
+\caption{Block diagram of the communication system.}
 \label{GNU}
 \end{figure}
 
-The flow graph used in this work is shown in Figure~\ref{GNU}. A random source first generates 128 samples of 8-bit values, resulting in a total of 1024 transmitted bits. The generated bits are stored in an external file before being passed to the encoder, which maps the information into an $\alpha$-stable signal. The encoded signal is then transmitted through the communication channel, where additive noise can optionally be introduced. At the receiver, the signal is decoded and the recovered bits are stored in a second file. Finally, the transmitted and received files are compared to determine the Bit Error Rate (BER).
+The data source produces a bit or data sequence and forwards it to the encoder. Based on the bit-to-symbol mapping, the encoder assigns appropriate $\alpha$-stable parameters to every symbol and generates samples from the selected distribution.
 
-Before discussing the simulation results, it is necessary to understand the operation of both the encoder and the decoder.
+The generated samples pass through the communication channel. In simulation, the channel is modelled in software and can include disturbances such as Gaussian noise; with SDR equipment, it is an actual radio link.
 
-\section{Parameters}
+At the receiver, the decoder estimates the $\alpha$-stable parameters from the received samples and uses them to determine the corresponding symbols or bits. The decoded data are passed to the sink, where they are reassembled into the output.
 
-% Add a section describing all simulation parameters if necessary.
+The following sections describe the encoder and decoder implementation in detail.
 
-\section{Encoder}
 
-The encoder receives a stream of input bytes, which are first converted into a sequence of individual bits. These bits are stored in a buffer, from which the required number of bits is read according to the selected modulation configuration to form a single symbol.
+\section{Encoder Implementation}
 
-The number of bits represented by each symbol depends on the number of possible values assigned to the parameter $\beta$. The implementation is also designed to support future extensions in which the parameters $\alpha$ and $\gamma$ may also carry information. For each parameter, the number of possible values must be a power of two so that every bit combination can be mapped uniquely onto a parameter value. Consequently, the number of bits encoded by a parameter is given by
+The encoder converts an input bit sequence into a signal whose statistical properties represent the information. Unlike conventional systems, information is encoded not in the amplitude, phase, or frequency of a carrier, but in the parameters of an $\alpha$-stable distribution.
 
-\[
-n=\log_2(M),
-\]
+The encoder receives a byte stream, converts it into individual bits, and stores them in a buffer. The number of bits required for one symbol is then read from that buffer.
 
-where $M$ denotes the number of entries in the mapping table. The total number of bits represented by one symbol is therefore equal to the sum of the bits encoded by the individual parameters.
+\subsection{Mapping Bits to Parameters}
 
-In the implementation presented in this thesis, only the parameter $\beta$ is used to convey information, while $\alpha$ and $\gamma$ remain constant. The value of $\beta$ is selected according to the current combination of input bits.
+The number of bits represented by a symbol depends on the number of available parameter values. For each parameter, the number of possible values must be a power of two so that bit combinations map uniquely to parameter values. The number of bits encoded by one parameter is
 
-For every symbol, a predefined number of samples is generated from the corresponding $\alpha$-stable distribution. This number is controlled by the parameter \texttt{samples\_per\_symbol}. These generated samples constitute the output of the encoder and are transmitted through the communication channel to the next processing block in GNU Radio Companion.
+$n = \log_2(M)$
 
-Signal generation is performed using the Chambers--Mallows--Stuck (CMS) algorithm, defined by
+where $M$ is the number of possible values. The total number of bits represented by a symbol is the sum of the numbers encoded by the individual parameters.
 
+\subsection{Mapping Symbols to Distribution Parameters}
+The implementation supports encoding information in $\alpha$, $\beta$, and $\gamma$. In all simulations presented in this thesis, information is carried by $\beta$, while $\alpha$ and $\gamma$ remain constant.
+
+The input-bit combination determines an index in a mapping table from which the corresponding value of $\beta$ is selected. Each symbol therefore represents a particular $\alpha$-stable distribution.
+
+\subsection{Sample Generation}
+For each symbol, the encoder generates $N$ samples from the $\alpha$-stable distribution, where $N$ corresponds to the variable $\texttt{samples\_per\_symbol}$. These samples form the encoder output and are passed to the communication channel or the next GRC block.
+
+\subsection{Chambers--Mallows--Stuck Algorithm}
+The signal is generated using the Chambers--Mallows--Stuck (CMS) algorithm,
+\label{CMS}
 \begin{equation}
 X=\gamma C
 \frac{\sin\left(\alpha V+B\right)}
@@ -691,38 +1046,35 @@ X=\gamma C
 {W}
 \right)^{\frac{1-\alpha}{\alpha}},
 \end{equation}
-
 where
-
 \begin{equation}
 B=\arctan\left(\beta\tan\frac{\pi\alpha}{2}\right),
 \end{equation}
-
-and
 
 \begin{equation}
 C=\left(1+\beta^2\tan^2\frac{\pi\alpha}{2}\right)^{\frac{1}{2\alpha}}.
 \end{equation}
 
-$V$ is a uniformly distributed random variable,
+Here, $V$ is uniformly distributed on \begin{equation} V\sim\mathcal{U}\left(-\frac{\pi}{2},\frac{\pi}{2}\right), \end{equation} while $W$ is exponentially distributed with unit mean, \begin{equation} W\sim\mathrm{Exp}(1). \end{equation}
+
+For every input symbol, the encoder thus produces $N$ samples whose distribution is determined by the selected values of $\alpha$, $\beta$, and $\gamma$.
+
+\section{Decoder Implementation}
+The decoder estimates the $\alpha$-stable parameters from the received samples and reconstructs the original bit sequence. Because one sample is insufficient for reliable estimation, the decoder analyses several samples together.
+
+\subsection{Dividing a Symbol into Segments}
+The decoder stores the incoming sample stream in a buffer. Since the encoder generates exactly $N$ samples for every symbol, individual symbols are separated by processing each successive group of $N$ samples.
+
+\subsection{Estimating the Parameter $\beta$}
+The samples of one symbol are divided into $L$ equal segments, each containing $K=N/L$ samples. For each segment, the maximum and minimum are found and their magnitudes are transformed logarithmically:
 
 \begin{equation}
-V\sim\mathcal{U}\left(-\frac{\pi}{2},\frac{\pi}{2}\right),
+Y_{l,\max}=\ln\!\left(\max_{1\leq k\leq K} X_{l,k}\right),
+\qquad
+Y_{l,\min}=\ln\!\left(-\min_{1\leq k\leq K} X_{l,k}\right).
 \end{equation}
 
-and $W$ is an exponentially distributed random variable with unit mean,
-
-\begin{equation}
-W\sim\mathrm{Exp}(1).
-\end{equation}
-
-For each transmitted symbol, the encoder generates \texttt{samples\_per\_symbol} samples according to these equations. The parameters $\alpha$, $\beta$, and $\gamma$ are selected from the input bits according to the predefined mapping tables.
-
-\section{Decoder}
-
-The decoder receives samples from the $\alpha$-stable distribution and stores them in a buffer until enough samples have been collected to represent one symbol, i.e., until \texttt{samples\_per\_symbol} samples have been received. Since the encoder always generates a fixed number of samples for each symbol, the decoder can easily separate consecutive symbols.
-
-Each symbol is divided into $L$ equally sized segments. For every segment, the maximum and minimum sample values are determined. These values are then used to compute the mean and variance of the maxima and minima:
+The means and variances are then calculated from the logarithmic extrema:
 
 \begin{equation}
 Y_{\max}=\frac{1}{L}\sum_{l=1}^{L}Y_{l,\max},
@@ -739,140 +1091,272 @@ Y_{\min}=\frac{1}{L}\sum_{l=1}^{L}Y_{l,\min},
 \begin{equation}
 S^2_{\min}=\frac{1}{L-1}\sum_{l=1}^{L}(Y_{l,\min}-Y_{\min})^2.
 \end{equation}
-
-These statistics are then used to estimate the parameter $\beta$ according to
-
-\begin{equation}
-\hat{\beta}
-=
-1-
-\frac{2}
-{\exp\left(\hat{\alpha}(S_{\max}-S_{\min})\right)},
-\end{equation}
-
-where $\hat{\alpha}$ is estimated as
+Here, $S_{\max}$ and $S_{\min}$ are the standard deviations, i.e., the positive square roots of the corresponding variances. They are first used to estimate $\alpha$:
 
 \begin{equation}
 \hat{\alpha}
 =
 \frac{\pi}{2\sqrt{6}}
 \left(
-\frac{1}{Y_{\max}}
+\frac{1}{S_{\max}}
 +
-\frac{1}{Y_{\min}}
+\frac{1}{S_{\min}}
 \right).
 \end{equation}
 
-The estimated value is compared with the predefined values in the $\beta$ mapping table, and the closest value is selected. The index of the selected value represents the decoded bit sequence, which is stored in a bit buffer. Once eight bits have been collected, the decoder combines them into a byte and forwards it to the output.
+The parameter $\beta$ is then estimated using the hyperbolic tangent:
 
-\section{Simulation Results}
+\begin{equation}
+\hat{\beta}
+=
+\tanh\!\left(
+\frac{\hat{\alpha}}{2}
+(Y_{\max}-Y_{\min})
+\right).
+\end{equation}
 
-The simulations measured the number of incorrectly decoded bits during the transmission of 1024 bits through the proposed communication channel. To reduce the influence of statistical fluctuations, each simulation was repeated 100 times, resulting in a total of 102,400 transmitted bits being analyzed. During the experiments, the values of the parameters $\beta$ and $\gamma$, the noise level, and the number of samples per symbol were systematically varied.
+The same estimator is also encountered in the equivalent exponential form
 
-\subsection{Effect of the Parameter $\beta$}
+\begin{equation}
+\hat{\beta}
+=
+1-
+\frac{2}
+{\exp\!\left(\hat{\alpha}(Y_{\max}-Y_{\min})\right)+1}.
+\end{equation}
 
-The first experiment investigated the influence of the parameter $\beta$ on the bit error rate. It is important to understand why $\beta$ is varied. In the literature, $\beta$ is often referred to as a \emph{security parameter}, since a smaller separation between the values in the $\beta$ mapping table makes interception and correct decoding of the transmitted signal more difficult. Consequently, increasing the difference between the available $\beta$ values is expected to simplify decoding while simultaneously reducing the overall security of the communication system.
+The following proof establishes the equivalence of the two forms.
 
-The simulation was performed using the parameters
-$samples\_per\_symbol=1000$, $L=20$, and
-$noise\_ratio=0.0$. The obtained results are shown below.
+\begin{tcolorbox}[colback=red!5!white,colframe=red!50!black,title=Proof 2: Equivalence of the two forms of the $\beta$ estimator]
+Let
+\[
+z=\hat{\alpha}(Y_{\max}-Y_{\min}).
+\]
+The definition of the hyperbolic tangent gives
+\[
+\begin{aligned}
+\tanh\!\left(\frac{z}{2}\right)
+&=
+\frac{\exp(z/2)-\exp(-z/2)}
+{\exp(z/2)+\exp(-z/2)} \\
+&=
+\frac{\exp(z)-1}{\exp(z)+1} \\
+&=
+1-
+\frac{2}{\exp(z)+1}.
+\end{aligned}
+\]
+
+Substituting $z=\hat{\alpha}(Y_{\max}-Y_{\min})$ recovers the stated exponential form.
+\end{tcolorbox}
+Thus, the hyperbolic-tangent and exponential forms of the $\beta$ estimator are equivalent.
+
+\subsection{Bit Decoding}
+The estimate $\hat{\beta}$ is compared with the permitted values in the mapping table. The nearest value is selected, and its index represents the decoded bit combination. Decoded bits are buffered until eight are available, after which the decoder combines them into one byte and sends it to the output.
+
+\section{Implementation on SDR Hardware}
+
+Transferring the system from simulation to physical hardware introduces constraints that need not be considered in simulation. The most important are real-time sample delivery and synchronisation between transmitter and receiver.
+
+In simulation, the sample-generation rate was not critical and the signal start was known exactly. A physical receiver, however, samples continuously, so the stream before a packet contains noise, interference, and possibly other environmental signals. The receiver must therefore determine the packet start autonomously.
+
+An SDR transmitter must receive complex samples at the required sampling rate. If the computer cannot supply them quickly enough, an \texttt{underflow} occurs: the device temporarily runs out of new samples, potentially interrupting the signal and causing decoding errors. Since generating $\alpha$-stable samples is more computationally demanding than generating simple deterministic signals, the generation method had to be adapted for real-time operation.
+
+The following subsections present vectorised $\alpha$-stable sample generation and the synchronisation procedure used between two SDR devices.
+
+\subsection{Vectorised Generation of $\alpha$-Stable Samples}
+
+In the original simulation implementation, $\alpha$-stable samples could be generated sequentially because execution time did not affect transmission continuity. This is unsuitable for SDR hardware, where samples must be supplied at a predetermined rate. The SDR implementation therefore generates samples in vectorised form. Before transmission begins, the complete packet is read and every input bit is mapped to a value of $\beta$.
+
+In this implementation, information is encoded only through the asymmetry parameter $\beta$. Let $M_\beta$ denote the number of possible values in its mapping table. One symbol then represents $\log_2(M_\beta)$ bits. Since every symbol contains $N$ samples, transmitting $B$ bits requires $\frac{BN}{\log_2(M_\beta)}$ samples. For the binary mapping $\beta\in\{-1,1\}$, $M_\beta=2$, so every symbol represents one bit and $B$ bits require $BN$ samples.
+ 
+The parameter vector is obtained by repeating the value of $\beta$ assigned to each symbol $N$ times. Independent values $V_i \sim \mathcal{U}\left(-\frac{\pi}{2},\frac{\pi}{2}\right)$ and $W_i \sim \operatorname{Exp}(1)$ are then generated, with $i$ running from $0$ to $N-1$. Every sample therefore has independent $V_i$ and $W_i$, while all samples belonging to one symbol share the same $\beta$. The samples are calculated using the CMS method in Equation~\ref{CMS}.
+
+This does not make the samples of a symbol identical. Only $\beta$ is shared; new random values $V_i$ and $W_i$ are used for every sample. Each sample is consequently an independent realisation of the selected $\alpha$-stable distribution.
+
+All samples are therefore produced in one vectorised operation. The complete transmission frame is then assembled and stored in the output buffer. GNU Radio can feed these precomputed samples gradually to the SDR without performing computationally expensive random-variable generation during transmission, substantially reducing the probability of underflow.
+
+\subsection{Synchronisation}
+Synchronising an $\alpha$-stable signal is difficult because it resembles noise. Searching for a packet start directly in the $\alpha$-stable samples would therefore produce many false detections, as the receiver continuously observes noise and other interference even when the transmitter is idle.
+
+A deterministic synchronisation sequence is therefore added to the beginning of every packet. The current sequence contains 32 bits, each represented by $N$ samples. This permits more reliable correlation-based detection in noise. The transmitter generates the sequence in advance, while the receiver knows the same reference and searches for it in the incoming signal.
+
+The receiver slides the reference sequence along the input stream and calculates signal correlation and coherence. A candidate is accepted only when both exceed their configured thresholds, reducing the probability that random noise is interpreted as a packet start.
+
+Thus, before every packet, the transmitter sends a predefined deterministic sequence that allows the receiver to detect the packet and determine its starting position.
+
+\subsection{Pilot Symbols and Carrier Tracking}
+
+Initial synchronisation determines the packet start and provides an initial carrier estimate, but this estimate is insufficiently accurate over a long packet. The transmitter and receiver use separate local oscillators, causing frequency and phase offsets, and the phase may also drift slowly during a packet.
+
+The carrier phase cannot be estimated reliably from CMS-generated $\alpha$-stable samples because they are too random. A deterministic pilot symbol is therefore placed before each $\alpha$-stable data symbol.
+
+For a given $N$, every bit is transmitted as $N$ pilot samples followed by $N$ $\alpha$-stable samples. The pilot is always the same and carries no payload. Before subcarrier modulation, it consists of $N$ samples with constant positive amplitude. The receiver estimates the local frequency offset from consecutive pilot samples and then the local phase offset from the mean phase of the frequency-corrected pilot. The resulting estimate corrects only the $\alpha$-stable symbol immediately following that pilot.
+
+This is more robust than using a single frequency and phase estimate for an entire packet because each data symbol receives a local carrier reference. The pilot does not resynchronise the packet or identify a new packet start; its sole purpose is local frequency- and phase-offset correction.
+
+\subsection{Clock-Offset Correction}
+
+Carrier frequency and phase offsets are not the only issues; the transmitter and receiver also have separate clocks. Although both devices are configured for the same nominal sampling rate, their actual rates differ slightly. This error accumulates over a packet, so the final symbols of a long packet may shift by several hundred samples, making communication unusable.
+
+A pilot alone does not remove the sampling-clock offset. The receiver therefore estimates the actual length of a pilot--data pair from the first transition between pilot and data and the transition between the last data symbol and the packet end. Based on this estimate, interpolation converts every pilot and data symbol to $N$ samples. The method assumes that timing drift changes little during a packet or, if it changes, does so approximately linearly. A shared external reference clock would reduce this offset, but such equipment was not available for the experiment.
+
+
+\chapter{Evaluation in the Simulation Environment}
+
+This chapter evaluates the developed communication system in the GNU Radio simulation environment. It analyses how the number of segments $L$, the difference between the two values of $\beta$, and the scale parameter $\gamma$ affect the bit error rate. The final section presents results obtained with SDR hardware.
+
+All simulations used the system shown in Figure~\ref{GNU}. The data source generated a random binary sequence, which the encoder converted into $\alpha$-stable samples. The signal passed through a simulated channel, after which the receiver estimated $\beta$ and reconstructed the transmitted bits. The stability parameter was fixed at $\alpha=1.1$ in every experiment; the remaining settings are stated with the individual experiments.
+
+Each configuration was evaluated in 100 independent repetitions, with 1024 randomly generated bits transmitted per repetition. Thus, every configuration was evaluated over $102\,400$ bits. BER was calculated as the ratio of incorrectly decoded bits to all transmitted bits.
+
+Because $\mathrm{BER}=0$ cannot be shown on a logarithmic axis, configurations with no detected errors are plotted at
+\[
+\mathrm{BER}=\frac{1}{102\,400}\approx10^{-5}.
+\]
+This is the lower plotting limit and does not mean that one error was actually observed.
+
+The simulation parameters are described before the results.
+
+\clearpage
+\enlargethispage{6\baselineskip}
+\section{Parameters}
+
+\begin{table}[H]
+
+\begin{tabular}{|l|p{9cm}|}
+\hline
+\textbf{Parameter} & \textbf{Description} \\ \hline
+
+\texttt{alpha\_map} &
+List of possible values of $\alpha$, currently reserved for future implementation. \\ \hline
+
+\texttt{beta\_map} &
+List of possible values of $\beta$. The current implementation encodes information exclusively through this parameter. \\ \hline
+
+\texttt{gama\_map} &
+List of possible values of $\gamma$. The current implementation does not use it to encode information, but it can be varied in experiments. \\ \hline
+
+\texttt{samples\_per\_symbol} &
+Number of generated samples per symbol, denoted by $N$. A larger value generally improves estimation accuracy but increases the amount of transmitted data and simulation time. \\ \hline
+
+\texttt{encode\_\{alpha,beta,gama\}} &
+Selects the parameters $\alpha$, $\beta$, and $\gamma$ in which information is encoded. The current implementation uses only $\beta$. \\ \hline
+
+\texttt{L} &
+Number of segments into which the decoder divides each symbol when estimating $\beta$. The estimate is calculated from the extrema of the individual segments. \\ \hline
+
+\texttt{noise\_ratio} &
+Amplitude of the added Gaussian channel noise. It determines the noise standard deviation in the GNU Radio \textit{Noise Source} block; a larger value means more noise power and a lower signal-to-noise ratio (SNR)\cite{gnuradioNoiseSource}. \\ \hline
+
+\texttt{source\_number\_of\_samples} &
+Number of input bytes sent by the data source. It determines the message length and therefore the total number of symbols encoded and transmitted through the channel. \\ \hline
+
+\end{tabular}
+\caption{Simulation parameters.}
+\label{tab:parametri}
+\end{table}
+
+
+\section{Effect of the Number of Segments $L$}
+
+To estimate $\beta$, the decoder divides the $N$ samples of a symbol into $L$ equally sized segments, each containing $K=N/L$ samples. This experiment compared $L\in\{2,4,5,8,10,20\}$ for different values of $N$. The mapping was $\beta\in\{-1,1\}$, with $\gamma=1$ and \texttt{noise\_ratio}$=1$.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{l_error_log.png}
+  \caption{BER as a function of samples per symbol $N$ for different values of $L$.}
+  \label{fig:l_segments}
+\end{figure}
+
+For every tested value of $L$, BER decreases as the number of samples per symbol increases. The decoder with $L=2$ achieved the lowest BER throughout the observed range, whereas progressively larger values of $L$ required more samples to attain comparable reliability.
+
+The difference is particularly pronounced at $N=400$. With $L=2$, the BER was approximately $6.8\cdot10^{-5}$, corresponding to 7 errors among $102\,400$ transmitted bits. At $L=8$, it was approximately $9.4\cdot10^{-3}$, or 963 errors---about 138 times as many as for $L=2$. At $L=20$, the BER reached approximately $0.23$, corresponding to 23,414 errors, or about 3345 times as many as for $L=2$. These absolute error counts make the difference, which is less obvious on a logarithmic plot, more tangible. No incorrectly decoded bits were observed for $L=2$, $L=4$, or $L=5$ at $N=600$, whereas for $L=20$ the BER remained approximately $1.3\cdot10^{-4}$ even at $N=1000$.
+
+
+\section{Varying the Parameter $\beta$}
+
+The parameter $\beta$ determines the asymmetry of an $\alpha$-stable distribution and is used to encode information in the developed system. The experiment used symmetric mappings ranging from $\{-0.1,0.1\}$ to $\{-1,1\}$, with the difference defined as $\Delta\beta=\beta_1-\beta_0$. A smaller $\Delta\beta$ means that the two bit distributions are more similar and therefore harder to distinguish. The difference may also be regarded as a security parameter because greater similarity makes decoding more difficult both for the intended receiver and for a potential eavesdropper.
+
+The simulation used $L=2$, $\gamma=1$, and no additional Gaussian noise. The values $N\in\{40,80,160,240,320,400,600,800,1000\}$ were compared.
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{beta_error.png}
 \end{center}
-\caption{BER as a function of $\Delta\beta$}
+\caption{BER as a function of $\Delta\beta$ for different values of $N$.}
 \label{beta_error}
 \end{figure}
 
-Different $\beta$ mapping tables were evaluated, ranging from $[-0.1,0.1]$ to $[-1.0,1.0]$. The quantity $\Delta\beta$ denotes the separation between the two values in each mapping table. A significant reduction in BER is observed at $\Delta\beta=2$, where no bit errors occurred in any of the 100 simulation runs. Since a BER of zero cannot be represented on a logarithmic scale, it was replaced by the smallest measurable BER value, namely
+The results show that BER decreases both as $\Delta\beta$ and as the number of samples per symbol increase. For small differences, the two distributions are similar, so the estimated values of $\beta$ can overlap and the receiver often selects the wrong symbol.
 
-\[
-\frac{1}{102400}\approx10^{-5}.
-\]
+The sharpest BER decrease occurs at $\Delta\beta=2$, corresponding to $\beta\in\{-1,1\}$. At these extreme values, the distribution for $\beta=-1$ is strongly asymmetric in one direction and that for $\beta=1$ in the opposite direction. The regions containing their characteristic extremes therefore overlap very little. Since the receiver estimates $\beta$ precisely from segment maxima and minima, the two symbol estimates are well separated under this mapping and the receiver's decision is substantially easier.
 
-The same approach was adopted for all simulations in which no bit errors were observed.
+The sample count remains important even at the largest separation. At $\Delta\beta=2$, BER decreased from approximately $0.39$ at $N=40$ to approximately $1.4\cdot10^{-4}$ at $N=320$. No bit errors were observed for $N\geq600$ in the completed repetitions.
 
-\subsection{Effect of the Parameter $\gamma$}
+\section{Effect of the Parameter $\gamma$}
 
-The second experiment investigated the influence of the parameter $\gamma$ on the bit error rate. The parameter $\gamma$ determines the signal-to-noise power ratio (MSNR) and therefore directly affects the quality of the received signal. Higher values of $\gamma$ reduce the relative influence of noise and are therefore expected to produce lower BER values.
+This experiment analysed how $\gamma$ and the number of samples per symbol $N$ affect BER. The parameter $\gamma$ controls the spread of the $\alpha$-stable distribution and therefore the ratio between the information-signal power and the added Gaussian noise. The mapping was $\beta\in\{-1,1\}$, with $L=2$ and \texttt{noise\_ratio}$=1.0$. The values $N\in\{40,80,160,240,320,400,600,800,1000\}$ were compared.
 
-The simulation was performed using
-$samples\_per\_symbol=1000$, $L=20$, and
-$noise\_ratio=1.0$.
+MSNR was expressed in decibels as
+
+\begin{equation}
+\mathrm{MSNR}_{\mathrm{dB}} = 10 \log_{10}\!\left(\frac{\gamma}{\gamma_G}\right),
+\end{equation}
+
+where $\gamma_G=1$ is the scale parameter of the added Gaussian noise.
 
 \begin{figure}[H]
-\centering
+\begin{center}
 \includegraphics[width=0.8\textwidth]{gama_error_log.png}
-\caption{BER as a function of the parameter $\gamma$}
+\end{center}
+\caption{BER as a function of MSNR for different values of $N$.}
 \label{gama_error}
 \end{figure}
 
-As expected, the BER decreases as MSNR increases. Interestingly, even for the lowest investigated MSNR values, the BER remains below $10^{-2}$, demonstrating that the proposed communication system maintains satisfactory reliability even under relatively unfavorable channel conditions.
+The results show that BER decreases as both MSNR and the number of samples per symbol increase. The effect of $N$ is particularly pronounced in noisy conditions. At $\mathrm{MSNR}=-10\,\mathrm{dB}$, BER was approximately $0.62$ for $N=40$, $1.8\cdot10^{-2}$ for $N=400$, $5.0\cdot10^{-4}$ for $N=800$, and only $2.9\cdot10^{-5}$ for $N=1000$. In the final case, only 3 of $102\,400$ transmitted bits were decoded incorrectly. Even at $\mathrm{MSNR}=-14\,\mathrm{dB}$, $N=1000$ achieved a BER of approximately $1.1\cdot10^{-2}$.
 
-The MSNR values shown in this experiment are expressed in decibels according to
+This behaviour indicates that the system can operate in considerably noisy environments. With a suitable channel model and adaptation rule, $N$ could be selected according to the estimated noise level. When channel conditions deteriorate, the transmitter could increase the sample count to give the receiver more observations for estimating $\beta$; when conditions improve, $N$ could be reduced again.
+
+Such adaptation is relatively simple to implement because the mapping of $\beta$ and the estimation procedure remain unchanged; primarily the number of generated and processed samples per symbol must change. Conventional adaptive systems often respond to changing conditions by switching among modulation and coding schemes, whereas the proposed system can retain its basic encoding method and adjust only $N$.
+
+Increasing the sample count also has a direct cost. At a fixed sampling rate, symbol duration grows in proportion to $N$, increasing transmission time and reducing the data rate. For the binary mapping used here, in which one symbol represents one bit,
 
 \begin{equation}
-\mathrm{MSNR}_{\mathrm{dB}}
-=
-10\log_{10}
-\left(
-\frac{\gamma}{\gamma_G}
-\right),
+T_s=\frac{N}{f_s},
+\qquad
+R_b=\frac{f_s}{N},
 \end{equation}
 
-where $\gamma_G$ denotes the $\gamma$ parameter of the Gaussian distribution and is equal to 1.
+where $f_s$ is the sampling rate, $T_s$ is the symbol duration, and $R_b$ is the bit rate. Selecting $N$ therefore involves a trade-off between noise resistance and temporal efficiency, illustrated more intuitively below.
 
-Additional Gaussian noise was introduced using the built-in GNU Radio Companion channel block. The parameter \texttt{noise\_ratio} was set to 1.0 because, in the absence of noise (\texttt{noise\_ratio}=0), the behavior differs significantly, as shown in Figure~\ref{gama_error_0noise}.
+\begin{tcolorbox}[colback=purple!5!white,colframe=purple!50!black,
+title=Example: effect of sample count on transmission rate]
+At a sampling rate of $f_s=32\,000$ samples/s and $N=1000$,
+\[
+T_s=\frac{1000}{32\,000}=31{,}25\,\mathrm{ms},
+\qquad
+R_b=\frac{32\,000}{1000}=32\,\mathrm{bit/s}.
+\]
+If $N$ is doubled to 2000, the symbol duration doubles to $62.5\,\mathrm{ms}$ and the bit rate halves to $16\,\mathrm{bit/s}$.
+\end{tcolorbox}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{gama_error_log_0noise.png}
-\caption{BER as a function of the parameter $\gamma$ in a noise-free environment}
-\label{gama_error_0noise}
-\end{figure}
+\section{Results on SDR Hardware}
 
-The results obtained under ideal conditions confirm that, in the absence of noise, the parameter $\gamma$ has no influence on the bit error rate, since transmission is error-free.
+Measurements on SDR hardware showed that data transmission using $\alpha$-stable symbols is feasible. Communication was tested by modulating the asymmetry parameter with $\beta=[-1.0,1.0]$.
 
-\subsection{Effect of the Sample Size}
+Measurements used symbol lengths of $N=100$, $N=500$, and $N=1000$ samples. In all measurements with $N\geq100$, the raw BER was below 1~\%, except for packets for which the receiver estimated a particularly large timing offset. Results were unreliable for $N<50$, and at $N=24$ the receiver could no longer detect the synchronisation sequence reliably, primarily because fewer samples were available for correlation detection.
 
-In all previous experiments, the number of samples per symbol was fixed at 1000. In the final experiment, we investigated how the BER depends on the number of samples used to represent each transmitted symbol. It is expected that increasing the number of samples improves the accuracy of parameter estimation and therefore reduces the BER.
+After decoding, the receiver reports the estimated total timing offset in samples as \texttt{drift}. A large absolute value may indicate a mismatch between the sampling clocks, lost samples caused by \emph{underflow} or \emph{overflow}, or an incorrectly detected packet end. In such cases, the estimated pilot--data pair length is incorrect and the timing error grows over the packet. The first part may therefore decode correctly while BER increases sharply after a certain point.
 
-The simulation was performed using
-$beta\_map=[-1.0,1.0]$,
-$L=8$, and
-$noise\_ratio=0.0$.
+The results confirm that communication by modulating $\beta$ of an $\alpha$-stable distribution is possible, although reliability depends strongly on synchronisation quality, correct timing-offset estimation, and uninterrupted sample delivery to the SDR. A shared external reference clock would reduce both carrier-frequency and sampling-clock offsets. Underflow and overflow should be further mitigated through suitable buffering and sufficiently fast sample generation and processing. Although these events were no longer observed during measurements with the latest implementation, they cannot be ruled out entirely, especially on less powerful computers or under more demanding operating conditions.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{sample_size_error.png}
-\caption{BER as a function of the number of samples per symbol}
-\label{sample_size_error}
-\end{figure}
-
-As expected, the BER is relatively high when only a small number of samples is used. However, error-free transmission is already achieved with approximately 120 samples per symbol.
-
-Since this experiment was conducted without channel noise, it was repeated with
-$\mathit{noise\_ratio}=6.5$
-to evaluate system performance under more realistic operating conditions.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{sample_size_error_with_noise.png}
-\caption{BER as a function of the number of samples per symbol in the presence of noise}
-\label{sample_size_error_with_noise}
-\end{figure}
-
-The results show that, in the presence of noise, a significantly larger number of samples is required to achieve a low BER. Error-free transmission is only obtained at approximately 800 samples per symbol, which is expected since stronger noise requires more observations for reliable parameter estimation and symbol detection.
-
-
-
-\chapter{Implementation and Simulation in a Real Environment}
-\label{ch3}
 
 \cleardoublepage
 \addcontentsline{toc}{chapter}{References}
-\bibliography{literatura}
+\nocite{*}
+\renewcommand{\bibname}{References}
+\bibliography{literatura_en}
 \bibliographystyle{plainnat}
 
 \end{document}
