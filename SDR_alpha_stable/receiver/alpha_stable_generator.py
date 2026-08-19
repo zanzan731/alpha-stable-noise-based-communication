@@ -27,7 +27,7 @@ import threading
 
 class alpha_stable_generator(gr.top_block):
 
-    def __init__(self, L=20, alpha_map_str="1.2,1.4,1.6,1.8", beta_map_str="-1.0,1.0", center_frequency=915000000, decoded_file=r"decoded.bin", encoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\encoded.bin", eos_timeout=3.0, gama_map_str="0.5,1.0,1.5,2.0", noise_ratio=10, samples_per_symbol=500, source_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin", source_number_of_samples=128):
+    def __init__(self, L=5, alpha_map_str="1.2,1.4,1.6,1.8", beta_map_str="-1.0,1.0", center_frequency=915000000, decoded_file=r"decoded.bin", encoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\encoded.bin", eos_timeout=3.0, gama_map_str="0.5,1.0,1.5,2.0", noise_ratio=10, samples_per_symbol=200, source_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin", source_number_of_samples=128):
         gr.top_block.__init__(self, "Alpha stable simulation", catch_exceptions=True)
         self.flowgraph_started = threading.Event()
 
@@ -68,12 +68,12 @@ class alpha_stable_generator(gr.top_block):
             ),
         )
         self.uhd_usrp_source_0.set_samp_rate(samp_rate)
-        self.uhd_usrp_source_0.set_time_unknown_pps(uhd.time_spec(0))
+        # No synchronization enforced.
 
         self.uhd_usrp_source_0.set_center_freq(center_frequency, 0)
         self.uhd_usrp_source_0.set_antenna("TX/RX", 0)
         self.uhd_usrp_source_0.set_bandwidth(200000, 0)
-        self.uhd_usrp_source_0.set_gain(55, 0)
+        self.uhd_usrp_source_0.set_gain(40, 0)
         self.epy_block_1 = epy_block_1.alpha_decoder(beta_map=beta_map, samples_per_symbol=samples_per_symbol, L=L, sync_symbols=32, sync_threshold=0.75, sync_corr_threshold=None, sync_coherence_threshold=0.08, header_repetitions=3, max_payload_bytes=1000000, debug_symbols=20, expected_output_bytes=source_number_of_samples, timing_guard_symbols=6)
         self.blocks_file_sink_1 = blocks.file_sink(gr.sizeof_char*1, decoded_file, False)
         self.blocks_file_sink_1.set_unbuffered(True)
@@ -194,7 +194,7 @@ class alpha_stable_generator(gr.top_block):
 def argument_parser():
     parser = ArgumentParser()
     parser.add_argument(
-        "--L", dest="L", type=intx, default=20,
+        "--L", dest="L", type=intx, default=5,
         help="Set L [default=%(default)r]")
     parser.add_argument(
         "--alpha-map-str", dest="alpha_map_str", type=str, default="1.2,1.4,1.6,1.8",
@@ -221,7 +221,7 @@ def argument_parser():
         "--noise-ratio", dest="noise_ratio", type=eng_float, default=eng_notation.num_to_str(float(10)),
         help="Set noise_ratio [default=%(default)r]")
     parser.add_argument(
-        "--samples-per-symbol", dest="samples_per_symbol", type=intx, default=500,
+        "--samples-per-symbol", dest="samples_per_symbol", type=intx, default=200,
         help="Set samples_per_symbol [default=%(default)r]")
     parser.add_argument(
         "--source-file", dest="source_file", type=str, default=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin",

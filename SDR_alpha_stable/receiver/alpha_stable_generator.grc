@@ -90,7 +90,7 @@ blocks:
     label: ''
     short_id: ''
     type: intx
-    value: '2'
+    value: '5'
   states:
     bus_sink: false
     bus_source: false
@@ -230,26 +230,27 @@ blocks:
       \nimport numpy as np\nfrom gnuradio import gr\n\n\nSYNC_WORD = 0x1ACFFC1D  #\
       \ 32-bit CCSDS attached synchronization marker\nMIN_SYNC_SYMBOLS = 32\nMAGIC\
       \ = 0xD39A\nHEADER_BYTES = 10  # uint16 magic, uint32 payload length, uint32\
-      \ CRC32\nHEADER_BITS = HEADER_BYTES * 8\n\n\ndef bytes_to_bits(data):\n    \"\
-      \"\"Return least-significant-bit-first bits, matching the payload mapping.\"\
-      \"\"\n    values = np.frombuffer(bytes(data), dtype=np.uint8)\n    return np.unpackbits(values,\
-      \ bitorder=\"little\").astype(np.uint8, copy=False)\n\n\ndef bits_to_bytes(bits):\n\
-      \    bits = np.asarray(bits, dtype=np.uint8)\n    if len(bits) % 8:\n      \
-      \  raise ValueError(\"Number of bits must be a multiple of 8\")\n    return\
-      \ np.packbits(bits, bitorder=\"little\").tobytes()\n\n\ndef sync_pattern(symbols=MIN_SYNC_SYMBOLS):\n\
-      \    \"\"\"Build a deterministic, non-periodic +/-1 synchronization sequence.\"\
-      \"\"\n    symbols = max(MIN_SYNC_SYMBOLS, int(symbols))\n    word_bits = np.asarray(\n\
-      \        [(SYNC_WORD >> (31 - index)) & 1 for index in range(32)],\n       \
-      \ dtype=np.float32,\n    )\n    bits = np.resize(word_bits, symbols)\n    return\
-      \ np.where(bits > 0, 1.0, -1.0).astype(np.float32)\n\n\nclass alpha_decoder(gr.basic_block):\n\
-      \    \"\"\"Acquire framed bursts, validate the header, and decode alpha payloads.\"\
-      \"\"\n\n    STATE_SEARCH_SYNC = 0\n    STATE_HEADER = 1\n    STATE_PAYLOAD =\
-      \ 2\n\n    def __init__(\n        self,\n        beta_map=(-1.0, 1.0),\n   \
-      \     samples_per_symbol=500,\n        L=20,\n        sync_symbols=MIN_SYNC_SYMBOLS,\n\
-      \        sync_threshold=0.75,\n        sync_corr_threshold=None,\n        sync_coherence_threshold=0.08,\n\
-      \        header_repetitions=3,\n        max_payload_bytes=1000000,\n       \
-      \ debug_symbols=20,\n        expected_output_bytes=128,\n        timing_guard_symbols=6,\n\
-      \    ):\n        gr.basic_block.__init__(\n            self, name=\"alpha_decoder\"\
+      \ CRC32\nHEADER_BITS = HEADER_BYTES * 8\nMAX_SAMPLE_CLOCK_ERROR_PPM = 20.0\n\
+      \n\ndef bytes_to_bits(data):\n    \"\"\"Return least-significant-bit-first bits,\
+      \ matching the payload mapping.\"\"\"\n    values = np.frombuffer(bytes(data),\
+      \ dtype=np.uint8)\n    return np.unpackbits(values, bitorder=\"little\").astype(np.uint8,\
+      \ copy=False)\n\n\ndef bits_to_bytes(bits):\n    bits = np.asarray(bits, dtype=np.uint8)\n\
+      \    if len(bits) % 8:\n        raise ValueError(\"Number of bits must be a\
+      \ multiple of 8\")\n    return np.packbits(bits, bitorder=\"little\").tobytes()\n\
+      \n\ndef sync_pattern(symbols=MIN_SYNC_SYMBOLS):\n    \"\"\"Build a deterministic,\
+      \ non-periodic +/-1 synchronization sequence.\"\"\"\n    symbols = max(MIN_SYNC_SYMBOLS,\
+      \ int(symbols))\n    word_bits = np.asarray(\n        [(SYNC_WORD >> (31 - index))\
+      \ & 1 for index in range(32)],\n        dtype=np.float32,\n    )\n    bits =\
+      \ np.resize(word_bits, symbols)\n    return np.where(bits > 0, 1.0, -1.0).astype(np.float32)\n\
+      \n\nclass alpha_decoder(gr.basic_block):\n    \"\"\"Acquire framed bursts, validate\
+      \ the header, and decode alpha payloads.\"\"\"\n\n    STATE_SEARCH_SYNC = 0\n\
+      \    STATE_HEADER = 1\n    STATE_PAYLOAD = 2\n\n    def __init__(\n        self,\n\
+      \        beta_map=(-1.0, 1.0),\n        samples_per_symbol=500,\n        L=20,\n\
+      \        sync_symbols=MIN_SYNC_SYMBOLS,\n        sync_threshold=0.75,\n    \
+      \    sync_corr_threshold=None,\n        sync_coherence_threshold=0.08,\n   \
+      \     header_repetitions=3,\n        max_payload_bytes=1000000,\n        debug_symbols=20,\n\
+      \        expected_output_bytes=128,\n        timing_guard_symbols=6,\n    ):\n\
+      \        gr.basic_block.__init__(\n            self, name=\"alpha_decoder\"\
       , in_sig=[np.complex64], out_sig=[np.uint8]\n        )\n        self.beta_map\
       \ = np.asarray(beta_map, dtype=np.float64)\n        self.samples_per_symbol\
       \ = int(samples_per_symbol)\n        self.L = int(L)\n        self.sync_symbols\
@@ -260,14 +261,17 @@ blocks:
       \ = int(max_payload_bytes)\n        self.debug_symbols = int(debug_symbols)\n\
       \        self.expected_output_bytes = (\n            None if expected_output_bytes\
       \ is None else int(expected_output_bytes)\n        )\n        self.timing_guard_symbols\
-      \ = int(timing_guard_symbols)\n\n        if len(self.beta_map) != 2:\n     \
-      \       raise ValueError(\"beta_map must contain exactly two values\")\n   \
-      \     if self.samples_per_symbol <= 0 or self.L <= 0:\n            raise ValueError(\"\
-      samples_per_symbol and L must be positive\")\n        if self.samples_per_symbol\
-      \ % self.L:\n            raise ValueError(\"samples_per_symbol must be divisible\
-      \ by L\")\n        if self.header_repetitions < 1 or self.header_repetitions\
-      \ % 2 == 0:\n            raise ValueError(\"header_repetitions must be a positive\
-      \ odd number\")\n        if self.expected_output_bytes is not None and self.expected_output_bytes\
+      \ = int(timing_guard_symbols)\n        self.symbol_edge_guard = max(\n     \
+      \       2, min(8, self.samples_per_symbol // 25)\n        )\n        self.decision_sample_count\
+      \ = (\n            self.samples_per_symbol - 2 * self.symbol_edge_guard\n  \
+      \      )\n\n        if len(self.beta_map) != 2:\n            raise ValueError(\"\
+      beta_map must contain exactly two values\")\n        if self.samples_per_symbol\
+      \ <= 0 or self.L <= 0:\n            raise ValueError(\"samples_per_symbol and\
+      \ L must be positive\")\n        if self.decision_sample_count < 4:\n      \
+      \      raise ValueError(\"samples_per_symbol is too small for the timing guard\"\
+      )\n        if self.header_repetitions < 1 or self.header_repetitions % 2 ==\
+      \ 0:\n            raise ValueError(\"header_repetitions must be a positive odd\
+      \ number\")\n        if self.expected_output_bytes is not None and self.expected_output_bytes\
       \ <= 0:\n            raise ValueError(\"expected_output_bytes must be positive\
       \ or None\")\n        if self.timing_guard_symbols < 2:\n            raise ValueError(\"\
       timing_guard_symbols must be at least 2\")\n\n        self._pattern = sync_pattern(self.sync_symbols).astype(np.complex64)\n\
@@ -287,10 +291,13 @@ blocks:
       \        \"\\n[DEC INIT] protocol=PN32+REPEATED_HEADER+PILOTED_ALPHA_STABLE_PAYLOAD\"\
       ,\n            file=sys.stderr,\n            flush=True,\n        )\n      \
       \  print(\n            f\"[DEC INIT] samples_per_symbol={self.samples_per_symbol}\
-      \ \"\n            f\"sync_symbols={self.sync_symbols} corr_threshold={self.sync_threshold:.2f}\
-      \ \"\n            f\"coherence_threshold={self.sync_coherence_threshold:.2f}\
-      \ \"\n            f\"header_repetitions={self.header_repetitions} \"\n     \
-      \       f\"payload_pilot=BEFORE_EACH_DATA_SYMBOL \"\n            f\"timing_guard={self.timing_guard_symbols}\"\
+      \ \"\n            f\"L_requested={self.L} \"\n            f\"L_effective={self._effective_segment_count(self.decision_sample_count)}\
+      \ \"\n            f\"samples_per_segment={self.decision_sample_count // self._effective_segment_count(self.decision_sample_count)}\
+      \ \"\n            f\"edge_guard={self.symbol_edge_guard} \"\n            f\"\
+      sync_symbols={self.sync_symbols} corr_threshold={self.sync_threshold:.2f} \"\
+      \n            f\"coherence_threshold={self.sync_coherence_threshold:.2f} \"\n\
+      \            f\"header_repetitions={self.header_repetitions} \"\n          \
+      \  f\"payload_pilot=BEFORE_EACH_DATA_SYMBOL \"\n            f\"timing_guard={self.timing_guard_symbols}\"\
       ,\n            file=sys.stderr,\n            flush=True,\n        )\n\n    def\
       \ forecast(self, noutput_items, ninputs):\n        return [1] * int(ninputs)\n\
       \n    def append_input(self, data):\n        if len(data):\n            self._sample_buffer\
@@ -388,18 +395,34 @@ blocks:
       \            left=residual_phase_twice[0],\n            right=residual_phase_twice[-1],\n\
       \        )\n        carrier_phase = coarse_cfo * index + 0.5 * interpolated\n\
       \        corrected = centered * np.exp(-1j * carrier_phase)\n        return\
-      \ corrected, coarse_cfo\n\n    def _estimate_beta_legacy(self, symbol_samples):\n\
-      \        required = (self.samples_per_symbol // self.L) * self.L\n        if\
-      \ len(symbol_samples) < required:\n            return 0.0\n        x = np.asarray(symbol_samples[:required]).real.astype(np.float32,\
-      \ copy=False)\n        segments = x.reshape(self.L, required // self.L)\n  \
-      \      maximums = np.max(segments, axis=1)\n        minimums = np.min(segments,\
-      \ axis=1)\n        max_std = float(np.std(maximums, ddof=1)) if self.L > 1 else\
-      \ 0.0\n        min_std = float(np.std(minimums, ddof=1)) if self.L > 1 else\
-      \ 0.0\n        return float(np.clip((max_std - min_std) / (max_std + min_std\
-      \ + 1e-12), -1.0, 1.0))\n\n    def _estimate_beta_logarithmic(self, symbol_samples):\n\
-      \        required = (self.samples_per_symbol // self.L) * self.L\n        if\
-      \ len(symbol_samples) < required:\n            return 0.0\n        x = np.asarray(symbol_samples[:required]).real.astype(np.float64,\
-      \ copy=False)\n        segments = x.reshape(self.L, required // self.L)\n  \
+      \ corrected, coarse_cfo\n\n    def _effective_segment_count(self, sample_count):\n\
+      \        \"\"\"Choose enough extrema segments for a statistically useful estimate.\n\
+      \n        L=2 compares only two maxima and two minima and is effectively random.\n\
+      \        Use the configured L only when it produces four to six samples per\n\
+      \        segment; otherwise fall back to about five samples per segment. This\n\
+      \        prevents both the old L=2 failure for long symbols and over-segmentation\n\
+      \        for short symbols. The estimator discards only a final incomplete\n\
+      \        segment when the sample count is not exactly divisible.\n        \"\
+      \"\"\n        sample_count = int(sample_count)\n        if sample_count <= 1:\n\
+      \            return 1\n        maximum = max(1, sample_count // 2)\n       \
+      \ configured = min(maximum, max(2, self.L))\n        configured_length = sample_count\
+      \ // configured\n        if 4 <= configured_length <= 6:\n            return\
+      \ configured\n        return min(maximum, max(2, sample_count // 5))\n\n   \
+      \ def _estimate_beta_legacy(self, symbol_samples):\n        segment_count =\
+      \ self._effective_segment_count(len(symbol_samples))\n        required = (len(symbol_samples)\
+      \ // segment_count) * segment_count\n        if len(symbol_samples) < required:\n\
+      \            return 0.0\n        x = np.asarray(symbol_samples[:required]).real.astype(np.float32,\
+      \ copy=False)\n        segments = x.reshape(segment_count, required // segment_count)\n\
+      \        maximums = np.max(segments, axis=1)\n        minimums = np.min(segments,\
+      \ axis=1)\n        max_std = float(np.std(maximums, ddof=1)) if segment_count\
+      \ > 1 else 0.0\n        min_std = float(np.std(minimums, ddof=1)) if segment_count\
+      \ > 1 else 0.0\n        return float(np.clip((max_std - min_std) / (max_std\
+      \ + min_std + 1e-12), -1.0, 1.0))\n\n    def _estimate_beta_logarithmic(self,\
+      \ symbol_samples):\n        segment_count = self._effective_segment_count(len(symbol_samples))\n\
+      \        required = (len(symbol_samples) // segment_count) * segment_count\n\
+      \        if len(symbol_samples) < required:\n            return 0.0\n      \
+      \  x = np.asarray(symbol_samples[:required]).real.astype(np.float64, copy=False)\n\
+      \        segments = x.reshape(segment_count, required // segment_count)\n  \
       \      maximums = np.max(segments, axis=1)\n        minimum_magnitudes = -np.min(segments,\
       \ axis=1)\n        valid = (\n            np.isfinite(maximums)\n          \
       \  & np.isfinite(minimum_magnitudes)\n            & (maximums > 0.0)\n     \
@@ -513,20 +536,36 @@ blocks:
       \        # accumulated TX/RX sample-clock mismatch over the complete payload.\n\
       \        first_data_start = self._find_variance_transition(\n            magnitudes,\n\
       \            self.samples_per_symbol,\n            stable_before=True,\n   \
-      \         search_radius=self.samples_per_symbol,\n        )\n        tail_start\
-      \ = self._find_variance_transition(\n            magnitudes,\n            payload_nominal,\n\
-      \            stable_before=False,\n            search_radius=(self.timing_guard_symbols\
+      \         search_radius=self.samples_per_symbol,\n        )\n        estimated_tail_start\
+      \ = float(self._find_variance_transition(\n            magnitudes,\n       \
+      \     payload_nominal,\n            stable_before=False,\n            search_radius=(self.timing_guard_symbols\
       \ - 2)\n            * self.samples_per_symbol,\n            stable_after_window=2\
-      \ * self.samples_per_symbol,\n        )\n        pair_spacing = (\n        \
-      \    tail_start - first_data_start\n        ) / max(0.5, symbols - 0.5)\n  \
-      \      plausible = (\n            0.98 * pair_samples\n            <= pair_spacing\n\
-      \            <= 1.02 * pair_samples\n        )\n        if not plausible:\n\
-      \            pair_spacing = float(pair_samples)\n            first_data_start\
-      \ = float(self.samples_per_symbol)\n            tail_start = float(payload_nominal)\n\
-      \n        symbol_spacing = 0.5 * pair_spacing\n        first_pilot_start = first_data_start\
-      \ - symbol_spacing\n        normalized = (\n            np.arange(self.samples_per_symbol,\
-      \ dtype=np.float64) + 0.5\n        ) / self.samples_per_symbol\n        pilot_positions\
-      \ = (\n            first_pilot_start\n            + np.arange(symbols, dtype=np.float64)[:,\
+      \ * self.samples_per_symbol,\n        ))\n\n        first_data_start = float(first_data_start)\n\
+      \        origin_error = first_data_start - self.samples_per_symbol\n       \
+      \ origin_limit = float(self.symbol_edge_guard)\n        if not np.isfinite(origin_error)\
+      \ or abs(origin_error) > origin_limit:\n            print(\n               \
+      \ f\"[TIMING ORIGIN REJECTED] estimate={origin_error:+.1f} samples \"\n    \
+      \            f\"limit={origin_limit:.1f}; using nominal payload origin\",\n\
+      \                file=sys.stderr,\n                flush=True,\n           \
+      \ )\n            first_data_start = float(self.samples_per_symbol)\n\n     \
+      \   raw_pair_spacing = (\n            estimated_tail_start - first_data_start\n\
+      \        ) / max(0.5, symbols - 0.5)\n        estimated_clock_error_ppm = (\n\
+      \            1.0e6 * (raw_pair_spacing / pair_samples - 1.0)\n        )\n  \
+      \      timing_valid = (\n            np.isfinite(estimated_clock_error_ppm)\n\
+      \            and abs(estimated_clock_error_ppm) <= MAX_SAMPLE_CLOCK_ERROR_PPM\n\
+      \        )\n        if timing_valid:\n            pair_spacing = float(raw_pair_spacing)\n\
+      \            timing_mode = \"tracked\"\n        else:\n            raw_drift\
+      \ = estimated_tail_start - payload_nominal\n            print(\n           \
+      \     f\"[TIMING REJECTED] tail_drift={raw_drift:+.1f} samples \"\n        \
+      \        f\"clock_error={estimated_clock_error_ppm:+.1f} ppm \"\n          \
+      \      f\"limit={MAX_SAMPLE_CLOCK_ERROR_PPM:.1f}; \"\n                \"using\
+      \ nominal pair spacing\",\n                file=sys.stderr,\n              \
+      \  flush=True,\n            )\n            pair_spacing = float(pair_samples)\n\
+      \            timing_mode = \"nominal\"\n\n        symbol_spacing = 0.5 * pair_spacing\n\
+      \        first_pilot_start = first_data_start - symbol_spacing\n        normalized\
+      \ = (\n            np.arange(self.samples_per_symbol, dtype=np.float64) + 0.5\n\
+      \        ) / self.samples_per_symbol\n        pilot_positions = (\n        \
+      \    first_pilot_start\n            + np.arange(symbols, dtype=np.float64)[:,\
       \ None] * pair_spacing\n            + normalized[None, :] * symbol_spacing\n\
       \        )\n        data_positions = pilot_positions + symbol_spacing\n    \
       \    pilot_samples = self._interpolate_complex(\n            centered, pilot_positions.reshape(-1)\n\
@@ -544,8 +583,13 @@ blocks:
       \          channel = np.mean(\n                pilot * np.exp(-1j * local_cfo\
       \ * pilot_index)\n            )\n            local_phase = float(np.angle(channel))\n\
       \            corrected_data = data * np.exp(\n                -1j * (local_phase\
-      \ + local_cfo * data_index)\n            )\n            bit, beta = self.estimate_bit(corrected_data)\n\
-      \            bits[symbol_index] = bit\n            if symbol_index < self.debug_symbols:\n\
+      \ + local_cfo * data_index)\n            )\n            # A small boundary error\
+      \ otherwise injects deterministic pilot\n            # samples into the extrema\
+      \ estimator. Discard only the edge of the\n            # alpha-stable symbol;\
+      \ the information remains in the interior.\n            decision_samples = corrected_data[\n\
+      \                self.symbol_edge_guard : -self.symbol_edge_guard\n        \
+      \    ]\n            bit, beta = self.estimate_bit(decision_samples)\n      \
+      \      bits[symbol_index] = bit\n            if symbol_index < self.debug_symbols:\n\
       \                print(\n                    f\"[DEC SYMBOL] index={symbol_index}\
       \ bit={bit} \"\n                    f\"beta_est={beta:+.5f} local_cfo={local_cfo:+.6e}\"\
       ,\n                    file=sys.stderr,\n                    flush=True,\n \
@@ -557,26 +601,28 @@ blocks:
       \ self._expected_crc:\n                payload = inverted_payload\n        \
       \        actual_crc = inverted_crc\n                payload_polarity = -1\n\
       \                valid = True\n\n        self._sample_buffer = self._sample_buffer[capture_needed:]\n\
-      \        timing_drift = float(tail_start - payload_nominal)\n        self._output_queue.extend(payload)\n\
-      \        self.packet_decoded = True\n        self.completed_payload_bytes =\
-      \ len(payload)\n        if valid:\n            self._crc_ok += 1\n         \
-      \   print(\n                f\"[DEC CRC] OK payload={len(payload)} bytes \"\n\
-      \                f\"crc=0x{actual_crc:08X} polarity={payload_polarity:+d} \"\
-      \n                f\"timing_pair={pair_spacing:.6f} \"\n                f\"\
-      origin={first_pilot_start:+.1f} \"\n                f\"drift={timing_drift:+.1f}\
-      \ samples\",\n                file=sys.stderr,\n                flush=True,\n\
-      \            )\n        else:\n            self._crc_fail += 1\n           \
-      \ print(\n                f\"[DEC CRC] FAIL expected=0x{self._expected_crc:08X}\
-      \ \"\n                f\"actual=0x{actual_crc:08X}; payload emitted for BER\
-      \ \"\n                f\"timing_pair={pair_spacing:.6f} \"\n               \
-      \ f\"origin={first_pilot_start:+.1f} \"\n                f\"drift={timing_drift:+.1f}\
-      \ samples\",\n                file=sys.stderr,\n                flush=True,\n\
-      \            )\n        self.reset_packet_state()\n        return valid\n\n\
-      \    def _process_buffer(self):\n        while True:\n            if self.packet_decoded:\n\
-      \                return\n            if self._state == self.STATE_SEARCH_SYNC:\n\
-      \                if not self._acquire_candidate():\n                    return\n\
-      \            if self._state == self.STATE_HEADER:\n                if self.decode_header()\
-      \ is None:\n                    return\n            if self._state == self.STATE_PAYLOAD:\n\
+      \        applied_tail_start = first_data_start + (symbols - 0.5) * pair_spacing\n\
+      \        timing_drift = float(applied_tail_start - payload_nominal)\n      \
+      \  self._output_queue.extend(payload)\n        self.packet_decoded = True\n\
+      \        self.completed_payload_bytes = len(payload)\n        if valid:\n  \
+      \          self._crc_ok += 1\n            print(\n                f\"[DEC CRC]\
+      \ OK payload={len(payload)} bytes \"\n                f\"crc=0x{actual_crc:08X}\
+      \ polarity={payload_polarity:+d} \"\n                f\"timing_pair={pair_spacing:.6f}\
+      \ \"\n                f\"origin={first_pilot_start:+.1f} \"\n              \
+      \  f\"drift={timing_drift:+.1f} samples timing={timing_mode}\",\n          \
+      \      file=sys.stderr,\n                flush=True,\n            )\n      \
+      \  else:\n            self._crc_fail += 1\n            print(\n            \
+      \    f\"[DEC CRC] FAIL expected=0x{self._expected_crc:08X} \"\n            \
+      \    f\"actual=0x{actual_crc:08X}; payload emitted for BER \"\n            \
+      \    f\"timing_pair={pair_spacing:.6f} \"\n                f\"origin={first_pilot_start:+.1f}\
+      \ \"\n                f\"drift={timing_drift:+.1f} samples timing={timing_mode}\"\
+      ,\n                file=sys.stderr,\n                flush=True,\n         \
+      \   )\n        self.reset_packet_state()\n        return valid\n\n    def _process_buffer(self):\n\
+      \        while True:\n            if self.packet_decoded:\n                return\n\
+      \            if self._state == self.STATE_SEARCH_SYNC:\n                if not\
+      \ self._acquire_candidate():\n                    return\n            if self._state\
+      \ == self.STATE_HEADER:\n                if self.decode_header() is None:\n\
+      \                    return\n            if self._state == self.STATE_PAYLOAD:\n\
       \                if self.decode_payload() is None:\n                    return\n\
       \n    def general_work(self, input_items, output_items):\n        if self.packet_output_complete:\n\
       \            return gr.WORK_DONE\n\n        self._work_call += 1\n        incoming\
@@ -748,7 +794,7 @@ blocks:
     label: ''
     short_id: ''
     type: intx
-    value: '500'
+    value: '200'
   states:
     bus_sink: false
     bus_source: false
@@ -967,7 +1013,7 @@ blocks:
     dc_offs_enb9: default
     dev_addr: '"serial=30F4146"'
     dev_args: ''
-    gain0: '100'
+    gain0: '40'
     gain1: '0'
     gain10: '0'
     gain11: '0'
@@ -1209,7 +1255,7 @@ blocks:
     start_time: '-1.0'
     stream_args: ''
     stream_chans: '[]'
-    sync: pc_clock_next_pps
+    sync: none
     time_source0: ''
     time_source1: ''
     time_source2: ''

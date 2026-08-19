@@ -48,12 +48,20 @@ The receiver is a one-packet process. After the decoder has released its final
 payload byte, it prints `[DEC OUTPUT COMPLETE]` and returns end-of-stream. GNU
 Radio then drains all intermediate buffers through the unbuffered file sink.
 Only after the scheduler's `wait()` confirms that draining is complete does the
-application close the file, print `[RX STOP]`, and exit automatically.
+application close the file and exit automatically.
 
 The pilot before each payload symbol carries no information. It gives the
 receiver a local phase/frequency reference for only the following alpha-stable
 symbol; the bit is still encoded by alpha-stable beta (`-1` or `+1`) and decoded
-with the extrema-based beta estimator. With the defaults, a 128-byte frame
+with the extrema-based beta estimator. The estimator uses about five samples
+per extrema segment and automatically increases the effective number of
+segments when `samples_per_symbol` is increased. The receiver parameter `L`
+defaults to 20 and is used as a hint only when it gives a statistically safe
+segment length; the old fixed value `L=2` is not statistically sufficient and
+produces strongly biased bit decisions after TX amplitude limiting. A few
+samples are omitted at each data-symbol boundary so
+that a small timing error cannot insert deterministic pilot samples into the
+alpha-stable estimate. With the defaults, a 128-byte frame
 takes about 18.19 seconds and a 256-byte frame takes about 34.19 seconds. The
 sender also transmits an eight-symbol guard tail; the receiver ignores it.
 
@@ -63,30 +71,28 @@ The receiver reads the actual length from the validated header. If its local
 sender's value instead of rejecting synchronization. Longer frames accumulate
 more sample-clock drift between independent B210s, so the receiver measures the
 first pilot/data transition and the final data/tail transition over a six-symbol
-timing guard before resampling all pilot/data pairs.
+timing guard before resampling all pilot/data pairs. A tail estimate that would
+imply more than 20 ppm of sample-clock error is rejected as a false transition;
+the receiver then keeps the measured packet origin and uses the nominal pair
+length instead of stretching the entire payload. The CRC line reports
+`timing=tracked` or `timing=nominal` to show which timing mode was applied.
+
+The receiver does not wait for an external PPS edge. The current flowgraph does
+not use timed UHD commands, so PPS waiting would not synchronize the two B210
+sample clocks and could prevent startup when no PPS source is connected.
 
 Run each command from its `sender` or `receiver` directory as shown. The capture
 filenames are intentionally relative because GNU Radio 3.10 on Windows can
 mis-encode absolute paths containing non-ASCII characters such as `ž`.
 
-The checked-in serial defaults are TX `30F4194` and RX `30F4146`. Override them
-when equipment changes:
+The checked-in serial defaults are TX `30F4194` and RX `30F4146`. The sender
+serial can be overridden from the command line:
 
 ```powershell
 python alpha_stable_generator.py --device-serial SERIAL
 ```
 
-Useful radio-level adjustments are `--tx-gain`, `--rx-gain`, and
-`--payload-scale`. Keep `--samp-rate` and `--samples-per-symbol` identical on
-both computers.
-
-## Simulation/regression check
-
-The DSP-only regression suite does not require connected SDR hardware:
-
-```powershell
-python test_piloted_link.py
-```
-
-It checks 128-byte and 256-byte round trips with phase rotation, carrier offset,
-noise, arbitrary burst alignment, and a 200 ppm sample-clock mismatch.
+The sender also exposes `--tx-gain` and `--payload-scale`. The receiver serial,
+RX gain, and sample rate are currently configured in its GRC UHD Source block;
+the checked-in defaults are 40 dB and 64 kS/s. Keep the sample rate and
+`samples_per_symbol` identical on both computers.

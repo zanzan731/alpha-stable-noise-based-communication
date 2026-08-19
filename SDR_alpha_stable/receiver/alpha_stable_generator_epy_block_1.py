@@ -19,6 +19,7 @@ MIN_SYNC_SYMBOLS = 32
 MAGIC = 0xD39A
 HEADER_BYTES = 10  # uint16 magic, uint32 payload length, uint32 CRC32
 HEADER_BITS = HEADER_BYTES * 8
+MAX_SAMPLE_CLOCK_ERROR_PPM = 20.0
 
 
 def bytes_to_bits(data):
@@ -85,13 +86,19 @@ class alpha_decoder(gr.basic_block):
             None if expected_output_bytes is None else int(expected_output_bytes)
         )
         self.timing_guard_symbols = int(timing_guard_symbols)
+        self.symbol_edge_guard = max(
+            2, min(8, self.samples_per_symbol // 25)
+        )
+        self.decision_sample_count = (
+            self.samples_per_symbol - 2 * self.symbol_edge_guard
+        )
 
         if len(self.beta_map) != 2:
             raise ValueError("beta_map must contain exactly two values")
         if self.samples_per_symbol <= 0 or self.L <= 0:
             raise ValueError("samples_per_symbol and L must be positive")
-        if self.samples_per_symbol % self.L:
-            raise ValueError("samples_per_symbol must be divisible by L")
+        if self.decision_sample_count < 4:
+            raise ValueError("samples_per_symbol is too small for the timing guard")
         if self.header_repetitions < 1 or self.header_repetitions % 2 == 0:
             raise ValueError("header_repetitions must be a positive odd number")
         if self.expected_output_bytes is not None and self.expected_output_bytes <= 0:
@@ -132,6 +139,10 @@ class alpha_decoder(gr.basic_block):
         )
         print(
             f"[DEC INIT] samples_per_symbol={self.samples_per_symbol} "
+            f"L_requested={self.L} "
+            f"L_effective={self._effective_segment_count(self.decision_sample_count)} "
+            f"samples_per_segment={self.decision_sample_count // self._effective_segment_count(self.decision_sample_count)} "
+            f"edge_guard={self.symbol_edge_guard} "
             f"sync_symbols={self.sync_symbols} corr_threshold={self.sync_threshold:.2f} "
             f"coherence_threshold={self.sync_coherence_threshold:.2f} "
             f"header_repetitions={self.header_repetitions} "
@@ -315,24 +326,46 @@ class alpha_decoder(gr.basic_block):
         corrected = centered * np.exp(-1j * carrier_phase)
         return corrected, coarse_cfo
 
+    def _effective_segment_count(self, sample_count):
+        """Choose enough extrema segments for a statistically useful estimate.
+
+        L=2 compares only two maxima and two minima and is effectively random.
+        Use the configured L only when it produces four to six samples per
+        segment; otherwise fall back to about five samples per segment. This
+        prevents both the old L=2 failure for long symbols and over-segmentation
+        for short symbols. The estimator discards only a final incomplete
+        segment when the sample count is not exactly divisible.
+        """
+        sample_count = int(sample_count)
+        if sample_count <= 1:
+            return 1
+        maximum = max(1, sample_count // 2)
+        configured = min(maximum, max(2, self.L))
+        configured_length = sample_count // configured
+        if 4 <= configured_length <= 6:
+            return configured
+        return min(maximum, max(2, sample_count // 5))
+
     def _estimate_beta_legacy(self, symbol_samples):
-        required = (self.samples_per_symbol // self.L) * self.L
+        segment_count = self._effective_segment_count(len(symbol_samples))
+        required = (len(symbol_samples) // segment_count) * segment_count
         if len(symbol_samples) < required:
             return 0.0
         x = np.asarray(symbol_samples[:required]).real.astype(np.float32, copy=False)
-        segments = x.reshape(self.L, required // self.L)
+        segments = x.reshape(segment_count, required // segment_count)
         maximums = np.max(segments, axis=1)
         minimums = np.min(segments, axis=1)
-        max_std = float(np.std(maximums, ddof=1)) if self.L > 1 else 0.0
-        min_std = float(np.std(minimums, ddof=1)) if self.L > 1 else 0.0
+        max_std = float(np.std(maximums, ddof=1)) if segment_count > 1 else 0.0
+        min_std = float(np.std(minimums, ddof=1)) if segment_count > 1 else 0.0
         return float(np.clip((max_std - min_std) / (max_std + min_std + 1e-12), -1.0, 1.0))
 
     def _estimate_beta_logarithmic(self, symbol_samples):
-        required = (self.samples_per_symbol // self.L) * self.L
+        segment_count = self._effective_segment_count(len(symbol_samples))
+        required = (len(symbol_samples) // segment_count) * segment_count
         if len(symbol_samples) < required:
             return 0.0
         x = np.asarray(symbol_samples[:required]).real.astype(np.float64, copy=False)
-        segments = x.reshape(self.L, required // self.L)
+        segments = x.reshape(segment_count, required // segment_count)
         maximums = np.max(segments, axis=1)
         minimum_magnitudes = -np.min(segments, axis=1)
         valid = (
@@ -551,26 +584,52 @@ class alpha_decoder(gr.basic_block):
             stable_before=True,
             search_radius=self.samples_per_symbol,
         )
-        tail_start = self._find_variance_transition(
+        estimated_tail_start = float(self._find_variance_transition(
             magnitudes,
             payload_nominal,
             stable_before=False,
             search_radius=(self.timing_guard_symbols - 2)
             * self.samples_per_symbol,
             stable_after_window=2 * self.samples_per_symbol,
-        )
-        pair_spacing = (
-            tail_start - first_data_start
-        ) / max(0.5, symbols - 0.5)
-        plausible = (
-            0.98 * pair_samples
-            <= pair_spacing
-            <= 1.02 * pair_samples
-        )
-        if not plausible:
-            pair_spacing = float(pair_samples)
+        ))
+
+        first_data_start = float(first_data_start)
+        origin_error = first_data_start - self.samples_per_symbol
+        origin_limit = float(self.symbol_edge_guard)
+        if not np.isfinite(origin_error) or abs(origin_error) > origin_limit:
+            print(
+                f"[TIMING ORIGIN REJECTED] estimate={origin_error:+.1f} samples "
+                f"limit={origin_limit:.1f}; using nominal payload origin",
+                file=sys.stderr,
+                flush=True,
+            )
             first_data_start = float(self.samples_per_symbol)
-            tail_start = float(payload_nominal)
+
+        raw_pair_spacing = (
+            estimated_tail_start - first_data_start
+        ) / max(0.5, symbols - 0.5)
+        estimated_clock_error_ppm = (
+            1.0e6 * (raw_pair_spacing / pair_samples - 1.0)
+        )
+        timing_valid = (
+            np.isfinite(estimated_clock_error_ppm)
+            and abs(estimated_clock_error_ppm) <= MAX_SAMPLE_CLOCK_ERROR_PPM
+        )
+        if timing_valid:
+            pair_spacing = float(raw_pair_spacing)
+            timing_mode = "tracked"
+        else:
+            raw_drift = estimated_tail_start - payload_nominal
+            print(
+                f"[TIMING REJECTED] tail_drift={raw_drift:+.1f} samples "
+                f"clock_error={estimated_clock_error_ppm:+.1f} ppm "
+                f"limit={MAX_SAMPLE_CLOCK_ERROR_PPM:.1f}; "
+                "using nominal pair spacing",
+                file=sys.stderr,
+                flush=True,
+            )
+            pair_spacing = float(pair_samples)
+            timing_mode = "nominal"
 
         symbol_spacing = 0.5 * pair_spacing
         first_pilot_start = first_data_start - symbol_spacing
@@ -611,7 +670,13 @@ class alpha_decoder(gr.basic_block):
             corrected_data = data * np.exp(
                 -1j * (local_phase + local_cfo * data_index)
             )
-            bit, beta = self.estimate_bit(corrected_data)
+            # A small boundary error otherwise injects deterministic pilot
+            # samples into the extrema estimator. Discard only the edge of the
+            # alpha-stable symbol; the information remains in the interior.
+            decision_samples = corrected_data[
+                self.symbol_edge_guard : -self.symbol_edge_guard
+            ]
+            bit, beta = self.estimate_bit(decision_samples)
             bits[symbol_index] = bit
             if symbol_index < self.debug_symbols:
                 print(
@@ -635,7 +700,8 @@ class alpha_decoder(gr.basic_block):
                 valid = True
 
         self._sample_buffer = self._sample_buffer[capture_needed:]
-        timing_drift = float(tail_start - payload_nominal)
+        applied_tail_start = first_data_start + (symbols - 0.5) * pair_spacing
+        timing_drift = float(applied_tail_start - payload_nominal)
         self._output_queue.extend(payload)
         self.packet_decoded = True
         self.completed_payload_bytes = len(payload)
@@ -646,7 +712,7 @@ class alpha_decoder(gr.basic_block):
                 f"crc=0x{actual_crc:08X} polarity={payload_polarity:+d} "
                 f"timing_pair={pair_spacing:.6f} "
                 f"origin={first_pilot_start:+.1f} "
-                f"drift={timing_drift:+.1f} samples",
+                f"drift={timing_drift:+.1f} samples timing={timing_mode}",
                 file=sys.stderr,
                 flush=True,
             )
@@ -657,7 +723,7 @@ class alpha_decoder(gr.basic_block):
                 f"actual=0x{actual_crc:08X}; payload emitted for BER "
                 f"timing_pair={pair_spacing:.6f} "
                 f"origin={first_pilot_start:+.1f} "
-                f"drift={timing_drift:+.1f} samples",
+                f"drift={timing_drift:+.1f} samples timing={timing_mode}",
                 file=sys.stderr,
                 flush=True,
             )

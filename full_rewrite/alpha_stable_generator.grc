@@ -9,7 +9,7 @@ options:
     description: ''
     gen_cmake: 'On'
     gen_linking: dynamic
-    generate_options: no_gui
+    generate_options: qt_gui
     hier_block_src_path: '.:'
     id: alpha_stable_generator
     max_nouts: '0'
@@ -702,7 +702,7 @@ blocks:
     bus_structure: null
     coordinate: [1592, 288.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: qtgui_sink_x_0
   id: qtgui_sink_x
   parameters:
@@ -731,7 +731,7 @@ blocks:
     bus_structure: null
     coordinate: [952, 764.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: samples_per_symbol
   id: parameter
   parameters:

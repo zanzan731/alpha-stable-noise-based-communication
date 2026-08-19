@@ -102,4 +102,22 @@ V.~Lutovac and E.~Kočan.
 \url{https://wiki.gnuradio.org/index.php/Noise_Source}.
 \newblock [Dostopano: 10. 2. 2026].
 
+\bibitem[Madi et~al.(2011)Madi, Sacuto, Vrigneau, Agba, Pousset,
+  Vauzelle, and Gagnon]{madi2011impacts}
+Ghadir Madi, Fabien Sacuto, Baptiste Vrigneau, Basile L. Agba,
+Yannis Pousset, Rodolphe Vauzelle, and François Gagnon.
+\newblock Impacts of impulsive noise from partial discharges on wireless
+  systems performance: application to MIMO precoders.
+\newblock \emph{EURASIP Journal on Wireless Communications and Networking},
+  2011:186, 2011.
+\newblock
+\url{https://link.springer.com/article/10.1186/1687-1499-2011-186}.
+\newblock DOI: 10.1186/1687-1499-2011-186.
+
+\bibitem[{GNU Radio}(2026)]{gnuradioWebsite}
+{GNU Radio}.
+\newblock GNU Radio.
+\newblock Dosegljivo:
+\url{https://www.gnuradio.org/}.
+\newblock [Dostopano: 18. 8. 2026].
 \end{thebibliography}

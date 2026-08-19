@@ -529,6 +529,7 @@ Stable distributions, also known as $\alpha$-stable distributions, provide a nat
 The preceding chapters introduced stable distributions as the mathematical basis of the communication method considered in this thesis. Before presenting $\alpha$-stable distributions in detail, it is useful to clarify what it means for a probability distribution to be stable.
 
 \begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definition 1: Stable distribution]
+\phantomsection
 \label{def:stable}
 
 Let $X_1$ and $X_2$ be independent copies of a random variable $X$. The distribution of $X$ is stable if, for arbitrary constants $a,b>0$, there exist constants $c>0$ and $d\in\mathbb{R}$ such that
@@ -813,6 +814,7 @@ Here, $\mu$ is the location parameter that shifts the distribution along the rea
 
 The central limit theorem is one of the most important results in probability theory. It describes the behaviour of sums of many independent random variables.
 \begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definition 5: Central limit theorem (CLT)]
+\phantomsection
 \label{def:CLI}
 Let $X_1,X_2,\dots,X_n$ be independent and identically distributed random variables with finite expected value
 
@@ -857,6 +859,7 @@ $\alpha$-stable distributions have infinite variance, and for $\alpha\leq1$ they
 This connection is formalised by the generalised central limit theorem.
 
 \begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black, title=Definition 6: Generalised central limit theorem]
+\phantomsection
 \label{def:GCLI}
 Let $Z$ be a random variable. Its distribution is stable if and only if there exist independent and identically distributed random variables
 
@@ -894,11 +897,11 @@ Consequently, $\alpha$-stable distributions are the only possible non-degenerate
 \section{Significance of Stability for Communication-Channel Modelling}
 In a communication system, the signal received is generally not identical to the transmitted signal. During transmission it is affected by numerous independent random phenomena, including electromagnetic interference, multipath propagation, interference from other users, and noise from electronic components. The received signal is therefore often a sum of many random contributions.
 
-It is therefore desirable for a mathematical channel model to remain in the same distribution family when independent components are added. This is precisely what stability provides; see Definitions~\ref{def:stable} and~\ref{def:GCLI}.
+It is therefore desirable for a mathematical channel model to remain in the same distribution family when independent components are added. This is explained by the \hyperref[def:stable]{stability property in Definition~1} and the \hyperref[def:GCLI]{generalised central limit theorem in Definition~6}.
 
 Mathematically, if the individual random contributions follow stable distributions, their sum again belongs to the same family. Only the parameters may change; the basic distributional form remains unchanged. This substantially simplifies system analysis because a single family can describe the complete channel regardless of the number of contributions forming the received signal.
 
-Conventional systems usually assume that the individual contributions have finite variance. By the central limit theorem~\ref{def:CLI}, the sum of many such contributions converges to a normal distribution, which explains the success of the AWGN model in many settings.
+Conventional systems usually assume that the individual contributions have finite variance. By the \hyperref[def:CLI]{central limit theorem in Definition~5}, the sum of many such contributions converges to a normal distribution, which explains the success of the AWGN model in many settings.
 
 In many real environments, however, this assumption is not satisfied. Impulsive noise contains rare but pronounced deviations and may not have finite variance. In such cases, the classical Gaussian model no longer adequately describes the channel.
 
@@ -968,7 +971,7 @@ Decoding accuracy primarily depends on parameter-estimation quality. A larger $N
 
 \section{Why Does the Communication Method Work?}
 
-Communication using $\alpha$-stable noise relies on the mathematical properties introduced above. The key results are distributional stability~\ref{def:stable} and the generalised central limit theorem~\ref{def:GCLI}.
+Communication using $\alpha$-stable noise relies on the mathematical properties introduced above. The key results are the \hyperref[def:stable]{stability property in Definition~1} and the \hyperref[def:GCLI]{generalised central limit theorem in Definition~6}.
 
 Stability ensures that a sum of independent $\alpha$-stable random variables remains $\alpha$-stable. The statistical structure is consequently preserved during generation and transmission, and the information remains encoded in the distribution parameters rather than in any individual sample.
 
@@ -1035,8 +1038,11 @@ The input-bit combination determines an index in a mapping table from which the 
 For each symbol, the encoder generates $N$ samples from the $\alpha$-stable distribution, where $N$ corresponds to the variable $\texttt{samples\_per\_symbol}$. These samples form the encoder output and are passed to the communication channel or the next GRC block.
 
 \subsection{Chambers--Mallows--Stuck Algorithm}
+\begin{tcolorbox}[breakable,colback=blue!5!white,colframe=blue!50!black,
+title=Procedure 1: Sample generation using the CMS algorithm]
+\phantomsection
+\label{met:cms_generator}
 The signal is generated using the Chambers--Mallows--Stuck (CMS) algorithm,
-\label{CMS}
 \begin{equation}
 X=\gamma C
 \frac{\sin\left(\alpha V+B\right)}
@@ -1058,6 +1064,7 @@ C=\left(1+\beta^2\tan^2\frac{\pi\alpha}{2}\right)^{\frac{1}{2\alpha}}.
 Here, $V$ is uniformly distributed on \begin{equation} V\sim\mathcal{U}\left(-\frac{\pi}{2},\frac{\pi}{2}\right), \end{equation} while $W$ is exponentially distributed with unit mean, \begin{equation} W\sim\mathrm{Exp}(1). \end{equation}
 
 For every input symbol, the encoder thus produces $N$ samples whose distribution is determined by the selected values of $\alpha$, $\beta$, and $\gamma$.
+\end{tcolorbox}
 
 \section{Decoder Implementation}
 The decoder estimates the $\alpha$-stable parameters from the received samples and reconstructs the original bit sequence. Because one sample is insufficient for reliable estimation, the decoder analyses several samples together.
@@ -1066,6 +1073,10 @@ The decoder estimates the $\alpha$-stable parameters from the received samples a
 The decoder stores the incoming sample stream in a buffer. Since the encoder generates exactly $N$ samples for every symbol, individual symbols are separated by processing each successive group of $N$ samples.
 
 \subsection{Estimating the Parameter $\beta$}
+\begin{tcolorbox}[breakable,colback=blue!5!white,colframe=blue!50!black,
+title=Procedure 2: Estimating the parameter $\beta$]
+\phantomsection
+\label{met:beta_estimator}
 The samples of one symbol are divided into $L$ equal segments, each containing $K=N/L$ samples. For each segment, the maximum and minimum are found and their magnitudes are transformed logarithmically:
 
 \begin{equation}
@@ -1124,6 +1135,7 @@ The same estimator is also encountered in the equivalent exponential form
 \frac{2}
 {\exp\!\left(\hat{\alpha}(Y_{\max}-Y_{\min})\right)+1}.
 \end{equation}
+\end{tcolorbox}
 
 The following proof establishes the equivalence of the two forms.
 
@@ -1170,7 +1182,7 @@ In the original simulation implementation, $\alpha$-stable samples could be gene
 
 In this implementation, information is encoded only through the asymmetry parameter $\beta$. Let $M_\beta$ denote the number of possible values in its mapping table. One symbol then represents $\log_2(M_\beta)$ bits. Since every symbol contains $N$ samples, transmitting $B$ bits requires $\frac{BN}{\log_2(M_\beta)}$ samples. For the binary mapping $\beta\in\{-1,1\}$, $M_\beta=2$, so every symbol represents one bit and $B$ bits require $BN$ samples.
  
-The parameter vector is obtained by repeating the value of $\beta$ assigned to each symbol $N$ times. Independent values $V_i \sim \mathcal{U}\left(-\frac{\pi}{2},\frac{\pi}{2}\right)$ and $W_i \sim \operatorname{Exp}(1)$ are then generated, with $i$ running from $0$ to $N-1$. Every sample therefore has independent $V_i$ and $W_i$, while all samples belonging to one symbol share the same $\beta$. The samples are calculated using the CMS method in Equation~\ref{CMS}.
+The parameter vector is obtained by repeating the value of $\beta$ assigned to each symbol $N$ times. Independent values $V_i \sim \mathcal{U}\left(-\frac{\pi}{2},\frac{\pi}{2}\right)$ and $W_i \sim \operatorname{Exp}(1)$ are then generated, with $i$ running from $0$ to $N-1$. Every sample therefore has independent $V_i$ and $W_i$, while all samples belonging to one symbol share the same $\beta$. The samples are calculated using the \hyperref[met:cms_generator]{CMS generation method in Procedure~1}.
 
 This does not make the samples of a symbol identical. Only $\beta$ is shared; new random values $V_i$ and $W_i$ are used for every sample. Each sample is consequently an independent realisation of the selected $\alpha$-stable distribution.
 
@@ -1260,7 +1272,7 @@ Number of input bytes sent by the data source. It determines the message length 
 
 \section{Effect of the Number of Segments $L$}
 
-To estimate $\beta$, the decoder divides the $N$ samples of a symbol into $L$ equally sized segments, each containing $K=N/L$ samples. This experiment compared $L\in\{2,4,5,8,10,20\}$ for different values of $N$. The mapping was $\beta\in\{-1,1\}$, with $\gamma=1$ and \texttt{noise\_ratio}$=1$.
+To \hyperref[met:beta_estimator]{estimate $\beta$ using Procedure~2}, the decoder divides the $N$ samples of a symbol into $L$ equally sized segments, each containing $K=N/L$ samples. This experiment compared $L\in\{2,4,5,8,10,20\}$ for different values of $N$. The mapping was $\beta\in\{-1,1\}$, with $\gamma=1$ and \texttt{noise\_ratio}$=1$.
 
 \begin{figure}[H]
   \centering

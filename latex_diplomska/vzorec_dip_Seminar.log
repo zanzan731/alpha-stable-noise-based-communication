@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  18 AUG 2026 02:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  19 AUG 2026 16:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -678,9 +678,16 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks28
 \@floatcapt=\box56
 )
+(C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
+Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
+\multirow@colwidth=\skip68
+\multirow@cntb=\count299
+\multirow@dima=\skip69
+\bigstrutjot=\dimen161
+)
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2025/02/11 v2.5l e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count299
+\etb@tempcnta=\count300
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2025-07-12 v7.01o Hypertext links for LaTeX
@@ -728,16 +735,16 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count300
+\c@section@level=\count301
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.st
 y
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 )
 )
-\@linkdim=\dimen161
-\Hy@linkcounter=\count301
-\Hy@pagecounter=\count302
+\@linkdim=\dimen162
+\Hy@linkcounter=\count302
+\Hy@pagecounter=\count303
  (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2025-07-12 v7.01o Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
@@ -746,7 +753,7 @@ Now handling font encoding PD1 ...
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count303
+\Hy@SavedSpaceFactor=\count304
 
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2025-07-12 v7.01o Hyperref: PDF Unicode definition (HO)
@@ -761,9 +768,9 @@ Package hyperref Info: Plain pages OFF on input line 4210.
 Package hyperref Info: Backreferencing OFF on input line 4215.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4462.
-\c@Hy@tempcnt=\count304
+\c@Hy@tempcnt=\count305
 LaTeX Info: Redefining \url on input line 4801.
-\XeTeXLinkMargin=\dimen162
+\XeTeXLinkMargin=\dimen163
 
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -773,9 +780,9 @@ sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count305
-\Field@Width=\dimen163
-\Fld@charsize=\dimen164
+\Fld@menulength=\count306
+\Field@Width=\dimen164
+\Fld@charsize=\dimen165
 Package hyperref Info: Hyper figures OFF on input line 6078.
 Package hyperref Info: Link nesting OFF on input line 6083.
 Package hyperref Info: Hyper index ON on input line 6086.
@@ -783,16 +790,16 @@ Package hyperref Info: backreferencing OFF on input line 6093.
 Package hyperref Info: Link coloring OFF on input line 6098.
 Package hyperref Info: Link coloring with OCG OFF on input line 6103.
 Package hyperref Info: PDF/A mode OFF on input line 6108.
-\Hy@abspage=\count306
-\c@Item=\count307
-\c@Hfootnote=\count308
+\Hy@abspage=\count307
+\c@Item=\count308
+\c@Hfootnote=\count309
 )
 Package hyperref Info: Driver: hpdftex.
 
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
 File: hpdftex.def 2025-07-12 v7.01o Hyperref driver for pdfTeX
-\Fld@listcount=\count309
-\c@bookmark@seq@number=\count310
+\Fld@listcount=\count310
+\c@bookmark@seq@number=\count311
 
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfile
 check.sty
@@ -805,7 +812,7 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 84.
 )
-\Hy@SectionHShift=\skip68
+\Hy@SectionHShift=\skip70
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/graphics\color.sty
 Package: color 2025/01/14 v1.3e Standard LaTeX Color (DPC)
@@ -827,29 +834,29 @@ Package: soul-ori 2026-03-06 v3.2 letterspacing/underlining (mf)
 \SOUL@cmds=\toks32
 \SOUL@buffer=\toks33
 \SOUL@token=\toks34
-\SOUL@syllgoal=\dimen165
-\SOUL@syllwidth=\dimen166
-\SOUL@charkern=\dimen167
-\SOUL@hyphkern=\dimen168
-\SOUL@dimen=\dimen169
-\SOUL@dimeni=\dimen170
-\SOUL@minus=\count311
-\SOUL@comma=\count312
-\SOUL@apo=\count313
-\SOUL@grave=\count314
-\SOUL@spaceskip=\skip69
-\SOUL@ttwidth=\dimen171
-\SOUL@uldp=\dimen172
-\SOUL@ulht=\dimen173
+\SOUL@syllgoal=\dimen166
+\SOUL@syllwidth=\dimen167
+\SOUL@charkern=\dimen168
+\SOUL@hyphkern=\dimen169
+\SOUL@dimen=\dimen170
+\SOUL@dimeni=\dimen171
+\SOUL@minus=\count312
+\SOUL@comma=\count313
+\SOUL@apo=\count314
+\SOUL@grave=\count315
+\SOUL@spaceskip=\skip71
+\SOUL@ttwidth=\dimen172
+\SOUL@uldp=\dimen173
+\SOUL@ulht=\dimen174
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/etexcmds\etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )) (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/natbib\natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip70
-\bibsep=\skip71
+\bibhang=\skip72
+\bibsep=\skip73
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count315
+\c@NAT@ctr=\count316
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/amscls\amsthm.sty
 Package: amsthm 2020/05/29 v2.20.6
@@ -858,9 +865,9 @@ Package: amsthm 2020/05/29 v2.20.6
 \thm@headfont=\toks37
 \thm@notefont=\toks38
 \thm@headpunct=\toks39
-\thm@preskip=\skip72
-\thm@postskip=\skip73
-\thm@headsep=\skip74
+\thm@preskip=\skip74
+\thm@postskip=\skip75
+\thm@headsep=\skip76
 \dth@everypar=\toks40
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcolorbox.sty
@@ -874,8 +881,8 @@ ty
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil-
 common.tex
 \pgfutil@everybye=\toks41
-\pgfutil@tempdima=\dimen174
-\pgfutil@tempdimb=\dimen175
+\pgfutil@tempdima=\dimen175
+\pgfutil@tempdimb=\dimen176
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil-
 latex.def
@@ -905,26 +912,26 @@ code.tex
 ibraryfiltered.code.tex
 \pgfkeys@tmptoks=\toks44
 ))
-\pgf@x=\dimen176
-\pgf@y=\dimen177
-\pgf@xa=\dimen178
-\pgf@ya=\dimen179
-\pgf@xb=\dimen180
-\pgf@yb=\dimen181
-\pgf@xc=\dimen182
-\pgf@yc=\dimen183
-\pgf@xd=\dimen184
-\pgf@yd=\dimen185
+\pgf@x=\dimen177
+\pgf@y=\dimen178
+\pgf@xa=\dimen179
+\pgf@ya=\dimen180
+\pgf@xb=\dimen181
+\pgf@yb=\dimen182
+\pgf@xc=\dimen183
+\pgf@yc=\dimen184
+\pgf@xd=\dimen185
+\pgf@yd=\dimen186
 \w@pgf@writea=\write4
 \r@pgf@reada=\read3
-\c@pgf@counta=\count316
-\c@pgf@countb=\count317
-\c@pgf@countc=\count318
-\c@pgf@countd=\count319
+\c@pgf@counta=\count317
+\c@pgf@countb=\count318
+\c@pgf@countc=\count319
+\c@pgf@countd=\count320
 \t@pgf@toka=\toks45
 \t@pgf@tokb=\toks46
 \t@pgf@tokc=\toks47
-\pgf@sys@id@count=\count320
+\pgf@sys@id@count=\count321
 
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgf.cf
 g
@@ -943,8 +950,8 @@ File: pgfsys-common-pdf.def 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsys
 softpath.code.tex
 File: pgfsyssoftpath.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfsyssoftpath@smallbuffer@items=\count321
-\pgfsyssoftpath@bigbuffer@items=\count322
+\pgfsyssoftpath@smallbuffer@items=\count322
+\pgfsyssoftpath@bigbuffer@items=\count323
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsys
 protocol.code.tex
@@ -980,8 +987,8 @@ tex
 ode.tex)
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathparser
 .code.tex
-\pgfmath@dimen=\dimen186
-\pgfmath@count=\count323
+\pgfmath@dimen=\dimen187
+\pgfmath@count=\count324
 \pgfmath@box=\box58
 \pgfmath@toks=\toks48
 \pgfmath@stack@operand=\toks49
@@ -1009,39 +1016,39 @@ ons.integerarithmetics.code.tex)
 ode.tex)
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfloat.
 code.tex
-\c@pgfmathroundto@lastzeros=\count324
+\c@pgfmathroundto@lastzeros=\count325
 ))
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfint.code.t
 ex)
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcore
 points.code.tex
 File: pgfcorepoints.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@picminx=\dimen187
-\pgf@picmaxx=\dimen188
-\pgf@picminy=\dimen189
-\pgf@picmaxy=\dimen190
-\pgf@pathminx=\dimen191
-\pgf@pathmaxx=\dimen192
-\pgf@pathminy=\dimen193
-\pgf@pathmaxy=\dimen194
-\pgf@xx=\dimen195
-\pgf@xy=\dimen196
-\pgf@yx=\dimen197
-\pgf@yy=\dimen198
-\pgf@zx=\dimen199
-\pgf@zy=\dimen256
+\pgf@picminx=\dimen188
+\pgf@picmaxx=\dimen189
+\pgf@picminy=\dimen190
+\pgf@picmaxy=\dimen191
+\pgf@pathminx=\dimen192
+\pgf@pathmaxx=\dimen193
+\pgf@pathminy=\dimen194
+\pgf@pathmaxy=\dimen195
+\pgf@xx=\dimen196
+\pgf@xy=\dimen197
+\pgf@yx=\dimen198
+\pgf@yy=\dimen199
+\pgf@zx=\dimen256
+\pgf@zy=\dimen257
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcore
 pathconstruct.code.tex
 File: pgfcorepathconstruct.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@path@lastx=\dimen257
-\pgf@path@lasty=\dimen258
+\pgf@path@lastx=\dimen258
+\pgf@path@lasty=\dimen259
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcore
 pathusage.code.tex
 File: pgfcorepathusage.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@shorten@end@additional=\dimen259
-\pgf@shorten@start@additional=\dimen260
+\pgf@shorten@end@additional=\dimen260
+\pgf@shorten@start@additional=\dimen261
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcore
 scopes.code.tex
@@ -1049,19 +1056,19 @@ File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgfpic=\box59
 \pgf@hbox=\box60
 \pgf@layerbox@main=\box61
-\pgf@picture@serial@count=\count325
+\pgf@picture@serial@count=\count326
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcore
 graphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgflinewidth=\dimen261
+\pgflinewidth=\dimen262
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcore
 transformations.code.tex
 File: pgfcoretransformations.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@pt@x=\dimen262
-\pgf@pt@y=\dimen263
-\pgf@pt@temp=\dimen264
+\pgf@pt@x=\dimen263
+\pgf@pt@y=\dimen264
+\pgf@pt@temp=\dimen265
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcore
 quick.code.tex
@@ -1078,14 +1085,14 @@ File: pgfcorepathprocessing.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcore
 arrows.code.tex
 File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfarrowsep=\dimen265
+\pgfarrowsep=\dimen266
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcore
 shade.code.tex
 File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@max=\dimen266
-\pgf@sys@shading@range@num=\count326
-\pgf@shadingcount=\count327
+\pgf@max=\dimen267
+\pgf@sys@shading@range@num=\count327
+\pgf@shadingcount=\count328
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcore
 image.code.tex
@@ -1124,8 +1131,8 @@ File: pgfmoduleplot.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfcom
 p-version-0-65.sty
 Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
-\pgf@nodesepstart=\dimen267
-\pgf@nodesepend=\dimen268
+\pgf@nodesepstart=\dimen268
+\pgf@nodesepend=\dimen269
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfcom
 p-version-1-18.sty
@@ -1143,8 +1150,8 @@ tex))
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgffor.c
 ode.tex
 Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
-\pgffor@iter=\dimen269
-\pgffor@skip=\dimen270
+\pgffor@iter=\dimen270
+\pgffor@skip=\dimen271
 \pgffor@stack=\toks51
 \pgffor@toks=\toks52
 ))
@@ -1155,34 +1162,34 @@ Package: tikz 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibra
 ryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@plot@mark@count=\count328
-\pgfplotmarksize=\dimen271
+\pgf@plot@mark@count=\count329
+\pgfplotmarksize=\dimen272
 )
-\tikz@lastx=\dimen272
-\tikz@lasty=\dimen273
-\tikz@lastxsaved=\dimen274
-\tikz@lastysaved=\dimen275
-\tikz@lastmovetox=\dimen276
-\tikz@lastmovetoy=\dimen277
-\tikzleveldistance=\dimen278
-\tikzsiblingdistance=\dimen279
+\tikz@lastx=\dimen273
+\tikz@lasty=\dimen274
+\tikz@lastxsaved=\dimen275
+\tikz@lastysaved=\dimen276
+\tikz@lastmovetox=\dimen277
+\tikz@lastmovetoy=\dimen278
+\tikzleveldistance=\dimen279
+\tikzsiblingdistance=\dimen280
 \tikz@figbox=\box64
 \tikz@figbox@bg=\box65
 \tikz@tempbox=\box66
 \tikz@tempbox@bg=\box67
-\tikztreelevel=\count329
-\tikznumberofchildren=\count330
-\tikznumberofcurrentchild=\count331
-\tikz@fig@count=\count332
+\tikztreelevel=\count330
+\tikznumberofchildren=\count331
+\tikznumberofcurrentchild=\count332
+\tikz@fig@count=\count333
 
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodulem
 atrix.code.tex
 File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfmatrixcurrentrow=\count333
-\pgfmatrixcurrentcolumn=\count334
-\pgf@matrix@numberofcolumns=\count335
+\pgfmatrixcurrentrow=\count334
+\pgfmatrixcurrentcolumn=\count335
+\pgf@matrix@numberofcolumns=\count336
 )
-\tikz@expandcount=\count336
+\tikz@expandcount=\count337
 
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz
 /libraries\tikzlibrarytopaths.code.tex
@@ -1205,11 +1212,11 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 \tcb@upperbox=\box69
 \tcb@lowerbox=\box70
 \tcb@phantombox=\box71
-\c@tcbbreakpart=\count337
-\c@tcblayer=\count338
-\c@tcolorbox@number=\count339
+\c@tcbbreakpart=\count338
+\c@tcblayer=\count339
+\c@tcolorbox@number=\count340
 \l__tcobox_tmpa_box=\box72
-\l__tcobox_tmpa_dim=\dimen280
+\l__tcobox_tmpa_dim=\dimen281
 \tcb@temp=\box73
 \tcb@temp=\box74
 \tcb@temp=\box75
@@ -1218,10 +1225,10 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcbraster.code
 .tex
 Library (tcolorbox): 'tcbraster.code.tex' version '6.7.1'
-\c@tcbrastercolumn=\count340
-\c@tcbrasterrow=\count341
-\c@tcbrasternum=\count342
-\c@tcbraster=\count343
+\c@tcbrastercolumn=\count341
+\c@tcbrasterrow=\count342
+\c@tcbrasternum=\count343
+\c@tcbraster=\count344
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcbskins.code.
 tex
@@ -1234,8 +1241,8 @@ Package: tikzfill.image 2026/04/23 v1.2.0 Image filling library for TikZ
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/tikzfill\tikzlibraryfill
 .image.code.tex
 File: tikzlibraryfill.image.code.tex 2026/04/23 v1.2.0 Image filling library
-\l__tikzfill_tmpa_dim=\dimen281
-\l__tikzfill_tmpb_dim=\dimen282
+\l__tikzfill_tmpa_dim=\dimen282
+\l__tikzfill_tmpb_dim=\dimen283
 \l__tikzfill_img_box=\box77
 ))
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcbskinsjigsaw
@@ -1264,10 +1271,10 @@ Library (tcolorbox): 'tcbtheorems.code.tex' version '6.7.1'
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcbfitting.cod
 e.tex
 Library (tcolorbox): 'tcbfitting.code.tex' version '6.7.1'
-\tcbfitdim=\dimen283
-\tcb@lowerfitdim=\dimen284
-\tcb@upperfitdim=\dimen285
-\tcb@cur@hbadness=\count344
+\tcbfitdim=\dimen284
+\tcb@lowerfitdim=\dimen285
+\tcb@upperfitdim=\dimen286
+\tcb@cur@hbadness=\count345
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcblistingsutf
 8.code.tex
@@ -1277,26 +1284,26 @@ Library (tcolorbox): 'tcblistingsutf8.code.tex' version '6.7.1'
 de.tex
 Library (tcolorbox): 'tcblistings.code.tex' version '6.7.1'
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
-\lst@mode=\count345
+\lst@mode=\count346
 \lst@gtempboxa=\box81
 \lst@token=\toks55
-\lst@length=\count346
-\lst@currlwidth=\dimen286
-\lst@column=\count347
-\lst@pos=\count348
-\lst@lostspace=\dimen287
-\lst@width=\dimen288
-\lst@newlines=\count349
-\lst@lineno=\count350
-\lst@maxwidth=\dimen289
+\lst@length=\count347
+\lst@currlwidth=\dimen287
+\lst@column=\count348
+\lst@pos=\count349
+\lst@lostspace=\dimen288
+\lst@width=\dimen289
+\lst@newlines=\count350
+\lst@lineno=\count351
+\lst@maxwidth=\dimen290
 
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpatch.sty
 File: lstpatch.sty 2024/09/23 1.10c (Carsten Heinz)
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
-\c@lstnumber=\count351
-\lst@skipnumbers=\count352
+\c@lstnumber=\count352
+\lst@skipnumbers=\count353
 \lst@framebox=\box82
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
@@ -1312,7 +1319,7 @@ Library (tcolorbox): 'tcblistingscore.code.tex' version '6.7.1'
 code.tex
 Library (tcolorbox): 'tcbprocessing.code.tex' version '6.7.1'
 )
-\c@tcblisting=\count353
+\c@tcblisting=\count354
 ))
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/listingsutf8\listingsutf
 8.sty
@@ -1342,9 +1349,9 @@ File: pgflibraryfadings.code.tex 2023-01-15 v3.1.10 (3.1.10)
 .tex
 Library (tcolorbox): 'tcbposter.code.tex' version '6.7.1'
 ))
-\c@izrek=\count354
-\c@trditev=\count355
-\countA=\count356
+\c@izrek=\count355
+\c@trditev=\count356
+\countA=\count357
  (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/xmpincl\xmpincl.sty
 Package: xmpincl 2021/09/22 v2.4 Include XMP data in pdflatex
 
@@ -1362,45 +1369,45 @@ Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdft
 ex.def
 File: l3backend-pdftex.def 2025-06-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count357
+\l__color_backend_stack_int=\count358
 ) (vzorec_dip_Seminar.aux
 Package babel Info: 'slovene' activates 'slovene' shorthands.
 (babel)             Reported on input line 9.
 )
 \openout1 = `vzorec_dip_Seminar.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 170.
+LaTeX Font Info:    ... okay on input line 170.
 
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mki
 i
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count358
-\scratchdimen=\dimen290
+\scratchcounter=\count359
+\scratchdimen=\dimen291
 \scratchbox=\box83
-\nofMPsegments=\count359
-\nofMParguments=\count360
+\nofMPsegments=\count360
+\nofMParguments=\count361
 \everyMPshowfont=\toks56
-\MPscratchCnt=\count361
-\MPscratchDim=\dimen291
-\MPnumerator=\count362
-\makeMPintoPDFobject=\count363
+\MPscratchCnt=\count362
+\MPscratchDim=\dimen292
+\MPnumerator=\count363
+\makeMPintoPDFobject=\count364
 \everyMPtoPDFconversion=\toks57
 )
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-ba
@@ -1413,33 +1420,25 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 g
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Package hyperref Info: Link coloring OFF on input line 168.
+Package hyperref Info: Link coloring OFF on input line 170.
  (vzorec_dip_Seminar.out) (vzorec_dip_Seminar.out)
 \@outlinefile=\write6
-
-! I can't write on file `vzorec_dip_Seminar.out'.
-<to be read again> 
-                   \relax 
-l.168 \begin{document}
-                      
-(Press Enter to retry, or Control-C to exit; default file extension is `.tex')
-Please type another output file name: 
 \openout6 = `vzorec_dip_Seminar.out'.
 
-\c@lstlisting=\count364
+\c@lstlisting=\count365
 
 
 [1
 
 
 {C:/Users/žan/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 215
+LaTeX Font Info:    Trying to load font information for U+msa on input line 217
 .
 
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 215
+LaTeX Font Info:    Trying to load font information for U+msb on input line 217
 .
 
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -1451,7 +1450,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.218 \clearemptydoublepage
+l.220 \clearemptydoublepage
                             [2]
 
 
@@ -1459,7 +1458,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.255 \clearemptydoublepage
+l.257 \clearemptydoublepage
                             [3
 
 ]
@@ -1469,7 +1468,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.255 \clearemptydoublepage
+l.257 \clearemptydoublepage
                             [4
 
 ]
@@ -1479,7 +1478,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.265 \clearemptydoublepage
+l.267 \clearemptydoublepage
                             [5]
 
 
@@ -1487,7 +1486,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.265 \clearemptydoublepage
+l.267 \clearemptydoublepage
                             [6
 
 ] (vzorec_dip_Seminar.toc
@@ -1511,44 +1510,44 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.285 \clearemptydoublepage
+l.287 \clearemptydoublepage
                             [8]
-Overfull \hbox (1.76152pt too wide) in paragraph at lines 311--311
+Overfull \hbox (1.76152pt too wide) in paragraph at lines 313--313
 []\OT1/cmr/bx/n/12 kratica| 
  []
 
 
-Overfull \hbox (2.7754pt too wide) in paragraph at lines 312--312
+Overfull \hbox (2.7754pt too wide) in paragraph at lines 314--314
 []\OT1/cmr/bx/n/12 OFDM| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 312--312
+Underfull \hbox (badness 10000) in paragraph at lines 314--314
 []\OT1/cmr/m/n/12 Orthogonal Frequency-
  []
 
 
-Overfull \hbox (1.77542pt too wide) in paragraph at lines 313--313
+Overfull \hbox (1.77542pt too wide) in paragraph at lines 315--315
 []\OT1/cmr/bx/n/12 MIMO| 
  []
 
 
-Underfull \hbox (badness 1009) in paragraph at lines 313--313
+Underfull \hbox (badness 1009) in paragraph at lines 315--315
 []\OT1/cmr/m/n/12 Multiple-input and multiple-
  []
 
 
-Underfull \hbox (badness 3746) in paragraph at lines 316--317
+Underfull \hbox (badness 3746) in paragraph at lines 318--319
 []\OT1/cmr/m/n/12 Razmerje med si-gna-lom in
  []
 
 
-Overfull \hbox (1.92822pt too wide) in paragraph at lines 317--317
+Overfull \hbox (1.92822pt too wide) in paragraph at lines 319--319
 []\OT1/cmr/bx/n/12 MSNR| 
  []
 
 
-Overfull \hbox (4.42818pt too wide) in paragraph at lines 320--320
+Overfull \hbox (4.42818pt too wide) in paragraph at lines 322--322
 []\OT1/cmr/bx/n/12 AWGN| 
  []
 
@@ -1559,7 +1558,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.327 \clearemptydoublepage
+l.329 \clearemptydoublepage
                             [9
 
 
@@ -1570,7 +1569,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.327 \clearemptydoublepage
+l.329 \clearemptydoublepage
                             [10
 
 ]
@@ -1580,7 +1579,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.348 \clearemptydoublepage
+l.350 \clearemptydoublepage
                             [11
 
 ]
@@ -1590,7 +1589,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.348 \clearemptydoublepage
+l.350 \clearemptydoublepage
                             [12
 
 ]
@@ -1600,7 +1599,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.370 \clearemptydoublepage
+l.372 \clearemptydoublepage
                             [13
 
 ]
@@ -1610,7 +1609,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.370 \clearemptydoublepage
+l.372 \clearemptydoublepage
                             [14
 
 ]
@@ -1621,13 +1620,19 @@ Poglavje 1.
 
 
 ]
-Overfull \hbox (3.29453pt too wide) in paragraph at lines 384--385
+Overfull \hbox (3.29453pt too wide) in paragraph at lines 386--387
 \OT1/cmr/m/n/12 sis-tema s si-mu-la-ci-jami in pre-ve-riti nje-govo de-lo-va-nj
 e pri de-jan-skem brez^^Tzi^^Tcnem
  []
 
 
-Overfull \hbox (10.09818pt too wide) in paragraph at lines 396--397
+Overfull \hbox (10.60556pt too wide) in paragraph at lines 395--396
+\OT1/cmr/m/n/12 teva pri-la-go-di-tev im-ple-men-ta-cije za de-lo-va-nje v re-a
+l-nem ^^Tcasu ter re^^Tsevanje
+ []
+
+
+Overfull \hbox (10.09818pt too wide) in paragraph at lines 398--399
 \OT1/cmr/m/n/12 ple-men-ta-cijo ko-mu-ni-ka-cij-skega sis-tema, ki te-me-lji na
  $\OML/cmm/m/it/12 $\OT1/cmr/m/n/12 -stabilnem ^^Tsumu. Glavni
  []
@@ -1635,19 +1640,19 @@ Overfull \hbox (10.09818pt too wide) in paragraph at lines 396--397
 
 
 [2]
-Overfull \hbox (1.60567pt too wide) in paragraph at lines 400--401
+Overfull \hbox (1.60567pt too wide) in paragraph at lines 402--403
 []\OT1/cmr/m/n/12 Razvoj ko-dir-nika in de-ko-dir-nika za ko-mu-ni-ka-cijo z up
 o-rabo $\OML/cmm/m/it/12 $\OT1/cmr/m/n/12 -stabilnega
  []
 
 
-Overfull \hbox (9.41809pt too wide) in paragraph at lines 402--403
+Overfull \hbox (9.41809pt too wide) in paragraph at lines 404--405
 []\OT1/cmr/m/n/12 Implementacija sis-tema na pro-gram-sko opre-de-ljeni ra-dij-
 ski opremi USRP,
  []
 
 
-Overfull \hbox (2.80287pt too wide) in paragraph at lines 406--407
+Overfull \hbox (2.80287pt too wide) in paragraph at lines 408--409
 []\OT1/cmr/m/n/12 Demonstracija de-lo-va-nja ko-mu-ni-ka-cij-skega sis-tema na 
 de-jan-ski brez^^Tzi^^Tcni
  []
@@ -1661,140 +1666,140 @@ Poglavje 2.
 [4
 
 ]
-<sender_receiver.png, id=287, 1204.5pt x 220.825pt>
+<sender_receiver.png, id=289, 1204.5pt x 220.825pt>
 File: sender_receiver.png Graphic file (type png)
 <use sender_receiver.png>
-Package pdftex.def Info: sender_receiver.png  used on input line 429.
+Package pdftex.def Info: sender_receiver.png  used on input line 431.
 (pdftex.def)             Requested size: 312.00119pt x 57.20085pt.
 
 
 [5 <./sender_receiver.png (PNG copy)>]
-Underfull \hbox (badness 6575) in paragraph at lines 481--481
+Underfull \hbox (badness 6575) in paragraph at lines 483--483
 []\OT1/cmr/bx/n/12 Tipi^^Tcni do-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 []\OT1/cmr/bx/n/12 Najpogostej^^Tse
  []
 
 
-Underfull \hbox (badness 6157) in paragraph at lines 481--481
+Underfull \hbox (badness 6157) in paragraph at lines 483--483
 []\OT1/cmr/m/n/12 Visoka hi-trost
  []
 
 
-Underfull \hbox (badness 2158) in paragraph at lines 481--481
+Underfull \hbox (badness 2158) in paragraph at lines 483--483
 \OT1/cmr/m/n/12 pre-nosa, nizka
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 \OT1/cmr/m/n/12 za-ka-sni-tev,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 \OT1/cmr/m/n/12 pod-pora ve-li-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 \OT1/cmr/m/n/12 kemu ^^Tstevilu
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 []\OT1/cmr/m/n/12 Zahteva in-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 \OT1/cmr/m/n/12 fra-struk-turo
  []
 
 
-Underfull \hbox (badness 3635) in paragraph at lines 481--481
+Underfull \hbox (badness 3635) in paragraph at lines 483--483
 \OT1/cmr/m/n/12 ba-znih po-staj,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 \OT1/cmr/m/n/12 ve^^Tcja po-raba
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 []\OT1/cmr/m/n/12 Mobilna omre^^Tzja,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 \OT1/cmr/m/n/12 ^^Tsirokopasovni do-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 \OT1/cmr/m/n/12 stop, in-du-strij-ske
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 []\OT1/cmr/m/n/12 Visoka pre-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 \OT1/cmr/m/n/12 pu-stnost,
  []
 
 
-Underfull \hbox (badness 1527) in paragraph at lines 481--481
+Underfull \hbox (badness 1527) in paragraph at lines 483--483
 []\OT1/cmr/m/n/12 Omejen do-seg,
  []
 
 
-Underfull \hbox (badness 2772) in paragraph at lines 481--481
+Underfull \hbox (badness 2772) in paragraph at lines 483--483
 []\OT1/cmr/m/n/12 Pribli^^Tzno 20--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 []\OT1/cmr/m/n/12 Nizka po-raba
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 []\OT1/cmr/m/n/12 Kratek do-seg,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 \OT1/cmr/m/n/12 ni^^Tzja hi-trost
  []
 
 
-Underfull \hbox (badness 2772) in paragraph at lines 481--481
+Underfull \hbox (badness 2772) in paragraph at lines 483--483
 []\OT1/cmr/m/n/12 Pribli^^Tzno 10--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 []\OT1/cmr/m/n/12 Brez^^Tzi^^Tcne slu^^Tsalke,
  []
 
 
-Underfull \hbox (badness 1735) in paragraph at lines 481--481
+Underfull \hbox (badness 1735) in paragraph at lines 483--483
 []\OT1/cmr/m/n/12 Zelo ve-lik do-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 []\OT1/cmr/m/n/12 Nizka hi-trost
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--481
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 \OT1/cmr/m/n/12 sen-zor-ska omre^^Tzja,
  []
 
@@ -1805,37 +1810,37 @@ Underfull \hbox (badness 10000) in paragraph at lines 481--481
 [7]
 
 [8]
-Overfull \hbox (1.53204pt too wide) in paragraph at lines 514--515
+
+[9]
+Overfull \hbox (1.53204pt too wide) in paragraph at lines 516--517
 [][]\OT1/cmr/m/n/12 Ceprav ome-njene teh-nike bi-stveno iz-bolj^^Tsajo od-por-n
 ost ko-mu-ni-ka-cije proti
  []
 
 
 
-[9]
-
 [10]
 Poglavje 3.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 528.
+(hyperref)                removing `math shift' on input line 530.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 528.
+(hyperref)                removing `\alpha' on input line 530.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 528.
+(hyperref)                removing `math shift' on input line 530.
 
 
-Overfull \hbox (11.82361pt too wide) in paragraph at lines 532--533
+Overfull \hbox (11.82361pt too wide) in paragraph at lines 534--535
 []\OT1/cmr/m/n/12 Stabilne po-raz-de-li-tve, ime-no-vane tudi $\OML/cmm/m/it/12
  $\OT1/cmr/m/n/12 -stabilne po-raz-de-li-tve, so po-membna
  []
 
 
-Overfull \hbox (0.29178pt too wide) in paragraph at lines 532--533
+Overfull \hbox (0.29178pt too wide) in paragraph at lines 534--535
 \OT1/cmr/m/n/12 dru^^Tzina ver-je-tno-stnih po-raz-de-li-tev, saj pred-sta-vlja
 jo na-ravno po-splo^^Tsitev nor-
  []
@@ -1847,35 +1852,35 @@ jo na-ravno po-splo^^Tsitev nor-
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 555.
+(hyperref)                removing `math shift' on input line 558.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 555.
+(hyperref)                removing `\alpha' on input line 558.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 555.
+(hyperref)                removing `math shift' on input line 558.
 
 
 
 [12]
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 618.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 621.
 
 LaTeX Font Info:    Trying to load font information for OML+cmr on input line 6
-18.
+21.
 (C:\Users\žan\AppData\Local\Programs\MiKTeX\tex/latex/base\omlcmr.fd
 File: omlcmr.fd 2024/11/19 v2.5n Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 618.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 621.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 618.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 621.
 
 
-Overfull \hbox (26.8121pt too wide) detected at line 657
+Overfull \hbox (26.8121pt too wide) detected at line 660
 [][]
  []
 
@@ -1889,76 +1894,76 @@ Overfull \vbox (117.99574pt too high) has occurred while \output is active []
 [14]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 694.
+(hyperref)                removing `math shift' on input line 697.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 694.
+(hyperref)                removing `\alpha' on input line 697.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 694.
+(hyperref)                removing `math shift' on input line 697.
 
-<alpha_parameter.png, id=357, 963.6pt x 649.42625pt>
+<alpha_parameter.png, id=363, 963.6pt x 649.42625pt>
 File: alpha_parameter.png Graphic file (type png)
 <use alpha_parameter.png>
-Package pdftex.def Info: alpha_parameter.png  used on input line 703.
+Package pdftex.def Info: alpha_parameter.png  used on input line 706.
 (pdftex.def)             Requested size: 312.00119pt x 210.26828pt.
 
 
 [15 <./alpha_parameter.png>]
-<beta_parameter.png, id=368, 963.6pt x 649.42625pt>
+<beta_parameter.png, id=374, 963.6pt x 649.42625pt>
 File: beta_parameter.png Graphic file (type png)
 <use beta_parameter.png>
-Package pdftex.def Info: beta_parameter.png  used on input line 714.
+Package pdftex.def Info: beta_parameter.png  used on input line 717.
 (pdftex.def)             Requested size: 312.00119pt x 210.26828pt.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 723.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 726.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 723.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 726.
 
 
 
 [16 <./beta_parameter.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 729.
+(hyperref)                removing `math shift' on input line 732.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 729.
+(hyperref)                removing `\alpha' on input line 732.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 729.
+(hyperref)                removing `math shift' on input line 732.
 
-<normalna_porazdelitev.png, id=379, 963.6pt x 616.3025pt>
+<normalna_porazdelitev.png, id=385, 963.6pt x 616.3025pt>
 File: normalna_porazdelitev.png Graphic file (type png)
 <use normalna_porazdelitev.png>
-Package pdftex.def Info: normalna_porazdelitev.png  used on input line 766.
+Package pdftex.def Info: normalna_porazdelitev.png  used on input line 769.
 (pdftex.def)             Requested size: 312.00119pt x 199.54361pt.
 
 
 [17]
-<cauchijeva_porazdelitev.png, id=390, 963.6pt x 749.80125pt>
+<cauchijeva_porazdelitev.png, id=396, 963.6pt x 749.80125pt>
 File: cauchijeva_porazdelitev.png Graphic file (type png)
 <use cauchijeva_porazdelitev.png>
-Package pdftex.def Info: cauchijeva_porazdelitev.png  used on input line 788.
+Package pdftex.def Info: cauchijeva_porazdelitev.png  used on input line 791.
 (pdftex.def)             Requested size: 312.00119pt x 242.76723pt.
 
 
 [18 <./normalna_porazdelitev.png>]
-<levy_destribution.png, id=401, 963.6pt x 978.65625pt>
+<levy_destribution.png, id=407, 963.6pt x 978.65625pt>
 File: levy_destribution.png Graphic file (type png)
 <use levy_destribution.png>
-Package pdftex.def Info: levy_destribution.png  used on input line 812.
+Package pdftex.def Info: levy_destribution.png  used on input line 815.
 (pdftex.def)             Requested size: 312.00119pt x 316.86487pt.
 
 
 [19 <./cauchijeva_porazdelitev.png>]
-Underfull \hbox (badness 1371) in paragraph at lines 846--847
+Underfull \hbox (badness 1371) in paragraph at lines 850--851
 []\OT1/cmr/m/n/12 To po-meni, da se po-raz-de-li-tvena funk-cija nor-mi-rane vs
 ote pri-
  []
@@ -1970,9 +1975,15 @@ ote pri-
 [21]
 
 [22]
-Overfull \hbox (2.05426pt too wide) in paragraph at lines 893--894
+Overfull \hbox (2.05426pt too wide) in paragraph at lines 898--899
 []\OT1/cmr/m/n/12 Za ma-te-mati^^Tcni mo-del ko-mu-ni-ka-cij-skega ka-nala je z
 ato za^^Tzeleno, da ostane
+ []
+
+
+Overfull \hbox (0.19179pt too wide) in paragraph at lines 902--903
+[]\OT1/cmr/m/n/12 Pri klasi^^Tcnih ko-mu-ni-ka-cij-skih sis-te-mih se obi^^Tcaj
+no pred-po-sta-vlja, da imajo
  []
 
 
@@ -1983,15 +1994,15 @@ ato za^^Tzeleno, da ostane
 Poglavje 4.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 906.
+(hyperref)                removing `math shift' on input line 911.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 906.
+(hyperref)                removing `\alpha' on input line 911.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 906.
+(hyperref)                removing `math shift' on input line 911.
 
 
 
@@ -2000,7 +2011,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 ]
 
 [26]
-Overfull \hbox (2.25844pt too wide) in paragraph at lines 970--971
+Overfull \hbox (2.25844pt too wide) in paragraph at lines 975--976
 []\OT1/cmr/m/n/12 Lastnost sta-bil-no-sti za-go-ta-vlja, da vsota ne-od-vi-snih
  $\OML/cmm/m/it/12 $\OT1/cmr/m/n/12 -stabilnih na-klju^^Tcnih
  []
@@ -2016,108 +2027,90 @@ Poglavje 5.
 [29
 
 ]
-<Alpha_encoder and decoder.png, id=462, 2695.06876pt x 819.06pt>
+<Alpha_encoder and decoder.png, id=477, 2695.06876pt x 819.06pt>
 File: Alpha_encoder and decoder.png Graphic file (type png)
 <use Alpha_encoder and decoder.png>
-Package pdftex.def Info: Alpha_encoder and decoder.png  used on input line 998.
-
+Package pdftex.def Info: Alpha_encoder and decoder.png  used on input line 1003
+.
 (pdftex.def)             Requested size: 390.0pt x 118.51695pt.
 
 
 [30]
 
 [31 <./Alpha_encoder and decoder.png>]
-Overfull \hbox (14.57913pt too wide) in paragraph at lines 1031--1033
-\OT1/cmr/m/n/12 Za ge-ne-ri-ra-nje si-gnala upo-ra-bljam Chambers-Mallows-Stuck
-ov al-go-ri-tem(CMS),
- []
-
-
 
 [32]
 
 [33]
-Overfull \hbox (0.22234pt too wide) in paragraph at lines 1111--1112
-[]\OT1/cmr/m/n/12 Isti oce-nje-val-nik je mogo^^Tce za-sle-diti tudi v ek-vi-va
--len-tni ek-spo-nen-tni obliki: 
- []
-
-
 
 [34]
-Overfull \hbox (10.04863pt too wide) in paragraph at lines 1152--1153
+
+[35]
+Overfull \hbox (10.04863pt too wide) in paragraph at lines 1166--1167
 \OT1/cmr/m/n/12 Pri pre-nosu ko-mu-ni-ka-cij-skega sis-tema iz si-mu-la-cij-ske
 ga oko-lja na fizi^^Tcno opremo
  []
 
+<antena_SDR.jpg, id=534, 4111.36pt x 2312.64pt>
+File: antena_SDR.jpg Graphic file (type jpg)
+<use antena_SDR.jpg>
+Package pdftex.def Info: antena_SDR.jpg  used on input line 1176.
+(pdftex.def)             Requested size: 312.00119pt x 175.48721pt.
 
-
-[35]
 
 [36]
 
-[37]
+[37 <./antena_SDR.jpg>]
 
 [38]
 
 [39]
+
+[40]
 Poglavje 6.
 
 
-[40
+[41
 
 ]
 
-[41]
+[42]
 LaTeX Font Info:    Trying to load font information for OMS+cmtt on input line 
-1236.
-LaTeX Font Info:    No file OMScmtt.fd. on input line 1236.
+1257.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 1257.
 
 
 LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 1236.
+(Font)              for symbol `textbraceleft' on input line 1257.
 
 
-Overfull \hbox (36.1959pt too wide) in paragraph at lines 1220--1249
+Overfull \hbox (36.1959pt too wide) in paragraph at lines 1241--1270
 [][] 
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1254.
+(hyperref)                removing `math shift' on input line 1275.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1254.
+(hyperref)                removing `math shift' on input line 1275.
 
 
 
-[42
+[43
 
 ]
-<l_error_log.png, id=551, 570.6921pt x 354.3639pt>
+<l_error_log.png, id=580, 570.6921pt x 354.3639pt>
 File: l_error_log.png Graphic file (type png)
 <use l_error_log.png>
-Package pdftex.def Info: l_error_log.png  used on input line 1260.
+Package pdftex.def Info: l_error_log.png  used on input line 1281.
 (pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
 
 
-[43 <./l_error_log.png>]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1270.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\beta' on input line 1270.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1270.
-
-
-Overfull \hbox (7.2609pt too wide) in paragraph at lines 1274--1275
+[44 <./l_error_log.png>]
+Overfull \hbox (7.2609pt too wide) in paragraph at lines 1295--1296
 \OT1/cmr/m/n/12 ^^Tsuma. Pri-mer-jali smo vre-dno-sti $\OML/cmm/m/it/12 N \OMS/
 cmtt/m/n/12 2 f\OT1/cmr/m/n/12 40\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 80\OML/cmm/
 m/it/12 ; \OT1/cmr/m/n/12 160\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 240\OML/cmm/m/i
@@ -2126,42 +2119,44 @@ t/12 ; \OT1/cmr/m/n/12 320\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 400\OML/cmm/m/it/1
  \OT1/cmr/m/n/12 1000\OMS/cmtt/m/n/12 g$\OT1/cmr/m/n/12 . 
  []
 
-<beta_error.png, id=558, 570.6921pt x 354.3639pt>
+<beta_error.png, id=587, 570.6921pt x 354.3639pt>
 File: beta_error.png Graphic file (type png)
 <use beta_error.png>
-Package pdftex.def Info: beta_error.png  used on input line 1278.
+Package pdftex.def Info: beta_error.png  used on input line 1299.
 (pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
 
 
-[44 <./beta_error.png>]
+[45 <./beta_error.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1290.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\gamma' on input line 1290.
+(hyperref)                removing `math shift' on input line 1311.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1290.
+(hyperref)                removing `\gamma' on input line 1311.
 
-<gama_error_log.png, id=565, 570.6921pt x 354.3639pt>
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1311.
+
+<gama_error_log.png, id=594, 570.6921pt x 354.3639pt>
 File: gama_error_log.png Graphic file (type png)
 <use gama_error_log.png>
-Package pdftex.def Info: gama_error_log.png  used on input line 1304.
+Package pdftex.def Info: gama_error_log.png  used on input line 1325.
 (pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
 
 
-[45]
+[46]
 
-[46 <./gama_error_log.png>]
+[47 <./gama_error_log.png>]
 
-[47]
+[48]
 
-[48] (vzorec_dip_Seminar.bbl
+[49]
 
-[49
+[50] (vzorec_dip_Seminar.bbl
+
+[51
 
 
 ]
@@ -2182,9 +2177,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 71--76
  to -[] overcome -[]
  []
 
-)
 
-[50] (vzorec_dip_Seminar.aux)
+
+[52])
+
+[53] (vzorec_dip_Seminar.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-07-19>
@@ -2194,16 +2191,16 @@ L3 programming layer <2025-07-19>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `vzorec_dip_Seminar.out' has not changed.
-(rerunfilecheck)             Checksum: 686F42903B12CCCE01D06C823C6A6CFA;6373.
+(rerunfilecheck)             Checksum: 4A8EC26980ADCB90A79DD414FC13A444;6358.
  ) 
 Here is how much of TeX's memory you used:
- 29536 strings out of 468149
- 594716 string characters out of 5431566
- 1019222 words of memory out of 5000000
- 57467 multiletter control sequences out of 15000+600000
- 643695 words of font info for 105 fonts, out of 8000000 for 9000
+ 29682 strings out of 468149
+ 597386 string characters out of 5431566
+ 1020150 words of memory out of 5000000
+ 57595 multiletter control sequences out of 15000+600000
+ 644041 words of font info for 106 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 98i,13n,105p,1025b,641s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 98i,13n,105p,1026b,1009s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\žan\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1
 200.pk><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
 /cm/cmbx12.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/
@@ -2224,14 +2221,15 @@ public/amsfonts/cm/cmsl12.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/font
 s/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/žan/AppData/Local/Programs/MiK
 TeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/žan/AppData/Local/Progr
 ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/žan/AppData/Loca
-l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/žan/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Users/ž
-an/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/
-Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/ms
-bm10.pfb>
-Output written on vzorec_dip_Seminar.pdf (64 pages, 1563176 bytes).
+l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/žan/AppD
+ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/�
+�an/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/
+Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.
+pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/sy
+mbols/msbm10.pfb>
+Output written on vzorec_dip_Seminar.pdf (67 pages, 2744465 bytes).
 PDF statistics:
- 746 PDF objects out of 1000 (max. 8388607)
- 154 named destinations out of 1000 (max. 500000)
- 467 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 792 PDF objects out of 1000 (max. 8388607)
+ 167 named destinations out of 1000 (max. 500000)
+ 472 words of extra memory for PDF output out of 10000 (max. 10000000)
 
