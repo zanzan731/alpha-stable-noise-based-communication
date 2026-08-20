@@ -336,6 +336,7 @@ class alpha_decoder(gr.basic_block):
         for short symbols. The estimator discards only a final incomplete
         segment when the sample count is not exactly divisible.
         """
+        #L=5 is actually great L=2 is a lot more random
         sample_count = int(sample_count)
         if sample_count <= 1:
             return 1
@@ -459,6 +460,7 @@ class alpha_decoder(gr.basic_block):
 
     @staticmethod
     def _interpolate_complex(samples, positions):
+        #linearna interpolacija
         positions = np.clip(positions, 0.0, max(0.0, len(samples) - 1.000001))
         lower = np.floor(positions).astype(np.int64)
         fraction = positions - lower
