@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  24 AUG 2026 22:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  24 AUG 2026 22:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2214,14 +2214,8 @@ L3 programming layer <2025-07-19>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-Package rerunfilecheck Warning: File `vzorec_dip_Seminar.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `vzorec_dip_Seminar.out':
-(rerunfilecheck)             Before: 4A8EC26980ADCB90A79DD414FC13A444;6358
-(rerunfilecheck)             After:  05D371B304099DB61BFFABDFB885AB6F;6419.
+Package rerunfilecheck Info: File `vzorec_dip_Seminar.out' has not changed.
+(rerunfilecheck)             Checksum: 05D371B304099DB61BFFABDFB885AB6F;6419.
  ) 
 Here is how much of TeX's memory you used:
  29682 strings out of 468149
@@ -2257,7 +2251,7 @@ ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/�
 Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.
 pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/sy
 mbols/msbm10.pfb>
-Output written on vzorec_dip_Seminar.pdf (67 pages, 2746466 bytes).
+Output written on vzorec_dip_Seminar.pdf (67 pages, 2746528 bytes).
 PDF statistics:
  792 PDF objects out of 1000 (max. 8388607)
  167 named destinations out of 1000 (max. 500000)
