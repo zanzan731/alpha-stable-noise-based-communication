@@ -236,16 +236,15 @@ Za objavo in koriščenje rezultatov diplomske naloge je potrebno pisno privolje
 
 \bigskip
 \noindent\textbf{Opis:}\\
-Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega sistema, kamor ga je vnesel mentor. 
-V nekaj stavkih bo opisal, kaj pričakuje od kandidatovega diplomskega dela. 
-Kaj so cilji, kakšne metode naj uporabi, morda bo zapisal tudi ključno literaturo.
+V tem diplomskem delu je potrebno predstaviti brezžično komunikacijo, ki temelji na prenosu informacij s pomočjo modulacije šuma. Razložiti je treba matematične osnove alfa-stabilnega šuma ter zasnovati sistem komunikacije, ki temelji na tovrstnem šumu. V programskem okolju GNU radio je potrebno implementirati module, ki omogočajo brezžično povezavo, ki temelji na alfa-stabilnem šumu. Na koncu, brezžično povezavo je potrebno pokazati v realnem okolju ter ovrednotiti.
 
 \bigskip
 \noindent\textbf{Title:} Noise-Based Wireless Communication Using Software-Defined Radio
 
 \bigskip
 \noindent\textbf{Description:}\\
-opis diplome v angleščini
+In this thesis the candidate should introduce wireless communication that is based on information transfer via noise modulation. The candidate should present the mathematical foundation of alpha-stable noise and devise a communication system based on such a noise. The concept should be implemented in GNU radio software. Finally, the candidate should demonstrate a real-world alpha stable noise-based link and evaluate it.
+
 
 \vfill
 
@@ -1163,6 +1162,8 @@ Ocenjena vrednost $\hat{\beta}$ se nato primerja z dovoljenimi vrednostmi iz pre
 
 Pri prenosu komunikacijskega sistema iz simulacijskega okolja na fizično opremo se pojavljajo dodatne omejitve, ki jih v simulaciji ni bilo treba obravnavati. Med najpomembnejše sodita zagotavljanje vzorcev v realnem času in sinhronizacija med oddajnikom in sprejemnikom.
 
+Za praktično izvedbo komunikacijskega sistema sta bili uporabljeni dve napravi USRP B210 z dvema antenama WA5VJB, pri čemer sta oddajnik in sprejemnik delovala na prenosnem računalniku Lenovo Legion 5 Pro oziroma osebnem računalniku.
+
 V simulacijskem okolju hitrost generiranja vzorcev ni bila ključnega pomena, saj je bil začetek signala natančno znan. Na fizičnem sprejemniku pa vzorčenje poteka neprekinjeno, zato sprejeti tok pred začetkom paketa vsebuje šum, motnje in morebitne druge signale iz okolice. Sprejemnik mora zato sam ugotoviti, kdaj se paket začne.
 
 Oddajnik SDR mora kompleksne vzorce dostaviti z zahtevano vzorčno frekvenco. Če računalnik vzorcev ne zagotavlja dovolj hitro, pride do pojava, ki mu rečemo \texttt{podkoračitev}  (angl. underflow). V tem primeru oddajana naprava začasno ostane brez novih vzorcev, kar lahko povzroči prekinitev signala in napake pri dekodiranju. Ker je generiranje vzorcev $\alpha$-stabilne porazdelitve računsko zahtevnejše od generiranja enostavnih determinističnih signalov, je bilo treba način generiranja prilagoditi delovanju v realnem času. 
@@ -1214,7 +1215,7 @@ Frekvenčni in fazni odmik nosilca nista edina problema. Oddajnik in sprejemnik 
 
 Pilotski simbol sam po sebi ne odpravlja odmika med urama oddajnika in sprejemnika. Sprejemnik zato iz položaja prvega prehoda med pilotom in podatkovnim simbolom ter prehoda med zadnjim podatkovnim simbolom in zaključkom paketa oceni dejansko dolžino para pilot--podatek. Na podlagi te ocene z interpolacijo vsak pilotski in podatkovni simbol pretvori na $N$ vzorcev, pri čemer predpostavi, da se časovni odmik med trajanjem ne preveč spremeni in če se že spremeni se spreminja linearno. Odmik bi sicer bilo mogoče zmanjšati z uporabo skupne začetne referenčne ure, vendar takšna rešitev ni realna za obravnavani brezžični sistem, saj bi zahtevala skupno časovno referenco med oddajnikom in sprejemnikom. Poleg tega takšna oprema pri izvedbi eksperimenta ni bila na voljo.
 
-\chapter{Evalvacija v simulacijskem okolju}
+\chapter{Evalvacija v simulacijskem in realnem okolju}
 
 V tem poglavju ovrednotimo delovanje razvitega komunikacijskega sistema z vidika zanesljivosti dekodiranja, skritosti komunikacije in odpornosti proti šumu. Najprej analiziramo, kako izbira števila segmentov $L$ vpliva na natančnost ocenjevanja parametra $\beta$ in posledično na stopnjo bitnih napak. Nato preverimo kompromis med zanesljivostjo prenosa in skritostjo komunikacije, pri čemer spreminjamo razliko med vrednostima parametra $\beta$, ki predstavljata posamezna bita. V nadaljevanju ovrednotimo odpornost sistema proti šumu pri različnih vrednostih parametra $\gamma$ in številih vzorcev na simbol $N$. Nazadnje predstavimo rezultate prenosa na opremi SDR in s tem preverimo izvedljivost komunikacijskega sistema tudi v realnem brezžičnem okolju.
 
