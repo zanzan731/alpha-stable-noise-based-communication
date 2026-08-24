@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  19 AUG 2026 16:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  24 AUG 2026 14:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1349,10 +1349,22 @@ File: pgflibraryfadings.code.tex 2023-01-15 v3.1.10 (3.1.10)
 .tex
 Library (tcolorbox): 'tcbposter.code.tex' version '6.7.1'
 ))
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 57.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\alpha' on input line 57.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 57.
+
 \c@izrek=\count355
 \c@trditev=\count356
 \countA=\count357
- (C:\Users\탑an\AppData\Local\Programs\MiKTeX\tex/latex/xmpincl\xmpincl.sty
+(C:\Users\탑an\AppData\Local\Programs\MiKTeX\tex/latex/xmpincl\xmpincl.sty
 Package: xmpincl 2021/09/22 v2.4 Include XMP data in pdflatex
 
 (C:\Users\탑an\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifpdf.sty
@@ -1573,13 +1585,19 @@ l.329 \clearemptydoublepage
                             [10
 
 ]
+Overfull \hbox (8.64178pt too wide) in paragraph at lines 343--344
+\OT1/cmr/m/n/12 V di-plom-skem delu so pred-sta-vljeni ra-zvoj, iz-vedba in ovr
+e-dno-te-nje brez^^Tzi^^Tcnega
+ []
+
+
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.350 \clearemptydoublepage
+l.349 \clearemptydoublepage
                             [11
 
 ]
@@ -1589,17 +1607,23 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.350 \clearemptydoublepage
+l.349 \clearemptydoublepage
                             [12
 
 ]
+Overfull \hbox (14.68535pt too wide) in paragraph at lines 367--370
+\OT1/cmr/bx/n/12 Keywords: $\OML/cmm/m/it/12 $\OT1/cmr/m/n/12 -stable dis-tri-
+bu-tion, noise-based com-mu-ni-ca-tion, software-defined
+ []
+
+
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.372 \clearemptydoublepage
+l.370 \clearemptydoublepage
                             [13
 
 ]
@@ -1609,7 +1633,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.372 \clearemptydoublepage
+l.370 \clearemptydoublepage
                             [14
 
 ]
@@ -1620,19 +1644,19 @@ Poglavje 1.
 
 
 ]
-Overfull \hbox (3.29453pt too wide) in paragraph at lines 386--387
+Overfull \hbox (3.29453pt too wide) in paragraph at lines 384--385
 \OT1/cmr/m/n/12 sis-tema s si-mu-la-ci-jami in pre-ve-riti nje-govo de-lo-va-nj
 e pri de-jan-skem brez^^Tzi^^Tcnem
  []
 
 
-Overfull \hbox (10.60556pt too wide) in paragraph at lines 395--396
+Overfull \hbox (10.60556pt too wide) in paragraph at lines 393--394
 \OT1/cmr/m/n/12 teva pri-la-go-di-tev im-ple-men-ta-cije za de-lo-va-nje v re-a
 l-nem ^^Tcasu ter re^^Tsevanje
  []
 
 
-Overfull \hbox (10.09818pt too wide) in paragraph at lines 398--399
+Overfull \hbox (10.09818pt too wide) in paragraph at lines 396--397
 \OT1/cmr/m/n/12 ple-men-ta-cijo ko-mu-ni-ka-cij-skega sis-tema, ki te-me-lji na
  $\OML/cmm/m/it/12 $\OT1/cmr/m/n/12 -stabilnem ^^Tsumu. Glavni
  []
@@ -1640,19 +1664,19 @@ Overfull \hbox (10.09818pt too wide) in paragraph at lines 398--399
 
 
 [2]
-Overfull \hbox (1.60567pt too wide) in paragraph at lines 402--403
+Overfull \hbox (1.60567pt too wide) in paragraph at lines 400--401
 []\OT1/cmr/m/n/12 Razvoj ko-dir-nika in de-ko-dir-nika za ko-mu-ni-ka-cijo z up
 o-rabo $\OML/cmm/m/it/12 $\OT1/cmr/m/n/12 -stabilnega
  []
 
 
-Overfull \hbox (9.41809pt too wide) in paragraph at lines 404--405
+Overfull \hbox (9.41809pt too wide) in paragraph at lines 402--403
 []\OT1/cmr/m/n/12 Implementacija sis-tema na pro-gram-sko opre-de-ljeni ra-dij-
 ski opremi USRP,
  []
 
 
-Overfull \hbox (2.80287pt too wide) in paragraph at lines 408--409
+Overfull \hbox (2.80287pt too wide) in paragraph at lines 406--407
 []\OT1/cmr/m/n/12 Demonstracija de-lo-va-nja ko-mu-ni-ka-cij-skega sis-tema na 
 de-jan-ski brez^^Tzi^^Tcni
  []
@@ -1669,137 +1693,137 @@ Poglavje 2.
 <sender_receiver.png, id=289, 1204.5pt x 220.825pt>
 File: sender_receiver.png Graphic file (type png)
 <use sender_receiver.png>
-Package pdftex.def Info: sender_receiver.png  used on input line 431.
+Package pdftex.def Info: sender_receiver.png  used on input line 429.
 (pdftex.def)             Requested size: 312.00119pt x 57.20085pt.
 
 
 [5 <./sender_receiver.png (PNG copy)>]
-Underfull \hbox (badness 6575) in paragraph at lines 483--483
+Underfull \hbox (badness 6575) in paragraph at lines 481--481
 []\OT1/cmr/bx/n/12 Tipi^^Tcni do-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 []\OT1/cmr/bx/n/12 Najpogostej^^Tse
  []
 
 
-Underfull \hbox (badness 6157) in paragraph at lines 483--483
+Underfull \hbox (badness 6157) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Visoka hi-trost
  []
 
 
-Underfull \hbox (badness 2158) in paragraph at lines 483--483
+Underfull \hbox (badness 2158) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 pre-nosa, nizka
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 za-ka-sni-tev,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 pod-pora ve-li-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 kemu ^^Tstevilu
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Zahteva in-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 fra-struk-turo
  []
 
 
-Underfull \hbox (badness 3635) in paragraph at lines 483--483
+Underfull \hbox (badness 3635) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 ba-znih po-staj,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 ve^^Tcja po-raba
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Mobilna omre^^Tzja,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 ^^Tsirokopasovni do-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 stop, in-du-strij-ske
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Visoka pre-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 pu-stnost,
  []
 
 
-Underfull \hbox (badness 1527) in paragraph at lines 483--483
+Underfull \hbox (badness 1527) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Omejen do-seg,
  []
 
 
-Underfull \hbox (badness 2772) in paragraph at lines 483--483
+Underfull \hbox (badness 2772) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Pribli^^Tzno 20--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Nizka po-raba
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Kratek do-seg,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 ni^^Tzja hi-trost
  []
 
 
-Underfull \hbox (badness 2772) in paragraph at lines 483--483
+Underfull \hbox (badness 2772) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Pribli^^Tzno 10--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Brez^^Tzi^^Tcne slu^^Tsalke,
  []
 
 
-Underfull \hbox (badness 1735) in paragraph at lines 483--483
+Underfull \hbox (badness 1735) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Zelo ve-lik do-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Nizka hi-trost
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 sen-zor-ska omre^^Tzja,
  []
 
@@ -1812,7 +1836,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 483--483
 [8]
 
 [9]
-Overfull \hbox (1.53204pt too wide) in paragraph at lines 516--517
+Overfull \hbox (1.53204pt too wide) in paragraph at lines 514--515
 [][]\OT1/cmr/m/n/12 Ceprav ome-njene teh-nike bi-stveno iz-bolj^^Tsajo od-por-n
 ost ko-mu-ni-ka-cije proti
  []
@@ -1823,24 +1847,24 @@ ost ko-mu-ni-ka-cije proti
 Poglavje 3.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 530.
+(hyperref)                removing `math shift' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 530.
+(hyperref)                removing `\alpha' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 530.
+(hyperref)                removing `math shift' on input line 528.
 
 
-Overfull \hbox (11.82361pt too wide) in paragraph at lines 534--535
+Overfull \hbox (11.82361pt too wide) in paragraph at lines 532--533
 []\OT1/cmr/m/n/12 Stabilne po-raz-de-li-tve, ime-no-vane tudi $\OML/cmm/m/it/12
  $\OT1/cmr/m/n/12 -stabilne po-raz-de-li-tve, so po-membna
  []
 
 
-Overfull \hbox (0.29178pt too wide) in paragraph at lines 534--535
+Overfull \hbox (0.29178pt too wide) in paragraph at lines 532--533
 \OT1/cmr/m/n/12 dru^^Tzina ver-je-tno-stnih po-raz-de-li-tev, saj pred-sta-vlja
 jo na-ravno po-splo^^Tsitev nor-
  []
@@ -1852,35 +1876,35 @@ jo na-ravno po-splo^^Tsitev nor-
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 558.
+(hyperref)                removing `math shift' on input line 556.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 558.
+(hyperref)                removing `\alpha' on input line 556.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 558.
+(hyperref)                removing `math shift' on input line 556.
 
 
 
 [12]
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 621.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 619.
 
 LaTeX Font Info:    Trying to load font information for OML+cmr on input line 6
-21.
+19.
 (C:\Users\탑an\AppData\Local\Programs\MiKTeX\tex/latex/base\omlcmr.fd
 File: omlcmr.fd 2024/11/19 v2.5n Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 621.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 619.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 621.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 619.
 
 
-Overfull \hbox (26.8121pt too wide) detected at line 660
+Overfull \hbox (26.8121pt too wide) detected at line 658
 [][]
  []
 
@@ -1894,20 +1918,20 @@ Overfull \vbox (117.99574pt too high) has occurred while \output is active []
 [14]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 697.
+(hyperref)                removing `math shift' on input line 695.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 697.
+(hyperref)                removing `\alpha' on input line 695.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 697.
+(hyperref)                removing `math shift' on input line 695.
 
 <alpha_parameter.png, id=363, 963.6pt x 649.42625pt>
 File: alpha_parameter.png Graphic file (type png)
 <use alpha_parameter.png>
-Package pdftex.def Info: alpha_parameter.png  used on input line 706.
+Package pdftex.def Info: alpha_parameter.png  used on input line 704.
 (pdftex.def)             Requested size: 312.00119pt x 210.26828pt.
 
 
@@ -1915,34 +1939,34 @@ Package pdftex.def Info: alpha_parameter.png  used on input line 706.
 <beta_parameter.png, id=374, 963.6pt x 649.42625pt>
 File: beta_parameter.png Graphic file (type png)
 <use beta_parameter.png>
-Package pdftex.def Info: beta_parameter.png  used on input line 717.
+Package pdftex.def Info: beta_parameter.png  used on input line 715.
 (pdftex.def)             Requested size: 312.00119pt x 210.26828pt.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 726.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 724.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 726.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 724.
 
 
 
 [16 <./beta_parameter.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 732.
+(hyperref)                removing `math shift' on input line 730.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 732.
+(hyperref)                removing `\alpha' on input line 730.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 732.
+(hyperref)                removing `math shift' on input line 730.
 
 <normalna_porazdelitev.png, id=385, 963.6pt x 616.3025pt>
 File: normalna_porazdelitev.png Graphic file (type png)
 <use normalna_porazdelitev.png>
-Package pdftex.def Info: normalna_porazdelitev.png  used on input line 769.
+Package pdftex.def Info: normalna_porazdelitev.png  used on input line 767.
 (pdftex.def)             Requested size: 312.00119pt x 199.54361pt.
 
 
@@ -1950,7 +1974,7 @@ Package pdftex.def Info: normalna_porazdelitev.png  used on input line 769.
 <cauchijeva_porazdelitev.png, id=396, 963.6pt x 749.80125pt>
 File: cauchijeva_porazdelitev.png Graphic file (type png)
 <use cauchijeva_porazdelitev.png>
-Package pdftex.def Info: cauchijeva_porazdelitev.png  used on input line 791.
+Package pdftex.def Info: cauchijeva_porazdelitev.png  used on input line 789.
 (pdftex.def)             Requested size: 312.00119pt x 242.76723pt.
 
 
@@ -1958,12 +1982,12 @@ Package pdftex.def Info: cauchijeva_porazdelitev.png  used on input line 791.
 <levy_destribution.png, id=407, 963.6pt x 978.65625pt>
 File: levy_destribution.png Graphic file (type png)
 <use levy_destribution.png>
-Package pdftex.def Info: levy_destribution.png  used on input line 815.
+Package pdftex.def Info: levy_destribution.png  used on input line 813.
 (pdftex.def)             Requested size: 312.00119pt x 316.86487pt.
 
 
 [19 <./cauchijeva_porazdelitev.png>]
-Underfull \hbox (badness 1371) in paragraph at lines 850--851
+Underfull \hbox (badness 1371) in paragraph at lines 848--849
 []\OT1/cmr/m/n/12 To po-meni, da se po-raz-de-li-tvena funk-cija nor-mi-rane vs
 ote pri-
  []
@@ -1975,13 +1999,13 @@ ote pri-
 [21]
 
 [22]
-Overfull \hbox (2.05426pt too wide) in paragraph at lines 898--899
+Overfull \hbox (2.05426pt too wide) in paragraph at lines 896--897
 []\OT1/cmr/m/n/12 Za ma-te-mati^^Tcni mo-del ko-mu-ni-ka-cij-skega ka-nala je z
 ato za^^Tzeleno, da ostane
  []
 
 
-Overfull \hbox (0.19179pt too wide) in paragraph at lines 902--903
+Overfull \hbox (0.19179pt too wide) in paragraph at lines 900--901
 []\OT1/cmr/m/n/12 Pri klasi^^Tcnih ko-mu-ni-ka-cij-skih sis-te-mih se obi^^Tcaj
 no pred-po-sta-vlja, da imajo
  []
@@ -1994,15 +2018,15 @@ no pred-po-sta-vlja, da imajo
 Poglavje 4.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 911.
+(hyperref)                removing `math shift' on input line 909.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 911.
+(hyperref)                removing `\alpha' on input line 909.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 911.
+(hyperref)                removing `math shift' on input line 909.
 
 
 
@@ -2011,7 +2035,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 ]
 
 [26]
-Overfull \hbox (2.25844pt too wide) in paragraph at lines 975--976
+Overfull \hbox (2.25844pt too wide) in paragraph at lines 973--974
 []\OT1/cmr/m/n/12 Lastnost sta-bil-no-sti za-go-ta-vlja, da vsota ne-od-vi-snih
  $\OML/cmm/m/it/12 $\OT1/cmr/m/n/12 -stabilnih na-klju^^Tcnih
  []
@@ -2030,7 +2054,7 @@ Poglavje 5.
 <Alpha_encoder and decoder.png, id=477, 2695.06876pt x 819.06pt>
 File: Alpha_encoder and decoder.png Graphic file (type png)
 <use Alpha_encoder and decoder.png>
-Package pdftex.def Info: Alpha_encoder and decoder.png  used on input line 1003
+Package pdftex.def Info: Alpha_encoder and decoder.png  used on input line 1001
 .
 (pdftex.def)             Requested size: 390.0pt x 118.51695pt.
 
@@ -2046,7 +2070,7 @@ Package pdftex.def Info: Alpha_encoder and decoder.png  used on input line 1003
 [34]
 
 [35]
-Overfull \hbox (10.04863pt too wide) in paragraph at lines 1166--1167
+Overfull \hbox (10.04863pt too wide) in paragraph at lines 1164--1165
 \OT1/cmr/m/n/12 Pri pre-nosu ko-mu-ni-ka-cij-skega sis-tema iz si-mu-la-cij-ske
 ga oko-lja na fizi^^Tcno opremo
  []
@@ -2054,7 +2078,7 @@ ga oko-lja na fizi^^Tcno opremo
 <antena_SDR.jpg, id=534, 4111.36pt x 2312.64pt>
 File: antena_SDR.jpg Graphic file (type jpg)
 <use antena_SDR.jpg>
-Package pdftex.def Info: antena_SDR.jpg  used on input line 1176.
+Package pdftex.def Info: antena_SDR.jpg  used on input line 1174.
 (pdftex.def)             Requested size: 312.00119pt x 175.48721pt.
 
 
@@ -2076,26 +2100,26 @@ Poglavje 6.
 
 [42]
 LaTeX Font Info:    Trying to load font information for OMS+cmtt on input line 
-1257.
-LaTeX Font Info:    No file OMScmtt.fd. on input line 1257.
+1255.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 1255.
 
 
 LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 1257.
+(Font)              for symbol `textbraceleft' on input line 1255.
 
 
-Overfull \hbox (36.1959pt too wide) in paragraph at lines 1241--1270
+Overfull \hbox (36.1959pt too wide) in paragraph at lines 1239--1268
 [][] 
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1275.
+(hyperref)                removing `math shift' on input line 1273.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1275.
+(hyperref)                removing `math shift' on input line 1273.
 
 
 
@@ -2105,12 +2129,12 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 <l_error_log.png, id=580, 570.6921pt x 354.3639pt>
 File: l_error_log.png Graphic file (type png)
 <use l_error_log.png>
-Package pdftex.def Info: l_error_log.png  used on input line 1281.
+Package pdftex.def Info: l_error_log.png  used on input line 1279.
 (pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
 
 
 [44 <./l_error_log.png>]
-Overfull \hbox (7.2609pt too wide) in paragraph at lines 1295--1296
+Overfull \hbox (7.2609pt too wide) in paragraph at lines 1293--1294
 \OT1/cmr/m/n/12 ^^Tsuma. Pri-mer-jali smo vre-dno-sti $\OML/cmm/m/it/12 N \OMS/
 cmtt/m/n/12 2 f\OT1/cmr/m/n/12 40\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 80\OML/cmm/
 m/it/12 ; \OT1/cmr/m/n/12 160\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 240\OML/cmm/m/i
@@ -2122,27 +2146,27 @@ t/12 ; \OT1/cmr/m/n/12 320\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 400\OML/cmm/m/it/1
 <beta_error.png, id=587, 570.6921pt x 354.3639pt>
 File: beta_error.png Graphic file (type png)
 <use beta_error.png>
-Package pdftex.def Info: beta_error.png  used on input line 1299.
+Package pdftex.def Info: beta_error.png  used on input line 1297.
 (pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
 
 
 [45 <./beta_error.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1311.
+(hyperref)                removing `math shift' on input line 1309.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\gamma' on input line 1311.
+(hyperref)                removing `\gamma' on input line 1309.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1311.
+(hyperref)                removing `math shift' on input line 1309.
 
 <gama_error_log.png, id=594, 570.6921pt x 354.3639pt>
 File: gama_error_log.png Graphic file (type png)
 <use gama_error_log.png>
-Package pdftex.def Info: gama_error_log.png  used on input line 1325.
+Package pdftex.def Info: gama_error_log.png  used on input line 1323.
 (pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
 
 
@@ -2196,7 +2220,7 @@ Package rerunfilecheck Info: File `vzorec_dip_Seminar.out' has not changed.
 Here is how much of TeX's memory you used:
  29682 strings out of 468149
  597386 string characters out of 5431566
- 1020150 words of memory out of 5000000
+ 1020513 words of memory out of 5000000
  57595 multiletter control sequences out of 15000+600000
  644041 words of font info for 106 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -2227,7 +2251,7 @@ ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/�
 Users/탑an/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.
 pfb><C:/Users/탑an/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/sy
 mbols/msbm10.pfb>
-Output written on vzorec_dip_Seminar.pdf (67 pages, 2744465 bytes).
+Output written on vzorec_dip_Seminar.pdf (67 pages, 2745690 bytes).
 PDF statistics:
  792 PDF objects out of 1000 (max. 8388607)
  167 named destinations out of 1000 (max. 500000)

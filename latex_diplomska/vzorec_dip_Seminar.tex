@@ -44,8 +44,8 @@
 \newcommand{\tsubject}{\ttitle}
 \newcommand{\tsubjectEn}{\ttitleEn}
 \newcommand{\tauthor}{Žan Perat}
-\newcommand{\tkeywords}{računalnik, računalnik, računalnik}
-\newcommand{\tkeywordsEn}{computer, computer, computer}
+\newcommand{\tkeywords}{$\alpha$-stabilna porazdelitev, komunikacija na osnovi šuma, programsko definirani radio}
+\newcommand{\tkeywordsEn}{$\alpha$-stable distribution, noise-based communication, software-defined radio}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -340,8 +340,7 @@ Zahvalil bi se tudi vsem drugim, ki jih nisem poimensko omenil in so kakorkoli p
 \bigskip
 
 %\noindent\textbf{Povzetek:} 
-\noindent V vzorcu je predstavljen postopek priprave diplomskega dela z uporabo okolja \LaTeX. Vaš povzetek mora sicer vsebovati približno 100 besed, ta tukaj je odločno prekratek.
-Dober povzetek vključuje: (1) kratek opis obravnavanega problema, (2) kratek opis vašega pristopa za reševanje tega problema in (3) (najbolj uspešen) rezultat ali prispevek magistrske naloge.
+\noindent V diplomskem delu so predstavljeni razvoj, izvedba in ovrednotenje brezžičnega komunikacijskega sistema, pri katerem je informacija zapisana v statističnih parametrih $\alpha$-stabilnega šuma. V okolju GNU Radio Companion sta bila razvita kodirnik in dekodirnik, sistem pa je bil najprej preverjen s simulacijami in nato prenesen na programsko opredeljeno radijsko opremo USRP. Analiziran je bil vpliv parametra asimetrije $\beta$, parametra merila $\gamma$, števila segmentov $L$ in števila vzorcev na simbol $N$ na stopnjo bitnih napak. Rezultati kažejo, da ustrezna izbira $N$ omogoča zanesljiv prenos tudi v močno šumnih razmerah. Meritve prek radijskega kanala potrjujejo izvedljivost pristopa, pri čemer na zanesljivost pomembno vplivata sinhronizacija in neprekinjeno zagotavljanje vzorcev.
 
 \bigskip
 
@@ -362,8 +361,7 @@ Dober povzetek vključuje: (1) kratek opis obravnavanega problema, (2) kratek op
 \bigskip
 
 %\noindent\textbf{Abstract:} 
-\noindent This sample document presents an approach to typesetting your BSc thesis using \LaTeX. 
-A proper abstract should contain around 100 words which makes this one way too short.
+\noindent This thesis presents the design, implementation, and evaluation of a wireless communication system in which information is encoded in the statistical parameters of $\alpha$-stable noise. An encoder and decoder were developed in GNU Radio Companion, initially evaluated through simulations, and subsequently deployed on USRP software-defined radio hardware. The effects of the asymmetry parameter $\beta$, scale parameter $\gamma$, number of segments $L$, and number of samples per symbol $N$ on the bit error rate were analysed. The results show that an appropriate choice of $N$ enables reliable transmission even under highly noisy conditions. Over-the-air measurements confirm the feasibility of the proposed approach while showing that reliability depends strongly on synchronisation and uninterrupted sample delivery.
 \bigskip
 
 \noindent\textbf{Keywords:} \tkeywordsEn.
@@ -1372,17 +1370,14 @@ Ker je posamezen paket vseboval 1024 bitov, ena napačna odločitev pomeni sprem
 \hline
 \textbf{Razdalja} & \textbf{Število vzorcev $N$} & \textbf{BER [\%]} \\ \hline
 \multirow{4}{*}{$0{,}5~\mathrm{m}$}
- & 60  & $2{,}344$ \\ \cline{2-3}
  & 100 & $4{,}688$ \\ \cline{2-3}
  & 200 & $1{,}855$ \\ \cline{2-3}
  & 500 & $0{,}195$ \\ \hline
 \multirow{4}{*}{$1~\mathrm{m}$}
- & 60  & $3{,}711$ \\ \cline{2-3}
  & 100 & $3{,}125$ \\ \cline{2-3}
  & 200 & $3{,}125$ \\ \cline{2-3}
  & 500 & $0{,}293$ \\ \hline
 \multirow{4}{*}{$2~\mathrm{m}$}
- & 60  & $5{,}664$ \\ \cline{2-3}
  & 100 & $4{,}297$ \\ \cline{2-3}
  & 200 & $1{,}660$ \\ \cline{2-3}
  & 500 & $1{,}172$ \\ \hline
@@ -1393,7 +1388,7 @@ Ker je posamezen paket vseboval 1024 bitov, ena napačna odločitev pomeni sprem
 
 Izmerjene vrednosti kažejo, da večje število vzorcev na simbol praviloma izboljša zanesljivost odločitve. Pri večjem $N$ ima sprejemnik na voljo več realizacij $\alpha$-stabilne slučajne spremenljivke, zato lahko parameter $\beta$ oceni z manjšo statistično negotovostjo. To je posebej opazno pri razdaljah $0{,}5~\mathrm{m}$ in $1~\mathrm{m}$, kjer je bil pri $N=500$ dosežen BER $0{,}195~\%$ oziroma $0{,}293~\%$.
 
-Rezultati niso povsem monotoni niti glede na $N$ niti glede na razdaljo. Na primer, pri razdalji $0{,}5~\mathrm{m}$ je bil BER pri $N=100$ večji kakor pri $N=60$. Takšna odstopanja so pričakovana, ker je bila za vsako kombinacijo parametrov izvedena samo ena meritev. Posamezna vrednost v tabeli zato predstavlja eno realizacijo naključnega komunikacijskega procesa in ne povprečja več ponovitev. Na rezultat vplivajo konkretna realizacija $\alpha$-stabilnih vzorcev, trenutni okoljski šum, večpotno razširjanje, odboji v prostoru ter trenutna frekvenčna in časovna neusklajenost naprav SDR. Že nekaj dodatnih napačno dekodiranih bitov lahko zaradi kratkega paketa opazno spremeni izračunani BER.
+Rezultati niso povsem monotoni niti glede na glede na razdaljo. Na primer, pri $N=200$ je bil BER pri razdalji $0{,}5~\mathrm{m}$ manjši kot pri $1{,}0~\mathrm{m}$. Takšna odstopanja so pričakovana, ker je bila za vsako kombinacijo parametrov izvedena samo ena meritev. Posamezna vrednost v tabeli zato predstavlja eno realizacijo naključnega komunikacijskega procesa in ne povprečja več ponovitev. Na rezultat vplivajo konkretna realizacija $\alpha$-stabilnih vzorcev, trenutni okoljski šum, večpotno razširjanje, odboji v prostoru ter trenutna frekvenčna in časovna neusklajenost naprav SDR. Že nekaj dodatnih napačno dekodiranih bitov lahko zaradi kratkega paketa opazno spremeni izračunani BER.
 
 Na zanesljivost prenosa vpliva tudi sinhronizacija. Sprejemnik po dekodiranju izpiše oceno časovnega odmika kot parameter \texttt{drift}. Velika absolutna vrednost tega parametra lahko kaže na razliko med vzorčnima urama, izgubo vzorcev zaradi podkoračitve ali prekoračitve medpomnilnika oziroma napačno oceno zaključka paketa. Če ocenjena dolžina para pilot--podatek ni pravilna, se napaka časovnega položaja proti koncu paketa povečuje in lahko podatkovni simbol zajame tudi del pilotskega simbola. V implementaciji sprejemnik zato zavrne časovne ocene, ki niso skladne s pričakovano natančnostjo opreme, ter pri dekodiranju izpusti robne vzorce podatkovnega simbola.
 
