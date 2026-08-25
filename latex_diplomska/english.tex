@@ -14,6 +14,7 @@
 \usepackage[hyphens]{url}  % dodal Solina
 \usepackage{comment}       % dodal Solina
 \usepackage{float}
+\usepackage{multirow}
 \usepackage{etoolbox}
 
 % Slike in tabele so privzeto vodoravno poravnane na sredino.
@@ -234,14 +235,14 @@ Publication and use of the thesis results require the written consent of the aut
 
 \bigskip
 \noindent\textbf{Description:}\\
-The thesis develops and evaluates a noise-based wireless communication system that conveys information through the parameters of an $\alpha$-stable distribution. The system is implemented in GNU Radio, evaluated through simulations, and demonstrated on software-defined radio hardware.
+This bachelor's thesis presents wireless communication based on transferring information through noise modulation. It explains the mathematical foundations of alpha-stable noise and develops a communication system based on such noise. The required modules are implemented in GNU Radio to enable an alpha-stable noise-based wireless link. Finally, the link is demonstrated and evaluated in a real-world environment.
 
 \bigskip
 \noindent\textbf{Title:} Noise-Based Wireless Communication Using Software-Defined Radio
 
 \bigskip
 \noindent\textbf{Description:}\\
-Implementation and evaluation of noise-based wireless communication using an $\alpha$-stable distribution and software-defined radio.
+In this thesis, the candidate introduces wireless communication based on information transfer through noise modulation. The candidate presents the mathematical foundations of alpha-stable noise and devises a communication system based on such noise. The concept is implemented in GNU Radio. Finally, the candidate demonstrates and evaluates an alpha-stable noise-based link in a real-world environment.
 
 \vfill
 
@@ -255,8 +256,9 @@ Implementation and evaluation of noise-based wireless communication using an $\a
 % zahvala
 \thispagestyle{empty}\mbox{}\vfill\null\it%
 \noindent
-I would like to thank my supervisor, Assoc. Prof. Veljko Pejović, PhD, and my co-supervisor, Assist. Prof. Areeb Ahmed, PhD, for their help with the research and writing of this bachelor's thesis.
-I would also like to thank everyone else who contributed, directly or indirectly, to the completion of this work.
+Upon completing this bachelor's thesis, I would like to sincerely thank my supervisor, Assoc. Prof. Veljko Pejović, PhD, and my co-supervisor, Assist. Prof. Areeb Ahmed, PhD, for their expertise, guidance, help, and support throughout its preparation.
+
+Special thanks also go to everyone who supported, helped, and encouraged me during my studies and while I was preparing this thesis. I am grateful to all those who contributed in any way to the successful completion of this work.
 \rm\normalfont
 
 % prazna stran
@@ -335,12 +337,12 @@ I would also like to thank everyone else who contributed, directly or indirectly
 \noindent\textbf{Author:} \tauthor
 \bigskip
 
-%\noindent\textbf{Povzetek:} 
-\noindent This thesis presents the design, implementation, and evaluation of a wireless communication system in which information is encoded in the statistical parameters of $\alpha$-stable noise. An encoder and decoder were developed in GNU Radio Companion, first evaluated in a simulation environment, and subsequently deployed on USRP software-defined radio hardware. The simulations examine how the asymmetry parameter $\beta$, scale parameter $\gamma$, segment count $L$, and number of samples per symbol $N$ affect the bit error rate. The results show that reliable transmission is possible even in highly noisy conditions when $N$ is selected appropriately. A practical over-the-air demonstration confirms that the proposed method can be implemented on standard SDR equipment, although its reliability depends strongly on synchronization and uninterrupted sample delivery.
+%\noindent\textbf{Summary:}
+\noindent This thesis presents the design, implementation, and evaluation of a wireless communication system in which information is encoded in the statistical parameters of $\alpha$-stable noise. An encoder and decoder were developed in GNU Radio Companion, initially evaluated through simulations, and subsequently deployed on USRP software-defined radio hardware. The effects of the asymmetry parameter $\beta$, scale parameter $\gamma$, number of segments $L$, and number of samples per symbol $N$ on the bit error rate were analysed. The results show that an appropriate choice of $N$ enables reliable transmission even under highly noisy conditions. Over-the-air measurements confirm the feasibility of the proposed approach while showing that reliability depends strongly on synchronisation and uninterrupted sample delivery.
 
 \bigskip
 
-\noindent\textbf{Keywords:} $\alpha$-stable distribution, noise-based communication, software-defined radio, GNU Radio, physical-layer security.
+\noindent\textbf{Keywords:} \tkeywordsEn.
 % prazna stran
 \clearemptydoublepage
 
@@ -356,8 +358,8 @@ I would also like to thank everyone else who contributed, directly or indirectly
 \noindent\textbf{Author:} \tauthor
 \bigskip
 
-%\noindent\textbf{Abstract:} 
-\noindent This thesis presents the design, implementation, and evaluation of a wireless communication system in which information is encoded in the statistical parameters of $\alpha$-stable noise. An encoder and decoder were implemented in GNU Radio Companion, evaluated in simulation, and deployed on USRP software-defined radio hardware. The simulations examine how the asymmetry parameter $\beta$, scale parameter $\gamma$, segment count $L$, and number of samples per symbol $N$ affect the bit error rate. The results demonstrate reliable transmission in noisy conditions when $N$ is selected appropriately. Over-the-air measurements confirm the feasibility of the approach while showing that practical reliability depends strongly on synchronisation and uninterrupted sample delivery.
+%\noindent\textbf{Abstract:}
+\noindent This thesis presents the design, implementation, and evaluation of a wireless communication system in which information is encoded in the statistical parameters of $\alpha$-stable noise. An encoder and decoder were developed in GNU Radio Companion, initially evaluated through simulations, and subsequently deployed on USRP software-defined radio hardware. The effects of the asymmetry parameter $\beta$, scale parameter $\gamma$, number of segments $L$, and number of samples per symbol $N$ on the bit error rate were analysed. The results show that an appropriate choice of $N$ enables reliable transmission even under highly noisy conditions. Over-the-air measurements confirm the feasibility of the proposed approach while showing that reliability depends strongly on synchronisation and uninterrupted sample delivery.
 \bigskip
 
 \noindent\textbf{Keywords:} \tkeywordsEn.
@@ -407,6 +409,8 @@ To the best of our knowledge, this work presents the first open-source implement
 
 The results confirm that a communication system based on $\alpha$-stable noise can be successfully implemented in GNU Radio Companion and deployed on software-defined radio hardware. The implementation provides a foundation for further research into communication systems that use stochastic signals as information carriers because it supports straightforward use and continued development in an open-source environment. This approach is particularly relevant where low probability of detection is important, for example in covert communication or critical-infrastructure protection. Its resistance to impulsive noise also makes it suitable for industrial environments in which conventional communication systems often struggle to provide reliable data transmission.
 
+The source code for all implementations and the experimental results presented in this thesis are publicly available at \url{https://github.com/zanzan731/alpha-stable-noise-based-communication}.
+
 \chapter{Wireless Communication and Its Challenges}
 \label{ch0}
 
@@ -415,14 +419,14 @@ Wireless communication systems transfer information without a physical transmiss
 This chapter introduces the basic principles of wireless communication, surveys the most widely used wireless technologies, and outlines the principal challenges faced by modern communication systems. Particular attention is given to the limitations of existing approaches that motivate the development of new communication systems.
 
 \section{Fundamentals of Wireless Communication}
-At first glance, transferring information without a physical connection between devices appears almost self-evident because we encounter it every day. In reality, every form of wireless communication must exploit a natural phenomenon that permits information to propagate through space. This can be achieved in several ways, most commonly by using electromagnetic waves, magnetic fields, or optical transmission.
-Each method has its advantages and limitations. Magnetic fields support communication only over very short distances and are used mainly in technologies such as near-field communication (NFC). Optical transmission offers very high data rates but requires a direct line of sight between transmitter and receiver. Electromagnetic waves are therefore used in most modern systems because they provide a favourable balance between range, data rate, and reliability.
-In the remainder of this thesis, wireless communication refers to the transfer of information by \textbf{electromagnetic waves} between a transmitter and a receiver without a physical transmission medium. An electromagnetic wave serves as the information carrier and propagates through the communication channel to the receiver. Because the wave itself contains no information, the information must be imposed on it through modulation. Modulation encodes information in one or more wave properties: amplitude, phase, or frequency. Put simply, amplitude describes the height of the wave, phase its displacement, and frequency how closely successive waves follow one another. Once encoded at the transmitter, the signal must be decoded at the receiver to recover the original message; this process is called demodulation.
+At first glance, transferring information without a physical connection between devices may appear almost self-evident because we use this form of communication every day. In reality, every wireless communication system must exploit a natural phenomenon that allows information to propagate through space. Such transfer can be achieved in several ways, most commonly through magnetic fields or electromagnetic waves, including radio and optical transmission.
+Each method has its advantages and limitations. Magnetic fields support communication only over very short distances and are used mainly in technologies such as near-field communication (NFC). Optical transmission offers very high data rates but requires a direct line of sight between the transmitter and receiver. Radio transmission is therefore used most frequently in modern communication systems because it provides a favourable balance between range, data rate, and reliability.
+In the remainder of this thesis, wireless communication refers to the transfer of information by \textbf{electromagnetic waves} between a transmitter and a receiver without a physical transmission medium. An electromagnetic wave serves as the information carrier and propagates through the communication channel to the receiver. Because the wave itself contains no information, the information must be imposed on it through modulation. In conventional modulation, information is encoded in one or more properties of the electromagnetic wave: amplitude, phase, or frequency. Put simply, amplitude describes the height of the wave, phase its displacement, and frequency how closely successive waves follow one another. Once the signal has been encoded at the transmitter, it must be decoded at the receiver to recover the original message. This process is called demodulation. The modulation and demodulation process is illustrated in the wireless communication system diagram in Figure~\ref{fig:wireless}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{sender_receiver.png}
-    \caption{Diagram of a wireless communication system \cite{murataWirelessBasics}.}
+    \includegraphics[width=1.0\textwidth]{sender_receiver.png}
+    \caption{Diagram of a conventional wireless communication system.}
     \label{fig:wireless}
 \end{figure}
 
@@ -490,7 +494,7 @@ Noise is one of the most important factors affecting wireless communication qual
 
 Most contemporary communication systems are analysed and designed under an additive white Gaussian noise (AWGN) model. Owing to its mathematical simplicity, this model forms the basis of many modulation, detection, and coding methods and is suitable for numerous communication scenarios\cite{wikiAWGN}\cite{iblAWGN}.
 
-In many real environments, however, Gaussian noise is not an adequate model. Industrial plants, power systems, and other electromagnetically demanding environments often contain impulsive noise characterised by rare but extremely strong disturbances. Such environments deviate substantially from the AWGN assumption, and systems based on that model may consequently suffer a marked degradation in performance.
+In many real environments, however, Gaussian noise is not an adequate model \cite{madi2011impacts}. Industrial plants, power systems, and other electromagnetically demanding environments often contain impulsive noise characterised by rare but extremely strong disturbances. Such environments deviate substantially from the AWGN assumption, and systems based on that model may consequently suffer a marked degradation in performance.
 
 \subsection{Detectability of Communication}
 In addition to robustness, communication security is becoming increasingly important. Most modern systems employ cryptographic methods that effectively protect transmitted content, but encryption alone does not prevent the communication from being detected.
@@ -611,13 +615,19 @@ i\mu t
 Because stability is not immediately apparent from the definition, we prove it below.
 \begin{tcolorbox}[colback=red!5!white,colframe=red!50!black,title=Proof 1: Stability of an $\alpha$-stable distribution]
 Let $X$ be an $\alpha$-stable random variable, let $X_1$ and $X_2$ be independent copies of $X$, and let $a,b>0$. Independence gives
-
 \[
 \phi_{aX_1+bX_2}(t)
 =
 \phi_X(at)\phi_X(bt),
 \]
-because \[\phi_{aX_1+bX_2}(t)=\mathbb{E}\!\left[e^{it(aX_1 +bX_2)}\right] =  \mathbb{E}\!\left[e^{itaX_1}\right]\mathbb{E}\!\left[e^{itbX_2}\right] = \phi_{X_1}(at) \phi_{X_2}(bt).\]
+because
+\[
+\phi_{aX_1+bX_2}(t)
+= \mathbb{E}\!\left[e^{it(aX_1+bX_2)}\right]
+= \mathbb{E}\!\left[e^{itaX_1}\right]
+  \mathbb{E}\!\left[e^{itbX_2}\right]
+= \phi_{X_1}(at)\phi_{X_2}(bt).
+\]
 For an $\alpha$-stable distribution with $\alpha\neq1$, the characteristic function is
 
 \[
@@ -639,7 +649,7 @@ Substituting $t\mapsto at$ and $t\mapsto bt$ and using the independence of $X_1$
 \phi_{aX_1+bX_2}(t)
 &=
 \phi_X(at)\phi_X(bt) \\
-&=
+&\hspace{-2em}=
 \exp\!\left(
 i\mu(a+b)t
 -
@@ -653,7 +663,6 @@ i\mu(a+b)t
 
 
 We seek to write the resulting characteristic function in the same form as that of the random variable $cX+d$:
-
 \[
 \phi_{cX + d}(t)=
 \exp\!\left(
@@ -666,19 +675,7 @@ i(\mu c + d)t
 \right).
 \]
 
-Choosing
-
-\[
-c=\left(a^\alpha+b^\alpha\right)^{1/\alpha},
-\]
-
-and
-
-\[
-d=\mu(a+b-c),
-\]
-
-shows that the resulting expression is precisely the characteristic function of $cX+d$. Since a characteristic function uniquely determines a distribution, it follows that
+Choosing $c=\left(a^\alpha+b^\alpha\right)^{1/\alpha}$ and $d=\mu(a+b-c)$ makes the resulting characteristic function exactly that of the random variable $cX+d$. Since a characteristic function uniquely determines a distribution, it follows that
 
 \[
 aX_1+bX_2 \overset{d}{=} cX+d.
@@ -718,6 +715,7 @@ The effect of negative values of $\beta$ is obtained by reflecting the curves sh
 The scale parameter satisfies $\gamma>0$ and determines the spread or scale of the distribution. Larger values produce a wider distribution. Its role resembles that of the standard deviation of a normal distribution, but the quantities are not identical because most $\alpha$-stable distributions do not have finite variance.
 
 \subsection{Location Parameter $\mu$}
+\enlargethispage{4\baselineskip}
 
 The location parameter may take any real value, $\mu\in\mathbb{R}$, and determines the distribution's position on the real axis. Changing $\mu$ shifts the entire distribution left or right without affecting its shape or spread.
 
@@ -903,7 +901,7 @@ Mathematically, if the individual random contributions follow stable distributio
 
 Conventional systems usually assume that the individual contributions have finite variance. By the \hyperref[def:CLI]{central limit theorem in Definition~5}, the sum of many such contributions converges to a normal distribution, which explains the success of the AWGN model in many settings.
 
-In many real environments, however, this assumption is not satisfied. Impulsive noise contains rare but pronounced deviations and may not have finite variance. In such cases, the classical Gaussian model no longer adequately describes the channel.
+In many real environments, however, this assumption is not satisfied \cite{madi2011impacts}. Impulsive noise contains rare but pronounced deviations and may not have finite variance. In such cases, the classical Gaussian model no longer adequately describes the channel.
 
 This is where $\alpha$-stable distributions become important. Stability keeps sums of many impulsive contributions within the same distribution family, enabling substantially more accurate models of channels dominated by impulsive noise. Beyond noise modelling, the property also suggests a fundamentally different communication method: rather than treating noise as undesirable, its statistical properties can be used to carry information. The communication method investigated in this thesis is based on this idea.
 
@@ -989,7 +987,7 @@ Software-defined radio (SDR) is a radio platform in which a large portion of sig
 
 In this thesis, SDR is used to transfer the developed system from simulation to an actual wireless link. The system could first be developed and evaluated in a controlled software environment and then verified through transmission between two radio devices. The fundamental encoding and decoding logic remained unchanged, while the hardware implementation required additional adaptations for continuous sample processing and synchronisation.
 
-The system was developed in the open-source GNU Radio environment for processing data streams and digital signals. A system is assembled from interconnected functional blocks that exchange samples or other data. Each block performs a specific task, such as reading input, generating a signal, modelling a channel, or processing received samples. This block-based design allows individual components to be developed, tested, and replaced independently of the rest of the flowgraph.
+The system was developed in the open-source GNU Radio environment \cite{gnuradioWebsite} for processing data streams and digital signals. A system is assembled from interconnected functional blocks that exchange samples or other data. Each block performs a specific task, such as reading input, generating a signal, modelling a channel, or processing received samples. This block-based design allows individual components to be developed, tested, and replaced independently of the rest of the flowgraph.
 
 GNU Radio Companion (GRC) was used to assemble and configure the blocks graphically. It represents the communication system as a flowgraph in which connections determine the direction of data transfer and block parameters determine processing behaviour. This view makes the complete system easier to inspect and permits rapid changes to simulation settings.
 
@@ -1001,8 +999,8 @@ The developed system transmits information through the statistical properties of
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{Alpha_encoder and decoder.png}
-\caption{Block diagram of the communication system.}
+\includegraphics[width=\textwidth]{Alpha_encoder_and_decoder_eng.png}
+\caption{Block diagram of the communication system. The blocks shown in yellow were developed and implemented as part of this thesis, whereas the blocks shown in grey are existing GNU Radio blocks.}
 \label{GNU}
 \end{figure}
 
@@ -1042,7 +1040,7 @@ For each symbol, the encoder generates $N$ samples from the $\alpha$-stable dist
 title=Procedure 1: Sample generation using the CMS algorithm]
 \phantomsection
 \label{met:cms_generator}
-The signal is generated using the Chambers--Mallows--Stuck (CMS) algorithm,
+The signal is generated using the Chambers--Mallows--Stuck (CMS) algorithm \cite{ahmed2017random}\cite{weron1996chambers},
 \begin{equation}
 X=\gamma C
 \frac{\sin\left(\alpha V+B\right)}
@@ -1170,6 +1168,10 @@ The estimate $\hat{\beta}$ is compared with the permitted values in the mapping 
 
 Transferring the system from simulation to physical hardware introduces constraints that need not be considered in simulation. The most important are real-time sample delivery and synchronisation between transmitter and receiver.
 
+The practical communication system used two USRP B210 devices \cite{ettusB210} and two WA5VJB LP8565A2 log-periodic antennas \cite{wa5vjbLP8565A2}. The transmitter and receiver ran on a Lenovo Legion 5 Pro laptop and a desktop computer, respectively. The desktop computer was equipped with an Intel Core i7-10700 processor and 16 GB of RAM.
+
+The USRP B210 is a dual-channel SDR device that supports simultaneous transmission and reception, covers the frequency range from 70 MHz to 6 GHz, and connects to the host computer through USB 3.0. The log-periodic antennas used in the experiment cover the frequency range from 850 MHz to 6.5 GHz and have a typical gain of 6 dBi, making them suitable for measurements at the selected frequency of 915 MHz.
+
 In simulation, the sample-generation rate was not critical and the signal start was known exactly. A physical receiver, however, samples continuously, so the stream before a packet contains noise, interference, and possibly other environmental signals. The receiver must therefore determine the packet start autonomously.
 
 An SDR transmitter must receive complex samples at the required sampling rate. If the computer cannot supply them quickly enough, an \texttt{underflow} occurs: the device temporarily runs out of new samples, potentially interrupting the signal and causing decoding errors. Since generating $\alpha$-stable samples is more computationally demanding than generating simple deterministic signals, the generation method had to be adapted for real-time operation.
@@ -1211,12 +1213,12 @@ This is more robust than using a single frequency and phase estimate for an enti
 
 Carrier frequency and phase offsets are not the only issues; the transmitter and receiver also have separate clocks. Although both devices are configured for the same nominal sampling rate, their actual rates differ slightly. This error accumulates over a packet, so the final symbols of a long packet may shift by several hundred samples, making communication unusable.
 
-A pilot alone does not remove the sampling-clock offset. The receiver therefore estimates the actual length of a pilot--data pair from the first transition between pilot and data and the transition between the last data symbol and the packet end. Based on this estimate, interpolation converts every pilot and data symbol to $N$ samples. The method assumes that timing drift changes little during a packet or, if it changes, does so approximately linearly. A shared external reference clock would reduce this offset, but such equipment was not available for the experiment.
+A pilot alone does not remove the sampling-clock offset. The receiver therefore estimates the actual length of a pilot--data pair from the first transition between pilot and data and the transition between the last data symbol and the packet end. Based on this estimate, interpolation converts every pilot and data symbol to $N$ samples. The method assumes that timing drift changes little during a packet or, if it changes, does so approximately linearly. The offset could be reduced by using a shared initial reference clock, but this would not be a realistic solution for the wireless system considered here because it would require a common timing reference between the transmitter and receiver. Furthermore, such equipment was not available for the experiment.
 
 
-\chapter{Evaluation in the Simulation Environment}
+\chapter{Evaluation in the Simulation and Real-World Environments}
 
-This chapter evaluates the developed communication system in the GNU Radio simulation environment. It analyses how the number of segments $L$, the difference between the two values of $\beta$, and the scale parameter $\gamma$ affect the bit error rate. The final section presents results obtained with SDR hardware.
+This chapter evaluates the developed communication system in terms of decoding reliability, communication covertness, and resistance to noise. First, it analyses how the number of segments $L$ affects the accuracy of estimating $\beta$ and consequently the bit error rate. It then examines the trade-off between transmission reliability and communication covertness by varying the difference between the two values of $\beta$ representing the individual bits. Next, it evaluates noise resistance for different values of $\gamma$ and different numbers of samples per symbol $N$. Finally, it presents the SDR transmission results, thereby assessing the feasibility of the communication system in a real wireless environment.
 
 All simulations used the system shown in Figure~\ref{GNU}. The data source generated a random binary sequence, which the encoder converted into $\alpha$-stable samples. The signal passed through a simulated channel, after which the receiver estimated $\beta$ and reconstructed the transmitted bits. The stability parameter was fixed at $\alpha=1.1$ in every experiment; the remaining settings are stated with the individual experiments.
 
@@ -1285,8 +1287,9 @@ For every tested value of $L$, BER decreases as the number of samples per symbol
 
 The difference is particularly pronounced at $N=400$. With $L=2$, the BER was approximately $6.8\cdot10^{-5}$, corresponding to 7 errors among $102\,400$ transmitted bits. At $L=8$, it was approximately $9.4\cdot10^{-3}$, or 963 errors---about 138 times as many as for $L=2$. At $L=20$, the BER reached approximately $0.23$, corresponding to 23,414 errors, or about 3345 times as many as for $L=2$. These absolute error counts make the difference, which is less obvious on a logarithmic plot, more tangible. No incorrectly decoded bits were observed for $L=2$, $L=4$, or $L=5$ at $N=600$, whereas for $L=20$ the BER remained approximately $1.3\cdot10^{-4}$ even at $N=1000$.
 
+The simulation results show that, for the value $\alpha=1.1$ used in this work, a smaller number of segments $L$ generally produces a lower BER. This does not, however, imply that a smaller $L$ is always optimal. For a fixed number of samples $N$, increasing $L$ provides more segments for statistical averaging but simultaneously reduces the number of samples $K=N/L$ in each segment. The optimal value of $L$ therefore depends on $\alpha$, the number of available samples, and the communication-channel conditions. For more impulsive distributions, particularly when $\alpha<1$, a larger $L$ may be preferable, whereas smaller values of $L$ performed better at $\alpha=1.1$ in the simulated environment considered here. It must also be noted that the simulated channel contained no additional \texttt{impulsive} interference. In an environment with rare and very strong disturbances, a larger $L$ could reduce the effect of an individual interference impulse on the final estimate and thereby improve decoding. Consequently, $L$ cannot be selected universally but must be chosen according to the statistical properties of the signal and the actual channel conditions \cite{tsihrintzis1994fast}.
 
-\section{Varying the Parameter $\beta$}
+\section{Communication Covertness}
 
 The parameter $\beta$ determines the asymmetry of an $\alpha$-stable distribution and is used to encode information in the developed system. The experiment used symmetric mappings ranging from $\{-0.1,0.1\}$ to $\{-1,1\}$, with the difference defined as $\Delta\beta=\beta_1-\beta_0$. A smaller $\Delta\beta$ means that the two bit distributions are more similar and therefore harder to distinguish. The difference may also be regarded as a security parameter because greater similarity makes decoding more difficult both for the intended receiver and for a potential eavesdropper.
 
@@ -1300,11 +1303,13 @@ The simulation used $L=2$, $\gamma=1$, and no additional Gaussian noise. The val
 \label{beta_error}
 \end{figure}
 
-The results show that BER decreases both as $\Delta\beta$ and as the number of samples per symbol increase. For small differences, the two distributions are similar, so the estimated values of $\beta$ can overlap and the receiver often selects the wrong symbol.
+The results show that BER decreases as both $\Delta\beta$ and the number of samples per symbol increase. At small values of $\Delta\beta$, BER remains close to $0.5$. In a binary system, this means that receiver decisions are not substantially more successful than random guessing. Communication with the current decoder is therefore practically unusable in this range.
 
-The sharpest BER decrease occurs at $\Delta\beta=2$, corresponding to $\beta\in\{-1,1\}$. At these extreme values, the distribution for $\beta=-1$ is strongly asymmetric in one direction and that for $\beta=1$ in the opposite direction. The regions containing their characteristic extremes therefore overlap very little. Since the receiver estimates $\beta$ precisely from segment maxima and minima, the two symbol estimates are well separated under this mapping and the receiver's decision is substantially easier.
+The high BER is caused by the small difference in asymmetry between the distributions representing the two bits. Because only a finite number of samples is available and the estimate of $\beta$ is subject to error, the two conditional distributions of the estimate $\hat{\beta}$ overlap substantially. The estimate therefore frequently falls on the wrong side of the decision threshold, resulting in incorrect decoding. As $\Delta\beta$ increases, the difference in asymmetry becomes more pronounced, the overlap between the estimates decreases, and the receiver can distinguish the symbols more easily.
 
-The sample count remains important even at the largest separation. At $\Delta\beta=2$, BER decreased from approximately $0.39$ at $N=40$ to approximately $1.4\cdot10^{-4}$ at $N=320$. No bit errors were observed for $N\geq600$ in the completed repetitions.
+The sharpest decrease in BER occurs at $\Delta\beta=2$, corresponding to the mapping $\beta\in\{-1,1\}$. At these extreme values, the two distributions are asymmetric in opposite directions, so their estimates of $\beta$ are also better separated. Because the receiver estimates the parameter from the largest and smallest values in each segment, this mapping enables substantially more reliable decisions. At $N=320$, BER decreased from approximately $0.028$ at $\Delta\beta=1.8$ to approximately $1.4\cdot10^{-4}$ at $\Delta\beta=2$. For $N\geq600$, no bit errors were observed at $\Delta\beta=2$ in the completed repetitions.
+
+These results characterise the performance of the current decoder and do not necessarily represent a fundamental limit of the communication approach. A more accurate estimator of $\beta$ that uses the information in the received samples more efficiently could reduce the dispersion of the estimates and enable more reliable communication even when $\Delta\beta<2$. One possible direction for future work is to use a larger number of upper and lower extreme values or quantiles instead of only the maximum and minimum of each segment. Such a method would still need to be developed and evaluated experimentally. The effect of reducing $\Delta\beta$ cannot be eliminated completely because the two distributions become increasingly similar as the difference decreases. Nevertheless, an improved decoder could achieve a substantially better trade-off between BER and communication covertness.
 
 \section{Effect of the Parameter $\gamma$}
 
@@ -1355,13 +1360,67 @@ If $N$ is doubled to 2000, the symbol duration doubles to $62.5\,\mathrm{ms}$ an
 
 \section{Results on SDR Hardware}
 
-Measurements on SDR hardware showed that data transmission using $\alpha$-stable symbols is feasible. Communication was tested by modulating the asymmetry parameter with $\beta=[-1.0,1.0]$.
+Measurements were performed using two USRP B210 devices and two WA5VJB LP8565A2 log-periodic antennas at a carrier frequency of 915 MHz and a sampling rate of 64 kS/s. The asymmetry parameter of the $\alpha$-stable distribution was modulated using the bit mapping $\beta\in\{-1,1\}$. The tested distances were $0.5~\mathrm{m}$, $1~\mathrm{m}$, and $2~\mathrm{m}$, with symbol lengths $N\in\{100,200,500\}$ samples. The value $L=5$ was used in every experiment. For each combination of distance and $N$, one packet containing 128 bytes, or 1024 bits, was transmitted. No error-correcting code was used, so the calculated BER represents the raw bit error rate of the demodulator.
 
-Measurements used symbol lengths of $N=100$, $N=500$, and $N=1000$ samples. In all measurements with $N\geq100$, the raw BER was below 1~\%, except for packets for which the receiver estimated a particularly large timing offset. Results were unreliable for $N<50$, and at $N=24$ the receiver could no longer detect the synchronisation sequence reliably, primarily because fewer samples were available for correlation detection.
+\begin{figure}[H]
+    \rotatebox{90}{
+        \includegraphics[width=0.6\textwidth]{antena_SDR.jpg}
+    }
+    \centering
+    \caption{Experimental communication system comprising two USRP B210 devices, two WA5VJB LP8565A2 log-periodic antennas, and the transmitter and receiver computers.}
+    \label{fig:sdr_sistem}
+\end{figure}
 
-After decoding, the receiver reports the estimated total timing offset in samples as \texttt{drift}. A large absolute value may indicate a mismatch between the sampling clocks, lost samples caused by \emph{underflow} or \emph{overflow}, or an incorrectly detected packet end. In such cases, the estimated pilot--data pair length is incorrect and the timing error grows over the packet. The first part may therefore decode correctly while BER increases sharply after a certain point.
+BER was calculated by directly comparing the bits in the source and decoded files:
+\begin{equation}
+    \mathrm{BER}=\frac{N_{\mathrm{err}}}{N_{\mathrm{all}}}.
+\end{equation}
+Because each packet contained 1024 bits, one incorrect decision changes BER by approximately $0.0977$ percentage points. The measurement results are summarised in the following table.
 
-The results confirm that communication by modulating $\beta$ of an $\alpha$-stable distribution is possible, although reliability depends strongly on synchronisation quality, correct timing-offset estimation, and uninterrupted sample delivery to the SDR. A shared external reference clock would reduce both carrier-frequency and sampling-clock offsets. Underflow and overflow should be further mitigated through suitable buffering and sufficiently fast sample generation and processing. Although these events were no longer observed during measurements with the latest implementation, they cannot be ruled out entirely, especially on less powerful computers or under more demanding operating conditions.
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Distance} & \textbf{Number of samples $N$} & \textbf{BER [\%]} \\ \hline
+\multirow{3}{*}{$0.5~\mathrm{m}$}
+ & 100 & $4.688$ \\ \cline{2-3}
+ & 200 & $1.855$ \\ \cline{2-3}
+ & 500 & $0.195$ \\ \hline
+\multirow{3}{*}{$1~\mathrm{m}$}
+ & 100 & $3.125$ \\ \cline{2-3}
+ & 200 & $3.125$ \\ \cline{2-3}
+ & 500 & $0.293$ \\ \hline
+\multirow{3}{*}{$2~\mathrm{m}$}
+ & 100 & $4.297$ \\ \cline{2-3}
+ & 200 & $1.660$ \\ \cline{2-3}
+ & 500 & $1.172$ \\ \hline
+\end{tabular}
+\caption{Measured BER as a function of distance and number of samples per symbol.}
+\label{tab:sdr_ber_rezultati}
+\end{table}
+
+The measured values show that a larger number of samples per symbol generally improves decision reliability. With a larger $N$, the receiver has more realisations of the $\alpha$-stable random variable available and can therefore estimate $\beta$ with less statistical uncertainty. This is particularly evident at distances of $0.5~\mathrm{m}$ and $1~\mathrm{m}$, where $N=500$ achieved BER values of $0.195~\%$ and $0.293~\%$, respectively.
+
+The results are not fully monotonic with distance. For example, at $N=200$, BER was lower at $0.5~\mathrm{m}$ than at $1.0~\mathrm{m}$. Such deviations are expected because only one measurement was performed for each parameter combination. Each table entry therefore represents one realisation of a random communication process rather than an average over multiple repetitions. The result is affected by the particular realisation of the $\alpha$-stable samples, the current environmental noise, multipath propagation, reflections in the room, and the instantaneous frequency and timing mismatch between the SDR devices. Because the packet is short, even a few additional incorrectly decoded bits can noticeably change the calculated BER.
+
+Transmission reliability is also affected by synchronisation. After decoding, the receiver reports its estimate of the timing offset as the parameter \texttt{drift}. A large absolute value may indicate a difference between the sampling clocks, sample loss caused by underflow or buffer overflow, or an incorrect estimate of the packet end. If the estimated pilot--data pair length is incorrect, the timing-position error increases towards the end of the packet and a data symbol may also include part of a pilot symbol. The receiver implementation therefore rejects timing estimates that are inconsistent with the expected hardware accuracy and excludes samples at the edges of each data symbol during decoding.
+
+The measurements confirm that data transmission by modulating $\beta$ of an $\alpha$-stable distribution is feasible on SDR hardware. They also demonstrate a trade-off between reliability and speed: a larger $N$ improves the statistical estimate but lengthens the symbol and reduces the bit rate. A more reliable quantitative assessment of the effects of distance and $N$ would require repeated measurements and reporting the mean BER with a confidence interval. Although underflow and overflow were not observed in the latest measurements, they remain possible on less powerful hardware or under more demanding conditions.
+
+\chapter{Conclusion}
+
+This thesis developed and evaluated a wireless communication system in which information is transmitted by varying the asymmetry parameter $\beta$ of $\alpha$-stable noise. A custom encoder and decoder were implemented in GNU Radio Companion. Their operation was first evaluated in simulation and subsequently tested in an actual wireless transmission between two USRP B210 devices.
+
+To the best of our knowledge, the main contribution of this work is the first open-source implementation of an $\alpha$-stable noise-based communication system in GNU Radio that has also been tested in a real wireless environment. The implementation source code, system configurations, and measurement results are publicly available at \url{https://github.com/zanzan731/alpha-stable-noise-based-communication}, enabling experiment reproducibility and further development of the proposed approach.
+
+The simulation results show that transmission reliability is strongly affected by the difference between the two values of $\beta$, the number of segments $L$, and the number of samples per symbol $N$. The lowest BER was obtained with the mapping $\beta\in\{-1,1\}$ because the corresponding distributions differ most strongly and are easiest for the decoder to distinguish. However, this mapping is the least favourable in terms of communication covertness because the maximum separation between the distributions makes the signal easier to distinguish and detect. Reducing the difference between the values of $\beta$ increases distribution similarity and consequently communication covertness, but it also makes decoding more difficult and increases BER. Selecting $\beta$ therefore involves a trade-off between transmission reliability and low detectability.
+
+The SDR measurements confirmed that transmission is feasible without error-correcting coding. At $N=500$, BER values of $0.195~\%$, $0.293~\%$, and $1.172~\%$ were measured at distances of $0.5~\mathrm{m}$, $1~\mathrm{m}$, and $2~\mathrm{m}$, respectively. Increasing $N$ was also found to improve reliability at the cost of a lower bit rate. Synchronisation and the uninterrupted delivery of samples between the computer and radio device emerged as the principal challenges in the practical implementation.
+
+Substantial scope for improvement remains, particularly in the decoder. The current implementation uses a relatively simple method for estimating $\beta$ together with basic synchronisation mechanisms, so the achieved results do not represent the upper performance limit of the communication approach. More robust estimation methods, adaptive decision thresholds, more accurate time and frequency synchronisation, and error-correcting codes could further reduce BER. An improved decoder could enable reliable operation at smaller differences between the values of $\beta$, increasing communication covertness, and at fewer samples per symbol, increasing the bit rate.
+
+The developed implementation should therefore be viewed primarily as a foundation for further research rather than as the final limit of the system's usefulness. Future work could include developing a more advanced decoder, repeating measurements with more packets, improving synchronisation, and extending the encoding method to other parameters of the $\alpha$-stable distribution. Such improvements could bring the system closer to practical use and substantially improve the trade-off among reliability, bit rate, and communication covertness.
 
 
 \cleardoublepage

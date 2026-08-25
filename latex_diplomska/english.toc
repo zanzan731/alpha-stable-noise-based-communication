@@ -20,7 +20,7 @@
 \contentsline {subsection}{\numberline {3.3.1}Stability Parameter $\alpha $}{15}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Asymmetry Parameter $\beta $}{16}{subsection.3.3.2}%
 \contentsline {subsection}{\numberline {3.3.3}Scale Parameter $\gamma $}{16}{subsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.3.4}Location Parameter $\mu $}{17}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.4}Location Parameter $\mu $}{16}{subsection.3.3.4}%
 \contentsline {section}{\numberline {3.4}Special Cases of $\alpha $-Stable Distributions}{17}{section.3.4}%
 \contentsline {subsection}{\numberline {3.4.1}Normal (Gaussian) Distribution}{17}{subsection.3.4.1}%
 \contentsline {subsection}{\numberline {3.4.2}Cauchy Distribution}{18}{subsection.3.4.2}%
@@ -44,14 +44,15 @@
 \contentsline {subsection}{\numberline {5.4.2}Estimating the Parameter $\beta $}{34}{subsection.5.4.2}%
 \contentsline {subsection}{\numberline {5.4.3}Bit Decoding}{35}{subsection.5.4.3}%
 \contentsline {section}{\numberline {5.5}Implementation on SDR Hardware}{36}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Vectorised Generation of $\alpha $-Stable Samples}{36}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}Synchronisation}{37}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.1}Vectorised Generation of $\alpha $-Stable Samples}{37}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Synchronisation}{38}{subsection.5.5.2}%
 \contentsline {subsection}{\numberline {5.5.3}Pilot Symbols and Carrier Tracking}{38}{subsection.5.5.3}%
-\contentsline {subsection}{\numberline {5.5.4}Clock-Offset Correction}{38}{subsection.5.5.4}%
-\contentsline {chapter}{\numberline {6}Evaluation in the Simulation Environment}{40}{chapter.6}%
+\contentsline {subsection}{\numberline {5.5.4}Clock-Offset Correction}{39}{subsection.5.5.4}%
+\contentsline {chapter}{\numberline {6}Evaluation in the Simulation and Real-World Environments}{40}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Parameters}{42}{section.6.1}%
 \contentsline {section}{\numberline {6.2}Effect of the Number of Segments $L$}{42}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Varying the Parameter $\beta $}{44}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Effect of the Parameter $\gamma $}{45}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Results on SDR Hardware}{47}{section.6.5}%
-\contentsline {chapter}{References}{49}{section.6.5}%
+\contentsline {section}{\numberline {6.3}Communication Covertness}{44}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Effect of the Parameter $\gamma $}{46}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Results on SDR Hardware}{48}{section.6.5}%
+\contentsline {chapter}{\numberline {7}Conclusion}{52}{chapter.7}%
+\contentsline {chapter}{References}{55}{chapter.7}%

@@ -305,6 +305,7 @@ Posebna zahvala gre tudi vsem, ki so me med študijem in pri izdelavi diplomske 
   {\bf SDR} & Software Defined Radio & Programsko opredeljena radijska oprema \\
   {\bf AWGN} & Additive White Gaussian Noise& Aditivni beli Gaussov šum \\
   {\bf USRP} & Universal Software Radio Peripheral & Univerzalna strojna oprema za programsko definiran radio \\
+  {\bf CRC} & Cyclic redundancy check & Kontrolna vrednost \\
   \dots & \dots & \dots \\
 \end{tabular}
 \end{comment}
@@ -321,6 +322,7 @@ Posebna zahvala gre tudi vsem, ki so me med študijem in pri izdelavi diplomske 
   {\bf SDR} & Software Defined Radio & Programsko opredeljena radijska oprema \\
   {\bf AWGN} & Additive White Gaussian Noise& Aditivni beli Gaussov šum \\
   {\bf USRP} & Universal Software Radio Peripheral & Univerzalna strojna oprema za programsko definiran radio \\
+  {\bf CRC} & Cyclic redundancy check & Kontrolna vrednost \\
 %  \dots & \dots & \dots \\
 \end{tabular}
 
@@ -878,7 +880,7 @@ Za klasični centralni limitni izrek je končna varianca ključni pogoj, da dobi
 \[
 a_n \propto n^{-1/\alpha}.
 \]
-To je posplošen skalirni faktor v centralnem limitnem izreku. V CLI velja, da je skalirni faktor $\frac{1}{\sqrt{n}}$, ker v centralnem limitnem izreku obravnavamo standardno normalno porazdelitev, kjer je $\alpha = 2$; vidimo, da je to res samo posplošitev.
+To je posplošen skalirni faktor v centralnem limitnem izreku. V CLI velja, da je skalirni faktor $\frac{1}{\sqrt{n}}$, ker v centralnem limitnem izreku obravnavamo standardno normalno porazdelitev, kjer je $\alpha = 2$ vidimo, da je to res samo posplošitev.
 
 S tem so $\alpha$-stabilne porazdelitve edine možne mejne porazdelitve pri seštevanju velikega števila neodvisnih in enako porazdeljenih slučajnih spremenljivk. In zato ta izrek pojasnjuje, zakaj so $\alpha$-stabilne porazdelitve primerne za opis signalov, ki nastanejo kot rezultat velikega števila naključnih prispevkov. Njihova stabilnost zagotavlja, da se statistična oblika signala ohrani tudi pri združevanju več neodvisnih komponent.
 
@@ -1177,6 +1179,29 @@ Tak način generiranja ne pomeni, da so vsi vzorci posameznega simbola enaki. En
 
 V implementaciji se vsi vzorci tako ustvarijo v enem vektoriziranem klicu. Nato se sestavi celoten oddajni okvir, ki se shrani v izhodni medpomnilnik. GNU Radio lahko tako že pripravljene vzorce postopoma posreduje napravi SDR, ne da bi bilo treba med samim oddajanjem izvajati računsko zahtevno generiranje naključnih spremenljivk. S tem se bistveno zmanjša verjetnost pojava podkoračitve.
 
+\subsection{Struktura oddajnega paketa}
+
+Posamezen oddajni paket je sestavljen iz sinhronizacijske sekvence, trikrat ponovljene glave, koristnega dela in zaščitnega zaključka. Sinhronizacijska sekvenca vsebuje 32 determinističnih simbolov in sprejemniku omogoča zaznavanje začetka paketa.
+
+Sinhronizacijski sekvenci sledi 80-bitna glava, ki vsebuje 16-bitno identifikacijsko vrednost, 32-bitni podatek o dolžini koristnega dela in 32-bitno kontrolno vrednost (\textit{Cyclic redundancy check} -- CRC). Glava se pošlje trikrat, sprejemnik pa njene bite določi z večinskim odločanjem, s čimer se zmanjša verjetnost napačnega dekodiranja.
+
+Glava ne vsebuje koristnih podatkov sporočila, temveč nadzorne podatke, namenjene obravnavi paketa. Identifikacijska vrednost je vnaprej določena konstanta, ki jo poznata oddajnik in sprejemnik. Sprejemnik z njo preveri, ali zaznani začetek paketa res pripada uporabljenemu komunikacijskemu protokolu. Če prejeta vrednost ne ustreza pričakovani, sprejemnik zaznavo paketa zavrne.
+
+Podatek o dolžini določa število bajtov v koristnem delu. V izvedenih meritvah je bila dolžina paketa vnaprej nastavljena na 128 bajtov, zato bi jo sprejemnik lahko poznal že iz svojih nastavitev. Kljub temu je podatek vključen v glavo, saj omogoča prenos paketov različnih dolžin brez predhodnega nastavljanja sprejemnika.
+
+Kontrolna vrednost sprejemniku omogoča, da po dekodiranju takoj preveri, ali je bil celoten koristni del sprejet brez zaznanih bitnih napak. CRC napak ne popravlja, ampak jih samo zazna. Glava je tako predvsem tehnična osnova za zanesljivejšo paketno komunikacijo, hkrati pa omogoča nadaljnji razvoj protokola in dodajanje novih nadzornih podatkov.
+
+Koristni del sestavljajo pari pilotskih in podatkovnih simbolov. Pred vsakim $\alpha$-stabilnim podatkovnim simbolom se odda deterministični pilotski simbol, ki ga sprejemnik uporablja za sledenje fazi in frekvenci nosilca. Vsak pilotski in podatkovni simbol vsebuje $N$ vzorcev, pri čemer je $N$ nastavljivo število vzorcev na simbol. Za prenos $B$ bitov zato koristni del vsebuje $2BN$ vzorcev.
+
+Na koncu paketa se odda še zaščitni zaključek, ki se ne dekodira. Njegov namen je preprečiti, da bi konec oddajnega toka vplival na zadnje podatkovne simbole, sprejemniku pa pomaga tudi pri ocenjevanju časovnega odmika. Struktura paketa je prikazana na sliki~\ref{fig:struktura_sdr_paketa}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{struktura_sdr_paketa.pdf}
+    \caption{Struktura posameznega oddajnega paketa pri komunikaciji prek opreme SDR. Sinhronizacijski sekvenci in trikrat ponovljeni glavi sledijo pari pilotskih in $\alpha$-stabilnih podatkovnih simbolov ter zaščitni zaključek.}
+    \label{fig:struktura_sdr_paketa}
+\end{figure}
+
 \subsection{Sinhronizacija}
 Sinhronizacija $\alpha$-stabilnega signala je zahtevna, ker je tak signal po videzu podoben šumu. Neposredno iskanje začetka paketa samo na podlagi $\alpha$-stabilnih vzorcev bi zato povzročilo veliko lažnih zaznav. Sprejemnik namreč tudi takrat, ko oddajnik ne oddaja, neprekinjeno prejema šum in druge motnje.
 
@@ -1200,7 +1225,7 @@ Takšen pristop je robustnejši od uporabe ene same ocene frekvence in faze za c
 
 Frekvenčni in fazni odmik nosilca nista edina problema. Oddajnik in sprejemnik imata tudi ločeni uri. Čeprav sta obe napravi nastavljeni na enako nazivno vzorčno frekvenco, se njuni dejanski frekvenci nekoliko razlikujeta. Napaka se med trajanjem paketa sešteva, zato se lahko pri dolgem paketu položaj zadnjih simbolov zamakne za več sto vzorcev, kar bi naredilo komunikacijo popolnoma neuporabno.
 
-Pilotski simbol sam po sebi ne odpravlja odmika med urama oddajnika in sprejemnika. Sprejemnik zato iz položaja prvega prehoda med pilotom in podatkovnim simbolom ter prehoda med zadnjim podatkovnim simbolom in zaključkom paketa oceni dejansko dolžino para pilot--podatek. Na podlagi te ocene z interpolacijo vsak pilotski in podatkovni simbol pretvori na $N$ vzorcev, pri čemer predpostavi, da se časovni odmik med trajanjem ne spremeni preveč, če pa se spremeni, se spreminja linearno. Odmik bi sicer bilo mogoče zmanjšati z uporabo skupne začetne referenčne ure, vendar takšna rešitev ni realna za obravnavani brezžični sistem, saj bi zahtevala skupno časovno referenco med oddajnikom in sprejemnikom. Poleg tega takšna oprema pri izvedbi eksperimenta ni bila na voljo.
+Pilotski simbol sam po sebi ne odpravlja odmika med urama oddajnika in sprejemnika. Sprejemnik zato iz položaja prvega prehoda med pilotom in podatkovnim simbolom ter prehoda med zadnjim podatkovnim simbolom in zaključkom paketa oceni dejansko dolžino para pilot--podatek. Na podlagi te ocene z interpolacijo vsak pilotski in podatkovni simbol pretvori na $N$ vzorcev, pri čemer predpostavi, da se časovni odmik med trajanjem ne spremeni preveč, če pa se spremeni, se spreminja linearno. Odmik bi sicer bilo mogoče zmanjšati z uporabo skupne začetne referenčne ure, vendar takšna rešitev ni realna za obravnavani brezžični sistem, saj bi zahtevala skupno časovno referenco med oddajnikom in sprejemnikom.
 
 \chapter{Evalvacija v simulacijskem in realnem okolju}
 
@@ -1408,7 +1433,7 @@ Meritve na opremi SDR so potrdile izvedljivost prenosa brez kodiranja za popravl
 
 Pomemben prostor za izboljšave ostaja predvsem na strani dekodirnika. Trenutna implementacija uporablja razmeroma preprost postopek ocenjevanja parametra $\beta$ in osnovne mehanizme sinhronizacije, zato doseženi rezultati ne predstavljajo zgornje meje zmogljivosti obravnavanega komunikacijskega pristopa. Z uporabo robustnejših metod ocenjevanja, prilagodljivih odločitvenih pragov, natančnejše časovne in frekvenčne sinhronizacije ter kodiranja za popravljanje napak bi bilo mogoče BER dodatno zmanjšati. Izboljšan dekodirnik bi lahko omogočil zanesljivo delovanje tudi pri manjših razlikah med vrednostma $\beta$, kar bi povečalo skritost komunikacije, in pri manjšem številu vzorcev na simbol, kar bi povečalo bitno hitrost.
 
-Razvita implementacija zato predstavlja predvsem osnovo za nadaljnje raziskave in ne dokončne meje uporabnosti sistema. Nadaljnje delo bi lahko obsegalo razvoj naprednejšega dekodirnika, ponovitev meritev z večjim številom paketov, izboljšanje sinhronizacije, prilagodljivo izbiro parametrov glede na razmere v kanalu in razširitev kodiranja še na druge parametre $\alpha$-stabilne porazdelitve. Takšne izboljšave bi lahko sistem približale praktični uporabi ter bistveno izboljšale razmerje med zanesljivostjo, bitno hitrostjo in skritostjo komunikacije.
+Razvita implementacija zato predstavlja predvsem osnovo za nadaljnje raziskave in ne dokončne meje uporabnosti sistema. Nadaljnje delo bi lahko obsegalo razvoj naprednejšega dekodirnika, ponovitev meritev z večjim številom paketov, izboljšanje sinhronizacije in razširitev kodiranja še na druge parametre $\alpha$-stabilne porazdelitve. Takšne izboljšave bi lahko sistem približale praktični uporabi ter bistveno izboljšale razmerje med zanesljivostjo, bitno hitrostjo in skritostjo komunikacije.
 
 
 \cleardoublepage
