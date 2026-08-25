@@ -258,8 +258,9 @@ In this thesis the candidate should introduce wireless communication that is bas
 % zahvala
 \thispagestyle{empty}\mbox{}\vfill\null\it%
 \noindent
-Na tem mestu bi se rad zahvalil mojimu mentorju izr. prof. dr. Veljko Pejović in somentorju doc. dr. Areeb Ahmed, ki sta mi pomagala pri raziskovanju in pisanju diplomske naloge. 
-Zahvalil bi se tudi vsem drugim, ki jih nisem poimensko omenil in so kakorkoli posredno ali neposredno pomagali pri izdelavi diplomske naloge.
+Ob zaključku diplomske naloge bi se rad iskreno zahvalil mentorju izr. prof. dr. Veljku Pejoviću in somentorju doc. dr. Areebu Ahmedu za njuno strokovno znanje, usmerjanje, pomoč in podporo pri nastajanju diplomske naloge.
+
+Posebna zahvala gre tudi vsem, ki so me med študijem in pri izdelavi diplomske naloge podpirali, mi pomagali ter me spodbujali. Hvala vsem, ki ste na kakršen koli način prispevali k temu, da sem lahko uspešno zaključil svoje delo.
 \rm\normalfont
 
 % prazna stran
@@ -311,11 +312,11 @@ Zahvalil bi se tudi vsem drugim, ki jih nisem poimensko omenil in so kakorkoli p
 \noindent\begin{tabular}{p{0.1\textwidth}|p{.4\textwidth}|p{.4\textwidth}}    % po potrebi razširi prvo kolono tabele na račun drugih dveh!
   {\bf kratica} & {\bf angleško}                             & {\bf slovensko} \\ \hline
   {\bf OFDM} & Orthogonal Frequency-Division Multiple Access & Ortogonalni frekvenčno deljeni večkratni dostop \\
-  {\bf MIMO} & Multiple-input and multiple-output & večantenski sistem \\
+  {\bf MIMO} & Multiple-input and multiple-output & Večantenski sistem \\
   {\bf BER} & Bit Error Rate & Stopnja bitnih napak \\
   {\bf GRC} & GNU Radio Companion & GNU Radio Companion \\
   {\bf SNR} & Signal-to-Noise Ratio & Razmerje med signalom in šumom \\
-  {\bf MSNR} & Mean Signal-to-Noise Ratio & Varnost na fizičnem nivoju \\
+  {\bf MSNR} & Mean Signal-to-Noise Ratio & Povprečno razmerje med signalom in šumom \\
   {\bf PLS} & Physical Layer Security & Varnost na fizičnem nivoju \\
   {\bf SDR} & Software Defined Radio & Programsko opredeljena radijska oprema \\
   {\bf AWGN} & Additive White Gaussian Noise& Aditivni beli Gaussov šum \\
@@ -376,7 +377,7 @@ Zahvalil bi se tudi vsem drugim, ki jih nisem poimensko omenil in so kakorkoli p
 \chapter{Uvod}
 Brezžična komunikacija je postala nepogrešljiv del vsakdanjega življenja. Omogoča uporabo mobilnih telefonov, brezžičnega dostopa do interneta, satelitske navigacije ter številnih industrijskih in IoT (Internet of Things) aplikacij, brez česar si sodobne družbe skoraj ni več mogoče predstavljati. Skupna značilnost večine sodobnih komunikacijskih sistemov je uporaba determinističnih\footnote{Deterministični signal je vsak signal, katerega vrednost je v vsakem trenutku popolnoma znana in jo lahko opišemo z natančno matematično enačbo.} signalov, pri katerih je informacija kodirana v spremembi amplitude, frekvence ali faze nosilnega vala. Takšni pristopi so se izkazali za zelo učinkovite, vendar imajo tudi pomembno omejitev. Zaradi dobro poznane strukture signalov jih je mogoče z ustreznimi metodami obdelave signalov zaznati, analizirati in v določenih primerih tudi prestreči. %Tle rabim dobit najbrž neki kar bo podprlo ta claim
 
-V sodobnih omrežjih zato pridobiva vedno večjo težo tudi \textbf{varnost na fizičnem nivoju} \cite{lutovac2025physical} (\textit{Physical Layer Security} – PLS). Namesto zanašanja zgolj na kriptografske protokole na višjih nivojih je cilj razviti takšne komunikacijske vzorce, ki so za nepooblaščenega prisluškovalca praktično nezaznavni. Eden izmed obetavnih pristopov za doseganje takšne komunikacije je uporaba stohastičnih\footnote{Stohastični signal je signal, katerega vrednosti se s časom spreminjajo naključno in jih ne moremo natančno napovedati z deterministično matematično funkcijo, temveč jih opisujemo s statističnimi lastnostmi.} signalov. Pri tem pristopu informacija ni več kodirana v spremembi lastnosti nosilnega elektromagnetnega vala, temveč v statističnih parametrih naključnega procesa. Takšna sprememba predstavlja bistveno drugačen pristop od tistega, na kateri temeljijo klasični brezžični komunikacijski sistemi.
+V sodobnih omrežjih zato pridobiva vedno večjo težo tudi \textbf{varnost na fizičnem nivoju} \cite{lutovac2025physical} (\textit{Physical Layer Security} – PLS). Namesto zanašanja zgolj na kriptografske protokole na višjih nivojih je cilj razviti takšne komunikacijske vzorce, ki so za nepooblaščenega prisluškovalca praktično nezaznavni. Eden izmed obetavnih pristopov za doseganje takšne komunikacije je uporaba stohastičnih\footnote{Stohastični signal je signal, katerega vrednosti se s časom spreminjajo naključno in jih ne moremo natančno napovedati z deterministično matematično funkcijo, temveč jih opisujemo s statističnimi lastnostmi.} signalov. Pri tem pristopu informacija ni več kodirana v spremembi lastnosti nosilnega elektromagnetnega vala, temveč v statističnih parametrih naključnega procesa. Takšna sprememba predstavlja bistveno drugačen pristop od tistega, na katerem temeljijo klasični brezžični komunikacijski sistemi.
 
 Cilj diplomskega dela je razviti implementacijo komunikacijskega sistema, ki temelji na $\alpha$-stabilnem šumu, v okolju GNU Radio ter ga prenesti na programsko opredeljeno radijsko opremo (\textit{Software Defined Radio} -- SDR). Namen implementacije je omogočiti uporabo takšnega komunikacijskega sistema na standardni SDR platformi in s tem olajšati njegovo uporabo pri nadaljnjih raziskavah ter drugih brezžičnih aplikacijah.
 
@@ -410,6 +411,8 @@ Kolikor nam je znano, predstavljeno delo predstavlja prvo odprtokodno implementa
 
 Rezultati te diplomske naloge potrjujejo, da je komunikacijski sistem, ki temelji na $\alpha$-stabilnem šumu, mogoče uspešno implementirati v okolju GNU Radio Companion ter prenesti na programsko opredeljeno radijsko opremo. Razvita implementacija predstavlja osnovo za nadaljnje raziskave komunikacijskih sistemov, ki uporabljajo stohastične signale kot nosilce informacije, saj omogoča enostavno uporabo in nadaljnji razvoj v odprtokodnem okolju. Takšen pristop je posebej zanimiv na področjih, kjer je pomembna nizka zaznavnost komunikacije, na primer pri prikriti komunikaciji ali zaščiti kritične infrastrukture. Hkrati je zaradi odpornosti na impulzni šum primeren tudi za uporabo v industrijskih okoljih, kjer imajo klasični komunikacijski sistemi pogosto težave z zagotavljanjem zanesljivega prenosa podatkov.
 
+Programska koda vseh implementacij ter rezultati eksperimentov, predstavljenih v tej diplomski nalogi, so javno dostopni na naslovu \url{https://github.com/zanzan731/alpha-stable-noise-based-communication}.
+
 \chapter{Brezžična komunikacija in njeni izzivi} %Mogoče rabim kako boljše ime za ta chapter
 \label{ch0}
 
@@ -418,15 +421,15 @@ Brezžični komunikacijski sistemi omogočajo prenos informacij brez uporabe fiz
 V tem poglavju so predstavljeni osnovni principi brezžične komunikacije, pregled najpogosteje uporabljenih brezžičnih tehnologij ter ključni izzivi, s katerimi se soočajo sodobni komunikacijski sistemi. Poseben poudarek je namenjen omejitvam obstoječih pristopov, ki predstavljajo motivacijo za razvoj novih komunikacijskih sistemov.
 
 \section{Osnove brezžičnih komunikacij}
-Na prvi pogled se zdi prenos informacij brez fizične povezave med napravama skoraj samoumeven, saj se s tako komunikacijo srečamo vsak dan. V resnici pa mora vsaka brezžična komunikacija izkoristiti nek pojav v naravi, ki omogoča širjenje informacij skozi prostor. Takšen prenos je mogoče izvesti na več načinov, najpogosteje z uporabo elektromagnetnih valov, magnetnih polj ali svetlobnega prenosa. %svetloba je tudi elektro tho ne vem ku bi to lepše napisu
-Med omenjenimi načini ima vsak svoje prednosti in omejitve. Magnetna polja omogočajo komunikacijo le na zelo kratkih razdaljah in se uporabljajo predvsem pri tehnologijah, kot je NFC (angl. near field communication). Svetlobni prenos omogoča zelo visoke hitrosti prenosa podatkov, vendar zahteva neposredno vidno povezavo med oddajnikom in sprejemnikom. Zaradi ugodnega razmerja med dosegom, hitrostjo prenosa in zanesljivosjo pa se v večini sodobnih komunikacijskih sistemih najpogosteje uporabljajo elektromagnetni valovi. %Upam da ne zveni kot da mislim da je to najboljša komunikacija
+Na prvi pogled se zdi prenos informacij brez fizične povezave med napravama skoraj samoumeven, saj se s takšnim načinom komunikacije srečujemo vsak dan. V resnici pa mora vsaka brezžična komunikacija izkoristiti določen naravni pojav, ki omogoča širjenje informacij skozi prostor. Takšen prenos je mogoče izvesti na več načinov, najpogosteje z uporabo magnetnih polj ali elektromagnetnih valov, kot sta radijski in svetlobni prenos. %svetloba je tudi elektro tho ne vem ku bi to lepše napisu
+Med omenjenimi načini ima vsak svoje prednosti in omejitve. Magnetna polja omogočajo komunikacijo le na zelo kratkih razdaljah in se uporabljajo predvsem pri tehnologijah, kot je NFC (angl. near field communication). Svetlobni prenos omogoča zelo visoke hitrosti prenosa podatkov, vendar zahteva neposredno vidno povezavo med oddajnikom in sprejemnikom. Zaradi ugodnega razmerja med dosegom, hitrostjo prenosa in zanesljivostjo pa se v večini sodobnih komunikacijskih sistemov najpogosteje uporabljajo radijski prenos. %Upam da ne zveni kot da mislim da je to najboljša komunikacija
 Brezžična komunikacija bo zato v nadaljevanju pomenila prenos informacij z \textbf{elektromagnetnimi valovi} med oddajnikom in sprejemnikom brez uporabe fizičnega prenosnega medija. %Mogoče to spustim, ker sm že reku da bom govoru o elektromagnetnem prenosu?
-Elektromagnetni val služi kot nosilec informacije, ki se med prenosom širi skozi komunikacijski kanal do sprejemnika. Ker elektromagnetni val sam po sebi ne vsebuje informacije, jo je potrebno vanj nekako zapisati. Ta postopek imenujemo modulacija. Pri klasični modulaciji se informacija kodira v eno ali več lastnosti elektromagnetnega vala, in sicer v amplitudo, fazo ali frekvenco. Preprosto povedano: amplituda je višina vala, faza je njegov zamik, frekvenca pa pove, kako gosto oziroma na kakšni razdalji si sledijo valovi. Ko je signal na oddajnikovi strani zakodiran, ga je treba na prejemnikovi strani dekodirati in tako dobiti prvotno sporočilo. Ta postopek se imenuje demodulacija. Opisani proces modulacije in demodulacije je ponazorjen na spodnji shemi brezžičnega komunikacijskega sistema (slika \ref{fig:wireless}).
+Elektromagnetni val služi kot nosilec informacije, ki se med prenosom širi skozi komunikacijski kanal do sprejemnika. Ker elektromagnetni val sam po sebi ne vsebuje informacije, jo je potrebno vanj nekako zapisati. Ta postopek imenujemo modulacija. Pri klasični modulaciji se informacija kodira v eno ali več lastnosti elektromagnetnega vala, in sicer v amplitudo, fazo ali frekvenco. Preprosto povedano: amplituda je višina vala, faza je njegov zamik, frekvenca pa pove, kako gosto oziroma na kakšni razdalji si sledijo valovi. Ko je signal na oddajnikovi strani zakodiran, ga je treba na sprejemnikovi strani dekodirati in tako dobiti prvotno sporočilo. Ta postopek se imenuje demodulacija. Opisani proces modulacije in demodulacije je ponazorjen na spodnji shemi brezžičnega komunikacijskega sistema (slika \ref{fig:wireless}).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{sender_receiver.png}
-    \caption{Shema brezžičnega komunikacijskega sistema \cite{murataWirelessBasics}.}
+    \includegraphics[width=1.0\textwidth]{sender_receiver.png}
+    \caption{Shema klasičnega brezžičnega komunikacijskega sistema.}
     \label{fig:wireless}
 \end{figure}
 
@@ -466,7 +469,7 @@ Bluetooth &
 Nizka poraba energije &
 Kratek doseg, nižja hitrost prenosa &
 Približno 10--100 m &
-Brezžične slušalke, tipkovnice, pametne ure, senzorji, zvočnik \\
+Brezžične slušalke, tipkovnice, pametne ure, senzorji, zvočniki \\
 \hline
 
 LoRa &
@@ -487,12 +490,12 @@ Kot je razvidno iz preglednice~\ref{tab:wireless_technologies}, je vsaka komunik
 Čeprav so se omenjene tehnologije v zadnjih desetletjih izkazale za zelo uspešne, imajo tudi določene omejitve. Njihovo delovanje je odvisno od razmer v komunikacijskem kanalu, predvsem od prisotnosti šuma, motenj in možnosti zaznave same komunikacije. V naslednjem poglavju so predstavljeni ključni izzivi obstoječih komunikacijskih sistemov, ki predstavljajo motivacijo za razvoj alternativnih pristopov.
 
 \section{Ključni izzivi sodobnih brezžičnih komunikacijskih sistemov}
-Čeprav so sodobne brezžične komunikacijske tehnologije dosegle izjemen napredek glede hitrosti prenosa podatkov, energijske učinkovitosti in zanesljivosti, se še vedno soočajo z več odprtimi izzivi. Ti postanejo posebej izraziti v zahtevnih komunikacijskih okoljih, kjer šum ni več ustrezno opisan z običajno predpostavko aditivnega belega Gaussovega šuma\footnote{Aditivni beli Gaussov šum (\textit{Additive White Gaussian Noise} --  AWGN) je standardni model šuma v komunikacijskih sistemih, ki predpostavlja Gaussovsko porazdeljen, časovno nekoreliran aditivni šum.} (AWGN), ali kjer je poleg zanesljivega prenosa pomembna tudi nizka zaznavnost same komunikacije.
+Čeprav so sodobne brezžične komunikacijske tehnologije dosegle izjemen napredek glede hitrosti prenosa podatkov, energijske učinkovitosti in zanesljivosti, se še vedno soočajo z več odprtimi izzivi. Ti postanejo posebej izraziti v zahtevnih komunikacijskih okoljih, kjer šum ni več ustrezno opisan z običajno predpostavko aditivnega belega Gaussovega šuma\footnote{Aditivni beli Gaussov šum (\textit{Additive White Gaussian Noise} --  AWGN) je standardni model šuma v komunikacijskih sistemih, ki predpostavlja Gaussovo porazdeljen, časovno nekoreliran aditivni šum.} (AWGN), ali kjer je poleg zanesljivega prenosa pomembna tudi nizka zaznavnost same komunikacije.
 
 \subsection{Šum}
 Eden izmed najpomembnejših dejavnikov, ki vplivajo na kakovost brezžične komunikacije, je šum. Med prenosom se signal širi skozi komunikacijski kanal, kjer nanj vplivajo različni naravni in umetni viri motenj. Posledica je popačenje prejetega signala, zaradi katerega lahko sprejemnik napačno dekodira poslane podatke, kar se odraža v povečani stopnji bitnih napak (BER).
 
-Pri analizi in načrtovanju večine sodobnih komunikacijskih sistemov se predpostavlja model aditivnega belega Gaussovega šuma (AWGN). Ta model zaradi svoje matematične enostavnosti predstavlja osnovo številnih modulacijskih, detekcijskih in kodirnih metod ter se je izkazal za ustreznega v številnih komunikacijskih scenarijih \cite{wikiAWGN}\cite{iblAWGN}.
+Pri analizi in načrtovanju večine sodobnih komunikacijskih sistemov se predpostavlja model aditivnega belega Gaussovega šuma. Ta model zaradi svoje matematične enostavnosti predstavlja osnovo številnih modulacijskih, detekcijskih in kodirnih metod ter se je izkazal za ustreznega v številnih komunikacijskih scenarijih \cite{wikiAWGN}\cite{iblAWGN}.
 
 V številnih realnih okoljih pa šum ni ustrezno opisan z Gaussovo porazdelitvijo \cite{madi2011impacts}. V industrijskih obratih, elektroenergetskih sistemih in drugih elektromagnetno zahtevnih okoljih se pogosto pojavlja impulzni šum, za katerega so značilni redki, vendar izrazito močni motilni sunki. Takšno okolje bistveno odstopa od predpostavke AWGN, zato se lahko zmogljivost komunikacijskih sistemov, ki temeljijo na tem modelu, občutno poslabša.
 
@@ -504,9 +507,9 @@ V določenih aplikacijah, kot so vojaški sistemi, zaščita kritične infrastru
 \subsection{Obstoječe rešitve}
 Za zmanjšanje možnosti zaznave komunikacije in povečanje odpornosti proti motnjam so bile razvite različne tehnike prenosa. Med njimi so tudi frekvenčno preskakovanje (angl. frequency hopping) in razpršeni spekter (angl. spread spectrum).
 
-Frekvenčno preskakovanje je tehnika, pri kateri oddajnik in sprejemnik med prenosom podatkov hitro preklapljata med različnimi frekvenčnimi kanali po vnaprej določenem zaporedju. Takšen način prenosa zmanjšuje vpliv motenj, saj lahko izbiraš kanale na katerem je manj šuma, prav tako pa tudi otežuje prestrezanje komunikacije\cite{bluetoothAFH}.
+Frekvenčno preskakovanje je tehnika, pri kateri oddajnik in sprejemnik med prenosom podatkov hitro preklapljata med različnimi frekvenčnimi kanali po vnaprej določenem zaporedju. Takšen način prenosa zmanjšuje vpliv motenj, saj lahko izbirata kanale, na katerih je manj šuma, prav tako pa tudi otežuje prestrezanje komunikacije \cite{bluetoothAFH}.
 
-Razpršeni spekter je način prenosa, pri katerem se signal razširi čez širši frekvenčni pas, kot je potrebno za prenos informacij. Zaradi razpršitve energije je signal odpornejši proti šumu in motnjami, ter omogoča zaneslivejšo komunikacijo.
+Razpršeni spekter je način prenosa, pri katerem se signal razširi čez širši frekvenčni pas, kot je potrebno za prenos informacij. Zaradi razpršitve energije je signal odpornejši proti šumu in motnjam ter omogoča zanesljivejšo komunikacijo.
 
 %UWB ultra-wideband mogoče ne vem morem še kej prebrat o tem tudi da tocno vem kaj je to in če gre lepo sm not
 
@@ -517,9 +520,7 @@ Razpršeni spekter je način prenosa, pri katerem se signal razširi čez širš
 V prejšnjih poglavjih je bil šum obravnavan kot eden izmed glavnih dejavnikov, ki zmanjšujejo kakovost brezžične komunikacije. Zato je cilj večine komunikacijskih sistemov zmanjšati njegov vpliv z uporabo ustreznih modulacijskih tehnik, kodiranja ter različnih metod za odpravljanje napak. Takšen pristop je prisoten praktično v vseh sodobnih komunikacijskih tehnologijah.
 
 Kaj pa, če sedaj na šum pogledamo iz drugačnega zornega kota? Namesto da ga obravnavamo kot nezaželen pojav, ga lahko uporabimo kot sam nosilec informacije. S tem popolnoma obrnemo tradicionalni pogled na brezžično komunikacijo, \textit{saj šum ne predstavlja več omejitve, ampak postane samo sredstvo za prenos informacije}. %To zveni malo čudno bi rad napisu da se naše znanje o brezžični komunikaciji obrne na glavo al neki ne vem
-Informacija namreč tako ni več kodirana v amplitudi, frekvenci ali fazi determinističnega signala, temveč v stohastičnih lastnostih naključnega procesa.
-
-Takšen pristop odpira nove možnosti na področjih, kjer klasične komunikacijske metode niso optimalne. Ker prenos temelji na naključnem signalu, je komunikacijo težje zaznati, hkrati pa je mogoče bolje modelirati komunikacijske kanale, v katerih prevladuje impulzni šum.
+Informacija namreč tako ni več kodirana v amplitudi, frekvenci ali fazi determinističnega signala, temveč v stohastičnih lastnostih naključnega procesa. Takšen pristop odpira nove možnosti na področjih, kjer klasične komunikacijske metode niso optimalne. Ker prenos temelji na naključnem signalu, je komunikacijo težje zaznati, hkrati pa je mogoče bolje modelirati komunikacijske kanale, v katerih prevladuje impulzni šum.
 
 Med različnimi pristopi predstavlja posebno skupino komunikacija, ki temelji na $\alpha$-stabilnem šumu. Zaradi matematičnih lastnosti $\alpha$-stabilnih porazdelitev omogoča učinkovito modeliranje impulznega šuma ter kodiranje informacij v njihovih statističnih parametrih. Osnovne lastnosti $\alpha$-stabilnih porazdelitev so predstavljene v naslednjem poglavju.
 
@@ -533,7 +534,7 @@ Stabilne porazdelitve, imenovane tudi $\alpha$-stabilne porazdelitve, so pomembn
 \section{Stabilne porazdelitve}
 Stabilne porazdelitve so bile v prejšnjih poglavjih večkrat omenjene kot matematična osnova komunikacije, obravnavane v tej diplomski nalogi. Preden podrobneje predstavimo $\alpha$-stabilne porazdelitve, je smiselno najprej odgovoriti na vprašanje, kaj pravzaprav pomeni, da je verjetnostna porazdelitev stabilna.
 
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definicija 1: Stabilnih porazdelitev]
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!50!black,title=Definicija 1: Stabilne porazdelitve]
 \phantomsection
 \label{def:stable}
 
@@ -616,13 +617,19 @@ i\mu t
 Ker stabilnost iz definicije ni neposredno razvidna, jo dokažemo.
 \begin{tcolorbox}[colback=red!5!white,colframe=red!50!black,title=Dokaz 1: Stabilnost $\alpha$-stabilne porazdelitve]
 Naj bo $X$ slučajna spremenljivka z $\alpha$-stabilno porazdelitvijo, naj bosta $X_1$ in $X_2$ njeni neodvisni kopiji ter naj velja $a,b \textgreater 0$. Zaradi neodvisnosti velja
-
 \[
 \phi_{aX_1+bX_2}(t)
 =
 \phi_X(at)\phi_X(bt),
 \]
-saj \[\phi_{aX_1+bX_2}(t)=\mathbb{E}\!\left[e^{it(aX_1 +bX_2)}\right] =  \mathbb{E}\!\left[e^{itaX_1}\right]\mathbb{E}\!\left[e^{itbX_2}\right] = \phi_{X_1}(at) \phi_{X_2}(bt)\] 
+saj
+\[
+\phi_{aX_1+bX_2}(t)
+= \mathbb{E}\!\left[e^{it(aX_1+bX_2)}\right]
+= \mathbb{E}\!\left[e^{itaX_1}\right]
+  \mathbb{E}\!\left[e^{itbX_2}\right]
+= \phi_{X_1}(at)\phi_{X_2}(bt).
+\]
 Za $\alpha$-stabilno porazdelitev ($\alpha\neq1$) je karakteristična funkcija podana z izrazom
 
 \[
@@ -638,13 +645,12 @@ i\mu t
 \]
 
 Iz oblike karakteristične funkcije po zamenjavi $t\mapsto at$ in $t\mapsto bt$ ter zaradi neodvisnosti $X_1$ in $X_2$ dobimo:
-
 \[
 \begin{aligned}
 \phi_{aX_1+bX_2}(t)
 &=
 \phi_X(at)\phi_X(bt) \\
-&=
+&\hspace{-2em}=
 \exp\!\left(
 i\mu(a+b)t
 -
@@ -658,7 +664,6 @@ i\mu(a+b)t
 
 
 Opazimo, da želimo dobljeno karakteristično funkcijo zapisati v enaki obliki kot karakteristično funkcijo slučajne spremenljivke $cX+d$.
-
 \[
 \phi_{cX + d}(t)=
 \exp\!\left(
@@ -671,20 +676,7 @@ i(\mu c + d)t
 \right).
 \]
 
-Če izberemo
-
-\[
-c=\left(a^\alpha+b^\alpha\right)^{1/\alpha},
-\]
-
-in
-
-\[
-d=\mu(a+b-c),
-\]
-
-je dobljena karakteristična funkcija natanko karakteristična funkcija slučajne spremenljivke $cX+d$. Ker karakteristična funkcija enolično določa porazdelitev, dobimo
-
+Če izberemo $c=\left(a^\alpha+b^\alpha\right)^{1/\alpha}$, in $d=\mu(a+b-c)$, je dobljena karakteristična funkcija natanko karakteristična funkcija slučajne spremenljivke $cX+d$. Ker karakteristična funkcija enolično določa porazdelitev, dobimo:
 \[
 aX_1+bX_2 \overset{d}{=} cX+d.
 \]
@@ -723,6 +715,7 @@ Za prikaz vpliva negativnih vrednosti parametra $\beta$ zadostuje zrcaljenje pri
 Parameter skale $\gamma$ zadošča pogoju $\gamma \textgreater 0$. Določa razpršenost oziroma skalo porazdelitve. Večje vrednosti parametra $\gamma$ povzročijo širšo oziroma bolj raztegnjeno porazdelitev. Njegova vloga je podobna vlogi standardnega odklona pri normalni porazdelitvi, vendar z njim ni enak, saj pri večini $\alpha$-stabilnih porazdelitev varianca oziroma disperzija ni končna.
 
 \subsection{Parameter lege $\mu$}
+\enlargethispage{4\baselineskip}
 
 Parameter lege $\mu$ lahko zavzame poljubno realno vrednost, torej $\mu\in\mathbb{R}$. Določa lego porazdelitve na realni osi. Spreminjanje vrednosti parametra $\mu$ povzroči premik celotne porazdelitve levo ali desno, ne da bi pri tem vplivalo na njeno obliko ali razpršenost.
 
@@ -759,12 +752,12 @@ f(x)=
 \right),
 \]
 
-kjer je $\mu$ pričakovana vrednost in $\sigma^2$ pa disperzija porazdelitve.
+kjer je $\mu$ pričakovana vrednost, $\sigma^2$ pa disperzija porazdelitve.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{normalna_porazdelitev.png}
-    \caption{Gostote verjetnosti Normalnih porazdelitev za različne vrednosti parametrov \cite{wikiNormalDistribution}.}
+    \caption{Gostote verjetnosti normalnih porazdelitev za različne vrednosti parametrov \cite{wikiNormalDistribution}.}
     \label{fig:normalna}
 \end{figure}
 
@@ -806,7 +799,7 @@ f(x)=
 \qquad x>\mu .
 \]
 
-Pri tem je $\mu$  parameter lege, ki določa premik porazdelitve po realni osi, $c$ pa parameter skale, ki določa njeno razširjenost.
+Pri tem je $\mu$ parameter lege, ki določa premik porazdelitve po realni osi, $c$ pa parameter skale, ki določa njeno razširjenost.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{levy_destribution.png}
@@ -877,7 +870,7 @@ Z.
 \]
 \end{tcolorbox}
 \begin{tcolorbox}[colback=yellow!5!white, colframe=orange!70!black, title=\textbf{Intuicija}, fonttitle=\bfseries]
-Torej, če vsota velikega števila neodvisnih in enako porazdeljenih slučajnih spremenljivk po ustreznem skaliranju in premiku konvergira k ne-degenerirani porazdelitvi, mora biti ta porazdelitev stabilna.
+Torej, če vsota velikega števila neodvisnih in enako porazdeljenih slučajnih spremenljivk po ustreznem skaliranju in premiku konvergira k nedegenerirani porazdelitvi, mora biti ta porazdelitev stabilna.
 \end{tcolorbox}
 
 Za klasični centralni limitni izrek je končna varianca ključni pogoj, da dobimo normalno porazdelitev. Posplošeni centralni limitni izrek pa ta pogoj razširi in vključuje tudi porazdelitve z neskončno varianco. V tem primeru je mejna porazdelitev $\alpha$-stabilna porazdelitev, pri čemer parameter $\alpha$ določa hitrost skaliranja vsote:
@@ -885,7 +878,7 @@ Za klasični centralni limitni izrek je končna varianca ključni pogoj, da dobi
 \[
 a_n \propto n^{-1/\alpha}.
 \]
-To je posplošen skalirni faktor v centralnem limitnem izreku. V CLI velja da je skalirni faktor $\frac{1}{\sqrt{n}}$, ker v centralnem limitnem obravnavamo standardno normalno porazdelitev, kjer je $\alpha = 2$, vidimo da je to res samo posplošitev.
+To je posplošen skalirni faktor v centralnem limitnem izreku. V CLI velja, da je skalirni faktor $\frac{1}{\sqrt{n}}$, ker v centralnem limitnem izreku obravnavamo standardno normalno porazdelitev, kjer je $\alpha = 2$; vidimo, da je to res samo posplošitev.
 
 S tem so $\alpha$-stabilne porazdelitve edine možne mejne porazdelitve pri seštevanju velikega števila neodvisnih in enako porazdeljenih slučajnih spremenljivk. In zato ta izrek pojasnjuje, zakaj so $\alpha$-stabilne porazdelitve primerne za opis signalov, ki nastanejo kot rezultat velikega števila naključnih prispevkov. Njihova stabilnost zagotavlja, da se statistična oblika signala ohrani tudi pri združevanju več neodvisnih komponent.
 
@@ -906,9 +899,9 @@ Poleg modeliranja šuma pa ta lastnost odpira tudi možnost povsem drugačnega n
 
 
 \chapter{Komunikacija z uporabo $\alpha$-stabilnega šuma}
-V prejšnjem poglavju smo predstavili matematične lastnosti $\alpha$-stabilnih porazddelitev. V tem poglavju bomo pokazali, kako lahko te lastnosti uporabimo za prenos informacij.
+V prejšnjem poglavju smo predstavili matematične lastnosti $\alpha$-stabilnih porazdelitev. V tem poglavju bomo pokazali, kako lahko te lastnosti uporabimo za prenos informacij.
 
-Pri klasičnih komunikacijskih sistemih se informacija kodira v deterministične lastnosti nosilnega signala, kot so amplituda, faza ali frekvenca. Pri $\alpha$-stabilni komunikaciji pa informacija ni predstavljena z obliko signala, temveč s statičnimi parametri njegove porazdelitve. 
+Pri klasičnih komunikacijskih sistemih se informacija kodira v deterministične lastnosti nosilnega signala, kot so amplituda, faza ali frekvenca. Pri $\alpha$-stabilni komunikaciji pa informacija ni predstavljena z obliko signala, temveč s statističnimi parametri njegove porazdelitve. 
 
 Namesto določanja trenutne vrednosti signala oddajnik generira zaporedje naključnih vzorcev iz $\alpha$-stabilne porazdelitve
 
@@ -934,9 +927,9 @@ S_\alpha(\beta, \gamma,\mu),
 kjer izbrani parametri porazdelitve določajo poslani simbol.
 \end{tcolorbox}
 
-Posamezen vzorec sam po sebi ne vsebuje dovolj informacij o uporabljeni porazdelitvi, saj je vsak vzorec tudi do neke mere naključen. Šele zaporedje več vzorcev konvergira proti porazdelitvi, ki razkrije prave statistične lastnosti. Zato je vsak simbol, oziroma zaporedje bitov predstavljen z $N$ zaporednimi vzorci. Večja kot je vrednost $N$, bolj izrazite so lastnosti porazdelitve in bomo zato imeli manjše napake, ampak se zato tudi poveča dolžina prenosa posameznega simbola.
+Posamezen vzorec sam po sebi ne vsebuje dovolj informacij o uporabljeni porazdelitvi, saj je vsak vzorec tudi do neke mere naključen. Šele zaporedje več vzorcev konvergira proti porazdelitvi, ki razkrije prave statistične lastnosti. Zato je vsak simbol oziroma vsako zaporedje bitov predstavljeno z $N$ zaporednimi vzorci. Večja kot je vrednost $N$, bolj izrazite so lastnosti porazdelitve in bomo zato imeli manjše napake, ampak se zato tudi poveča dolžina prenosa posameznega simbola.
 
-Za prenos digitalnih podatkov je potrebno določiti preslikavo med binarnimi simboli in parametri naše porazdelitve. Vsaka kombinacija vhodnih bitov je dodeljena ena kombinacija parametrov $\alpha, \beta, \gamma, \mu$. Po tej preslikavi oddajnik za vsak simbol izbere ustrezne parametre in generira $N$ vzorcev. Nato pa dekodernik te vzorce sprejme in jih dekodira.
+Za prenos digitalnih podatkov je potrebno določiti preslikavo med binarnimi simboli in parametri naše porazdelitve. Vsaki kombinaciji vhodnih bitov je dodeljena ena kombinacija parametrov $\alpha, \beta, \gamma, \mu$. Po tej preslikavi oddajnik za vsak simbol izbere ustrezne parametre in generira $N$ vzorcev. Nato pa dekodirnik te vzorce sprejme in jih dekodira.
 
 \section{Dekodiranje informacije}
 
@@ -963,9 +956,9 @@ Predpostavimo, da informacijo kodiramo le s parametrom $\beta$, pri čemer vredn
 \end{tcolorbox}
 
 
-Natančnost dekodiranja je predvsem odvisna od kokovosti ocene parametrov. Večje število vzorcev $N$ zato običajno omogoča boljšo oceno parametrov in s tem zanesljivo rekonstrukcijo informacije.
+Natančnost dekodiranja je predvsem odvisna od kakovosti ocene parametrov. Večje število vzorcev $N$ zato običajno omogoča boljšo oceno parametrov in s tem zanesljivo rekonstrukcijo informacije.
 
-\section{Zakaj komunikcaija deluje?}
+\section{Zakaj komunikacija deluje?}
 
 Komunikacija z uporabo $\alpha$-stabilnega šuma temelji na matematičnih lastnostih $\alpha$-stabilnih porazdelitev, predstavljenih v prejšnjih poglavjih. Ključna sta \hyperref[def:stable]{lastnost stabilnosti iz Definicije~1} in \hyperref[def:GCLI]{posplošeni centralni limitni izrek iz Definicije~6}.
 
@@ -985,7 +978,7 @@ Programsko opredeljena radijska oprema (SDR) je radijska platforma, pri kateri s
 
 V tej diplomski nalogi je pristop SDR uporabljen za prenos razvitega komunikacijskega sistema iz simulacijskega okolja na dejansko brezžično povezavo. Sistem je bilo tako mogoče najprej razviti in ovrednotiti v nadzorovanem programskem okolju, nato pa njegovo delovanje preveriti še pri prenosu med dvema radijskima napravama. Pri tem je osnovna logika kodiranja in dekodiranja ostala enaka, strojna izvedba pa je zahtevala dodatne prilagoditve za neprekinjeno obdelavo vzorcev in sinhronizacijo.
 
-Za razvoj sistema je bilo uporabljeno odprtokodno okolje GNU Radio \cite{gnuradioWebsite}, namenjeno obdelavi podatkovnih tokov in digitalnih signalov. Sistem je v njem sestavljen iz medsebojno povezanih funkcionalnih blokov, med katerimi se prenašajo vzorci oziroma drugi podatki. Posamezen blok izvaja določeno nalogo, na primer bere vhodne podatke, generira signal, modelira komunikacijski kanal ali obdela sprejete vzorce. Blokovna zasnova omogoča, da se posamezni deli sistema razvijajo, preizkušajo in zamenjujejo neodvisno od preostalega komunikacijskega toka.
+Za razvoj sistema je bilo uporabljeno odprtokodno ogrodje GNU Radio \cite{gnuradioWebsite}, namenjeno obdelavi podatkovnih tokov in digitalnih signalov. Sistem je v njem sestavljen iz medsebojno povezanih funkcionalnih blokov, med katerimi se prenašajo vzorci oziroma drugi podatki. Posamezen blok izvaja določeno nalogo, na primer bere vhodne podatke, generira signal, modelira komunikacijski kanal ali obdela sprejete vzorce. Blokovna zasnova omogoča, da se posamezni deli sistema razvijajo, preizkušajo in zamenjujejo neodvisno od preostalega komunikacijskega toka.
 
 Za grafično sestavljanje in konfiguriranje teh blokov je bil uporabljen GNU Radio Companion (GRC). V njem se komunikacijski sistem predstavi kot diagram poteka, na katerem povezave med bloki določajo smer prenosa podatkov, njihovi parametri pa način obdelave. Takšen prikaz olajša pregled nad celotnim sistemom in omogoča hitro spreminjanje nastavitev pri izvajanju simulacij.
 
@@ -997,8 +990,8 @@ Razviti komunikacijski sistem je namenjen prenosu informacij z uporabo statisti�
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{Alpha_encoder and decoder.png}
-\caption{Blokovni diagram komunikacijskega sistema.}
+\includegraphics[width=\textwidth]{Alpha_encoder_and_decoder.png}
+\caption{Blokovni diagram komunikacijskega sistema. Rumeno obarvani bloki predstavljajo bloke, razvite in implementirane v okviru te diplomske naloge, medtem ko sivo obarvani bloki predstavljajo že obstoječe bloke v okolju GNU Radio.}
 \label{GNU}
 \end{figure}
 
@@ -1027,7 +1020,7 @@ Trenutna implementacija omogoča kodiranje informacij s parametrom $\beta$, saj 
 Vhodna kombinacija bitov določa indeks v preslikovalni tabeli, iz katere se nato izbere ustrezna vrednost parametra $\beta$. Na ta način vsak simbol predstavlja določeno $\alpha$-stabilno porazdelitev.
 
 \subsection{Generiranje vzorcev}
-Za vsak simbol se nato generira $N$ vzorcev $\alpha$-stabilne porazdelitve, kjer parameter N ustreza spremenljivki $\texttt{samples\_per\_symbol}$. Generirani vzorci predstavljajo izhod kodirnika in se posredujejo komunikacijskemu kanalu oziroma naslednjemu bloku v GNU Radio Companion.
+Za vsak simbol se nato generira $N$ vzorcev $\alpha$-stabilne porazdelitve, kjer parameter $N$ ustreza spremenljivki $\texttt{samples\_per\_symbol}$. Generirani vzorci predstavljajo izhod kodirnika in se posredujejo komunikacijskemu kanalu oziroma naslednjemu bloku v GNU Radio Companion.
 
 \subsection{Chambers-Mallows-Stuckov algoritem}
 \begin{tcolorbox}[breakable,colback=blue!5!white,colframe=blue!50!black,
@@ -1162,7 +1155,9 @@ Ocenjena vrednost $\hat{\beta}$ se nato primerja z dovoljenimi vrednostmi iz pre
 
 Pri prenosu komunikacijskega sistema iz simulacijskega okolja na fizično opremo se pojavljajo dodatne omejitve, ki jih v simulaciji ni bilo treba obravnavati. Med najpomembnejše sodita zagotavljanje vzorcev v realnem času in sinhronizacija med oddajnikom in sprejemnikom.
 
-Za praktično izvedbo komunikacijskega sistema sta bili uporabljeni dve napravi USRP B210 z dvema antenama WA5VJB, pri čemer sta oddajnik in sprejemnik delovala na prenosnem računalniku Lenovo Legion 5 Pro oziroma osebnem računalniku.
+Za praktično izvedbo komunikacijskega sistema sta bili uporabljeni dve napravi USRP B210 \cite{ettusB210} z dvema log-periodičnima antenama WA5VJB LP8565A2 \cite{wa5vjbLP8565A2}, pri čemer sta oddajnik in sprejemnik delovala na prenosnem računalniku Lenovo Legion 5 Pro oziroma osebnem računalniku. Osebni računalnik je bil opremljen s procesorjem Intel Core i7-10700 in 16 GB pomnilnika RAM.
+
+USRP B210 je dvokanalna naprava SDR, ki omogoča sočasno oddajanje in sprejemanje, pokriva frekvenčno območje od 70 MHz do 6 GHz ter se z gostiteljskim računalnikom povezuje prek vmesnika USB 3.0. Uporabljeni log-periodični anteni pokrivata frekvenčno območje od 850 MHz do 6,5 GHz in imata tipični dobiček 6 dBi, zato sta primerni za meritve pri 915 MHz, kar smo uporabili v naših simulacijah.
 
 V simulacijskem okolju hitrost generiranja vzorcev ni bila ključnega pomena, saj je bil začetek signala natančno znan. Na fizičnem sprejemniku pa vzorčenje poteka neprekinjeno, zato sprejeti tok pred začetkom paketa vsebuje šum, motnje in morebitne druge signale iz okolice. Sprejemnik mora zato sam ugotoviti, kdaj se paket začne.
 
@@ -1170,21 +1165,13 @@ Oddajnik SDR mora kompleksne vzorce dostaviti z zahtevano vzorčno frekvenco. Č
 
 V nadaljevanju sta predstavljena vektorizirano generiranje $\alpha$-stabilnih vzorcev in postopek sinhronizacije, uporabljen pri komunikaciji med dvema napravama SDR.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{antena_SDR.jpg}
-    \caption{Uporablejna antena in USRP B210.}
-    \label{fig:antena_SDR}
-\end{figure}
-
-
 \subsection{Vektorsko generiranje $\alpha$-stabilnih vzorcev}
 
-V prvotni simulacijski implementaciji so se lahko vzorci $\alpha$-stabilne porazdelitve generirali zaporedno, saj čas izvajanja ni neposredno vplival na neprekinjenost oddajanja. Takšen pristop pri delu z SDR opremo ni več primeren, ker mora oddajnik vzorce zagotavljati z vnaprej določeno vzorčno frekvenco. Zato se v implementaciji za SDR vzorci generirajo vektorizirano. Preden začnemo oddajati se najprej prebere celoten paket in vsak vhodni bit preslikamo v parametre $\beta$. 
+V prvotni simulacijski implementaciji so se lahko vzorci $\alpha$-stabilne porazdelitve generirali zaporedno, saj čas izvajanja ni neposredno vplival na neprekinjenost oddajanja. Takšen pristop pri delu z SDR opremo ni več primeren, ker mora oddajnik vzorce zagotavljati z vnaprej določeno vzorčno frekvenco. Zato se v implementaciji za SDR vzorci generirajo vektorizirano. Preden začnemo oddajati, se najprej prebere celoten paket in vsak vhodni bit preslika v parameter $\beta$. 
 
 V obravnavani implementaciji se informacija kodira samo s parametrom asimetrije $\beta$. Naj bo $M_\beta$ število možnih vrednosti tega parametra v preslikovalni tabeli. Posamezen simbol tako predstavlja $\log_2(M_\beta)$ bitov. Ker je vsak simbol sestavljen iz $N$ vzorcev, je za prenos $B$ bitov treba generirati $\frac{BN}{\log_2(M_\beta)}$ vzorcev. V uporabljeni binarni preslikavi $\beta\in\{-1,1\}$ velja $M_\beta=2$, zato vsak simbol predstavlja en bit, za prenos $B$ bitov pa je potrebnih $BN$ vzorcev.
  
-Vektor parametrov $\beta$ dobimo tako, da vrednost, ki pripada posameznemu znaku ponovimo $N$-krat. Nato ustvarimo n neodvisnih vrednosti naključnih spremenljivk: $V_i \sim \mathcal{U}\left(-\frac{\pi}{2},\frac{\pi}{2}\right)$ in $W_i \sim \operatorname{Exp}(1)$, kjer indeks i teče od $0$ do $N-1$. Vsak vzorec ima tako svojo neodvisno vrednost $V_i$ in $W_i$, medtem ko imajo vsi vzorci istega simbola enako vrednost parametra $\beta$. Vzorci se nato izračunajo po \hyperref[met:cms_generator]{postopku generiranja z algoritmom CMS iz Postopka~1}.
+Vektor parametrov $\beta$ dobimo tako, da vrednost, ki pripada posameznemu znaku, ponovimo $N$-krat. Nato ustvarimo $n$ neodvisnih vrednosti naključnih spremenljivk: $V_i \sim \mathcal{U}\left(-\frac{\pi}{2},\frac{\pi}{2}\right)$ in $W_i \sim \operatorname{Exp}(1)$, kjer indeks $i$ teče od $0$ do $N-1$. Vsak vzorec ima tako svojo neodvisno vrednost $V_i$ in $W_i$, medtem ko imajo vsi vzorci istega simbola enako vrednost parametra $\beta$. Vzorci se nato izračunajo po \hyperref[met:cms_generator]{postopku generiranja z algoritmom CMS iz Postopka~1}.
 
 Tak način generiranja ne pomeni, da so vsi vzorci posameznega simbola enaki. Enak je samo parameter porazdelitve $\beta$, medtem ko se za vsak vzorec uporabita novi naključni vrednosti $V_i$ in $W_i$. Posledično je vsak vzorec neodvisna realizacija izbrane $\alpha$-stabilne porazdelitve.
 
@@ -1193,9 +1180,9 @@ V implementaciji se vsi vzorci tako ustvarijo v enem vektoriziranem klicu. Nato 
 \subsection{Sinhronizacija}
 Sinhronizacija $\alpha$-stabilnega signala je zahtevna, ker je tak signal po videzu podoben šumu. Neposredno iskanje začetka paketa samo na podlagi $\alpha$-stabilnih vzorcev bi zato povzročilo veliko lažnih zaznav. Sprejemnik namreč tudi takrat, ko oddajnik ne oddaja, neprekinjeno prejema šum in druge motnje.
 
-Zaradi tega se na začetku vsakega paketa doda deterministična sinhronizacijska sekvenca. Trenutno uporabljena sekvenca vsebuje 32 bitov, vsak bit pa je sestavljen iz $N$ vzorcev. To omogoča zaneslivejšo korelacijsko zaznavo sinhronizacijske sekvence v prisotnosti šuma. Oddajnik sekvenco ustvari vnaprej, prejemnik pa pozna enako referenčno zaporedje in ga išče v sprejetem signalu.
+Zaradi tega se na začetku vsakega paketa doda deterministična sinhronizacijska sekvenca. Trenutno uporabljena sekvenca vsebuje 32 bitov, vsak bit pa je sestavljen iz $N$ vzorcev. To omogoča zanesljivejšo korelacijsko zaznavo sinhronizacijske sekvence v prisotnosti šuma. Oddajnik sekvenco ustvari vnaprej, sprejemnik pa pozna enako referenčno zaporedje in ga išče v sprejetem signalu.
 
-Sprejemnik po vhodnem toku premika referenčno sekvenco in računa korelacijo in koherenco signala. Sinhronizacijski kandidat je sprejet šele ko obe dve vrednosti presežeta nastavljeni prag. S tem zmanjšamo verjetnost, da sprejemnik naključni šum interpretira kot začetek paketa.
+Sprejemnik po vhodnem toku premika referenčno sekvenco in računa korelacijo in koherenco signala. Sinhronizacijski kandidat je sprejet šele, ko obe vrednosti presežeta nastavljeni prag. S tem zmanjšamo verjetnost, da sprejemnik naključni šum interpretira kot začetek paketa.
 
 Pred začetkom vsakega paketa oddajnik pošlje vnaprej določeno deterministično sinhronizacijsko sekvenco, s katero sprejemnik zazna prihod paketa in določi njegov začetek.
 
@@ -1211,9 +1198,9 @@ Takšen pristop je robustnejši od uporabe ene same ocene frekvence in faze za c
 
 \subsection{Popravljanje odmika ur}
 
-Frekvenčni in fazni odmik nosilca nista edina problema. Oddajnik in sprejemnik imata tudi ločeni uri.  Čeprav sta obe napravi nastavljeni na enako nazivno vzorčno frekvenco, se njuni dejanski frekvenci nekoliko razlikujeta. Napaka se med trajanjem paketa sešteva, zato se lahko pri dolgem paketu položaj zadnjih simbolov zamakne za več sto vzorcev, kar bi naredilo komunikacijo popolnoma neuporabno.
+Frekvenčni in fazni odmik nosilca nista edina problema. Oddajnik in sprejemnik imata tudi ločeni uri. Čeprav sta obe napravi nastavljeni na enako nazivno vzorčno frekvenco, se njuni dejanski frekvenci nekoliko razlikujeta. Napaka se med trajanjem paketa sešteva, zato se lahko pri dolgem paketu položaj zadnjih simbolov zamakne za več sto vzorcev, kar bi naredilo komunikacijo popolnoma neuporabno.
 
-Pilotski simbol sam po sebi ne odpravlja odmika med urama oddajnika in sprejemnika. Sprejemnik zato iz položaja prvega prehoda med pilotom in podatkovnim simbolom ter prehoda med zadnjim podatkovnim simbolom in zaključkom paketa oceni dejansko dolžino para pilot--podatek. Na podlagi te ocene z interpolacijo vsak pilotski in podatkovni simbol pretvori na $N$ vzorcev, pri čemer predpostavi, da se časovni odmik med trajanjem ne preveč spremeni in če se že spremeni se spreminja linearno. Odmik bi sicer bilo mogoče zmanjšati z uporabo skupne začetne referenčne ure, vendar takšna rešitev ni realna za obravnavani brezžični sistem, saj bi zahtevala skupno časovno referenco med oddajnikom in sprejemnikom. Poleg tega takšna oprema pri izvedbi eksperimenta ni bila na voljo.
+Pilotski simbol sam po sebi ne odpravlja odmika med urama oddajnika in sprejemnika. Sprejemnik zato iz položaja prvega prehoda med pilotom in podatkovnim simbolom ter prehoda med zadnjim podatkovnim simbolom in zaključkom paketa oceni dejansko dolžino para pilot--podatek. Na podlagi te ocene z interpolacijo vsak pilotski in podatkovni simbol pretvori na $N$ vzorcev, pri čemer predpostavi, da se časovni odmik med trajanjem ne spremeni preveč, če pa se spremeni, se spreminja linearno. Odmik bi sicer bilo mogoče zmanjšati z uporabo skupne začetne referenčne ure, vendar takšna rešitev ni realna za obravnavani brezžični sistem, saj bi zahtevala skupno časovno referenco med oddajnikom in sprejemnikom. Poleg tega takšna oprema pri izvedbi eksperimenta ni bila na voljo.
 
 \chapter{Evalvacija v simulacijskem in realnem okolju}
 
@@ -1254,7 +1241,7 @@ Seznam možnih vrednosti parametra $\gamma$. Trenutna implementacija tega parame
 Število generiranih vzorcev za posamezen simbol, ki smo ga označili z $N$. Večje število vzorcev običajno izboljša natančnost ocene parametrov pri dekodiranju, vendar poveča količino prenesenih podatkov in čas simulacije. \\ \hline
 
 \texttt{encode\_\{alpha,beta,gama\}} &
-Omogoča izbiro parametrov $\alpha$, $\beta$ in $\gamma$, v katere se kodira informacija. V trenutni implementaciji je uporabljen zgolj $\beta$ \\ \hline
+Omogoča izbiro parametrov $\alpha$, $\beta$ in $\gamma$, v katere se kodira informacija. V trenutni implementaciji je uporabljen zgolj $\beta$. \\ \hline
 
 \texttt{L} &
 Število segmentov, na katere dekodirnik razdeli vzorce posameznega simbola pri ocenjevanju parametra $\beta$. Iz največjih in najmanjših vrednosti posameznih segmentov izračuna oceno parametra. \\ \hline
@@ -1286,6 +1273,8 @@ Iz rezultatov je razvidno, da se BER pri vseh uporabljenih vrednostih $L$ zmanj�
 
 Razlika je posebej izrazita pri $N=400$. Pri $L=2$ je BER znašal približno $6{,}8\cdot10^{-5}$, kar pomeni, da je bilo med $102\,400$ prenesenimi biti zaznanih 7 napak. Pri $L=8$ je BER znašal približno $9{,}4\cdot10^{-3}$ oziroma 963 napak, kar je približno 138-krat več kot pri $L=2$. Pri $L=20$ pa je BER dosegel približno $0{,}23$, kar ustreza 23\,414 napakam oziroma približno 3345-krat več napakam kot pri $L=2$. Absolutno število napak tako dodatno ponazori razliko med posameznimi vrednostmi $L$, ki je iz samega prikaza na logaritemski lestvici težje razvidna. Pri vrednostih $L=2$, $L=4$ in $L=5$ pri $N=600$ ni bil zaznan noben napačno dekodiran bit, medtem ko je pri $L=20$ tudi pri $N=1000$ ostal BER približno $1{,}3\cdot10^{-4}$.
 
+Rezultati izvedene simulacije kažejo, da pri uporabljeni vrednosti $\alpha = 1{,}1$ manjše število segmentov $L$ praviloma omogoča nižji BER. Vendar iz tega ni mogoče sklepati, da je manjši $L$ vedno optimalna izbira. Pri nespremenjenem številu vzorcev $N$ povečanje vrednosti $L$ pomeni več segmentov za statistično povprečenje, hkrati pa se zmanjša število vzorcev $K=N/L$ v posameznem segmentu. Optimalna izbira vrednosti $L$ je zato odvisna od parametra $\alpha$, števila razpoložljivih vzorcev in razmer v komunikacijskem kanalu. Pri bolj impulzivnih porazdelitvah, zlasti pri $\alpha < 1$, se lahko kot primernejši izkaže večji $L$, medtem ko so bili pri $\alpha = 1{,}1$ v našem simulacijskem okolju uspešnejši manjši $L$. Upoštevati je treba tudi, da simulirani kanal ni vseboval dodatnih \texttt{impulzivnih} motenj. V okolju z redkimi in zelo močnimi motnjami bi lahko večji $L$ zmanjšal vpliv posameznega motilnega impulza na končno oceno in tako izboljšal dekodiranje. Vrednosti $L$ zato ni mogoče določiti univerzalno, temveč jo je treba izbrati glede na statistične lastnosti signala in dejanske razmere v kanalu \cite{tsihrintzis1994fast}.
+
 
 \section{Skritost komunikacije}
 
@@ -1301,11 +1290,13 @@ Simulacijo smo izvedli pri $L=2$, $\gamma=1$ in brez dodatnega Gaussovega šuma.
 \label{beta_error}
 \end{figure}
 
-Rezultati kažejo, da se BER zmanjšuje tako z večanjem razlike $\Delta\beta$ kot tudi z večanjem števila vzorcev na simbol. Pri majhnih razlikah sta porazdelitvi podobni, zato se lahko ocenjeni vrednosti parametra $\beta$ za oba simbola prekrivata in sprejemnik med njima pogosto izbere napačno vrednost.
+Rezultati kažejo, da se BER zmanjšuje z večanjem razlike $\Delta\beta$ in števila vzorcev na simbol. Pri majhnih vrednostih $\Delta\beta$ ostaja BER blizu vrednosti $0{,}5$, kar pri binarnem sistemu pomeni, da odločanje sprejemnika ni bistveno uspešnejše od naključnega ugibanja. Komunikacija je zato s trenutno uporabljenim dekodirnikom v tem območju praktično neuporabna.
 
-Najizrazitejši padec BER je opazen pri $\Delta\beta=2$, kar ustreza preslikavi $\beta\in\{-1,1\}$. Pri teh skrajnih vrednostih je porazdelitev za $\beta=-1$ izrazito asimetrična v eno smer, porazdelitev za $\beta=1$ pa v nasprotno smer. Območja, v katerih se pojavljajo njune značilne ekstremne vrednosti, se zato skoraj ne prekrivajo. Ker sprejemnik parameter $\beta$ ocenjuje prav iz največjih in najmanjših vrednosti posameznih segmentov, sta pri tej preslikavi oceni obeh simbolov dobro ločeni in odločitev sprejemnika bistveno enostavnejša.
+Razlog za visok BER je majhna razlika v asimetriji porazdelitev, ki predstavljata posamezna bita. Zaradi končnega števila vzorcev in napake pri ocenjevanju parametra $\beta$ se pogojni porazdelitvi ocene $\hat{\beta}$ za oba simbola močno prekrivata. Ocenjena vrednost se zato pogosto znajde na napačni strani odločitvenega praga, kar povzroči napačno dekodiranje. Pri večji vrednosti $\Delta\beta$ postane razlika v asimetriji izrazitejša, prekrivanje ocen se zmanjša in sprejemnik simbola lažje razlikuje.
 
-Vpliv števila vzorcev ostaja pomemben tudi pri največji razliki med porazdelitvama. Pri $\Delta\beta=2$ se je BER zmanjšal s približno $0{,}39$ pri $N=40$ na približno $1{,}4\cdot10^{-4}$ pri $N=320$. Pri $N\geq600$ pa v izvedenih ponovitvah ni bila zaznana nobena bitna napaka.
+Najizrazitejši padec BER je opazen pri $\Delta\beta=2$, kar ustreza preslikavi $\beta\in\{-1,1\}$. Pri teh skrajnih vrednostih sta porazdelitvi asimetrični v nasprotnih smereh, zato so tudi ocene parametra $\beta$ bolje ločene. Ker uporabljeni sprejemnik parameter ocenjuje iz največjih in najmanjših vrednosti posameznih segmentov, je pri tej preslikavi odločitev bistveno zanesljivejša. Pri $N=320$ se je BER zmanjšal s približno $0{,}028$ pri $\Delta\beta=1.8$ na približno $1{,}4\cdot10^{-4}$ pri $\Delta\beta=2$. Pri $N\geq600$ pa v izvedenih ponovitvah ni bila zaznana nobena bitna napaka za $\Delta\beta=2$.
+
+Dobljeni rezultati predstavljajo zmogljivost trenutno uporabljenega dekodirnika in ne nujno temeljne meje obravnavanega komunikacijskega pristopa. Natančnejši ocenjevalnik parametra $\beta$, ki bi učinkoviteje uporabil informacijo v prejetih vzorcih, bi lahko zmanjšal razpršenost ocen in omogočil zanesljivejšo komunikacijo tudi pri $\Delta\beta<2$. Ena od možnosti za nadaljnje delo je uporaba večjega števila zgornjih in spodnjih ekstremnih vrednosti oziroma kvantilov namesto samo maksimuma in minimuma posameznega segmenta. Takšen postopek bi bilo treba še razviti in eksperimentalno ovrednotiti. Popolnoma odpraviti vpliva zmanjševanja $\Delta\beta$ sicer ni mogoče, saj postajata porazdelitvi z manjšanjem razlike vedno bolj podobni, vendar bi lahko izboljšan dekodirnik dosegel bistveno ugodnejši kompromis med BER in skritostjo komunikacije.
 
 \section{Vpliv parametra $\gamma$}
 
@@ -1356,7 +1347,17 @@ R_b=\frac{32\,000}{1000}=32\,\mathrm{bit/s}.
 
 \section{Rezultati uporabe na opremi SDR}
 
-Meritve na opremi SDR so bile izvedene z modulacijo parametra asimetrije $\alpha$-stabilne porazdelitve, pri kateri sta bitni vrednosti predstavljali vrednosti $\beta\in\{-1,1\}$. Preizkušene so bile razdalje $0{,}5~\mathrm{m}$, $1~\mathrm{m}$ in $2~\mathrm{m}$ ter dolžine simbola $N\in\{60,100,200,500\}$ vzorcev. Pri vseh poiskusih je bil $L=5$. Pri vsaki kombinaciji razdalje in vrednosti $N$ je bil prenesen en paket dolžine 128 bajtov oziroma 1024 bitov. Prenos ni uporabljal kodiranja za popravljanje napak, zato izračunani BER predstavlja surovo bitno napako demodulatorja.
+Meritve so bile izvedene z dvema napravama USRP B210 in dvema log-periodičnima antenama WA5VJB LP8565A2 pri nosilni frekvenci 915 MHz in vzorčni frekvenci 64 kS/s. Uporabljena je bila modulacija parametra asimetrije $\alpha$-stabilne porazdelitve, pri kateri sta bitni vrednosti predstavljali vrednosti $\beta\in\{-1,1\}$. Preizkušene so bile razdalje $0{,}5~\mathrm{m}$, $1~\mathrm{m}$ in $2~\mathrm{m}$ ter dolžine simbola $N\in\{100,200,500\}$ vzorcev. Pri vseh poskusih je bil $L=5$. Pri vsaki kombinaciji razdalje in vrednosti $N$ je bil prenesen en paket dolžine 128 bajtov oziroma 1024 bitov. Prenos ni uporabljal kodiranja za popravljanje napak, zato izračunani BER predstavlja surovo bitno napako demodulatorja.
+
+\begin{figure}[H]
+    
+    \rotatebox{90}{
+    	\includegraphics[width=0.6\textwidth]{antena_SDR.jpg}
+    }
+    \centering
+    \caption{Eksperimentalni komunikacijski sistem z napravama USRP B210, log-periodičnima antenama WA5VJB LP8565A2 ter računalnikoma oddajnika in sprejemnika.}
+    \label{fig:sdr_sistem}
+\end{figure}
 
 BER je bil izračunan z neposredno bitno primerjavo izvorne in dekodirane datoteke:
 \begin{equation}
@@ -1389,11 +1390,25 @@ Ker je posamezen paket vseboval 1024 bitov, ena napačna odločitev pomeni sprem
 
 Izmerjene vrednosti kažejo, da večje število vzorcev na simbol praviloma izboljša zanesljivost odločitve. Pri večjem $N$ ima sprejemnik na voljo več realizacij $\alpha$-stabilne slučajne spremenljivke, zato lahko parameter $\beta$ oceni z manjšo statistično negotovostjo. To je posebej opazno pri razdaljah $0{,}5~\mathrm{m}$ in $1~\mathrm{m}$, kjer je bil pri $N=500$ dosežen BER $0{,}195~\%$ oziroma $0{,}293~\%$.
 
-Rezultati niso povsem monotoni niti glede na glede na razdaljo. Na primer, pri $N=200$ je bil BER pri razdalji $0{,}5~\mathrm{m}$ manjši kot pri $1{,}0~\mathrm{m}$. Takšna odstopanja so pričakovana, ker je bila za vsako kombinacijo parametrov izvedena samo ena meritev. Posamezna vrednost v tabeli zato predstavlja eno realizacijo naključnega komunikacijskega procesa in ne povprečja več ponovitev. Na rezultat vplivajo konkretna realizacija $\alpha$-stabilnih vzorcev, trenutni okoljski šum, večpotno razširjanje, odboji v prostoru ter trenutna frekvenčna in časovna neusklajenost naprav SDR. Že nekaj dodatnih napačno dekodiranih bitov lahko zaradi kratkega paketa opazno spremeni izračunani BER.
+Rezultati niso povsem monotoni glede na razdaljo. Na primer, pri $N=200$ je bil BER pri razdalji $0{,}5~\mathrm{m}$ manjši kot pri $1{,}0~\mathrm{m}$. Takšna odstopanja so pričakovana, ker je bila za vsako kombinacijo parametrov izvedena samo ena meritev. Posamezna vrednost v tabeli zato predstavlja eno realizacijo naključnega komunikacijskega procesa in ne povprečja več ponovitev. Na rezultat vplivajo konkretna realizacija $\alpha$-stabilnih vzorcev, trenutni okoljski šum, večpotno razširjanje, odboji v prostoru ter trenutna frekvenčna in časovna neusklajenost naprav SDR. Že nekaj dodatnih napačno dekodiranih bitov lahko zaradi kratkega paketa opazno spremeni izračunani BER.
 
 Na zanesljivost prenosa vpliva tudi sinhronizacija. Sprejemnik po dekodiranju izpiše oceno časovnega odmika kot parameter \texttt{drift}. Velika absolutna vrednost tega parametra lahko kaže na razliko med vzorčnima urama, izgubo vzorcev zaradi podkoračitve ali prekoračitve medpomnilnika oziroma napačno oceno zaključka paketa. Če ocenjena dolžina para pilot--podatek ni pravilna, se napaka časovnega položaja proti koncu paketa povečuje in lahko podatkovni simbol zajame tudi del pilotskega simbola. V implementaciji sprejemnik zato zavrne časovne ocene, ki niso skladne s pričakovano natančnostjo opreme, ter pri dekodiranju izpusti robne vzorce podatkovnega simbola.
 
-Meritve potrjujejo, da je prenos podatkov z modulacijo parametra $\beta$ $\alpha$-stabilne porazdelitve na opremi SDR izvedljiv. Rezultati hkrati kažejo kompromis med zanesljivostjo in hitrostjo: večji $N$ izboljša statistično oceno, vendar podaljša simbol in zmanjša bitno hitrost. Za zanesljivejšo kvantitativno oceno vpliva razdalje in vrednosti $N$ bi bilo treba meritve ponoviti ter podati povprečni BER z intervalom zaupanja. Čeprav podkoračitve in prekoračitve v najnovejših meritvah niso bile zaznane, so pri manj zmogljivi opremi ali zahtevnejših pogojih še vedno mogoče.
+Meritve potrjujejo, da je prenos podatkov z modulacijo parametra $\beta$ $\alpha$-stabilne porazdelitve na opremi SDR izvedljiv. Rezultati hkrati kažejo kompromis med zanesljivostjo in hitrostjo: večji $N$ izboljša statistično oceno, vendar podaljša simbol in zmanjša bitno hitrost. Za zanesljivejšo oceno vpliva razdalje in vrednosti $N$ bi bilo treba meritve ponoviti ter podati povprečni BER z intervalom zaupanja. Čeprav podkoračitve in prekoračitve v najnovejših meritvah niso bile zaznane, so pri manj zmogljivi opremi ali zahtevnejših pogojih še vedno mogoče.
+
+\chapter{Zaključek}
+
+V diplomskem delu je bil razvit in ovrednoten brezžični komunikacijski sistem, pri katerem se informacija prenaša s spreminjanjem parametra asimetrije $\beta$ $\alpha$-stabilnega šuma. Za ta namen sta bila izdelana lastna kodirnik in dekodirnik v okolju GNU Radio Companion, njuno delovanje pa je bilo najprej preverjeno v simulacijskem okolju in nato še pri dejanskem brezžičnem prenosu med dvema napravama USRP B210.
+
+Glavni prispevek dela je, kolikor nam je znano, prva odprtokodna implementacija komunikacijskega sistema na osnovi $\alpha$-stabilnega šuma v okolju GNU Radio, ki je bila preizkušena tudi v realnem brezžičnem okolju. Programska koda implementacije, konfiguracije sistema in rezultati meritev so javno dostopni na naslovu \url{https://github.com/zanzan731/alpha-stable-noise-based-communication}, kar omogoča ponovljivost eksperimentov in nadaljnji razvoj predstavljenega pristopa.
+
+Rezultati simulacij kažejo, da na zanesljivost prenosa pomembno vplivajo razlika med vrednostma parametra $\beta$, število segmentov $L$ in število vzorcev na simbol $N$. Najnižji BER je bil dosežen pri preslikavi $\beta\in\{-1,1\}$, saj sta pripadajoči porazdelitvi med seboj najbolj različni in ju dekodirnik najlažje loči. Vendar je ta preslikava z vidika skritosti komunikacije najmanj ugodna, ker je zaradi največje razlike med porazdelitvama signal lažje razlikovati in zaznati. Zmanjšanje razlike med vrednostma $\beta$ poveča podobnost porazdelitev in s tem skritost komunikacije, vendar hkrati oteži dekodiranje ter poveča BER. Izbira vrednosti $\beta$ zato predstavlja kompromis med zanesljivostjo prenosa in nizko zaznavnostjo komunikacije.
+
+Meritve na opremi SDR so potrdile izvedljivost prenosa brez kodiranja za popravljanje napak. Pri $N=500$ je bil na razdaljah $0{,}5~\mathrm{m}$, $1~\mathrm{m}$ in $2~\mathrm{m}$ izmerjen BER $0{,}195~\%$, $0{,}293~\%$ oziroma $1{,}172~\%$. Ugotovljeno je bilo tudi, da povečanje vrednosti $N$ izboljša zanesljivost, vendar zmanjša bitno hitrost. Pri praktični izvedbi sta se kot ključna izziva pokazala sinhronizacija ter zagotavljanje neprekinjenega toka vzorcev med računalnikom in radijsko napravo.
+
+Pomemben prostor za izboljšave ostaja predvsem na strani dekodirnika. Trenutna implementacija uporablja razmeroma preprost postopek ocenjevanja parametra $\beta$ in osnovne mehanizme sinhronizacije, zato doseženi rezultati ne predstavljajo zgornje meje zmogljivosti obravnavanega komunikacijskega pristopa. Z uporabo robustnejših metod ocenjevanja, prilagodljivih odločitvenih pragov, natančnejše časovne in frekvenčne sinhronizacije ter kodiranja za popravljanje napak bi bilo mogoče BER dodatno zmanjšati. Izboljšan dekodirnik bi lahko omogočil zanesljivo delovanje tudi pri manjših razlikah med vrednostma $\beta$, kar bi povečalo skritost komunikacije, in pri manjšem številu vzorcev na simbol, kar bi povečalo bitno hitrost.
+
+Razvita implementacija zato predstavlja predvsem osnovo za nadaljnje raziskave in ne dokončne meje uporabnosti sistema. Nadaljnje delo bi lahko obsegalo razvoj naprednejšega dekodirnika, ponovitev meritev z večjim številom paketov, izboljšanje sinhronizacije, prilagodljivo izbiro parametrov glede na razmere v kanalu in razširitev kodiranja še na druge parametre $\alpha$-stabilne porazdelitve. Takšne izboljšave bi lahko sistem približale praktični uporabi ter bistveno izboljšale razmerje med zanesljivostjo, bitno hitrostjo in skritostjo komunikacije.
 
 
 \cleardoublepage
