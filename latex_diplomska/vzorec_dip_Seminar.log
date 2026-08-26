@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  25 AUG 2026 19:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  26 AUG 2026 13:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1943,12 +1943,12 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 
 [15]
-<alpha_parameter.png, id=374, 963.6pt x 649.42625pt>
+<alpha_parameter.png, id=373, 963.6pt x 649.42625pt>
 File: alpha_parameter.png Graphic file (type png)
 <use alpha_parameter.png>
 Package pdftex.def Info: alpha_parameter.png  used on input line 697.
 (pdftex.def)             Requested size: 312.00119pt x 210.26828pt.
-<beta_parameter.png, id=376, 963.6pt x 649.42625pt>
+<beta_parameter.png, id=375, 963.6pt x 649.42625pt>
 File: beta_parameter.png Graphic file (type png)
 <use beta_parameter.png>
 Package pdftex.def Info: beta_parameter.png  used on input line 708.
@@ -1977,7 +1977,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 
 [17 <./beta_parameter.png>]
-<normalna_porazdelitev.png, id=397, 963.6pt x 616.3025pt>
+<normalna_porazdelitev.png, id=396, 963.6pt x 616.3025pt>
 File: normalna_porazdelitev.png Graphic file (type png)
 <use normalna_porazdelitev.png>
 Package pdftex.def Info: normalna_porazdelitev.png  used on input line 761.
@@ -1985,7 +1985,7 @@ Package pdftex.def Info: normalna_porazdelitev.png  used on input line 761.
 
 
 [18]
-<cauchijeva_porazdelitev.png, id=406, 963.6pt x 749.80125pt>
+<cauchijeva_porazdelitev.png, id=405, 963.6pt x 749.80125pt>
 File: cauchijeva_porazdelitev.png Graphic file (type png)
 <use cauchijeva_porazdelitev.png>
 Package pdftex.def Info: cauchijeva_porazdelitev.png  used on input line 783.
@@ -1993,7 +1993,7 @@ Package pdftex.def Info: cauchijeva_porazdelitev.png  used on input line 783.
 
 
 [19 <./normalna_porazdelitev.png>]
-<levy_destribution.png, id=417, 963.6pt x 978.65625pt>
+<levy_destribution.png, id=416, 963.6pt x 978.65625pt>
 File: levy_destribution.png Graphic file (type png)
 <use levy_destribution.png>
 Package pdftex.def Info: levy_destribution.png  used on input line 807.
@@ -2065,7 +2065,7 @@ Poglavje 5.
 [30
 
 ]
-<Alpha_encoder_and_decoder.png, id=484, 1720.17656pt x 282.30469pt>
+<Alpha_encoder_and_decoder.png, id=483, 1720.17656pt x 282.30469pt>
 File: Alpha_encoder_and_decoder.png Graphic file (type png)
 <use Alpha_encoder_and_decoder.png>
 Package pdftex.def Info: Alpha_encoder_and_decoder.png  used on input line 995.
@@ -2102,7 +2102,7 @@ WA5VJB LP8565A2
 [38]
 
 [39]
-<struktura_sdr_paketa.pdf, id=561, 468.418pt x 185.96275pt>
+<struktura_sdr_paketa.pdf, id=560, 468.418pt x 185.96275pt>
 File: struktura_sdr_paketa.pdf Graphic file (type pdf)
 <use struktura_sdr_paketa.pdf>
 Package pdftex.def Info: struktura_sdr_paketa.pdf  used on input line 1200.
@@ -2149,7 +2149,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 [45
 
 ]
-<l_error_log.png, id=755, 570.6921pt x 354.3639pt>
+<l_error_log.png, id=754, 570.6921pt x 354.3639pt>
 File: l_error_log.png Graphic file (type png)
 <use l_error_log.png>
 Package pdftex.def Info: l_error_log.png  used on input line 1292.
@@ -2169,7 +2169,7 @@ t/12 ; \OT1/cmr/m/n/12 320\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 400\OML/cmm/m/it/1
 
 
 [47]
-<beta_error.png, id=769, 570.6921pt x 354.3639pt>
+<beta_error.png, id=768, 570.6921pt x 354.3639pt>
 File: beta_error.png Graphic file (type png)
 <use beta_error.png>
 Package pdftex.def Info: beta_error.png  used on input line 1312.
@@ -2189,7 +2189,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 1326.
 
-<gama_error_log.png, id=776, 570.6921pt x 354.3639pt>
+<gama_error_log.png, id=775, 570.6921pt x 354.3639pt>
 File: gama_error_log.png Graphic file (type png)
 <use gama_error_log.png>
 Package pdftex.def Info: gama_error_log.png  used on input line 1340.
@@ -2199,7 +2199,7 @@ Package pdftex.def Info: gama_error_log.png  used on input line 1340.
 [49]
 
 [50 <./gama_error_log.png>]
-<antena_SDR.jpg, id=788, 1734.48pt x 3083.52pt>
+<antena_SDR.jpg, id=787, 1734.48pt x 3083.52pt>
 File: antena_SDR.jpg Graphic file (type jpg)
 <use antena_SDR.jpg>
 Package pdftex.def Info: antena_SDR.jpg  used on input line 1381.
@@ -2302,9 +2302,9 @@ msfonts/cm/cmti12.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/
 public/amsfonts/cm/cmti8.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts
 /type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/žan/AppData/Local/Programs/MiKT
 eX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on vzorec_dip_Seminar.pdf (73 pages, 2885085 bytes).
+Output written on vzorec_dip_Seminar.pdf (73 pages, 2884901 bytes).
 PDF statistics:
- 999 PDF objects out of 1000 (max. 8388607)
+ 998 PDF objects out of 1000 (max. 8388607)
  182 named destinations out of 1000 (max. 500000)
  485 words of extra memory for PDF output out of 10000 (max. 10000000)
 
