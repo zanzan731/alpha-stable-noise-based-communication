@@ -700,7 +700,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1592, 288.0]
+    coordinate: [2032, 260.0]
     rotation: 0
     state: disabled
 - name: qtgui_sink_x_0
@@ -729,7 +729,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [952, 764.0]
+    coordinate: [936, 748.0]
     rotation: 0
     state: enabled
 - name: samples_per_symbol
