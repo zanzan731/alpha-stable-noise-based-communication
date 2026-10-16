@@ -27,7 +27,7 @@ import threading
 
 class alpha_stable_generator(gr.top_block):
 
-    def __init__(self, L=5, alpha_map_str="1.2,1.4,1.6,1.8", beta_map_str="-1.0,1.0", center_frequency=915000000, decoded_file=r"decoded.bin", encoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\encoded.bin", eos_timeout=3.0, gama_map_str="0.5,1.0,1.5,2.0", noise_ratio=10, samples_per_symbol=200, source_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin", source_number_of_samples=128):
+    def __init__(self, L=5, alpha_map_str="1.2,1.4,1.6,1.8", beta_map_str="-1.0,1.0", center_frequency=915000000, decoded_file=r"decoded.bin", encoded_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\encoded.bin", eos_timeout=3.0, gama_map_str="0.5,1.0,1.5,2.0", noise_ratio=10, samples_per_symbol=500, source_file=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin", source_number_of_samples=128):
         gr.top_block.__init__(self, "Alpha stable simulation", catch_exceptions=True)
         self.flowgraph_started = threading.Event()
 
@@ -221,7 +221,7 @@ def argument_parser():
         "--noise-ratio", dest="noise_ratio", type=eng_float, default=eng_notation.num_to_str(float(10)),
         help="Set noise_ratio [default=%(default)r]")
     parser.add_argument(
-        "--samples-per-symbol", dest="samples_per_symbol", type=intx, default=200,
+        "--samples-per-symbol", dest="samples_per_symbol", type=intx, default=500,
         help="Set samples_per_symbol [default=%(default)r]")
     parser.add_argument(
         "--source-file", dest="source_file", type=str, default=r"C:\Users\ANEDCD~1\Desktop\3.letnik\Diploma\simulations\source.bin",
