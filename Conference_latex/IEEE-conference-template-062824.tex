@@ -1,0 +1,182 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+%Template version as of 6/27/2024
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{url}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Stochastic\textbackslash  Noise-Based Wireless Communication\\
+%{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured for https://ieeexplore.ieee.org  and should not be used}
+%\thanks{Identify applicable funding agency here. If none, delete this.}
+}
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} Žan Perat}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+Nova Gorica, Slovenija \\
+zan.perat@gmail.com}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Veljko Pejović}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+\and
+\IEEEauthorblockN{3\textsuperscript{rd} Areeb Ahmed}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+}
+\maketitle
+
+\begin{abstract}
+This document is a model and instructions for \LaTeX.
+This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, 
+or Math in Paper Title or Abstract.
+\end{abstract}
+
+\begin{IEEEkeywords}
+component, formatting, style, styling, insert.
+\end{IEEEkeywords}
+
+\section{Introduction}
+Wireless communication must balance reliability, transmition time, implementation cost, and the \textbf{exposure} created by a radio emission. In military sensing and monitoring applications, transmitting short status messages may be sufficient, even when high data rates are unnecessary. In such scenarios, covert communication may be more important than high-speed data transmission, as minimizing the probability of detection can outweigh the benefits of reduced transmission time. Such settings motivate to investigate waveforms whose information is representend statistically\textbackslash stochastically rather than by a conventional deterministic symbol constellation. This work examines one of such possibility through a practical implementation and testing in some real time scenarios. 
+
+An $\alpha$-stable random process provides a family of distributions with adjustable tail behaviour, asymmetry, scale, and location. In the communication scheme considered in this paper, the transmitter generates a new random sample sequence for each input bit.
+The selected bit determines the distribution asymmetry, while the reciever recovers the bit by estimating that asymmetry from a finite sample window.
+A \textbf{particular sample} value is therefore \textbf{not sufficient} to identify the transmitted bit (since it is somewhat stochastic). 
+Reliability depends on the statistical evidence accumulated across the symbol. 
+
+The use of random samples does not by itself establish confidentiality. However, noise-based waveforms have been proposed for covert communication, with prior work arguing that greater similarity between the symbol distributions makes unauthorised decoding more difficult\cite{b3}. The present study concentrates mostly on implementation, feasibility and bit error rate. At the time of writing this paper the real covertnest was still not tested. 
+
+Moving from simulation to radio hardware itself introduces an additional set of constraints. Samples must reach the transmitter continuously (no under/overflows), the reciver must find packet boundaries (where does the noise transmittion begin end?), and independent oscillators create carrier and sampling-clock offsets. These effects are particulary important when a decoder estimates a distribution from a long window: timing errors can mix piloting simbols with data and alter statistics used for the decision.
+
+The contributions of this paper are. First, it presents custom GNU Radio encoder and decoder blocks for binary communnication through the asymmetry ($\beta$) parameter of $\alpha$-stable noise. Second, it describes the framing, and synchronisation adaptation used to operate the simulation on two independent USRP devices that is used in this first implementation. Third, it reports simulation parameter sweeps and uncoded radio mesurements, identifying the trade-off between statistical estimator accuracy and transmition time. The contribution is an implementation and experimental evaluation of an existing modulation principle, rather than a claim to have introduced that principle.
+
+The work relates to military communications, experimental radio systems, and the evaluation of unconventional physical layer methods. 
+
+
+\section{Rationale for military application}
+\subsection{Communication Use Case}
+A candidate application is a low-rate link carrying a brief sensor report, equipment condition, or status update between nearby nodes. This kind of massage can tolarate a lower throughput than voice or imagery and is therefore a great candidate for lower throughput communication at hand. The relevant quetion is whether the additional observation time buys sufficient reliability to justify the longer transmission and energy expense.
+
+The experimental platform allows that questions to be studied by changing the number of samples per symbol, the separation of the symbol distributions, the receiver estimator, and use of other statistical parameters to transmit data. SDR is useful at this early stage because these choises can be changed in software while retaining the same basic radio hardware. The present measurments establish only proof of concept. They do not establish tactical range, field reliability, or suitability for an operational deployment.
+
+\subsection{Requirements and Evidence Needed}
+For a military application, the evaluation would need to cover message delivery probability, end-to-end latency, occupied bandwith, energy per delivered message, and performance under relevant interference. If reduced detectability is an objective, an explicitly defined observer and a detection experiment are also required. Packet acquisition must be included because in this first implementation the preamble and pilot simbols are still deterministic and so can reveal a transmission even when its payload is random. In some papers the pilot problem is already addressed and is non-deterministic, that should lower the probability of detection greatly (TODO paper ask Ahmeed he said that there is already a scheem for that). 
+
+The implemented waveform would complement higher layer protection:  authenticated encryption and replay protection would still be needed for confidentiality, integrity and message freshness (TODO idk how to say otherwise chat said to write this....). These mechanisms are outside the reported implementation, but this methods are already known and can be implemented as in existing systems. Likewise, successful decoding in additive Gausseian noise should not be interpreted as demonstrated resistence to a deliberate jammer. The military rationale is therfore a motivation for evaluating the platform under representative conditions, not an operational capability claim.
+
+\section{Related work}
+Ahmed and Savaci describe random communication based on skewed $\alpha$-stable Lévy noise shift keying \cite{b3}. Ahmed's dissertation also provides broder background on communication using $\alpha$-stable processes \cite{2}. These works form the conceptual\textbackslash matematical basis for representing symbols through distribution parameters. The focus here is the implementation of that principle in GNU Radio and the practical consequences of transferring it to independent SDR devices.
+
+Generation and estimation are central components of such a system. The Chambers-Mallows-Stuck(CMS) method and Weron's analysis address the generation of skewed stable random variables \cite{b8}. Work by Tsihrintzis and Nikas concerns fast estimation of $\alpha$-stable parameters \cite{b20}, while Tsihrinitzis, Shao, and Nikas discuss applications and processing of stable-distributed time series \cite{b21}. These references motivate treating parameter estimation as a design choise with its own final sample limitations.
+
+Impulsive interference is a further motivation for studying non-Gaussian models. Madi et al. examine the impact of impulsive noise on wireless performance \cite{b16}. That motivation must be distinguised from the channel used in the present simulation: here, the transmitted samples are $\alpha$-stable, but the added channel disturbance is Gaussian. The experiments do not test a seprate impulsive interferrer, that should be tested with deliberate jammer. 
+
+An adjecent implementation direction is chaotic spread-spectrum communication on SDR \cite{b7}. Such work shares the challenge of bringing unconventional waveforms into a practical radio platform, but should not be treated as an equivalent statistical modulation scheme. The present paper contributes a concrete GNU Radio workflow and measured results for assymmetry modulation, with explicit attention to synchronization and framing overhead.
+
+\section{Statistical modulation and receiver}
+\subsection{Signal Model}
+Let  $b_j\in\{0,1\}$ denote the $j$-th payload bit. The binary mapping is:
+\begin{equation}
+\beta_j = (2b_j - 1) \frac{\Delta \beta}{2},
+\end{equation}
+where $0<\Delta\beta\leq2$ controls the separation of the two distributions. The largest separation gives $\beta_j\in\{-1,1\}$. The transmitter generates $N$ independent samples per bit,
+\begin{equation}
+x_{j,k}\sim S_\alpha(\beta_j,\gamma,0),\quad k=1,\ldots,N.
+\end{equation}
+In this implementation information is encoded exclusively through $\beta$, but other parameters are open for further implementation.
+
+
+For the simulated additive channel,
+\begin{equation}
+y_{j,k}=x_{j,k}+w_{j,k},
+\end{equation}
+where $w_{j,k}$ is Gaussian noise. This is a simulation model, not a complete model of the physical radio link. Hardware transmission additionally introduces gain, filtering, finite dynamic range, carrier offsets, and timing uncertainty.
+
+The parameter $\alpha$ controls tail behaviour, $\beta$ controls asymmetry, and $\gamma$ controls scale. For $\alpha<2$, an ideal stable variable has no finite second moment. Consequently, a conventional signal-power interpretation requires care. Moreover, finite radio hardware cannot reproduce unbounded tails (hardware has limmitations you clip to max min...). The mapping from generated samples to the transmitted amplitude range is therefore an important item to document and control in subsequent measurements.
+
+\subsection{Random Sample Generation}
+Samples are generated using a Chambers--Mallows--Stuck construction~\cite{b8}. For $\alpha\ne1$, define
+\begin{align}
+B&=\arctan\left(\beta\tan\frac{\pi\alpha}{2}\right),\\
+C&=\left(1+\beta^2\tan^2\frac{\pi\alpha}{2}\right)^{1/(2\alpha)}.
+\end{align}
+With independent $V\sim\mathcal U(-\pi/2,\pi/2)$ and $W\sim\mathrm{Exp}(1)$, the sample is
+\begin{equation}
+X=\gamma C\frac{\sin(\alpha V+B)}{(\cos V)^{1/\alpha}}
+\left[\frac{\cos((1-\alpha)V-B)}{W}\right]^{(1-\alpha)/\alpha}.
+\end{equation}
+This form is sufficient for the reported value $\alpha=1.1$, used in this implementation. Independent random draws are used for every sample, while the selected $\beta$ is shared across the $N$ samples of a bit. A longer symbol supplies more observations of the distribution but also consumes proportionally more transmission time.
+
+\subsection{Extrema-Based Estimation}
+The receiver divides a symbol into $L$ segments of $K=N/L$ samples, with $L>1$. For segment $l$, it forms logarithmic upper and lower extrema,
+\begin{align}
+u_l&=\ln\left(\max_k y_{l,k}\right),\\
+v_l&=\ln\left(-\min_k y_{l,k}\right).
+\end{align}
+These expressions require a positive upper extreme and a negative lower extreme. Segments that do not satisfy these conditions, numerical degeneracies, and clipped samples require explicit handling in a robust implementation.
+
+Let $\bar u$ and $\bar v$ be the means of these values across the $L$ segments,
+\begin{align}
+\bar u &= \frac{1}{L}\sum_{l=1}^{L} u_l,\\
+\bar v &= \frac{1}{L}\sum_{l=1}^{L} v_l,
+\end{align}
+and let $s_u$ and $s_v$ be their sample standard deviations, using denominator $L-1$. 
+\begin{align}
+s_u &= \sqrt{\frac{1}{L-1}
+       \sum_{l=1}^{L}(u_l-\bar u)^2},\\
+s_v &= \sqrt{\frac{1}{L-1}
+       \sum_{l=1}^{L}(v_l-\bar v)^2}.
+\end{align}
+The implemented estimator has the form
+\begin{align}
+\hat\alpha&=\frac{\pi}{2\sqrt6}\left(\frac1{s_u}+\frac1{s_v}\right),\\
+\hat\beta&=\tanh\left[\frac{\hat\alpha}{2}(\bar u-\bar v)\right].
+\end{align}
+
+
+
+
+
+
+The decoder selects the nearest permitted value of $\beta$. For the symmetric binary mapping, this is a decision at zero. The extrema-based approach is computationally compact, but its finite-sample behaviour depends on both the number of segments and the observations retained within each segment.
+
+Increasing $L$ creates more segment-level statistics while reducing $K$. Increasing $N$ can improve the available evidence without that same reduction in segment length, but lowers the bit rate. Neither choice is universally optimal: the evaluation below establishes behaviour only for the tested stability parameter, estimator, and channel.
+
+\section{GNU Radio and SDR Implementation}
+\section{Experimental Setup}
+\section{Experiment results}
+\section{Conclusion}
+
+\begin{thebibliography}{00}
+\bibitem{b3} A. Ahmed and F. A. Savaci, ``Random communication system based on skewed alpha-stable levy noise shift keying,'' Journal of Circuits, Systems and Computers, vol. 26, no. 11, p. 1750186, 2017.
+\bibitem{b4} A. Ahmed, ``Random communication systems based on alpha-stable processes,'' Doctoral dissertation, Graduate School of Engineering and Sciences, Izmir Institute of Technology, Izmir, Turkey, 2018.
+\bibitem{b5} {Ettus Research}, ``{USRP B210 USB Software Defined Radio (SDR)},'' Available at: \url{https://www.ettus.com/all-products/ub210-kit/}, 2026.
+\bibitem{b6} {WA5VJB}, ``{850--6500 MHz PCB LP Antenna LP8565A2},'' Available at: \url{https://www.wa5vjb.com/pcb-pdfs/LP8565A2.pdf}, 2012.
+\bibitem{b7} A. Aboltins, F. Capligins, N. Hasjuks, and A. Ahrens, ``Implementation of chaotic frequency modulation based spread spectrum communication system in software-defined radio,'' in 2019 Open Conference of Electrical, Electronic and Information Sciences (eStream). IEEE, 2019, pp. 1--4.
+\bibitem{b8} R. Weron, ``On the {Chambers--Mallows--Stuck} method for simulating skewed stable random variables,'' Statistics \& Probability Letters, vol. 28, no. 2, pp. 165--171, 1996.
+\bibitem{b9} V. Lutovac and E. Kočan, ``Physical layer security in wireless networks -- concept, performance and perspectives,'' in Proceedings of the 29th International Conference on Information Technology (IT). IEEE, 2025.
+\bibitem{b10} {Wikipedia}, ``Additive white gaussian noise,'' Available at: \url{https://en.wikipedia.org/wiki/Additive_white_Gaussian_noise}, 2026.
+\bibitem{b11} {IB-Lenhardt AG}, ``Awgn (additive white gaussian noise) -- definition and use,'' Available at: \url{https://ib-lenhardt.com/kb/glossary/awgn}, 2025.
+\bibitem{b16} G. Madi, F. Sacuto, B. Vrigneau, B. L. Agba, Y. Pousset, R. Vauzelle, and F. Gagnon, ``Impacts of impulsive noise from partial discharges on wireless systems performance: application to mimo precoders,'' EURASIP Journal on Wireless Communications and Networking, vol. 2011, no. 186, 2011.
+\bibitem{b17} {GNU Radio}, ``Gnu radio,'' Available at: \url{https://www.gnuradio.org/}, 2026.
+\bibitem{b18} R. M. Balan, ``Spdes with {${\alpha}$}-stable {L{\'e}vy} noise: A random field approach,'' International Journal of Stochastic Analysis, vol. 2014, no. 1, p. 793275, 2014.
+\bibitem{b19} X. Liu and A. Goldsmith, ``Wireless communication tradeoffs in distributed control,'' in Proceedings of the 42nd IEEE Conference on Decision and Control, vol. 1. Maui, HI, USA: IEEE, 2003, pp. 688--694.
+\bibitem{b20} G. A. Tsihrintzis and C. L. Nikias, ``Fast estimation of the parameters of {Alpha-Stable} impulsive interference,'' Signal and Image Processing Institute, University of Southern California, Los Angeles, CA, USA, Tech. Rep. USC-SIPI Report 270, Sep. 1994.
+\bibitem{b21} G. A. Tsihrintzis, M. Shao, and C. L. Nikias, ``Recent results in applications and processing of {${\alpha}$}-stable-distributed time series,'' Journal of the Franklin Institute, vol. 333, no. 4, pp. 467--497, Jul. 1996.
+\end{thebibliography}
+
+\end{document}
+

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  25 AUG 2026 18:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2026.2.28)  30 OCT 2026 15:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1512,28 +1512,8 @@ een already used, duplicate ignored
                    \relax 
 l.285 \clearemptydoublepage
                             [8]
-Overfull \hbox (38.55318pt too wide) in paragraph at lines 311--311
-[]\OT1/cmr/bx/n/12 Abbreviation| 
- []
-
-
-Overfull \hbox (2.7754pt too wide) in paragraph at lines 312--312
-[]\OT1/cmr/bx/n/12 OFDM| 
- []
-
-
-Overfull \hbox (1.77542pt too wide) in paragraph at lines 313--313
-[]\OT1/cmr/bx/n/12 MIMO| 
- []
-
-
-Overfull \hbox (1.92822pt too wide) in paragraph at lines 317--317
-[]\OT1/cmr/bx/n/12 MSNR| 
- []
-
-
-Overfull \hbox (4.42818pt too wide) in paragraph at lines 320--320
-[]\OT1/cmr/bx/n/12 AWGN| 
+Overfull \hbox (7.95343pt too wide) in paragraph at lines 310--325
+[] 
  []
 
 
@@ -1543,7 +1523,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.327 \clearemptydoublepage
+l.328 \clearemptydoublepage
                             [9
 
 
@@ -1554,7 +1534,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.327 \clearemptydoublepage
+l.328 \clearemptydoublepage
                             [10
 
 ]
@@ -1564,7 +1544,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.347 \clearemptydoublepage
+l.348 \clearemptydoublepage
                             [11
 
 ]
@@ -1574,7 +1554,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.347 \clearemptydoublepage
+l.348 \clearemptydoublepage
                             [12
 
 ]
@@ -1584,7 +1564,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.368 \clearemptydoublepage
+l.369 \clearemptydoublepage
                             [13
 
 ]
@@ -1594,7 +1574,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.368 \clearemptydoublepage
+l.369 \clearemptydoublepage
                             [14
 
 ]
@@ -1605,7 +1585,7 @@ Chapter 1.
 
 
 ]
-Overfull \hbox (5.0223pt too wide) in paragraph at lines 391--392
+Overfull \hbox (5.0223pt too wide) in paragraph at lines 392--393
 []\OT1/cmr/m/n/12 Deploying the sys-tem on software-defined ra-dio hard-ware re
 -quires adapt-
  []
@@ -1613,7 +1593,7 @@ Overfull \hbox (5.0223pt too wide) in paragraph at lines 391--392
 
 
 [2]
-Overfull \hbox (11.27834pt too wide) in paragraph at lines 412--413
+Overfull \hbox (11.27834pt too wide) in paragraph at lines 413--414
 \OT1/cmr/m/n/12 sented in this the-sis are pub-licly avail-able at []$\OT1/cmtt
 /m/n/12 https : / / github . com / zanzan731 /
  []
@@ -1623,7 +1603,7 @@ Overfull \hbox (11.27834pt too wide) in paragraph at lines 412--413
 [3]
 Chapter 2.
 
-Overfull \hbox (6.84378pt too wide) in paragraph at lines 421--421
+Overfull \hbox (6.84378pt too wide) in paragraph at lines 422--422
 []\OT1/cmr/bx/n/17.28 Fundamentals of Wire-less Com-mu-ni-ca-tion 
  []
 
@@ -1632,125 +1612,125 @@ Overfull \hbox (6.84378pt too wide) in paragraph at lines 421--421
 [4
 
 ]
-<sender_receiver.png, id=295, 1732.97438pt x 213.04594pt>
-File: sender_receiver.png Graphic file (type png)
-<use sender_receiver.png>
-Package pdftex.def Info: sender_receiver.png  used on input line 428.
-(pdftex.def)             Requested size: 390.0pt x 47.94301pt.
+<sender_receiver_en.pdf, id=295, 412.60849pt x 52.21507pt>
+File: sender_receiver_en.pdf Graphic file (type pdf)
+<use sender_receiver_en.pdf>
+Package pdftex.def Info: sender_receiver_en.pdf  used on input line 429.
+(pdftex.def)             Requested size: 390.0pt x 49.35544pt.
 
 
-[5 <./sender_receiver.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+[5 <./sender_receiver_en.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 []\OT1/cmr/bx/n/12 Typical
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 low la-tency,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 sup-port for
  []
 
 
-Underfull \hbox (badness 1960) in paragraph at lines 480--480
+Underfull \hbox (badness 1960) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Requires base-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 station in-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 fras-truc-ture,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 higher power
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Mobile net-works,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 broad-band ac-cess,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 in-dus-trial ap-pli-ca-
  []
 
 
-Underfull \hbox (badness 4341) in paragraph at lines 480--480
+Underfull \hbox (badness 4341) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 High through-
  []
 
 
-Underfull \hbox (badness 1163) in paragraph at lines 480--480
+Underfull \hbox (badness 1163) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Limited range,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 sen-si-tiv-ity to
  []
 
 
-Overfull \hbox (2.39272pt too wide) in paragraph at lines 480--480
+Overfull \hbox (2.39272pt too wide) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Approximately
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Short range,
  []
 
 
-Overfull \hbox (2.39272pt too wide) in paragraph at lines 480--480
+Overfull \hbox (2.39272pt too wide) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Approximately
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Wireless head-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 phones, key-boards,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 smart-watches, sen-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Very long
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 range, very
  []
 
 
-Underfull \hbox (badness 4940) in paragraph at lines 480--480
+Underfull \hbox (badness 4940) in paragraph at lines 481--481
 []\OT1/cmr/m/n/12 Internet of Things
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
 \OT1/cmr/m/n/12 (IoT), sen-sor net-
  []
 
@@ -1759,7 +1739,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 480--480
 [6]
 
 [7]
-Overfull \hbox (2.35385pt too wide) in paragraph at lines 489--489
+Overfull \hbox (2.35385pt too wide) in paragraph at lines 490--490
 []\OT1/cmr/bx/n/17.28 Key Chal-lenges of Mod-ern Wire-less Com-
  []
 
@@ -1773,15 +1753,15 @@ Overfull \hbox (2.35385pt too wide) in paragraph at lines 489--489
 Chapter 3.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 526.
+(hyperref)                removing `math shift' on input line 527.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 526.
+(hyperref)                removing `\alpha' on input line 527.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 526.
+(hyperref)                removing `math shift' on input line 527.
 
 
 
@@ -1790,20 +1770,20 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 554.
+(hyperref)                removing `math shift' on input line 555.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 554.
+(hyperref)                removing `\alpha' on input line 555.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 554.
+(hyperref)                removing `math shift' on input line 555.
 
 
 
 [12]
-Overfull \hbox (3.31235pt too wide) detected at line 662
+Overfull \hbox (3.31235pt too wide) detected at line 663
 [][]
  []
 
@@ -1814,65 +1794,65 @@ Overfull \hbox (3.31235pt too wide) detected at line 662
 [14]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 686.
+(hyperref)                removing `math shift' on input line 687.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 686.
+(hyperref)                removing `\alpha' on input line 687.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 686.
+(hyperref)                removing `math shift' on input line 687.
 
-<alpha_parameter.png, id=366, 963.6pt x 649.42625pt>
+<alpha_parameter.png, id=377, 963.6pt x 649.42625pt>
 File: alpha_parameter.png Graphic file (type png)
 <use alpha_parameter.png>
-Package pdftex.def Info: alpha_parameter.png  used on input line 695.
+Package pdftex.def Info: alpha_parameter.png  used on input line 696.
 (pdftex.def)             Requested size: 312.00119pt x 210.26828pt.
 
 
 [15 <./alpha_parameter.png>]
-<beta_parameter.png, id=376, 963.6pt x 649.42625pt>
+<beta_parameter.png, id=388, 963.6pt x 649.42625pt>
 File: beta_parameter.png Graphic file (type png)
 <use beta_parameter.png>
-Package pdftex.def Info: beta_parameter.png  used on input line 706.
+Package pdftex.def Info: beta_parameter.png  used on input line 707.
 (pdftex.def)             Requested size: 312.00119pt x 210.26828pt.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 722.
+(hyperref)                removing `math shift' on input line 723.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 722.
+(hyperref)                removing `\alpha' on input line 723.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 722.
+(hyperref)                removing `math shift' on input line 723.
 
 
 
 [16 <./beta_parameter.png>]
-<normalna_porazdelitev.png, id=388, 963.6pt x 616.3025pt>
+<normalna_porazdelitev.png, id=400, 963.6pt x 616.3025pt>
 File: normalna_porazdelitev.png Graphic file (type png)
 <use normalna_porazdelitev.png>
-Package pdftex.def Info: normalna_porazdelitev.png  used on input line 759.
+Package pdftex.def Info: normalna_porazdelitev.png  used on input line 760.
 (pdftex.def)             Requested size: 312.00119pt x 199.54361pt.
 
 
 [17]
-<cauchijeva_porazdelitev.png, id=398, 963.6pt x 749.80125pt>
+<cauchijeva_porazdelitev.png, id=410, 963.6pt x 749.80125pt>
 File: cauchijeva_porazdelitev.png Graphic file (type png)
 <use cauchijeva_porazdelitev.png>
-Package pdftex.def Info: cauchijeva_porazdelitev.png  used on input line 781.
+Package pdftex.def Info: cauchijeva_porazdelitev.png  used on input line 782.
 (pdftex.def)             Requested size: 312.00119pt x 242.76723pt.
 
 
 [18 <./normalna_porazdelitev.png>]
-<levy_destribution.png, id=409, 963.6pt x 978.65625pt>
+<levy_destribution.png, id=421, 963.6pt x 978.65625pt>
 File: levy_destribution.png Graphic file (type png)
 <use levy_destribution.png>
-Package pdftex.def Info: levy_destribution.png  used on input line 805.
+Package pdftex.def Info: levy_destribution.png  used on input line 806.
 (pdftex.def)             Requested size: 312.00119pt x 316.86487pt.
 
 
@@ -1883,7 +1863,7 @@ Package pdftex.def Info: levy_destribution.png  used on input line 805.
 [21]
 
 [22]
-Overfull \hbox (22.89967pt too wide) in paragraph at lines 895--895
+Overfull \hbox (22.89967pt too wide) in paragraph at lines 896--896
 []\OT1/cmr/bx/n/17.28 Significance of Sta-bil-ity for Communication-
  []
 
@@ -1895,15 +1875,15 @@ Overfull \hbox (22.89967pt too wide) in paragraph at lines 895--895
 Chapter 4.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 910.
+(hyperref)                removing `math shift' on input line 911.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 910.
+(hyperref)                removing `\alpha' on input line 911.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 910.
+(hyperref)                removing `math shift' on input line 911.
 
 
 
@@ -1922,11 +1902,11 @@ Chapter 5.
 [29
 
 ]
-<Alpha_encoder_and_decoder_eng.png, id=475, 1785.67125pt x 372.64218pt>
+<Alpha_encoder_and_decoder_eng.png, id=487, 1785.67125pt x 372.64218pt>
 File: Alpha_encoder_and_decoder_eng.png Graphic file (type png)
 <use Alpha_encoder_and_decoder_eng.png>
 Package pdftex.def Info: Alpha_encoder_and_decoder_eng.png  used on input line 
-1002.
+1003.
 (pdftex.def)             Requested size: 390.0pt x 81.38449pt.
 
 
@@ -1941,7 +1921,7 @@ Package pdftex.def Info: Alpha_encoder_and_decoder_eng.png  used on input line
 [34]
 
 [35]
-Overfull \hbox (1.31274pt too wide) in paragraph at lines 1177--1178
+Overfull \hbox (1.31274pt too wide) in paragraph at lines 1178--1179
 \OT1/cmr/m/n/12 pling rate. If the com-puter can-not sup-ply them quickly enoug
 h, an \OT1/cmtt/m/n/12 underflow
  []
@@ -1949,65 +1929,75 @@ h, an \OT1/cmtt/m/n/12 underflow
 
 
 [36]
-Overfull \hbox (2.44547pt too wide) in paragraph at lines 1194--1195
+
+[37]
+
+[38]
+<packet_structure_en.pdf, id=565, 468.418pt x 185.86139pt>
+File: packet_structure_en.pdf Graphic file (type pdf)
+<use packet_structure_en.pdf>
+Package pdftex.def Info: packet_structure_en.pdf  used on input line 1212.
+(pdftex.def)             Requested size: 390.0pt x 154.74701pt.
+
+Overfull \hbox (2.44547pt too wide) in paragraph at lines 1218--1219
 \OT1/cmr/m/n/12 Synchronising an $\OML/cmm/m/it/12 $\OT1/cmr/m/n/12 -stable si
 g-nal is dif-fi-cult be-cause it re-sem-bles noise. Search-
  []
 
 
 
-[37]
+[39 <./packet_structure_en.pdf>]
 
-[38]
-
-[39]
-Chapter 6.
-
-
-[40
-
-]
+[40]
 
 [41]
-LaTeX Font Info:    Trying to load font information for OMS+cmtt on input line 
-1257.
-LaTeX Font Info:    No file OMScmtt.fd. on input line 1257.
-
-
-LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
-(Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 1257.
-
-
-Overfull \hbox (36.1959pt too wide) in paragraph at lines 1241--1270
-[][] 
- []
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1275.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1275.
-
+Chapter 6.
 
 
 [42
 
 ]
-<l_error_log.png, id=576, 570.6921pt x 354.3639pt>
+
+[43]
+LaTeX Font Info:    Trying to load font information for OMS+cmtt on input line 
+1281.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 1281.
+
+
+LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
+(Font)              using `OMS/cmsy/m/n' instead
+(Font)              for symbol `textbraceleft' on input line 1281.
+
+
+Overfull \hbox (36.1959pt too wide) in paragraph at lines 1265--1294
+[][] 
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1299.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1299.
+
+
+
+[44
+
+]
+<l_error_log.png, id=747, 570.6921pt x 354.3639pt>
 File: l_error_log.png Graphic file (type png)
 <use l_error_log.png>
-Package pdftex.def Info: l_error_log.png  used on input line 1281.
+Package pdftex.def Info: l_error_log.png  used on input line 1305.
 (pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
 
 
-[43 <./l_error_log.png>]
-<beta_error.png, id=584, 570.6921pt x 354.3639pt>
+[45 <./l_error_log.png>]
+<beta_error.png, id=755, 570.6921pt x 354.3639pt>
 File: beta_error.png Graphic file (type png)
 <use beta_error.png>
-Package pdftex.def Info: beta_error.png  used on input line 1300.
+Package pdftex.def Info: beta_error.png  used on input line 1324.
 (pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
 
 
@@ -2015,23 +2005,23 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 
-[44]
+[46]
 
-[45 <./beta_error.png>]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1314.
-
+[47 <./beta_error.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\gamma' on input line 1314.
+(hyperref)                removing `math shift' on input line 1338.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1314.
+(hyperref)                removing `\gamma' on input line 1338.
 
 
-Overfull \hbox (0.45071pt too wide) in paragraph at lines 1316--1317
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1338.
+
+
+Overfull \hbox (0.45071pt too wide) in paragraph at lines 1340--1341
 \OT1/cmtt/m/n/12 noise[]ratio$\OT1/cmr/m/n/12 = 1\OML/cmm/m/it/12 :\OT1/cmr/m/n
 /12 0$. The val-ues $\OML/cmm/m/it/12 N \OMS/cmtt/m/n/12 2 f\OT1/cmr/m/n/12 40\
 OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 80\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 160\OML/
@@ -2041,50 +2031,50 @@ it/12 ; \OT1/cmr/m/n/12 800\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1000\OMS/cmtt/m/n
 /12 g$
  []
 
-<gama_error_log.png, id=596, 570.6921pt x 354.3639pt>
+<gama_error_log.png, id=768, 570.6921pt x 354.3639pt>
 File: gama_error_log.png Graphic file (type png)
 <use gama_error_log.png>
-Package pdftex.def Info: gama_error_log.png  used on input line 1328.
+Package pdftex.def Info: gama_error_log.png  used on input line 1352.
 (pdftex.def)             Requested size: 312.00119pt x 193.73279pt.
 
 
-[46]
+[48]
 
-[47 <./gama_error_log.png>]
-Overfull \hbox (9.88765pt too wide) in paragraph at lines 1363--1364
+[49 <./gama_error_log.png>]
+Overfull \hbox (9.88765pt too wide) in paragraph at lines 1387--1388
 \OT1/cmr/m/n/12 Measurements were per-formed us-ing two USRP B210 de-vices and 
 two WA5VJB
  []
 
-<antena_SDR.jpg, id=609, 1734.48pt x 3083.52pt>
+<antena_SDR.jpg, id=780, 1734.48pt x 3083.52pt>
 File: antena_SDR.jpg Graphic file (type jpg)
 <use antena_SDR.jpg>
-Package pdftex.def Info: antena_SDR.jpg  used on input line 1368.
+Package pdftex.def Info: antena_SDR.jpg  used on input line 1392.
 (pdftex.def)             Requested size: 234.00238pt x 415.97495pt.
 
-Overfull \hbox (25.97495pt too wide) in paragraph at lines 1366--1370
+Overfull \hbox (25.97495pt too wide) in paragraph at lines 1390--1394
  [][] 
  []
 
 
 
-[48]
-
-[49 <./antena_SDR.jpg>]
-
 [50]
 
-[51]
+[51 <./antena_SDR.jpg>]
+
+[52]
+
+[53]
 Chapter 7.
 
 
-[52
+[54
 
 ]
 
-[53]
+[55]
 
-[54
+[56
 
 ] (english.bbl
 Underfull \hbox (badness 3590) in paragraph at lines 37--43
@@ -2112,13 +2102,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 37--43
 
 
 
-[55
+[57
 
 ]
 
-[56])
+[58])
 
-[57] (english.aux)
+[59] (english.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-07-19>
@@ -2131,41 +2121,45 @@ Package rerunfilecheck Info: File `english.out' has not changed.
 (rerunfilecheck)             Checksum: EBCC6B5108B2B48D78634E1376C1039C;6637.
  ) 
 Here is how much of TeX's memory you used:
- 29688 strings out of 468149
- 597241 string characters out of 5431566
- 1020006 words of memory out of 5000000
- 57596 multiletter control sequences out of 15000+600000
+ 29700 strings out of 468149
+ 598001 string characters out of 5431566
+ 1020241 words of memory out of 5000000
+ 57604 multiletter control sequences out of 15000+600000
  643695 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  98i,13n,105p,1240b,1009s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\žan\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1
 200.pk><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
-/cm/cmbx12.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmcsc10.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/amsfonts/cm/cmex10.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fo
-nts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/žan/AppData/Local/Programs/M
-iKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/žan/AppData/Local/Pr
-ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/žan/AppData/L
-ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/žan/Ap
-pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/
-žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:
-/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.
-pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
-/cmr6.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
-nts/cm/cmr7.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public
-/amsfonts/cm/cmr8.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/
-public/amsfonts/cm/cmsl12.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/font
-s/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/žan/AppData/Local/Programs/MiK
-TeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/žan/AppData/Local/Progr
-ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/žan/AppData/Loca
-l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/žan/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Users/ž
-an/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/
-Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/ms
-bm10.pfb>
-Output written on english.pdf (71 pages, 2752833 bytes).
+/cmextra/cmbsy9.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/pu
+blic/amsfonts/cm/cmbx12.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/žan/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/žan/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/žan/AppData/Loc
+al/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/žan/App
+Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/�
+�an/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/
+Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.p
+fb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmr10.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
+nts/cm/cmr12.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmr17.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmr6.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/font
+s/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/žan/AppData/Local/Programs/MiKTe
+X/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/žan/AppData/Local/Programs
+/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/žan/AppData/Local/Pr
+ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmsl12.pfb><C:/Users/žan/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/žan/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/User
+s/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><
+C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy
+9.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmti12.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
+msfonts/cm/cmti8.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmtt12.pfb><C:/Users/žan/AppData/Local/Programs/MiKTeX/fonts
+/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on english.pdf (73 pages, 2806280 bytes).
 PDF statistics:
- 815 PDF objects out of 1000 (max. 8388607)
- 177 named destinations out of 1000 (max. 500000)
- 480 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 991 PDF objects out of 1000 (max. 8388607)
+ 181 named destinations out of 1000 (max. 500000)
+ 485 words of extra memory for PDF output out of 10000 (max. 10000000)
 

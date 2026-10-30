@@ -110,32 +110,35 @@
 \citation{wa5vjbLP8565A2}
 \@writefile{toc}{\contentsline {section}{\numberline {5.5}Implementation on SDR Hardware}{36}{section.5.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.5.1}Vectorised Generation of $\alpha $-Stable Samples}{37}{subsection.5.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.2}Synchronisation}{38}{subsection.5.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.3}Pilot Symbols and Carrier Tracking}{38}{subsection.5.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.4}Clock-Offset Correction}{39}{subsection.5.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Evaluation in the Simulation and Real-World Environments}{40}{chapter.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.2}Transmission Packet Structure}{38}{subsection.5.5.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Structure of a transmission packet for communication over SDR hardware. The synchronisation sequence and header repeated three times are followed by pairs of pilot and $\alpha $-stable data symbols and a guard tail.}}{39}{figure.5.2}\protected@file@percent }
+\newlabel{fig:struktura_sdr_paketa}{{5.2}{39}{Structure of a transmission packet for communication over SDR hardware. The synchronisation sequence and header repeated three times are followed by pairs of pilot and $\alpha $-stable data symbols and a guard tail}{figure.5.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.3}Synchronisation}{39}{subsection.5.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.4}Pilot Symbols and Carrier Tracking}{40}{subsection.5.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.5}Clock-Offset Correction}{40}{subsection.5.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Evaluation in the Simulation and Real-World Environments}{42}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \citation{gnuradioNoiseSource}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Parameters}{42}{section.6.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Simulation parameters.}}{42}{table.6.1}\protected@file@percent }
-\newlabel{tab:parametri}{{6.1}{42}{Simulation parameters}{table.6.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Effect of the Number of Segments $L$}{42}{section.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Parameters}{44}{section.6.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Simulation parameters.}}{44}{table.6.1}\protected@file@percent }
+\newlabel{tab:parametri}{{6.1}{44}{Simulation parameters}{table.6.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Effect of the Number of Segments $L$}{44}{section.6.2}\protected@file@percent }
 \citation{tsihrintzis1994fast}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces BER as a function of samples per symbol $N$ for different values of $L$.}}{43}{figure.6.1}\protected@file@percent }
-\newlabel{fig:l_segments}{{6.1}{43}{BER as a function of samples per symbol $N$ for different values of $L$}{figure.6.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.3}Communication Covertness}{44}{section.6.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces BER as a function of $\Delta \beta $ for different values of $N$.}}{45}{figure.6.2}\protected@file@percent }
-\newlabel{beta_error}{{6.2}{45}{BER as a function of $\Delta \beta $ for different values of $N$}{figure.6.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.4}Effect of the Parameter $\gamma $}{46}{section.6.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces BER as a function of MSNR for different values of $N$.}}{47}{figure.6.3}\protected@file@percent }
-\newlabel{gama_error}{{6.3}{47}{BER as a function of MSNR for different values of $N$}{figure.6.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.5}Results on SDR Hardware}{48}{section.6.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces Experimental communication system comprising two USRP B210 devices, two WA5VJB LP8565A2 log-periodic antennas, and the transmitter and receiver computers.}}{49}{figure.6.4}\protected@file@percent }
-\newlabel{fig:sdr_sistem}{{6.4}{49}{Experimental communication system comprising two USRP B210 devices, two WA5VJB LP8565A2 log-periodic antennas, and the transmitter and receiver computers}{figure.6.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.2}{\ignorespaces Measured BER as a function of distance and number of samples per symbol.}}{50}{table.6.2}\protected@file@percent }
-\newlabel{tab:sdr_ber_rezultati}{{6.2}{50}{Measured BER as a function of distance and number of samples per symbol}{table.6.2}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusion}{52}{chapter.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces BER as a function of samples per symbol $N$ for different values of $L$.}}{45}{figure.6.1}\protected@file@percent }
+\newlabel{fig:l_segments}{{6.1}{45}{BER as a function of samples per symbol $N$ for different values of $L$}{figure.6.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Communication Covertness}{46}{section.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces BER as a function of $\Delta \beta $ for different values of $N$.}}{47}{figure.6.2}\protected@file@percent }
+\newlabel{beta_error}{{6.2}{47}{BER as a function of $\Delta \beta $ for different values of $N$}{figure.6.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.4}Effect of the Parameter $\gamma $}{48}{section.6.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces BER as a function of MSNR for different values of $N$.}}{49}{figure.6.3}\protected@file@percent }
+\newlabel{gama_error}{{6.3}{49}{BER as a function of MSNR for different values of $N$}{figure.6.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.5}Results on SDR Hardware}{50}{section.6.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces Experimental communication system comprising two USRP B210 devices, two WA5VJB LP8565A2 log-periodic antennas, and the transmitter and receiver computers.}}{51}{figure.6.4}\protected@file@percent }
+\newlabel{fig:sdr_sistem}{{6.4}{51}{Experimental communication system comprising two USRP B210 devices, two WA5VJB LP8565A2 log-periodic antennas, and the transmitter and receiver computers}{figure.6.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.2}{\ignorespaces Measured BER as a function of distance and number of samples per symbol.}}{52}{table.6.2}\protected@file@percent }
+\newlabel{tab:sdr_ber_rezultati}{{6.2}{52}{Measured BER as a function of distance and number of samples per symbol}{table.6.2}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusion}{54}{chapter.7}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \citation{*}
@@ -147,7 +150,7 @@
 \bibcite{bluetoothAFH}{{5}{2020}{{Bluetooth Special Interest Group}}{{}}}
 \bibcite{ettusB210}{{6}{2026}{{Ettus Research}}{{}}}
 \bibcite{gnuradioNoiseSource}{{7}{2025}{{GNU Radio}}{{}}}
-\@writefile{toc}{\contentsline {chapter}{References}{55}{chapter.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{References}{57}{chapter.7}\protected@file@percent }
 \bibcite{gnuradioWebsite}{{8}{2026}{{GNU Radio}}{{}}}
 \bibcite{iblAWGN}{{9}{2025}{{IB-Lenhardt AG}}{{}}}
 \bibcite{liu2003wireless}{{10}{2003}{{Liu and Goldsmith}}{{}}}
@@ -164,4 +167,4 @@
 \bibcite{wikiNormalDistribution}{{21}{2026{}}{{Wikipedia}}{{}}}
 \bibcite{wikiStableDistribution}{{22}{2026{}}{{Wikipedia}}{{}}}
 \bibstyle{plainnat}
-\gdef \@abspage@last{71}
+\gdef \@abspage@last{73}

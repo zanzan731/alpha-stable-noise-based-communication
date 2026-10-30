@@ -307,18 +307,19 @@ Special thanks also go to everyone who supported, helped, and encouraged me duri
 \end{tabular}
 \end{comment}
 
-\noindent\begin{tabular}{p{0.1\textwidth}|p{.4\textwidth}|p{.4\textwidth}}    % po potrebi razširi prvo kolono tabele na račun drugih dveh!
-  {\bf Abbreviation} & \multicolumn{2}{l}{\bf English term} \\ \hline
-  {\bf OFDM} & \multicolumn{2}{l}{Orthogonal Frequency-Division Multiple Access} \\
-  {\bf MIMO} & \multicolumn{2}{l}{Multiple-Input Multiple-Output} \\
-  {\bf BER} & \multicolumn{2}{l}{Bit Error Rate} \\
-  {\bf GRC} & \multicolumn{2}{l}{GNU Radio Companion} \\
-  {\bf SNR} & \multicolumn{2}{l}{Signal-to-Noise Ratio} \\
-  {\bf MSNR} & \multicolumn{2}{l}{Mean Signal-to-Noise Ratio} \\
-  {\bf PLS} & \multicolumn{2}{l}{Physical Layer Security} \\
-  {\bf SDR} & \multicolumn{2}{l}{Software-Defined Radio} \\
-  {\bf AWGN} & \multicolumn{2}{l}{Additive White Gaussian Noise} \\
-  {\bf USRP} & \multicolumn{2}{l}{Universal Software Radio Peripheral} \\
+\noindent\begin{tabular}{l|p{0.76\textwidth}}    % po potrebi razširi prvo kolono tabele na račun drugih dveh!
+  {\bf Abbreviation} & \bf English term \\ \hline
+  {\bf OFDM} & Orthogonal Frequency-Division Multiple Access \\
+  {\bf MIMO} & Multiple-Input Multiple-Output \\
+  {\bf BER} & Bit Error Rate \\
+  {\bf GRC} & GNU Radio Companion \\
+  {\bf SNR} & Signal-to-Noise Ratio \\
+  {\bf MSNR} & Mean Signal-to-Noise Ratio \\
+  {\bf PLS} & Physical Layer Security \\
+  {\bf SDR} & Software-Defined Radio \\
+  {\bf AWGN} & Additive White Gaussian Noise \\
+  {\bf USRP} & Universal Software Radio Peripheral \\
+  {\bf CRC} & Cyclic Redundancy Check \\
 %  \dots & \dots & \dots \\
 \end{tabular}
 
@@ -425,7 +426,7 @@ In the remainder of this thesis, wireless communication refers to the transfer o
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1.0\textwidth]{sender_receiver.png}
+    \includegraphics[width=1.0\textwidth]{sender_receiver_en.pdf}
     \caption{Diagram of a conventional wireless communication system.}
     \label{fig:wireless}
 \end{figure}
@@ -1190,6 +1191,29 @@ This does not make the samples of a symbol identical. Only $\beta$ is shared; ne
 
 All samples are therefore produced in one vectorised operation. The complete transmission frame is then assembled and stored in the output buffer. GNU Radio can feed these precomputed samples gradually to the SDR without performing computationally expensive random-variable generation during transmission, substantially reducing the probability of underflow.
 
+\subsection{Transmission Packet Structure}
+
+Each transmission packet consists of a synchronisation sequence, a header repeated three times, a payload, and a guard tail. The synchronisation sequence contains 32 deterministic symbols and allows the receiver to detect the packet start.
+
+The synchronisation sequence is followed by an 80-bit header containing a 16-bit identifier, a 32-bit payload-length field, and a 32-bit cyclic redundancy check (CRC). The header is transmitted three times, and the receiver determines its bits by majority voting to reduce the probability of decoding errors.
+
+The header carries control information for packet processing rather than message payload. The identifier is a predefined constant known to both the transmitter and receiver. It allows the receiver to verify that a detected packet start belongs to the communication protocol in use. If the received identifier does not match the expected value, the receiver rejects the packet detection.
+
+The length field specifies the number of bytes in the payload. In the measurements, the packet length was preset to 128 bytes, so the receiver could have obtained it from its own configuration. Nevertheless, including this field in the header permits packets of different lengths to be transmitted without configuring the receiver in advance.
+
+After decoding, the CRC allows the receiver to check immediately whether the complete payload was received without detected bit errors. The CRC detects errors but does not correct them. The header therefore provides a technical basis for more reliable packet communication while supporting future protocol development and the addition of further control information.
+
+The payload consists of pilot--data symbol pairs. Each $\alpha$-stable data symbol is preceded by a deterministic pilot symbol, which the receiver uses to track carrier phase and frequency. Each pilot and data symbol contains $N$ samples, where $N$ is the configurable number of samples per symbol. For the binary mapping used here, transmitting $B$ bits therefore requires $2BN$ payload samples.
+
+Finally, a guard tail is transmitted and is not decoded. It prevents the end of the transmitted stream from affecting the last data symbols and also helps the receiver estimate the timing offset. Figure~\ref{fig:struktura_sdr_paketa} shows the packet structure.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{packet_structure_en.pdf}
+    \caption{Structure of a transmission packet for communication over SDR hardware. The synchronisation sequence and header repeated three times are followed by pairs of pilot and $\alpha$-stable data symbols and a guard tail.}
+    \label{fig:struktura_sdr_paketa}
+\end{figure}
+
 \subsection{Synchronisation}
 Synchronising an $\alpha$-stable signal is difficult because it resembles noise. Searching for a packet start directly in the $\alpha$-stable samples would therefore produce many false detections, as the receiver continuously observes noise and other interference even when the transmitter is idle.
 
@@ -1351,7 +1375,7 @@ where $f_s$ is the sampling rate, $T_s$ is the symbol duration, and $R_b$ is the
 title=Example: effect of sample count on transmission rate]
 At a sampling rate of $f_s=32\,000$ samples/s and $N=1000$,
 \[
-T_s=\frac{1000}{32\,000}=31{,}25\,\mathrm{ms},
+T_s=\frac{1000}{32\,000}=31.25\,\mathrm{ms},
 \qquad
 R_b=\frac{32\,000}{1000}=32\,\mathrm{bit/s}.
 \]
