@@ -417,7 +417,25 @@ blocks:
       \ axis=1)\n        max_std = float(np.std(maximums, ddof=1)) if segment_count\
       \ > 1 else 0.0\n        min_std = float(np.std(minimums, ddof=1)) if segment_count\
       \ > 1 else 0.0\n        return float(np.clip((max_std - min_std) / (max_std\
-      \ + min_std + 1e-12), -1.0, 1.0))\n\n    def _estimate_beta_logarithmic(self,\
+      \ + min_std + 1e-12), -1.0, 1.0))\n    \n    def _estimate_beta_logarithmic2(self,\
+      \ symbol_samples):\n        x = np.asarray(symbol_samples).real.astype(np.float64)\n\
+      \n        if len(x) < 32 or not np.all(np.isfinite(x)):\n            return\
+      \ 0.0\n\n        # Longer blocks for logarithmic extrema.\n        # 484 samples\
+      \ -> 6 blocks of 80\n        # 584 samples -> 7 blocks of 83\n        segment_count\
+      \ = max(4, len(x) // 80)\n        segment_length = len(x) // segment_count\n\
+      \        required = segment_count * segment_length\n\n        segments = x[:required].reshape(segment_count,\
+      \ segment_length)\n        maximums = np.max(segments, axis=1)\n        minimum_magnitudes\
+      \ = -np.min(segments, axis=1)\n\n        valid = (maximums > 0.0) & (minimum_magnitudes\
+      \ > 0.0)\n        if np.count_nonzero(valid) < 2:\n            return 0.0\n\n\
+      \        y_max = np.log(maximums[valid])\n        y_min = np.log(minimum_magnitudes[valid])\n\
+      \n        mean_difference = float(np.mean(y_max) - np.mean(y_min))\n       \
+      \ spreads = np.array([\n            np.std(y_max, ddof=1),\n            np.std(y_min,\
+      \ ddof=1),\n        ])\n\n        # Clipping can make one side's extrema identical.\n\
+      \        usable_spreads = spreads[spreads > 1e-12]\n        if len(usable_spreads):\n\
+      \            alpha_hat = float(\n                np.pi / np.sqrt(6.0) * np.mean(1.0\
+      \ / usable_spreads)\n            )\n        else:\n            alpha_hat = 1.1\
+      \  # Matches the transmitter's fixed alpha.\n\n        return float(np.tanh(0.5\
+      \ * alpha_hat * mean_difference))\n\n    def _estimate_beta_logarithmic(self,\
       \ symbol_samples):\n        segment_count = self._effective_segment_count(len(symbol_samples))\n\
       \        required = (len(symbol_samples) // segment_count) * segment_count\n\
       \        if len(symbol_samples) < required:\n            return 0.0\n      \
@@ -569,9 +587,9 @@ blocks:
       \ None] * pair_spacing\n            + normalized[None, :] * symbol_spacing\n\
       \        )\n        data_positions = pilot_positions + symbol_spacing\n    \
       \    pilot_samples = self._interpolate_complex(\n            centered, pilot_positions.reshape(-1)\n\
-      \        ).reshape(symbols, self.samples_per_symbol)\n        data_samples =\
-      \ self._interpolate_complex(\n            centered, data_positions.reshape(-1)\n\
-      \        ).reshape(symbols, self.samples_per_symbol)\n\n        bits = np.empty(symbols,\
+      \        ).reshape(symbols, self.samples_per_symbol)\n\n        data_samples\
+      \ = self._interpolate_complex(\n            centered, data_positions.reshape(-1)\n\
+      \        ).reshape(symbols, self.samples_per_symbol)\n        bits = np.empty(symbols,\
       \ dtype=np.uint8)\n        pilot_index = np.arange(self.samples_per_symbol,\
       \ dtype=np.float64)\n        data_index = self.samples_per_symbol + pilot_index\n\
       \        for symbol_index in range(symbols):\n            pilot = pilot_samples[symbol_index]\n\

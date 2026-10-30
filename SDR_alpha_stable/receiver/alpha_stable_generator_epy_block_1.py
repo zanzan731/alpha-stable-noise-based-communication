@@ -358,6 +358,47 @@ class alpha_decoder(gr.basic_block):
         max_std = float(np.std(maximums, ddof=1)) if segment_count > 1 else 0.0
         min_std = float(np.std(minimums, ddof=1)) if segment_count > 1 else 0.0
         return float(np.clip((max_std - min_std) / (max_std + min_std + 1e-12), -1.0, 1.0))
+    
+    def _estimate_beta_logarithmic2(self, symbol_samples):
+        x = np.asarray(symbol_samples).real.astype(np.float64)
+
+        if len(x) < 32 or not np.all(np.isfinite(x)):
+            return 0.0
+
+        # Longer blocks for logarithmic extrema.
+        # 484 samples -> 6 blocks of 80
+        # 584 samples -> 7 blocks of 83
+        segment_count = max(4, len(x) // 80)
+        segment_length = len(x) // segment_count
+        required = segment_count * segment_length
+
+        segments = x[:required].reshape(segment_count, segment_length)
+        maximums = np.max(segments, axis=1)
+        minimum_magnitudes = -np.min(segments, axis=1)
+
+        valid = (maximums > 0.0) & (minimum_magnitudes > 0.0)
+        if np.count_nonzero(valid) < 2:
+            return 0.0
+
+        y_max = np.log(maximums[valid])
+        y_min = np.log(minimum_magnitudes[valid])
+
+        mean_difference = float(np.mean(y_max) - np.mean(y_min))
+        spreads = np.array([
+            np.std(y_max, ddof=1),
+            np.std(y_min, ddof=1),
+        ])
+
+        # Clipping can make one side's extrema identical.
+        usable_spreads = spreads[spreads > 1e-12]
+        if len(usable_spreads):
+            alpha_hat = float(
+                np.pi / np.sqrt(6.0) * np.mean(1.0 / usable_spreads)
+            )
+        else:
+            alpha_hat = 1.1  # Matches the transmitter's fixed alpha.
+
+        return float(np.tanh(0.5 * alpha_hat * mean_difference))
 
     def _estimate_beta_logarithmic(self, symbol_samples):
         segment_count = self._effective_segment_count(len(symbol_samples))
@@ -645,10 +686,10 @@ class alpha_decoder(gr.basic_block):
         pilot_samples = self._interpolate_complex(
             centered, pilot_positions.reshape(-1)
         ).reshape(symbols, self.samples_per_symbol)
+
         data_samples = self._interpolate_complex(
             centered, data_positions.reshape(-1)
         ).reshape(symbols, self.samples_per_symbol)
-
         bits = np.empty(symbols, dtype=np.uint8)
         pilot_index = np.arange(self.samples_per_symbol, dtype=np.float64)
         data_index = self.samples_per_symbol + pilot_index
